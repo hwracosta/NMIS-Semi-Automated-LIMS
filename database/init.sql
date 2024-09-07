@@ -5,3 +5,13 @@ CREATE TABLE CLIENT_register (
     contact_number VARCHAR(20) NOT NULL,
     company_name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE STAFF_releasing (
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE STAFF_testing (
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
