@@ -1,0 +1,38 @@
+# Ignore Maven target directory
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Ignore Maven wrapper JAR
+!.mvn/wrapper/maven-wrapper.jar
+
+# Spring Tool Suite (STS) files
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans specific files
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Visual Studio Code specific files
+.vscode/
+
+# Ignore help documentation
+HELP.md
