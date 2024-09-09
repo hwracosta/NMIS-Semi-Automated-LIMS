@@ -14,17 +14,25 @@ public class ClientLoginController {
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/client-login")
-    public String loginPage() {
-        return "CLIENT-LOGIN";  // Return client login HTML page
+    // Default route ("/") to redirect to client-login page
+    @GetMapping("/")
+    public String homeRedirect() {
+        return "redirect:/client-login";  // Redirects to client-login
     }
 
+    // Display login page
+    @GetMapping("/client-login")
+    public String loginPage() {
+        return "CLIENT-LOGIN";  // Renders CLIENT-LOGIN.html from the templates folder
+    }
+
+    // Process login form
     @PostMapping("/client-login")
     public String processLogin(@RequestParam String email, @RequestParam String password) {
         Client client = clientService.findClientByEmail(email);
         if (client != null && client.getPassword().equals(password)) {
-            return "redirect:/client-dashboard";  // Successful login
+            return "redirect:/client-dashboard";  // Redirect to the client dashboard after successful login
         }
-        return "CLIENT-LOGIN";  // Failed login, reload login page
+        return "CLIENT-LOGIN";  // Return the same page if login fails
     }
 }
