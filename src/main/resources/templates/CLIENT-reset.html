@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/CLIENT-reset.css}" />
+</head>
+<body>
+<div class="CLIENT-RESET">
+    <div class="div">
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <img class="img" th:src="@{/img/HEADER.png}" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="text-wrapper-2">Client Login</div>
+            </div>
+        </header>
+        <div class="overlap">
+            <div class="element-form">
+                <div class="reset-password-wrapper">
+                    <div class="reset-text">Reset Password</div>
+                </div>
+            </div>
+            <div class="button">
+                <button class="button-2">Submit</button>
+            </div>
+            <div class="enter-password">
+                <label class="labbel" for="input-1">Enter Password</label>
+                <input class="input" id="input-1" placeholder="Enter New Password" />
+            </div>
+            <div class="confirm-password">
+                <label class="labbel" for="input-2">Confirm Password</label>
+                <input class="input" id="input-2" placeholder="Re-enter New Password" />
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

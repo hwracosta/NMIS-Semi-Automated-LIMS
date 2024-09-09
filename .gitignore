@@ -36,3 +36,16 @@ build/
 
 # Ignore help documentation
 HELP.md
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+
+# Ignore application properties file
+application.properties

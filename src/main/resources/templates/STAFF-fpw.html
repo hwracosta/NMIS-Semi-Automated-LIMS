@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" th:href="@{/css/globals.css}" />
+  <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+  <link rel="stylesheet" th:href="@{/css/STAFF-fpw.css}" />
+</head>
+<body>
+<div class="STAFF-FPW">
+  <div class="div">
+    <header class="header">
+      <div class="overlap-group">
+        <div class="rectangle"></div>
+        <img class="img" th:src="@{/img/HEADER.png}" />
+        <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+        <div class="text-wrapper-2">Laboratory Staff</div>
+      </div>
+    </header>
+    <div class="element-form">
+      <input class="overlap" />
+      <div class="forgot-password-wrapper">
+        <div class="forgot-password">Forgot Password?</div>
+      </div>
+      <p class="fpw-descriptor">
+        <span class="span">Enter the email address you use for this account and we’ll</span><br>
+        <span class="span">send you a </span>
+        <span class="text-wrapper-3">link</span>
+        <span class="span">to reset your password.</span>
+      </p>
+      <p>
+        <input class="input" id="input-1" type="email" placeholder="Email Address" />
+      </p>
+      <a th:href="@{/STAFF-reset.html}" class="reset-link">
+        <button class="button">
+          <span class="button-text">Submit</span>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
