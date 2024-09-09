@@ -1,0 +1,254 @@
+.CLIENT-REGISTER {
+    background-color: #ffffff;
+    width: 1440px;
+    height: 1024px;
+  }
+  
+  .CLIENT-REGISTER .overlap-group {
+    height: 1024px;
+    position: relative;
+  }
+  
+  .CLIENT-REGISTER .istock {
+    position: absolute;
+    width: 50;
+    height: 1024px;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  .CLIENT-REGISTER .rectangle {
+    position: absolute;
+    width: 745px;
+    height: 1024px;
+    top: 0;
+    left: 0;
+    background-color: #f0f1f4;
+    box-shadow: 5px 0px 70px #757575cc;
+  }
+
+  .CLIENT-REGISTER .sign-in-link {
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    padding: 0px 0px 0px 1px;
+    width: 225px;
+    top: 869px;
+    left: 233px;
+  }
+
+  .CLIENT-REGISTER .text-link {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.14px;
+    margin-right: -62.85px;
+    font-family: var(--body-link-font-family);
+    font-weight: var(--body-link-font-weight);
+    color: transparent;
+    font-size: var(--body-link-font-size);
+    letter-spacing: var(--body-link-letter-spacing);
+    line-height: var(--body-link-line-height);
+    text-decoration: underline;
+    white-space: nowrap;
+    font-style: var(--body-link-font-style);
+  }
+  
+  .CLIENT-REGISTER .text-wrapper {
+    color: #002267;
+    font-family: var(--body-link-font-family);
+    font-style: var(--body-link-font-style);
+    font-weight: var(--body-link-font-weight);
+    letter-spacing: var(--body-link-letter-spacing);
+    line-height: var(--body-link-line-height);
+    font-size: var(--body-link-font-size);
+    text-decoration: underline;
+  }
+
+  .CLIENT-REGISTER .text-wrapper-2 {
+    color: #ff242c;
+    font-family: var(--body-link-font-family);
+    font-style: var(--body-link-font-style);
+    font-weight: var(--body-link-font-weight);
+    letter-spacing: var(--body-link-letter-spacing);
+    line-height: var(--body-link-line-height);
+    font-size: var(--body-link-font-size);
+    text-decoration: underline;
+  }
+
+  .CLIENT-REGISTER .company-name {
+    display: flex;
+    flex-direction: column;
+    width: 595px;
+    align-items: flex-start;
+    gap: var(--size-space-200);
+    position: absolute;
+    top: 673px;
+    left: 79px;
+  }
+  
+  .CLIENT-REGISTER .labbel {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1.29px;
+    font-family: var(--body-base-font-family);
+    font-weight: var(--body-base-font-weight);
+    color: #002267;
+    font-size: var(--body-base-font-size);
+    letter-spacing: var(--body-base-letter-spacing);
+    line-height: var(--body-base-line-height);
+    font-style: var(--body-base-font-style);
+  }
+  
+  .CLIENT-REGISTER .input {
+    min-width: 309px;
+    padding: var(--size-space-300) var(--size-space-400) var(--size-space-300) var(--size-space-400);
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    margin-bottom: -0.64px;
+    margin-left: -0.64px;
+    margin-right: -0.64px;
+    background-color: var(--color-background-default-default);
+    border-radius: 9.97px;
+    overflow: hidden;
+    border: 1.29px solid;
+    border-color: var(--color-border-default-default);
+    flex: 1;
+    flex-grow: 1;
+    margin-top: -0,64px;
+    font-family: var(--single-line-body-base-font-family);
+    font-weight: var(--single-line-body-base-font-weight);
+    color: #000000;
+    font-size: var(--single-line-body-base-font-size);
+    letter-spacing: var(--single-line-body-base-letter-spacing);
+    line-height: var(--single-line-body-base-line-height);
+    font-style: var(--single-line-body-base-font-style);
+  }
+
+  .CLIENT-REGISTER .contact-number {
+    display: flex;
+    flex-direction: column;
+    width: 595px;
+    align-items: flex-start;
+    gap: var(--size-space-200);
+    position: absolute;
+    top: 564px;
+    left: 79px;
+  }
+
+  .CLIENT-REGISTER .representative-name {
+    display: flex;
+    flex-direction: column;
+    width: 595px;
+    align-items: flex-start;
+    gap: var(--size-space-200);
+    position: absolute;
+    top: 455px;
+    left: 79px;
+  }
+
+  .CLIENT-REGISTER .password {
+    display: flex;
+    flex-direction: column;
+    width: 595px;
+    align-items: flex-start;
+    gap: var(--size-space-200);
+    position: absolute;
+    top: 346px;
+    left: 79px;
+  }
+
+  .CLIENT-REGISTER .email {
+    display: flex;
+    flex-direction: column;
+    width: 595px;
+    align-items: flex-start;
+    gap: var(--size-space-200);
+    position: absolute;
+    top: 237px;
+    left: 79px;
+  }
+  
+  .CLIENT-REGISTER .set-up-your-account {
+    position: absolute;
+    width: 442px;
+    top: 74px;
+    left: 266px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #002267;
+    font-size: 60px;
+    letter-spacing: 0;
+    line-height: 60px;
+  }
+
+  .CLIENT-REGISTER .text-wrapper-3 {
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #002267;
+    font-size: 60px;
+    letter-spacing: 0;
+    line-height: 60px;
+  }
+
+  .CLIENT-REGISTER .text-wrapper-4 {
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+  }
+
+  .CLIENT-REGISTER .company-logo {
+    position: absolute;
+    width: 155px;
+    height: 155px;
+    top: 64px;
+    left: 76px;
+  }
+
+  .CLIENT-REGISTER .eye-encrypt {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 395px;
+    left: 629px;
+  }
+  
+  .CLIENT-REGISTER .button {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    width: 594px;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-space-200);
+    padding: var(--size-space-300);
+    position: absolute;
+    top: 799px;
+    left: 80px;
+    background-color: #002267;
+    border-radius: var(--size-radius-200);
+    overflow: hidden;
+    border: 1px solid;
+    border-color: var(--color-border-brand-default);
+    transition: all 0.2s ease;
+  }
+  
+  .CLIENT-REGISTER .button:hover {
+    transform: scale(0.9);
+  }
+  
+  .CLIENT-REGISTER .button-2 {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    width: fit-content;
+    font-family: var(--single-line-body-base-font-family);
+    font-weight: var(--single-line-body-base-font-weight);
+    color: var(--color-text-brand-on-brand);
+    font-size: var(--single-line-body-base-font-size);
+    letter-spacing: var(--single-line-body-base-letter-spacing);
+    line-height: var(--single-line-body-base-line-height);
+    white-space: nowrap;
+    font-style: var(--single-line-body-base-font-style);
+  }
