@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <!-- Corrected Thymeleaf resource paths for CSS -->
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/CLIENT-fpw.css}" />
+</head>
+<body>
+<div class="CLIENT-FORGOT">
+    <div class="div">
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <!-- Corrected Thymeleaf resource paths for image -->
+                <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="text-wrapper-2">Client Login</div>
+            </div>
+        </header>
+        <div class="overlap">
+            <div class="forgot-password">
+                <div class="box">
+                    <div class="input"></div>
+                    <input class="email" placeholder="Enter your Email Address" />
+                </div>
+                <div class="div-wrapper">
+                    <div class="text-wrapper-3">Forgot Password?</div>
+                </div>
+                <div class="button">
+                    <button class="button-2">Submit</button>
+                </div>
+            </div>
+            <p class="enter-the-email">
+                <span class="span">Enter the email address you used for this account and we'll send you a </span>
+                <span class="text-wrapper-4">link</span>
+                <span class="span"> to reset your password.</span>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
