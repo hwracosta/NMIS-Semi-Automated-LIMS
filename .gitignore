@@ -46,3 +46,6 @@ desktop.ini
 
 # Log files
 *.log
+
+# Ignore application properties file
+application.properties
