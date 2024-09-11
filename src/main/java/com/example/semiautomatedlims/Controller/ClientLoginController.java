@@ -23,7 +23,7 @@ public class ClientLoginController {
     // Display login page
     @GetMapping("/client-login")
     public String loginPage() {
-        return "CLIENT-LOGIN";  // Renders CLIENT-LOGIN.html from the templates folder
+        return "CLIENT-LOGIN";  // Renders CLIENT-login.html from the templates folder
     }
 
     // Process login form
