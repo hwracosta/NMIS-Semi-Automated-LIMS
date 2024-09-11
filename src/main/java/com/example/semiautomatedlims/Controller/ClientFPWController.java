@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ClientFPWController {
-    @GetMapping("/CLIENT-fpw")
+
+    @GetMapping("/client-fpw")
     public String clientForgotPassword() {
-        return "CLIENT-fpw"; // This will look for a client-fpw.html file in the templates folder
+        return "CLIENT-fpw"; // This will render CLIENT-fpw.html in the templates folder
     }
 }
