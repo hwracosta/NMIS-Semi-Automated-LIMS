@@ -17,20 +17,34 @@
         <div class="text-wrapper-2">Laboratory Staff</div>
       </div>
     </header>
+
     <div class="element-form">
-      <input class="overlap" />
-      <div class="two-factor-wrapper"><div class="two-factor">Two-factor Authentication</div></div>
-      <p class="to-continue-enter">
-        <span class="span">To continue, enter the authentication code sent to your </span>
-        <span class="text-wrapper-3">email</span>
-        <span class="span">.</span>
-      </p>
-      <p>
-        <input class="input" id="input-1" type="text" placeholder="Authentication Code" />
-      </p>
-      <button class="button">
-        <span class="button-text">Submit</span>
-      </button>
+      <!-- Form to send 2FA code -->
+      <form th:action="@{/STAFF-send-2FA}" method="post">
+        <p>Enter your email to receive a 2FA code:</p>
+        <input class="input" id="email" type="email" name="email" placeholder="Enter your email" required/>
+        <button class="button" type="submit">
+          <span class="button-text">Send 2FA Code</span>
+        </button>
+      </form>
+
+      <!-- Form to verify 2FA code -->
+      <form th:action="@{/STAFF-verify-2FA}" method="post">
+        <p>Enter the 2FA code you received:</p>
+        <input class="input" id="input-1" type="text" name="code" placeholder="Authentication Code" required/>
+        <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden field to store email -->
+        <button class="button" type="submit">
+          <span class="button-text">Submit</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Display flash messages -->
+    <div th:if="${message}" class="success-message">
+      <p th:text="${message}"></p>
+    </div>
+    <div th:if="${error}" class="error-message">
+      <p th:text="${error}"></p>
     </div>
   </div>
 </div>
