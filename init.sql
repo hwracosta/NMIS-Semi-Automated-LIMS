@@ -6,12 +6,8 @@ CREATE TABLE CLIENT_register (
     company_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE STAFF_releasing (
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE STAFF_testing (
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+CREATE TABLE STAFF_register (
+    email VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    staff_type VARCHAR(50) NOT NULL
 );
