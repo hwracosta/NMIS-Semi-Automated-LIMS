@@ -27,7 +27,7 @@ public class StaffLoginController {
         Staff staff = staffService.findStaffByEmail(email);
         if (staff != null && staff.getPassword().equals(password)) {
             redirectAttributes.addFlashAttribute("message", "Login successful!");
-            return "redirect:/staff-dashboard";  // Redirect to staff dashboard after successful login
+            return "redirect:/staff-home";  // Redirect to staff dashboard after successful login
         }
         redirectAttributes.addFlashAttribute("error", "Invalid credentials, please try again.");
         return "redirect:/STAFF-login";  // Return to the login page on failure
