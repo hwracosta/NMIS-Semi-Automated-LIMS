@@ -1,4 +1,4 @@
-.STAFF-HOME {
+.STAFF-TESTINGhome {
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.STAFF-HOME .div {
+.STAFF-TESTINGhome .div {
   background-color: #f0f1f4;
   overflow: hidden;
   width: 1440px;
@@ -14,7 +14,7 @@
   position: relative;
 }
 
-.STAFF-HOME .header {
+.STAFF-TESTINGhome .header {
   position: absolute;
   width: 1449px;
   height: 150px;
@@ -23,13 +23,13 @@
   box-shadow: 0px 5px 70px #0000004c;
 }
 
-.STAFF-HOME .overlap-group {
+.STAFF-TESTINGhome .overlap-group {
   position: relative;
   width: 1449px;
   height: 150px;
 }
 
-.STAFF-HOME .rectangle {
+.STAFF-TESTINGhome .rectangle {
   position: absolute;
   width: 1440px;
   height: 150px;
@@ -38,7 +38,7 @@
   background-color: #002267;
 }
 
-.STAFF-HOME .img {
+.STAFF-TESTINGhome .img {
   position: absolute;
   width: 597px;
   height: 122px;
@@ -46,7 +46,7 @@
   left: 14px;
 }
 
- .STAFF-HOME .text-wrapper {
+ .STAFF-TESTINGhome .text-wrapper {
   position: absolute;
   width: 531px;
   top: 72px;
@@ -60,7 +60,7 @@
   white-space: nowrap;
 }
 
-.STAFF-HOME .text-wrapper-2 {
+.STAFF-TESTINGhome .text-wrapper-2 {
   position: absolute;
   width: 200px;
   top: 47px;
@@ -75,7 +75,7 @@
 }
 
 
-.STAFF-HOME .text-wrapper-3 {
+.STAFF-TESTINGhome .text-wrapper-3 {
   position: absolute;
   width: 167px;
   top: 15px;
@@ -90,7 +90,7 @@
   white-space: nowrap;
 }
 
-.STAFF-HOME .overlap {
+.STAFF-TESTINGhome .overlap {
   position: absolute;
   width: 285px;
   height: 250px;
@@ -103,7 +103,7 @@
   box-shadow: 0px 3px 40px #00000040;
 }
 
-.STAFF-HOME .text-wrapper-4 {
+.STAFF-TESTINGhome .text-wrapper-4 {
   position: absolute;
   width: 167px;
   top: 15px;
@@ -118,7 +118,7 @@
   white-space: nowrap;
 }
 
-.STAFF-HOME .log {
+.STAFF-TESTINGhome .log {
   position: absolute;
   width: 110px;
   height: 110px;
@@ -127,7 +127,7 @@
   object-fit: cover;
 }
 
-.STAFF-HOME .overlap-2 {
+.STAFF-TESTINGhome .overlap-2 {
   position: absolute;
   width: 285px;
   height: 250px;
@@ -140,7 +140,7 @@
   box-shadow: 0px 3px 40px #00000040;
 }
 
-.STAFF-HOME .text-wrapper-5 {
+.STAFF-TESTINGhome .text-wrapper-5 {
   position: absolute;
   width: 167px;
   top: 15px;
@@ -155,7 +155,7 @@
   white-space: nowrap;
 }
 
-.STAFF-HOME .submit {
+.STAFF-TESTINGhome .submit {
   position: absolute;
   width: 103px;
   height: 110px;
@@ -164,7 +164,7 @@
   object-fit: cover;
 }
 
-.STAFF-HOME .overlap-3 {
+.STAFF-TESTINGhome .overlap-3 {
   position: absolute;
   width: 285px;
   height: 250px;
