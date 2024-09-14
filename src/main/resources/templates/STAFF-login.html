@@ -9,34 +9,32 @@
 <body>
 <div class="STAFF-LOGIN">
   <div class="div">
-    <img class="istock" th:src="@{/img/STOCK%20IMAGE.jpg}" alt="Stock Image" />
     <div class="overlap-group">
-      <div class="rectangle">
-        <!-- Login form starts here -->
-        <form th:action="@{/STAFF-login}" method="post">
-          <div class="email">
-            <label class="label-2" for="email">Email Address</label>
-            <input class="input" id="email" name="email" type="email" placeholder="Email Address" required />
-          </div>
-          <div class="password">
-            <label class="label" for="password">Password</label>
-            <input class="input" id="password" name="password" type="password" placeholder="Password" required />
-          </div>
-          <button class="button" type="submit">
-            <span class="text-wrapper">Submit</span>
-          </button>
-          <div class="text-wrapper-2">
-            <a th:href="@{/STAFF-fpw}" class="fpw-link">Forgot Password?</a>
-          </div>
-        </form>
-        <!-- End of login form -->
-      </div>
+      <img class="company-logo" th:src="@{/img/NMIS.png}" alt="Company Logo" />
       <p class="hello-welcome">
-        <span class="span">Hello, <br /></span>
+        <span>Hello, <br /></span>
         <span class="text-wrapper-3">welcome!</span>
       </p>
-      <img class="company-logo" th:src="@{/img/NMIS.png}" alt="Company Logo" />
+      <!-- Login form starts here -->
+      <form th:action="@{/STAFF-login}" method="post">
+        <div class="email">
+          <label class="label-2" for="email">Email Address</label>
+          <input class="input" id="email" name="email" type="email" placeholder="Email Address" required />
+        </div>
+        <div class="password">
+          <label class="label" for="password">Password</label>
+          <input class="input" id="password" name="password" type="password" placeholder="Password" required />
+        </div>
+        <button class="button" type="submit">
+          <span class="text-wrapper">Submit</span>
+        </button>
+        <div class="text-wrapper-2">
+          <a th:href="@{/STAFF-fpw}" class="fpw-link">Forgot Password?</a>
+        </div>
+      </form>
+      <!-- End of login form -->
     </div>
+    <img class="istock" th:src="@{/img/STOCK%20IMAGE.jpg}" alt="Stock Image" />
   </div>
 </div>
 </body>
