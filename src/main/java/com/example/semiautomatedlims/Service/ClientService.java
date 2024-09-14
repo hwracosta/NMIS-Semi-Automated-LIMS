@@ -26,6 +26,9 @@ public class ClientService {
         return clientRepository.findByResetToken(resetToken);
     }
 
+    // Method to find client by reset token
+    public Client findClientByResetToken(String token) { return clientRepository.findByResetToken(token); }
+
     // Method to save a new client
     public void saveClient(Client client) {
         clientRepository.save(client);
