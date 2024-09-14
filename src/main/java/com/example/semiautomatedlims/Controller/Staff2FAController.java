@@ -1,6 +1,8 @@
 package com.example.semiautomatedlims.Controller;
 
+import com.example.semiautomatedlims.Entity.Staff;
 import com.example.semiautomatedlims.Service.Staff2FAService;
+import com.example.semiautomatedlims.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,35 +17,29 @@ public class Staff2FAController {
     @Autowired
     private Staff2FAService staff2FAService;
 
+    @Autowired
+    private StaffService staffService;
+
     // Display the 2FA page
     @GetMapping("/STAFF-2FA")
     public String show2FAPage() {
         return "STAFF-2FA";
     }
 
-    // Send the 2FA code to the staff's email
-    @PostMapping("/STAFF-send-2FA")
-    public String send2FACode(@RequestParam String email, RedirectAttributes redirectAttributes, Model model) {
-        boolean emailSent = staff2FAService.send2FACode(email);
-        if (emailSent) {
-            model.addAttribute("email", email);  // Pass the email to the form to keep track of it
-            redirectAttributes.addFlashAttribute("message", "2FA code sent to your email.");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Failed to send 2FA code. Please check your email.");
-        }
-        return "redirect:/STAFF-2FA";
-    }
-
     // Verify the entered 2FA code
     @PostMapping("/STAFF-verify-2FA")
-    public String verify2FACode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes) {
-        boolean isVerified = staff2FAService.verify2FACode(email, code);
-        if (isVerified) {
-            redirectAttributes.addFlashAttribute("message", "2FA verification successful!");
-            return "redirect:/STAFF-dashboard"; // Redirect to dashboard on success
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Invalid 2FA code. Please try again.");
-            return "redirect:/STAFF-2FA"; // Redirect back to 2FA page on failure
+    public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes) {
+        if (staff2FAService.verify2FACode(email, code)) {
+            // Code is valid, proceed with redirecting to appropriate home page
+            Staff staff = staffService.findStaffByEmail(email);
+            if (staff.getStaffType().equals("testing")) {
+                return "redirect:/STAFF-TESTINGhome";  // Redirect to testing homepage
+            } else if (staff.getStaffType().equals("receiving/releasing")) {
+                return "redirect:/STAFF-RELEASINGhome";  // Redirect to receiving/releasing homepage
+            }
         }
+        // Invalid 2FA code
+        redirectAttributes.addFlashAttribute("error", "Invalid authentication code, please try again.");
+        return "redirect:/STAFF-2FA";
     }
 }
