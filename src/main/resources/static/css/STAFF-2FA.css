@@ -1,236 +1,222 @@
-.STAFF-FA {
-    background-color: #f0f1f4;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .STAFF-FA .div {
-    background-color: #f0f1f4;
-    overflow: hidden;
-    width: 1440px;
-    height: 1024px;
-    position: relative;
-  }
-  
-  .STAFF-FA .header {
-    position: absolute;
-    width: 1449px;
-    height: 150px;
-    top: 0;
-    left: -9px;
-    background-color: transparent;
-    box-shadow: 0px 5px 70px #0000004c;
-  }
-  
-  .STAFF-FA .overlap-group {
-    position: relative;
-    width: 1449px;
-    height: 150px;
-  }
-  
-  .STAFF-FA .rectangle {
-    position: absolute;
-    width: 1440px;
-    height: 150px;
-    top: 0;
-    left: 9px;
-    background-color: #002267; 
-  }  
-  
-  .STAFF-FA .img {
-    position: absolute;
-    width: 597px;
-    height: 122px;
-    top: 14px;
-    left: 0;
-  }
-  
-  .STAFF-FA .text-wrapper {
-    width: 531px;
-    top: 72px;
-    font-family: "Averia Serif Libre-Bold", Helvetica;
-    font-weight: 700;
-    font-size: 19px;
-    letter-spacing: 0.57px;
-    line-height: 26.6px;
-    position: absolute;
-    left: 888px;
-    color: #f0f1f4;
-    white-space: nowrap;
-  }
-  
-  .STAFF-FA .text-wrapper-2 {
-    width: 200px;
-    top: 47px;
-    font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
-    font-size: 17px;
-    letter-spacing: 0.51px;
-    line-height: 23.8px;
-    position: absolute;
-    left: 888px;
-    color: #f0f1f4;
-    white-space: nowrap;
-  }
-  
-  .STAFF-FA .element-form {
-    position: absolute;
-    width: 643px;
-    height: 379px;
-    top: 323px;
-    left: 398px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 10px 10px 4px #00000021;
-  }
-  
-  .STAFF-FA .overlap {
-    position: absolute;
-    width: 505px;
-    height: 21px;
-    top: 10px;
-    left: 69px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: #000000;
-    border: 0;
-    background: none;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: 21px;
-    padding: 0;
-  }
-  
-  .STAFF-FA .two-factor-wrapper {
-    position: absolute;
-    width: 645px;
-    height: 64px;
-    top: -1px;
-    left: 1px;
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-  
-  .STAFF-FA .two-factor {
-    position: absolute;
-    width: 449px;
-    top: 10px;
-    left: 23px;
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-    color: #002267;
-    font-size: 30px;
-    letter-spacing: 0;
-    line-height: 42px;
-    white-space: nowrap;
-  }
-  
-  .STAFF-FA .to-continue-enter {
-    position: absolute;
-    width: 503px;
-    top: 110px;
-    left: 71px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 17px;
-    letter-spacing: 0;
-    line-height: 23.8px;
-    white-space: nowrap;
-  }
-  
-  .STAFF-FA .span {
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 17px;
-    letter-spacing: 0;
-    line-height: 23.8px;
-  }
-  
-  .STAFF-FA .text-wrapper-3 {
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-  }
+.STAFF-2FA {
+  background-color: #f0f1f4;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
 
-  .STAFF-FA .input {
-    min-width: 309px;
-    padding: var(--size-space-300) var(--size-space-400) var(--size-space-300) var(--size-space-400);
-    position: relative;
-    align-self: stretch;
-    width: 78%;
-    top : 175px;
-    height : 50px;
-    margin-bottom: -0.64px;
-    margin-left: 70px;
-    margin-right: -0.64px;
-    background-color: var(--color-background-default-default);
-    overflow: hidden;
-    border: none;
-    border-bottom: 1.29px solid;
-    border-color: var(--color-border-default-default);
-    flex: 1;
-    flex-grow: 1;
-    margin-top: -0.64px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 17px;
-    letter-spacing: 0;
-    line-height: 20.6px;
-    outline: none;
-  }
-  
-  .STAFF-FA .button {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    width: 502px;
-    height: 52px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px;
-    position: absolute;
-    top: 267px;
-    left: 70px;
-    background-color: #002267;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid;
-    border-color: #2c2c2c;
-    transition: all 0.2s ease;
-  }
-  .STAFF-FA .button-text {
-    font-family: "Averia Serif Libre-Bold", Helvetica;
-    font-size: 17px;
-    color: #f0f1f4; 
-    white-space: nowrap;
-    position: static; 
-    text-align: center; 
-    width: auto; 
-  }  
-  
-  .STAFF-FA .button:hover {
-    transform: scale(0.9); 
-    cursor: pointer;
-  }
-  
-  .STAFF-LOGIN .text-wrapper {
-    all: unset;
-    box-sizing: border-box;
-    position: relative;
-    width: fit-content;
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    color: var(--color-text-brand-on-brand);
-    font-size: var(--single-line-body-base-font-size);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    line-height: var(--single-line-body-base-line-height);
-    white-space: nowrap;
-    font-style: var(--single-line-body-base-font-style);
-  }
+.STAFF-2FA .div {
+  background-color: #f0f1f4;
+  overflow: hidden;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+}
+
+.STAFF-2FA .header {
+  position: absolute;
+  width: 1449px;
+  height: 150px;
+  top: 0;
+  left: -9px;
+  background-color: transparent;
+  box-shadow: 0px 5px 70px #0000004c;
+}
+
+.STAFF-2FA .overlap-group {
+  position: relative;
+  width: 1449px;
+  height: 150px;
+}
+
+.STAFF-2FA .rectangle {
+  position: absolute;
+  width: 1440px;
+  height: 150px;
+  top: 0;
+  left: 9px;
+  background-color: #002267; 
+}  
+
+.STAFF-2FA .img {
+  position: absolute;
+  width: 597px;
+  height: 122px;
+  top: 14px;
+  left: 0;
+}
+
+.STAFF-2FA .text-wrapper {
+  width: 531px;
+  top: 72px;
+  font-family: "Averia Serif Libre-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.57px;
+  line-height: 26.6px;
+  position: absolute;
+  left: 888px;
+  color: #f0f1f4;
+  white-space: nowrap;
+}
+
+.STAFF-2FA .text-wrapper-2 {
+  width: 200px;
+  top: 47px;
+  font-family: "Averia Serif Libre-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.51px;
+  line-height: 23.8px;
+  position: absolute;
+  left: 888px;
+  color: #f0f1f4;
+  white-space: nowrap;
+}
+
+.STAFF-2FA .element-form {
+  position: absolute;
+  width: 643px;
+  height: 379px;
+  top: 323px;
+  left: 398px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 10px 10px 4px #00000021;
+}
+
+.STAFF-2FA .overlap {
+  position: absolute;
+  width: 505px;
+  height: 21px;
+  top: 10px;
+  left: 69px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #000000;
+  border: 0;
+  background: none;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 21px;
+  padding: 0;
+}
+
+.STAFF-2FA .forgot-password-wrapper {
+  position: absolute;
+  width: 645px;
+  height: 64px;
+  top: -1px;
+  left: 1px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.STAFF-2FA .forgot-password {
+  position: absolute;
+  width: 449px;
+  top: 10px;
+  left: 23px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #002267;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: 42px;
+  white-space: nowrap;
+}
+
+.STAFF-2FA .fpw-descriptor {
+  position: absolute;
+  width: 503px;
+  top: 110px;
+  left: 71px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 23.8px;
+  white-space: nowrap;
+}
+
+.STAFF-2FA .span {
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 23.8px;
+}
+
+.STAFF-2FA .text-wrapper-3 {
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+}
+
+.STAFF-2FA .input {
+  min-width: 309px;
+  padding: var(--size-space-300) var(--size-space-400) var(--size-space-300) var(--size-space-400);
+  position: relative;
+  align-self: stretch;
+  width: 78%;
+  top : 175px;
+  height : 50px;
+  margin-bottom: -0.64px;
+  margin-left: 70px;
+  margin-right: -0.64px;
+  background-color: var(--color-background-default-default);
+  overflow: hidden;
+  border: none;
+  border-bottom: 1.29px solid;
+  border-color: var(--color-border-default-default);
+  flex: 1;
+  flex-grow: 1;
+  margin-top: -0.64px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 20.6px;
+  outline: none;
+}
+
+.STAFF-2FA .button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  width: 502px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  position: absolute;
+  top: 267px;
+  left: 70px;
+  background-color: #002267;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #2c2c2c;
+  transition: all 0.2s ease;
+}
+.STAFF-2FA .button-text {
+  font-family: "Averia Serif Libre-Bold", Helvetica;
+  font-size: 17px;
+  color: #f0f1f4; 
+  white-space: nowrap;
+  position: static; 
+  text-align: center; 
+  width: auto; 
+}  
+
+.STAFF-2FA .button:hover {
+  transform: scale(0.9); 
+  cursor: pointer;
+}
+
