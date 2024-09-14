@@ -20,4 +20,9 @@ public class StaffService {
     public Staff saveStaff(Staff staff) {
         return staffRepository.save(staff);
     }
+
+    // Find staff by reset token
+    public Staff findByResetToken(String resetToken) {
+        return staffRepository.findByResetToken(resetToken);
+    }
 }
