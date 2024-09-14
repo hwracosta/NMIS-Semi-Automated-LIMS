@@ -5,6 +5,7 @@ import com.example.semiautomatedlims.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,11 @@ public class StaffResetController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/STAFF-reset")
+    public String showStaffResetPage() {
+        return "STAFF-reset";
+    }
 
     // Handle reset password form submission
     @PostMapping("/staff-reset")
