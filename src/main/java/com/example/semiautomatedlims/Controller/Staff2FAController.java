@@ -3,6 +3,7 @@ package com.example.semiautomatedlims.Controller;
 import com.example.semiautomatedlims.Service.Staff2FAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +23,10 @@ public class Staff2FAController {
 
     // Send the 2FA code to the staff's email
     @PostMapping("/STAFF-send-2FA")
-    public String send2FACode(@RequestParam String email, RedirectAttributes redirectAttributes) {
+    public String send2FACode(@RequestParam String email, RedirectAttributes redirectAttributes, Model model) {
         boolean emailSent = staff2FAService.send2FACode(email);
         if (emailSent) {
+            model.addAttribute("email", email);  // Pass the email to the form to keep track of it
             redirectAttributes.addFlashAttribute("message", "2FA code sent to your email.");
         } else {
             redirectAttributes.addFlashAttribute("error", "Failed to send 2FA code. Please check your email.");

@@ -11,12 +11,12 @@ public class StaffService {
     @Autowired
     private StaffRepository staffRepository;
 
-    // Find a staff by their email
+    // Find staff by email
     public Staff findStaffByEmail(String email) {
         return staffRepository.findByEmail(email);
     }
 
-    // Save staff to the database (useful for registration)
+    // Save staff after updating the reset token and expiry time
     public Staff saveStaff(Staff staff) {
         return staffRepository.save(staff);
     }

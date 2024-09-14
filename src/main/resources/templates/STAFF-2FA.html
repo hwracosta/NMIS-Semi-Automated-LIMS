@@ -18,26 +18,24 @@
       </div>
     </header>
 
-    <div class="element-form">
-      <!-- Form to send 2FA code -->
-      <form th:action="@{/STAFF-send-2FA}" method="post">
-        <p>Enter your email to receive a 2FA code:</p>
-        <input class="input" id="email" type="email" name="email" placeholder="Enter your email" required/>
-        <button class="button" type="submit">
-          <span class="button-text">Send 2FA Code</span>
-        </button>
-      </form>
+    <!-- Form to send 2FA code -->
+    <form th:action="@{/STAFF-send-2FA}" method="post">
+      <p>Enter your email to receive a 2FA code:</p>
+      <input class="input" id="email" type="email" name="email" placeholder="Enter your email" th:value="${email}" required/>
+      <button class="button" type="submit">
+        <span class="button-text">Send 2FA Code</span>
+      </button>
+    </form>
 
-      <!-- Form to verify 2FA code -->
-      <form th:action="@{/STAFF-verify-2FA}" method="post">
-        <p>Enter the 2FA code you received:</p>
-        <input class="input" id="input-1" type="text" name="code" placeholder="Authentication Code" required/>
-        <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden field to store email -->
-        <button class="button" type="submit">
-          <span class="button-text">Submit</span>
-        </button>
-      </form>
-    </div>
+    <!-- Form to verify 2FA code -->
+    <form th:action="@{/STAFF-verify-2FA}" method="post">
+      <p>Enter the 2FA code you received:</p>
+      <input class="input" id="input-1" type="text" name="code" placeholder="Authentication Code" required/>
+      <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden field to store email -->
+      <button class="button" type="submit">
+        <span class="button-text">Submit</span>
+      </button>
+    </form>
 
     <!-- Display flash messages -->
     <div th:if="${message}" class="success-message">
