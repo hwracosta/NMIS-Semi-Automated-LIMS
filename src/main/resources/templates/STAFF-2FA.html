@@ -23,44 +23,26 @@
         <div class="forgot-password">Two-Factor Authentication</div>
       </div>
       <p class="fpw-descriptor">
-        <span class="span">To continue, enter the authentication code sent to your</span>
+        <span class="span">Please enter the authentication code sent to your</span>
         <span class="text-wrapper-3">email.</span>
       </p>
-      <p>
-        <input class="input" id="input-1" type="email" placeholder="Code" />
-      </p>
-      <a th:href="@{/STAFF-fpwcode}" class="reset-link">
+
+      <!-- Form to verify 2FA code -->
+      <form th:action="@{/STAFF-verify-2FA}" method="post">
+        <input class="input" id="input-1" type="text" placeholder="Enter 2FA Code" required/>
+        <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden email field -->
         <button class="button">
           <span class="button-text">Submit</span>
         </button>
-      </a>
-    </div>
+      </form>
 
-    <!-- Form to send 2FA code -->
-    <form th:action="@{/STAFF-send-2FA}" method="post">
-      <p>Enter your email to receive a 2FA code:</p>
-      <input class="input" id="email" type="email" name="email" placeholder="Enter your email" th:value="${email}" required/>
-      <button class="button" type="submit">
-        <span class="button-text">Send 2FA Code</span>
-      </button>
-    </form>
-
-    <!-- Form to verify 2FA code -->
-    <form th:action="@{/STAFF-verify-2FA}" method="post">
-      <p>Enter the 2FA code you received:</p>
-      <input class="input" id="input-1" type="text" name="code" placeholder="Authentication Code" required/>
-      <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden field to store email -->
-      <button class="button" type="submit">
-        <span class="button-text">Submit</span>
-      </button>
-    </form>
-
-    <!-- Display flash messages -->
-    <div th:if="${message}" class="success-message">
-      <p th:text="${message}"></p>
-    </div>
-    <div th:if="${error}" class="error-message">
-      <p th:text="${error}"></p>
+      <!-- Flash messages for feedback -->
+      <div th:if="${message}" class="success-message">
+        <p th:text="${message}"></p>
+      </div>
+      <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+      </div>
     </div>
   </div>
 </div>
