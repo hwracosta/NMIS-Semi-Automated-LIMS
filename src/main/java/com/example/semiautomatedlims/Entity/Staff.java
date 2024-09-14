@@ -1,11 +1,7 @@
 package com.example.semiautomatedlims.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "STAFF_register")
@@ -25,8 +21,13 @@ public class Staff {
     @Column(name = "staff_type", nullable = false)
     private String staffType;
 
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "token_expiry")
+    private LocalDateTime tokenExpiry;
+
     // Getters and Setters
-    
     public Long getStaffId() {
         return staffId;
     }
@@ -34,6 +35,7 @@ public class Staff {
     public void setStaffId(Long staffId) {
         this.staffId = staffId;
     }
+
     public String getEmail() {
         return email;
     }
@@ -56,5 +58,25 @@ public class Staff {
 
     public void setStaffType(String staffType) {
         this.staffType = staffType;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getTokenExpiry() {
+        return tokenExpiry;
+    }
+
+    public void setTokenExpiry(LocalDateTime tokenExpiry) {
+        this.tokenExpiry = tokenExpiry;
+    }
+
+    public boolean isTokenExpired() {
+        return tokenExpiry.isBefore(LocalDateTime.now());
     }
 }

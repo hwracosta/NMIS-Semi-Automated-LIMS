@@ -1,11 +1,8 @@
 package com.example.semiautomatedlims.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CLIENT_register")
@@ -29,6 +26,13 @@ public class Client {
 
     @Column(nullable = false)
     private String companyName;
+
+    @Column
+    private String resetToken;
+
+    @Column
+    private LocalDateTime tokenExpiry;
+
 
     // Getters and Setters
 
@@ -78,5 +82,21 @@ public class Client {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getTokenExpiry() {
+        return tokenExpiry;
+    }
+
+    public void setTokenExpiry(LocalDateTime tokenExpiry) {
+        this.tokenExpiry = tokenExpiry;
     }
 }

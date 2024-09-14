@@ -13,3 +13,7 @@ CREATE TABLE STAFF_register (
     password VARCHAR(255) NOT NULL,
     staff_type VARCHAR(50) NOT NULL
 );
+
+
+ALTER TABLE CLIENT_register ADD COLUMN reset_token VARCHAR(255), ADD COLUMN token_expiry TIMESTAMP;
+ALTER TABLE STAFF_register ADD COLUMN reset_token VARCHAR(255), ADD COLUMN token_expiry TIMESTAMP;

@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     // Custom query to find Client by email
     Client findByEmail(String email);
+
+    // Method to find by reset token
+    Client findByResetToken(String resetToken);
 }
