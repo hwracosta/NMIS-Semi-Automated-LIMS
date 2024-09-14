@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <link rel="stylesheet" th:href="@{/css/globals.css}" />
   <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
-  <link rel="stylesheet" th:href="@{/css/STAFF-fpw.css}" />
+  <link rel="stylesheet" th:href="@{/css/STAFF-fpwcode.css}" />
 </head>
 <body>
-<div class="STAFF-FPW">
+<div class="STAFF-FPWCODE">
   <div class="div">
     <header class="header">
       <div class="overlap-group">
@@ -20,18 +20,17 @@
     <div class="element-form">
       <input class="overlap" />
       <div class="forgot-password-wrapper">
-        <div class="forgot-password">Forgot Password?</div>
+        <div class="forgot-password">Reset Password</div>
       </div>
       <p class="fpw-descriptor">
-        <span class="span">Enter the email address you use for this account and we’ll</span><br>
-        <span class="span">send you a </span>
+        <span class="span">Enter the  
         <span class="text-wrapper-3">code</span>
-        <span class="span">to confirm your request.</span>
+        <span class="span">to verify your request.</span>
       </p>
       <p>
-        <input class="input" id="input-1" type="email" placeholder="Email Address" />
+        <input class="input" id="input-1" type="email" placeholder="*-digit code" />
       </p>
-      <a th:href="@{/STAFF-fpwcode}" class="reset-link">
+      <a th:href="@{/STAFF-reset}" class="reset-link">
         <button class="button">
           <span class="button-text">Submit</span>
         </button>
