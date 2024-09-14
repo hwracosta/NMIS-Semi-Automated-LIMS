@@ -22,7 +22,7 @@ public class ClientFPWController {
 
     @Autowired
     private EmailService emailService;
-    @GetMapping("/client-reset")
+    @GetMapping("/CLIENT-fpw")
     public String showResetPage(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
         // Find client by reset token
         Client client = clientService.findClientByResetToken(token);

@@ -16,10 +16,11 @@ public class Staff2FAService {
     @Autowired
     private JavaMailSender mailSender;
 
-    private Map<String, TwoFAData> staff2FACodes = new HashMap<>();  // To store the 2FA codes and expiration times
+    // Store 2FA codes and expiration times
+    private Map<String, TwoFAData> staff2FACodes = new HashMap<>();  
 
     // Generate and send 2FA code to the staff's email
-    public boolean send2FACode(String email) {
+    public void sendTwoFactorCodeToEmail(String email) {
         String code = generate2FACode();
         LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // 2FA code expires in 15 minutes
         staff2FACodes.put(email, new TwoFAData(code, expirationTime));
@@ -28,8 +29,6 @@ public class Staff2FAService {
         String subject = "Your 2FA Code";
         String content = "Your 2FA code is: " + code + ". It will expire in 15 minutes.";
         sendEmail(email, subject, content);
-
-        return true;
     }
 
     // Verify the entered 2FA code
