@@ -11,13 +11,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    // Method to send password reset email
-    public void sendPasswordResetEmail(String toEmail, String resetLink) {
+    // Method to send simple message
+    public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(toEmail);
-        message.setSubject("Password Reset Request");
-        message.setText("Click the following link to reset your password: " + resetLink);
-
-        mailSender.send(message);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message); // This sends the actual email
     }
 }
