@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" th:href="@{/css/globals.css}" />
-  <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
-  <link rel="stylesheet" th:href="@{/css/CLIENT-login.css}" />
-</head>
-<body>
-<div class="CLIENT-LOGIN">
-  <div class="div">
-    <img class="istock" th:src="@{/img/STOCK%20IMAGE.jpg}" />
-    <div class="rectangle"></div>
-    <div class="overlap-group">
-      <div class="password">
-        <label class="labbel" for="input-2">Password</label>
-        <input class="input" placeholder="Enter your Password" type="password"/>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/CLIENT-login.css}" />
+  </head>
+  <body>
+    <div class="CLIENT-LOGIN">
+      <div class="div">
+        <div class="overlap-group">
+          <img class="company-logo" th:src="@{/img/NMIS.png}" />
+          <p class="hello-welcome">
+            <span>Hello,<br /></span>
+            <span class="text-wrapper-4">welcome!</span>
+          </p>
+          
+          <form th:action="@{/CLIENT-login}" method="post">
+            <div class="email">
+              <label class="label-2" for="email">Email Address</label>
+              <input class="input" id="email" name="email" type="email" placeholder="Enter your Email Address" required />
+            </div>
+
+            <div class="password">
+              <label class="label" for="password">Password</label>
+              <div class="password-input-container">
+                <input class="input" id="password" name="password" type="password" placeholder="Enter your Password" required />
+                <img class="eye-undefined-glyph" th:src="@{/img/EYE.svg}" />
+              </div>
+            </div>
+
+            <button class="button" type="submit">
+              <span class="text-wrapper">Submit</span>
+            </button>
+
+            <div class="text-wrapper-2">
+              <a href="CLIENT-fpw.html" class="fpw-link">Forgot Password?</a>
+            </div>
+            
+            <div class="text-wrapper-3">
+              <span class="register-link1"> <a href="CLIENT-register.html"> Not registered yet? </span> 
+              <span class="register-link2">Create an Account</a></span>
+            </div>
+          </form>
+        </div>
+        <img class="istock" th:src="@{/img/STOCK IMAGE.jpg}" />
       </div>
-      <img class="eye-undefined-glyph" th:src="@{/img/EYE.svg}" />
     </div>
-    <div class="email">
-      <label class="labbel-2">Email Address</label>
-      <input class="input" placeholder="Enter your Email Address" type="email"/>
-    </div>
-    <p class="hello-welcome">
-      <span class="text-wrapper">Hello,<br /></span><span class="span">welcome!</span>
-    </p>
-    <img class="company-logo" th:src="@{/img/NMIS.png}" />
-    <div class="button"><button class="button-2">Submit</button></div>
-    <div class="text-wrapper-2">
-      <a th:href="@{/CLIENT-fpw.html}" class="text-link">Forgot Password?</a>
-    </div>
-    <p class="register-link">
-      <span class="text-wrapper-3">
-        <a th:href="@{/client-register}" class="text-link">Not registered yet?</a>
-      </span>
-      <span class="text-wrapper-4">
-        <a th:href="@{/client-register}" class="text-link">Create an Account</a>
-      </span>
-    </p>
-  </div>
-</div>
-</body>
+  </body>
 </html>
