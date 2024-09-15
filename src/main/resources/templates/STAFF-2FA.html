@@ -28,8 +28,8 @@
       </p>
 
       <!-- Form to verify 2FA code -->
-      <form th:action="@{/STAFF-verify-2FA}" method="post">
-        <input class="input" id="input-1" type="text" placeholder="Enter 2FA Code" required/>
+      <form th:action="@{/STAFF-2FA}" method="post">
+        <input class="input" id="input-1" type="text" name="code" placeholder="Enter 2FA Code" required/>
         <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden email field -->
         <button class="button">
           <span class="button-text">Submit</span>
