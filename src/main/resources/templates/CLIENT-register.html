@@ -7,48 +7,59 @@
   <link rel="stylesheet" th:href="@{/css/CLIENT-register.css}" />
 </head>
 <body>
-<div class="CLIENT-REGISTER">
-  <div class="overlap-group">
-    <img class="istock" th:src="@{/img/STOCK%20IMAGE.jpg}" />
-    <div class="rectangle"></div>
-    <div class="sign-in-link">
-      <p class="text-link">
-        <a th:href="@{/client-login}" class="text-link">
-          <span class="text-wrapper">Already have an account?</span>
-          <span class="text-wrapper-2">Sign In</span>
-        </a>
-      </p>
+  <div class="CLIENT-REGISTER">
+    <div class="div">
+      <div class="overlap-group">
+        <div class="logo-and-text">
+          <img class="company-logo" th:src="@{/img/NMIS.png}" />
+          <p class="set-up-your-account">
+            <span>Set up your<br /></span>
+            <span class="text-wrapper">Account</span>
+          </p>
+        </div>
+        
+        <form th:action="@{/CLIENT-register}" method="post">
+          <div class="credentials">
+            <label class="label" for="email">Email Address</label>
+            <input class="input" id="email" name="email" type="email" placeholder="Enter your Email Address" required />
+          </div>
+
+          <div class="credentials">
+            <label class="label" for="password">Password</label>
+            <div class="password-input-container">
+              <input class="input" id="password" name="password" type="password" placeholder="Enter your Password" required />
+              <img class="eye-undefined-glyph" th:src="@{/img/EYE.svg}" />
+            </div>
+          </div>
+
+          <div class="credentials">
+            <label class="label" for="input-3">Representative Name</label>
+            <input class="input" id="input-3" name="representativeName" placeholder="Enter Representative Name" required />
+          </div>
+
+          <div class="credentials">
+            <label class="label" for="input-4">Contact Number</label>
+            <input class="input" id="input-4" name="contactNumber" placeholder="Enter Contact Number" required />
+          </div>
+
+          <div class="credentials">
+            <label class="label" for="input-5">Company Name</label>
+            <input class="input" id="input-5" name="companyName" placeholder="Enter Company Name" required />
+          </div>
+
+          <button class="button" type="register">
+            <span class="text-wrapper-2">Register</span>
+          </button>
+
+          <div class="text-wrapper-3">
+            <span class="sign-in-link"> <a th:href="@{/client-login}">Already have an account?</span> 
+            <span class="sign-in-link2">Sign In</a></span>
+          </div>
+        </form>
+      </div>
+      <img class="istock" th:src="@{/img/STOCK IMAGE.jpg}" />
     </div>
-    <form th:action="@{/client-register}" method="post">
-      <div class="company-name">
-        <label class="labbel" for="input-1">Company Name</label>
-        <input class="input" id="input-1" placeholder="Enter Company Name" name="companyName"/>
-      </div>
-      <div class="contact-number">
-        <label class="labbel" for="input-2">Contact Number</label>
-        <input class="input" id="input-2" placeholder="Enter Contact Number" name="contactNumber"/>
-      </div>
-      <div class="representative-name">
-        <label class="labbel" for="input-3">Representative Name</label>
-        <input class="input" id="input-3" placeholder="Enter Representative Name" name="representativeName"/>
-      </div>
-      <div class="password">
-        <label class="labbel" for="input-4">Password</label>
-        <input class="input" id="input-4" placeholder="Enter your Password" type="password" name="password"/>
-      </div>
-      <div class="email">
-        <label class="labbel" for="input-5">Email Address</label>
-        <input class="input" id="input-5" placeholder="Enter your Email Address" type="email" name="email"/>
-      </div>
-      <p class="set-up-your-account">
-        <span class="text-wrapper-3">Set up your<br /></span>
-        <span class="text-wrapper-4">Account</span>
-      </p>
-      <img class="company-logo" th:src="@{/img/NMIS.png}" />
-      <img class="eye-encrypt" th:src="@{/img/EYE.svg}" />
-      <div class="button"><button class="button-2">Register</button></div>
-    </form>
   </div>
-</div>
 </body>
 </html>
+
