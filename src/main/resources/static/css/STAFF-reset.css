@@ -1,93 +1,104 @@
-.STAFF-RESET {
-    background-color: #f0f1f4;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
+.STAFF-RESET { 
+  background-color: #f0f1f4;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh; 
+  overflow: auto;
+}
+
+.STAFF-RESET .div {
+  background-color: #f0f1f4;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.STAFF-RESET .header {
+position: relative;
+width: 100%;
+height: 150px;
+background-color: transparent;
+box-shadow: 0px 5px 70px #0000004c;
+}
+
+.STAFF-RESET .overlap-group {
+position: relative;
+width: 100%;
+height: 150px;
+}
+
+.STAFF-RESET .rectangle {
+position: absolute;
+width: 100vw; 
+height: 150px;
+top: 0;
+left: 0;
+background-color: #002267;
+}
+
+.STAFF-RESET .img {
+position: absolute;
+width: auto;
+height: 122px;
+top: 14px;
+left: 20px;
+max-width: 100%; 
+}
+
+.STAFF-RESET .text-wrapper {
+max-width: calc(100% - 40px); 
+top: 72px;
+font-family: "Averia Serif Libre-Bold", Helvetica;
+font-weight: 700;
+font-size: 1.1875rem; 
+letter-spacing: 0.57px;
+line-height: 1.6875rem; 
+position: absolute;
+right: 20px; 
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
+
+.STAFF-RESET .text-wrapper-2 {
+max-width: calc(100% - 40px); 
+top: 47px;
+font-family: "Averia Serif Libre-Regular", Helvetica;
+font-weight: 400;
+font-size: 1.0625rem; 
+letter-spacing: 0.51px;
+line-height: 1.4875rem; 
+position: absolute;
+right: 20px;
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
   
-  .STAFF-RESET .div {
-    background-color: #f0f1f4;
-    overflow: hidden;
-    width: 100%;
-    max-width: 1440px;
-    height: 1024px;
-    position: relative;
-  }
+.STAFF-RESET .element-form {
+  position: relative;
+  width: 90%;
+  max-width: 643px;
+  height: auto; 
+  min-height: 415px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 10px 10px 4px #00000021;
+  margin: 100px auto; 
+  left: 0; 
+  transform: translateX(0);
+}
   
-  .STAFF-RESET .header {
-    position: absolute;
-    width: 100%;
-    height: 150px;
-    top: 0;
-    left: -9px;
-    background-color: transparent;
-    box-shadow: 0px 5px 70px #0000004c;
-  }
-  
-  .STAFF-RESET .overlap-group {
-    position: relative;
-    width: 1449px;
-    height: 150px;
-  }
-  
-  .STAFF-RESET .rectangle {
-    position: absolute;
-    width: 1440px;
-    height: 150px;
-    top: 0;
-    left: 9px;
-    background-color: #002267; 
-  }  
-  
-  .STAFF-RESET .img {
-    position: absolute;
-    width: 597px;
-    height: 122px;
-    top: 14px;
-    left: 0;
-  }
-  
-  .STAFF-RESET .text-wrapper {
-    width: 531px;
-    top: 72px;
-    font-family: "Averia Serif Libre-Bold", Helvetica;
-    font-weight: 700;
-    font-size: 19px;
-    letter-spacing: 0.57px;
-    line-height: 26.6px;
-    position: absolute;
-    left: 888px;
-    color: #f0f1f4;
-    white-space: nowrap;
-  }
-  
-  .STAFF-RESET .text-wrapper-2 {
-    width: 200px;
-    top: 47px;
-    font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
-    font-size: 17px;
-    letter-spacing: 0.51px;
-    line-height: 23.8px;
-    position: absolute;
-    left: 888px;
-    color: #f0f1f4;
-    white-space: nowrap;
-  }
-  
-  .STAFF-RESET .element-form {
-    position: absolute;
-    width: 643px;
-    height: 425px;
-    top: 275px;
-    left: 398px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 10px 10px 4px #00000021;
-  }
-  
-  .STAFF-RESET .overlap {
+.STAFF-RESET .overlap {
     position: absolute;
     width: 505px;
     height: 21px;
@@ -107,16 +118,16 @@
     padding: 0;
   }
   
-  .STAFF-RESET .reset-password-wrapper {
+.STAFF-RESET .reset-password-wrapper {
     position: absolute;
-    width: 645px;
+    width: 100%;
     height: 64px;
     top: -1px;
     left: 1px;
     background-color: rgba(0, 0, 0, 0.03);
   }
   
-  .STAFF-RESET .reset-password {
+.STAFF-RESET .reset-password {
     position: absolute;
     width: 449px;
     top: 10px;
@@ -128,15 +139,16 @@
     letter-spacing: 0;
     line-height: 42px;
     white-space: nowrap;
-  }
-  .STAFF-RESET .form-wrapper {
+  } 
+  
+.STAFF-RESET .form-wrapper {
     position: absolute; 
     top: 90px; 
     width: 100%; 
     left: 0;
 }
 
-  .STAFF-RESET .input-container {
+.STAFF-RESET .input-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
@@ -156,7 +168,7 @@
 .STAFF-RESET .input-1, .STAFF-RESET .input-2 {
     min-width: 309px;
     padding: var(--size-space-300) var(--size-space-400);
-    width: 502px;
+    width: 85%;
     height: 50px;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -176,11 +188,11 @@
 }
   
   
-  .STAFF-RESET .button {
+.STAFF-RESET .button {
     all: unset;
     box-sizing: border-box;
     display: flex;
-    width: 502px;
+    width: 76.5%;
     height: 52px;
     align-items: center;
     justify-content: center;
@@ -196,7 +208,7 @@
     border-color: #2c2c2c;
     transition: all 0.2s ease;
   }
-  .STAFF-RESET .button-text {
+.STAFF-RESET .button-text {
     font-family: "Averia Serif Libre-Bold", Helvetica;
     font-size: 17px;
     color: #f0f1f4; 
@@ -206,7 +218,7 @@
     width: auto; 
   }  
   
-  .STAFF-RESET .button:hover {
+.STAFF-RESET .button:hover {
     transform: scale(0.9); 
     cursor: pointer;
   }
