@@ -100,10 +100,9 @@ body, html {
 }
 
 .STAFF-LOGIN .text-wrapper-2 {
-  text-align: center;
+  text-align: right;
   font-size: 1.2rem; 
   color: #002267;
-  margin-top: 10px;
 }
 
 .STAFF-LOGIN .fpw-link {
