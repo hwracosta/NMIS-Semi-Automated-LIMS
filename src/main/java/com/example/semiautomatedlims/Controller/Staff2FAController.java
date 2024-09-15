@@ -26,20 +26,24 @@ public class Staff2FAController {
         return "STAFF-2FA";
     }
 
-    // Verify the entered 2FA code
-    @PostMapping("/STAFF-verify-2FA")
-    public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes) {
-        if (staff2FAService.verify2FACode(email, code)) {
-            // Code is valid, proceed with redirecting to appropriate home page
-            Staff staff = staffService.findStaffByEmail(email);
-            if (staff.getStaffType().equals("testing")) {
-                return "redirect:/STAFF-TESTINGhome";  // Redirect to testing homepage
-            } else if (staff.getStaffType().equals("receiving/releasing")) {
-                return "redirect:/STAFF-RELEASINGhome";  // Redirect to receiving/releasing homepage
-            }
-        }
-        // Invalid 2FA code
-        redirectAttributes.addFlashAttribute("error", "Invalid authentication code, please try again.");
-        return "redirect:/STAFF-2FA";
-    }
+   // Process 2FA code verification (POST to the same URL)
+   @PostMapping("/STAFF-2FA")
+   public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes) {
+       if (staff2FAService.verify2FACode(email, code)) {
+           // Code is valid, proceed with redirecting to appropriate home page
+           Staff staff = staffService.findStaffByEmail(email);
+           if (staff.getStaffType().equals("testing")) {
+               return "redirect:/STAFF-TESTINGhome";  // Redirect to testing homepage
+           } else if (staff.getStaffType().equals("receiving/releasing")) {
+               return "redirect:/STAFF-RELEASINGhome";  // Redirect to receiving/releasing homepage
+           } else {
+               redirectAttributes.addFlashAttribute("error", "Invalid staff type.");
+               return "redirect:/STAFF-defaultHome";
+           }
+       } else {
+           // Invalid 2FA code
+           redirectAttributes.addFlashAttribute("error", "Invalid 2FA code. Please try again.");
+           return "redirect:/STAFF-2FA?email=" + email;  // Redirect back to 2FA page with email
+       }
+   }
 }
