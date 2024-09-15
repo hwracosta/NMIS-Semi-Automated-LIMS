@@ -11,21 +11,17 @@ import java.util.Properties;
 public class MailConfig {
 
     @Bean
-    public JavaMailSender getJavaMailSender() {
+    public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
+        mailSender.setHost("smtp-relay.brevo.com");
         mailSender.setPort(587);
-
-        // Use environment variables to securely inject email and password
-        mailSender.setUsername(System.getenv("MAIL_USERNAME")); // Fetch from environment variables
-        mailSender.setPassword(System.getenv("MAIL_PASSWORD")); // Fetch from environment variables
+        mailSender.setUsername("7c1d15001@smtp-brevo.com");
+        mailSender.setPassword("N1WOLv5cRfa90pSI");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.starttls.required", "true");
-        props.put("mail.debug", "true");
 
         return mailSender;
     }
