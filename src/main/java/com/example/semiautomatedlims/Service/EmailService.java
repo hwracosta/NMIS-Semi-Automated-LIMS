@@ -17,6 +17,7 @@ public class EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
+        message.setFrom("nmis.lims@gmail.com");
         mailSender.send(message); // This sends the actual email
     }
 
