@@ -53,6 +53,7 @@ public class Staff2FAService {
     // Send email using Spring's JavaMailSender
     private void sendEmail(String toEmail, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("nmis.lims@gmail.com");
         message.setTo(toEmail);
         message.setSubject(subject);
         message.setText(content);
