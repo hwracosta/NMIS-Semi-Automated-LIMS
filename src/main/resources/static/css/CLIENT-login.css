@@ -1,252 +1,166 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Inter-Regular", Helvetica;
+  box-sizing: border-box;
+}
+
 .CLIENT-LOGIN {
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-  }
-  
-  .CLIENT-LOGIN .div {
-    display: flex;
-    background-color: #F0F1F4;
-    border-radius: 5%; 
-    width: 90%;
-    max-width: 1200px;
-    height: 90vh;
-    position: relative;
-    padding-left: 50px;
-    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.2); 
-    overflow: hidden; 
-  }
-  
-  .CLIENT-LOGIN .istock {
-    position: absolute;
-    width: 50;
-    height: 1024px;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
 
-  .CLIENT-LOGIN .rectangle {
-    position: absolute;
-    width: 625px;
-    height: 1024px;
-    top: 0;
-    left: 0;
-    background-color: #f4f0f1;
-    box-shadow: 5px 0px 70px #757575cc;
-  }
+.CLIENT-LOGIN .div {
+  display: flex;
+  background-color: #F0F1F4;
+  border-radius: 5%; 
+  width: 90%;
+  max-width: 1200px;
+  height: 90vh;
+  position: relative;
+  padding-left: 50px;
+  box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.2); 
+  overflow: hidden;
+}
 
-  .CLIENT-LOGIN .overlap-group {
-    position: absolute;
-    width: 595px;
-    height: 91px;
-    top: 538px;
-    left: 76px;
-  }
-  
-  .CLIENT-LOGIN .password {
-    display: flex;
-    flex-direction: column;
-    width: 595px;
-    align-items: flex-start;
-    gap: var(--size-space-200);
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .CLIENT-LOGIN .labbel {
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.29px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 1.5rem;
-    letter-spacing: 0;
-    line-height: 28.8px;
-  }
-  
-  .CLIENT-LOGIN .input {
-    min-width: 309px;
-    padding: var(--size-space-300) var(--size-space-400) var(--size-space-300) var(--size-space-400);
-    position: relative;
-    align-self: stretch;
-    width: 80%;
-    margin-bottom: -0.64px;
-    margin-left: -0.64px;
-    margin-right: -0.64px;
-    background-color: var(--color-background-default-default);
-    border-radius: 9.97px;
-    overflow: hidden;
-    border: 1.29px solid;
-    border-color: var(--color-border-default-default);
-    flex: 1;
-    flex-grow: 1;
-    margin-top: -0,64px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 20.6px;
-    letter-spacing: 0;
-    line-height: 20.6px;
-  }
-  
-  .CLIENT-LOGIN .eye-undefined-glyph {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    top: 50px;
-    left: 425px;
-  }
-  
-  .CLIENT-LOGIN .email {
-    display: flex;
-    flex-direction: column;
-    width: 595px;
-    align-items: flex-start;
-    gap: var(--size-space-200);
-    position: absolute;
-    top: 429px;
-    left: 76px;
-  }
-  
-  .CLIENT-LOGIN .labbel-2 {
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.29px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 1.5rem;
-    letter-spacing: 0;
-    line-height: 28.8px;
-    background: transparent;
-    border: none;
-    padding: 0;
-  }
-  
-  .CLIENT-LOGIN .hello-welcome {
-    position: absolute;
-    width: 442px;
-    top: 258px;
-    left: 76px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 4rem;
-    letter-spacing: 0;
-    line-height: 60px;
-  }
-  
-  .CLIENT-LOGIN .text-wrapper {
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 60px;
-    letter-spacing: 0;
-    line-height: 60px;
-  }
-  
-  .CLIENT-LOGIN .span {
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-  }
-  
-  .CLIENT-LOGIN .company-logo {
-    position: absolute;
-    width: 155px;
-    height: 155px;
-    top: 64px;
-    left: 76px;
-  }
-  
-  .CLIENT-LOGIN .button {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    width: 475px;
-    height: 52px;
-    align-items: center;
-    justify-content: center;
-    gap: var(--size-space-200);
-    padding: var(--size-space-300);
-    position: absolute;
-    top: 694px;
-    left: 77px;
-    background-color: #002267;
-    border-radius: var(--size-radius-200);
-    overflow: hidden;
-    border: 1px solid;
-    border-color: var(--color-border-brand-default);
-    transition: all 0.2s ease;
-  }
-  
-  .CLIENT-LOGIN .button:hover {
-    transform: scale(0.9);
-  }
-  
-  .CLIENT-LOGIN .button-2 {
-    all: unset;
-    box-sizing: border-box;
-    position: relative;
-    width: fit-content;
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    color: #F5F5F5;
-    font-size: var(--single-line-body-base-font-size);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    line-height: var(--single-line-body-base-line-height);
-    white-space: nowrap;
-    font-style: var(--single-line-body-base-font-style);
-  }
-  
-  .CLIENT-LOGIN .text-wrapper-2 {
-    position: absolute;
-    top: 639px;
-    left: 400px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 18.3px;
-    letter-spacing: 0;
-    line-height: 25.6px;
-    text-decoration: underline;
-    white-space: nowrap;
-  }
-  .CLIENT-LOGIN .forgot-password-link {
-    display: flex;
-    width: 197px;
-    align-items: flex-start;
-    position: absolute;
-    top: 658px;
-    left: 514px;
-  }
-  
-  .CLIENT-LOGIN .register-link {
-    position: absolute;
-    top: 763px;
-    left: 170px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: transparent;
-    font-size: 18.3px;
-    letter-spacing: 0;
-    line-height: 25.6px;
-    text-decoration: underline;
-    white-space: nowrap;
-  }
-  
-  .CLIENT-LOGIN .text-wrapper-3 {
-    color: #002267;
-    text-decoration: underline;
-  }
-  
-  .CLIENT-LOGIN .text-wrapper-4 {
-    color: #ff242c;
-    text-decoration: underline;
-  }
+.CLIENT-LOGIN .overlap-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 50px;
+  margin-bottom: 70px;
+  padding: 20px;
+}
+
+.CLIENT-LOGIN form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 30px; 
+}
+
+/* Container for input and eye icon */
+.CLIENT-LOGIN .password-input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.CLIENT-LOGIN .eye-undefined-glyph {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+.CLIENT-LOGIN .email, .CLIENT-LOGIN .password {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.CLIENT-LOGIN .label, .CLIENT-LOGIN .label-2 {
+  font-size: 1.5rem;
+  color: #002267;
+  margin-bottom: 10px;
+}
+
+.CLIENT-LOGIN .input {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1.5rem; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.CLIENT-LOGIN .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #002267;
+  color: #ffffff;
+  padding: 10px; 
+  width: 100%;
+  border-radius: 10px;
+  font-size: 1.5rem; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.CLIENT-LOGIN .button:hover {
+  transform: scale(0.95);
+}
+
+.CLIENT-LOGIN .text-wrapper-2 {
+  text-align: right;
+  font-size: 1.2rem; 
+  color: #002267;
+  margin-top: 10px;
+}
+
+.CLIENT-LOGIN .fpw-link {
+  color: #002267;
+  text-decoration: underline;
+}
+
+.CLIENT-LOGIN .fpw-link:hover {
+  color: #0055ff;
+}
+
+.CLIENT-LOGIN .hello-welcome {
+  font-size: 4rem; 
+  color: #002267;
+  margin-bottom: 40px;
+}
+
+.CLIENT-LOGIN .text-wrapper-4 {
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+}
+
+.CLIENT-LOGIN .text-wrapper-3 {
+  text-align: center;
+  font-size: 1.2rem; 
+  margin-top: 10px;
+}
+
+.CLIENT-LOGIN .register-link1 {
+  color: #002267;
+  text-decoration: underline;
+}
+
+.CLIENT-LOGIN .register-link2 {
+  color: #ff242c;
+  text-decoration: underline;
+}
+
+.CLIENT-LOGIN .company-logo {
+  width: 150px; 
+  height: 150px;
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+
+.CLIENT-LOGIN .istock {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  border-radius: 0 5% 5% 0; 
+  box-shadow: -5px 0px 20px rgba(0, 0, 0, 0.3); 
+  z-index: 1;
+}
