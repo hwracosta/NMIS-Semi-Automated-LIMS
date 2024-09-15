@@ -15,6 +15,12 @@
         <span>Hello, <br /></span>
         <span class="text-wrapper-3">welcome!</span>
       </p>
+      
+      <!-- Display error message if login fails -->
+      <div th:if="${error}" class="error-message">
+        <p th:text="${error}" style="color: red; font-weight: bold;"></p>
+      </div>
+
       <!-- Login form starts here -->
       <form th:action="@{/STAFF-login}" method="post">
         <div class="email">
