@@ -28,21 +28,21 @@ public class StaffFPWService {
     public void sendPasswordResetCodeToEmail(String email) {
         Staff staff = staffRepository.findByEmail(email);
         if (staff != null) {
-            String code = generateResetCode();
+            String resetCode = generateResetCode();  // Adjusted to use 'resetCode'
             LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // Code expires in 15 minutes
-            passwordResetCodes.put(email, new PasswordResetData(code, expirationTime));
+            passwordResetCodes.put(email, new PasswordResetData(resetCode, expirationTime));
 
             // Send the email
             String subject = "Your Password Reset Code";
-            String content = "Your password reset code is: " + code + ". It will expire in 15 minutes.";
+            String content = "Your password reset code is: " + resetCode + ". It will expire in 15 minutes.";
             sendEmail(email, subject, content);
         }
     }
 
     // Verify the entered reset code
-    public boolean verifyResetCode(String email, String code) {
+    public boolean verifyResetCode(String email, String resetCode) {  // Adjusted parameter name to 'resetCode'
         PasswordResetData resetData = passwordResetCodes.get(email);
-        if (resetData != null && resetData.getCode().equals(code)) {
+        if (resetData != null && resetData.getResetCode().equals(resetCode)) {  // Adjusted method call
             if (LocalDateTime.now().isBefore(resetData.getExpirationTime())) {
                 passwordResetCodes.remove(email);  // Remove the code after successful verification
                 return true;
@@ -77,24 +77,5 @@ public class StaffFPWService {
         message.setSubject(subject);
         message.setText(content);
         mailSender.send(message);
-    }
-
-    // Inner class to store reset code and expiration time
-    private static class PasswordResetData {
-        private String code;
-        private LocalDateTime expirationTime;
-
-        public PasswordResetData(String code, LocalDateTime expirationTime) {
-            this.code = code;
-            this.expirationTime = expirationTime;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public LocalDateTime getExpirationTime() {
-            return expirationTime;
-        }
     }
 }
