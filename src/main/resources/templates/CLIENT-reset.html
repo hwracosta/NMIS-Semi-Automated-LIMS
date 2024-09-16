@@ -24,8 +24,8 @@
                 </div>
             </div>
             <div class="button">
-                <form th:action="@{/client-reset}" method="post">
-                    <input type="hidden" th:value="${token}" name="token" />
+                <form th:action="@{/CLIENT-reset}" method="post">
+                    <input type="hidden" th:value="${email}" name="email" />
 
                     <div class="enter-password">
                         <label class="labbel" for="input-1">Enter Password</label>
