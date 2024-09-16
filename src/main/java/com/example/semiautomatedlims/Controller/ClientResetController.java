@@ -30,11 +30,13 @@ public class ClientResetController {
                                 @RequestParam("password") String password,
                                 @RequestParam("confirmPassword") String confirmPassword,
                                 Model model, RedirectAttributes redirectAttributes) {
+        // Verify that the password and confirm password fields match
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match.");
             return "CLIENT-reset";  // Stay on the reset page if passwords don't match
         }
 
+        // Perform the password reset using the service
         boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(password));
         if (resetSuccessful) {
             redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");

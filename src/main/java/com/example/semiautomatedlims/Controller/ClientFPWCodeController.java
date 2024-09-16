@@ -27,6 +27,7 @@ public class ClientFPWCodeController {
                                   Model model, RedirectAttributes redirectAttributes) {
         boolean isCodeValid = clientFPWService.verifyResetCode(email, code);
         if (isCodeValid) {
+            redirectAttributes.addFlashAttribute("email", email);  // Pass the email for the reset form
             redirectAttributes.addFlashAttribute("message", "Code verified successfully! You can now reset your password.");
             return "redirect:/CLIENT-reset";  // Redirect to the password reset page
         } else {
