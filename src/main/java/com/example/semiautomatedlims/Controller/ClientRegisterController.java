@@ -22,7 +22,7 @@ public class ClientRegisterController {
     }
 
     // Process registration form
-    @PostMapping("/client-register")
+    @PostMapping("/CLIENT-register")
     public String processRegister(
             @RequestParam String companyName,
             @RequestParam String contactNumber,
