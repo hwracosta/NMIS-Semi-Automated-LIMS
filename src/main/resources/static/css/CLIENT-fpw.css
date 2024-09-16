@@ -1,218 +1,247 @@
-.CLIENT-FORGOT {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .CLIENT-FORGOT .div {
-    background-color: #f0f1f4;
-    overflow: hidden;
-    width: 1440px;
-    height: 1024px;
-    position: relative;
-  }
-  
-  .CLIENT-FORGOT .header {
-    position: absolute;
-    width: 1449px;
-    height: 150px;
-    top: 0;
-    left: -9px;
-    box-shadow: 0px 5px 70px #0000004c;
-  }
-  
-  .CLIENT-FORGOT .overlap-group {
-    position: relative;
-    width: 1449px;
-    height: 150px;
-  }
-  
-  .CLIENT-FORGOT .rectangle {
-    position: absolute;
-    width: 1440px;
-    height: 150px;
-    top: 0;
-    left: 9px;
-    background-color: #002267;
-  }
+.CLIENT-FPW { 
+  background-color: #f0f1f4;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh; 
+}
 
-  .CLIENT-FORGOT .img {
-    position: absolute;
-    width: 597px;
-    height: 122px;
-    top: 14px;
-    left: 14px;
-  }
-  
-   .CLIENT-FORGOT .text-wrapper {
-    position: absolute;
-    width: 531px;
-    top: 72px;
-    left: 888px;
-    font-family: "Averia Serif Libre-Bold", Helvetica;
-    font-weight: 700;
-    color: #f0f1f4;
-    font-size: 19px;
-    letter-spacing: 0.57px;
-    line-height: 26.6px;
-    white-space: nowrap;
-  }
+.CLIENT-FPW .div {
+  background-color: #f0f1f4;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-  .CLIENT-FORGOT .text-wrapper-2 {
-    position: absolute;
-    width: 200px;
-    top: 47px;
-    left: 888px;
-    font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
-    color: #f0f1f4;
-    font-size: 17px;
-    letter-spacing: 0.51px;
-    line-height: 23.8px;
-    white-space: nowrap;
-  }
+.CLIENT-FPW .header {
+position: relative;
+width: 100%;
+height: 150px;
+background-color: transparent;
+box-shadow: 0px 5px 70px #0000004c;
+}
 
-  .CLIENT-FORGOT .overlap {
-    position: absolute;
-    width: 643px;
-    height: 379px;
-    top: 323px;
-    left: 398px;
-    border-radius: 10px;
-  }
+.CLIENT-FPW .overlap-group {
+position: relative;
+width: 100%;
+height: 150px;
+}
 
-  .CLIENT-FORGOT .forgot-password {
-    position: absolute;
-    width: 643px;
-    height: 379px;
-    top: 0;
-    left: 0;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: -3px -3px 20px 5px #00000021, 10px 10px 4px #00000021;
-  }
-  
-  .CLIENT-FORGOT .email {
-    width: 503px;
-    height: 21px;
-    top: 187px;
-    left: 70px;
-    border: 0;
-    background: none;
-    position: absolute;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: 21px;
-    padding: 0;
-  }
+.CLIENT-FPW .rectangle {
+position: absolute;
+width: 100vw; 
+height: 150px;
+top: 0;
+left: 0;
+background-color: #002267;
+}
 
-  .CLIENT-FORGOT .box{
-    width: 503px;
-    height: 41px;
-  }
+.CLIENT-FPW .img {
+position: absolute;
+width: auto;
+height: 122px;
+top: 14px;
+left: 20px;
+max-width: 100%; 
+}
 
-  .CLIENT-FORGOT .box .input{
-    position: absolute;
-    width: 505px;
-    height: 43px;
-    top: 177px;
-    left: 70px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: #000000;
-  }
-  
-  .CLIENT-FORGOT .div-wrapper {
-    position: absolute;
-    width: 642px;
-    height: 64px;
-    top: -1px;
-    left: 1px;
-    background-color: #EBEBEB;
-  }
+.CLIENT-FPW .text-wrapper {
+max-width: calc(100% - 40px); 
+top: 72px;
+font-family: "Averia Serif Libre-Bold", Helvetica;
+font-weight: 700;
+font-size: 1.1875rem; 
+letter-spacing: 0.57px;
+line-height: 1.6875rem; 
+position: absolute;
+right: 20px; 
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
 
-  .CLIENT-FORGOT .text-wrapper-3 {
-    position: absolute;
-    width: 449px;
-    top: 10px;
-    left: 23px;
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-    color: #002267;
-    font-size: 30px;
-    letter-spacing: 0px;
-    line-height: 42px;
-    white-space: nowrap;
-  }
+.CLIENT-FPW .text-wrapper-2 {
+max-width: calc(100% - 40px); 
+top: 47px;
+font-family: "Averia Serif Libre-Regular", Helvetica;
+font-weight: 400;
+font-size: 1.0625rem; 
+letter-spacing: 0.51px;
+line-height: 1.4875rem; 
+position: absolute;
+right: 20px;
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
 
-  .CLIENT-FORGOT .button {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    width: 502px;
-    height: 52px;
-    align-items: center;
-    justify-content: center;
-    gap: var(--size-space-200);
-    padding: var(--size-space-300);
-    position: absolute;
-    top: 267px;
-    left: 70px;
-    background-color: #002267;
-    border-radius: var(--size-radius-200);
-    overflow: hidden;
-    border: 1px solid;
-    border-color: var(--color-border-brand-default);
-    transition: all 0.2s ease;
-  }
-  
-  .CLIENT-FORGOT .button:hover {
-    transform: scale(0.9);
-  }
 
-.CLIENT-FORGOT .button-2 {
-    all: unset;
-    box-sizing: border-box;
-    position: relative;
-    width: fit-content;
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    color: #F5F5F5;
-    font-size: var(--single-line-body-base-font-size);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    line-height: var(--single-line-body-base-line-height);
-    white-space: nowrap;
-    font-style: var(--single-line-body-base-font-style);
-  }
+.CLIENT-FPW .element-form {
+position: relative;
+width: 90%;
+max-width: 643px;
+height: auto; 
+min-height: 379px;
+padding: 20px;
+background-color: #f5f5f5;
+border-radius: 10px;
+box-shadow: 10px 10px 4px #00000021;
+margin: 100px auto; 
+left: 0; 
+transform: translateX(0);
+}
 
-  .CLIENT-FORGOT .enter-the-email {
-    position: absolute;
-    width: 502px;
-    top: 102px;
-    left: 70px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 17px;
-    letter-spacing: 0;
-    line-height: 23.8px;
-  }
+.CLIENT-FPW .overlap {
+  position: absolute;
+  width: 505px;
+  height: 21px;
+  top: 10px;
+  left: 69px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #000000;
+  border: 0;
+  background: none;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 21px;
+  padding: 0;
+}
 
-  .CLIENT-FORGOT .span {
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 17px;
-    letter-spacing: 0;
-    line-height: 23.8px;
-  }
+.CLIENT-FPW .forgot-password-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 64px;
+  top: -1px;
+  left: 1px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
 
-  .CLIENT-FORGOT .text-wrapper-4 {
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-  }
+.CLIENT-FPW .forgot-password {
+  position: absolute;
+  width: 449px;
+  top: 10px;
+  left: 23px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #002267;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: 42px;
+  white-space: nowrap;
+}
+
+.CLIENT-FPW .fpw-descriptor {
+  position: absolute;
+  max-width: 503px;
+  top: 110px;
+  left: 71px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 23.8px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.CLIENT-FPW .span {
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 23.8px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.CLIENT-FPW .text-wrapper-3 {
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 26px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.CLIENT-FPW .input {
+  min-width: 309px;
+  padding: var(--size-space-300) var(--size-space-400) var(--size-space-300) var(--size-space-400);
+  position: relative;
+  align-self: stretch;
+  width: 82%;
+  top : 175px;
+  height : 50px;
+  margin-bottom: -0.64px;
+  margin-left: 53px;
+  margin-right: -0.64px;
+  background-color: var(--color-background-default-default);
+  overflow: hidden;
+  border: none;
+  border-bottom: 1.29px solid;
+  border-color: var(--color-border-default-default);
+  flex: 1;
+  flex-grow: 1;
+  margin-top: -0.64px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 20.6px;
+  outline: none;
+}
+
+.CLIENT-FPW .button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  width: 78%;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  position: absolute;
+  top: 267px;
+  left: 70px;
+  background-color: #002267;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #2c2c2c;
+  transition: all 0.2s ease;
+}
+.CLIENT-FPW .button-text {
+  font-family: "Averia Serif Libre-Bold", Helvetica;
+  font-size: 17px;
+  color: #f0f1f4; 
+  white-space: nowrap;
+  position: static; 
+  text-align: center; 
+  width: auto; 
+}  
+
+.CLIENT-FPW .button:hover {
+  transform: scale(0.9); 
+  cursor: pointer;
+}
