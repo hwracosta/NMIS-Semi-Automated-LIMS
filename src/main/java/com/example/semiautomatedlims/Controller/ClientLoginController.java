@@ -31,7 +31,7 @@ public class ClientLoginController {
     public String processLogin(@RequestParam String email, @RequestParam String password) {
         Client client = clientService.findClientByEmail(email);
         if (client != null && client.getPassword().equals(password)) {
-            return "redirect:/client-home";  // Redirect to the client dashboard after successful login
+            return "redirect:/CLIENT-home";  // Redirect to the client dashboard after successful login
         }
         return "CLIENT-LOGIN";  // Return the same page if login fails
     }
