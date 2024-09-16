@@ -1,7 +1,6 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.Client;
-import com.example.semiautomatedlims.Service.ClientService;
+import com.example.semiautomatedlims.Service.ClientFPWService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,50 +14,34 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ClientResetController {
 
     @Autowired
-    private ClientService clientService;
+    private ClientFPWService clientFPWService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // Inject PasswordEncoder
+    private PasswordEncoder passwordEncoder;
 
-    // Show the reset page
-    @GetMapping("/client-reset")
-    public String showClientResetPage(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
-        Client client = clientService.findByResetToken(token); // Retrieve client by token
-
-        if (client == null) {
-            redirectAttributes.addFlashAttribute("error", "Invalid password reset token.");
-            return "redirect:/client-fpw";
-        }
-
-        model.addAttribute("token", token);
-        return "CLIENT-reset"; // Render the reset page
+    @GetMapping("/CLIENT-reset")
+    public String showClientResetPage() {
+        return "CLIENT-reset"; // Return the client password reset page
     }
 
-    // Handle the password reset form submission
-    @PostMapping("/client-reset")
-    public String handleClientPasswordReset(@RequestParam("token") String token,
-                                            @RequestParam("password") String password,
-                                            @RequestParam("confirmPassword") String confirmPassword,
-                                            RedirectAttributes redirectAttributes) {
-        Client client = clientService.findByResetToken(token);
-
-        if (client == null) {
-            redirectAttributes.addFlashAttribute("error", "Invalid token.");
-            return "redirect:/client-fpw";
-        }
-
+    // Handle the reset password form submission
+    @PostMapping("/CLIENT-reset")
+    public String resetPassword(@RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                @RequestParam("confirmPassword") String confirmPassword,
+                                Model model, RedirectAttributes redirectAttributes) {
         if (!password.equals(confirmPassword)) {
-            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
-            return "redirect:/client-reset?token=" + token;
+            model.addAttribute("error", "Passwords do not match.");
+            return "CLIENT-reset";  // Stay on the reset page if passwords don't match
         }
 
-        // Encode the new password and save the client
-        client.setPassword(passwordEncoder.encode(password));
-        client.setResetToken(null); // Clear the reset token
-        client.setTokenExpiry(null); // Clear the token expiry
-        clientService.saveClient(client);
-
-        redirectAttributes.addFlashAttribute("message", "Password has been reset successfully.");
-        return "redirect:/client-login"; // Redirect to login page after successful reset
+        boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(password));
+        if (resetSuccessful) {
+            redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
+            return "redirect:/CLIENT-login";  // Redirect to login page after successful reset
+        } else {
+            model.addAttribute("error", "Failed to reset the password. Please try again.");
+            return "CLIENT-reset";
+        }
     }
 }

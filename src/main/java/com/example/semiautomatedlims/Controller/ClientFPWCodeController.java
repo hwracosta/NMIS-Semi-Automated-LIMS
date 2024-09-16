@@ -1,38 +1,37 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.Client;
-import com.example.semiautomatedlims.Service.ClientService;
+import com.example.semiautomatedlims.Service.ClientFPWService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.LocalDateTime;
 
 @Controller
 public class ClientFPWCodeController {
 
     @Autowired
-    private ClientService clientService;
+    private ClientFPWService clientFPWService;
 
-    @PostMapping("/CLIENT-verify-fpwcode")
-    public String verifyClientFPWCode(@RequestParam("email") String email,
-                                      @RequestParam("code") String code,
-                                      RedirectAttributes redirectAttributes) {
-        Client client = clientService.findClientByEmail(email);
+    @GetMapping("/CLIENT-fpwcode")
+    public String showClientFpwCodePage() {
+        return "CLIENT-fpwcode";
+    }
 
-        if (client == null || !client.getResetToken().equals(code)) {
-            redirectAttributes.addFlashAttribute("error", "Invalid code or email.");
-            return "redirect:/CLIENT-fpwcode";
+    // Handle the form submission for code verification
+    @PostMapping("/CLIENT-fpwcode")
+    public String verifyResetCode(@RequestParam("email") String email,
+                                  @RequestParam("code") String code,
+                                  Model model, RedirectAttributes redirectAttributes) {
+        boolean isCodeValid = clientFPWService.verifyResetCode(email, code);
+        if (isCodeValid) {
+            redirectAttributes.addFlashAttribute("message", "Code verified successfully! You can now reset your password.");
+            return "redirect:/CLIENT-reset";  // Redirect to the password reset page
+        } else {
+            model.addAttribute("error", "Invalid or expired code.");
+            return "CLIENT-fpwcode";  // Stay on the same page for reattempt
         }
-
-        if (client.getTokenExpiry().isBefore(LocalDateTime.now())) {
-            redirectAttributes.addFlashAttribute("error", "The code has expired.");
-            return "redirect:/CLIENT-fpw";
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Code verified. You may now reset your password.");
-        return "redirect:/CLIENT-reset"; // Redirect to the password reset page
     }
 }
