@@ -1,21 +1,20 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.Staff;
-import com.example.semiautomatedlims.Service.StaffService;
+import com.example.semiautomatedlims.Service.StaffFPWService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class StaffResetController {
 
     @Autowired
-    private StaffService staffService;
+    private StaffFPWService staffFPWService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -25,33 +24,24 @@ public class StaffResetController {
         return "STAFF-reset";
     }
 
-    // Handle reset password form submission
-    @PostMapping("/staff-reset")
-    public String handlePasswordReset(@RequestParam("token") String token,
-                                      @RequestParam("password") String password,
-                                      @RequestParam("confirmPassword") String confirmPassword,
-                                      Model model,
-                                      RedirectAttributes redirectAttributes) {
-
-        Staff staff = staffService.findByResetToken(token);
-
-        if (staff == null || staff.isTokenExpired()) {
-            model.addAttribute("error", "Invalid or expired reset token.");
-            return "staff-reset";
-        }
-
+    // Handle the reset password form submission
+    @PostMapping("/STAFF-reset")
+    public String resetPassword(@RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                @RequestParam("confirmPassword") String confirmPassword,
+                                Model model, RedirectAttributes redirectAttributes) {
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match.");
-            return "staff-reset";
+            return "STAFF-reset";
         }
 
-        // Save the new password
-        staff.setPassword(passwordEncoder.encode(password));
-        staff.setResetToken(null);
-        staff.setTokenExpiry(null);  // Clear token and expiry
-        staffService.saveStaff(staff);
-
-        redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
-        return "redirect:/staff-login";
+        boolean resetSuccessful = staffFPWService.resetPassword(email, passwordEncoder.encode(password));
+        if (resetSuccessful) {
+            redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
+            return "redirect:/staff-login";  // Redirect to login page after successful reset
+        } else {
+            model.addAttribute("error", "Failed to reset the password. Please try again.");
+            return "STAFF-reset";
+        }
     }
 }
