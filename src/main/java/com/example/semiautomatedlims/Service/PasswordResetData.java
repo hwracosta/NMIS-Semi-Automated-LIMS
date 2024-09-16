@@ -16,10 +16,6 @@ public class PasswordResetData {
         return resetCode;
     }
 
-    public void setResetCode(String resetCode) {
-        this.resetCode = resetCode;
-    }
-
     public LocalDateTime getExpirationTime() {
         return expirationTime;
     }
