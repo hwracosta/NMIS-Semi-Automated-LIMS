@@ -20,29 +20,26 @@ public class ClientResetController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/CLIENT-reset")
-    public String showClientResetPage(@RequestParam("email") String email, Model model) {
-        model.addAttribute("email", email);
-        return "CLIENT-reset";  // Return the reset page
+    public String showClientResetPage(Model model) {
+        return "CLIENT-reset";  // Simply return the reset page
     }
 
-    // Handle the reset password form submission
     @PostMapping("/CLIENT-reset")
-    public String resetPassword(@RequestParam("email") String email,
-                                @RequestParam("password") String password,
+    public String resetPassword(@RequestParam("password") String password,
                                 @RequestParam("confirmPassword") String confirmPassword,
-                                Model model, RedirectAttributes redirectAttributes) {
+                                RedirectAttributes redirectAttributes) {
         if (!password.equals(confirmPassword)) {
-            model.addAttribute("error", "Passwords do not match.");
-            return "CLIENT-reset";  // Stay on the reset page if passwords don't match
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            return "redirect:/CLIENT-reset";
         }
 
-        boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(password));
+        boolean resetSuccessful = clientFPWService.resetPassword(passwordEncoder.encode(password)); // Only password required
         if (resetSuccessful) {
             redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
-            return "redirect:/CLIENT-login";  // Redirect to login page after successful reset
+            return "redirect:/CLIENT-login";
         } else {
-            model.addAttribute("error", "Failed to reset the password. Please try again.");
-            return "CLIENT-reset";
+            redirectAttributes.addFlashAttribute("error", "Failed to reset password.");
+            return "redirect:/CLIENT-reset";
         }
     }
 }
