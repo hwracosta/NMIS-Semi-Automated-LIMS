@@ -16,7 +16,9 @@ public class ClientFPWCodeController {
     private ClientFPWService clientFPWService;
 
     @GetMapping("/CLIENT-fpwcode")
-    public String showClientFpwCodePage() {
+    public String showClientFpwCodePage(@RequestParam(value = "email", required = false) String email, Model model) {
+        // Ensure email is passed to the form
+        model.addAttribute("email", email);
         return "CLIENT-fpwcode";
     }
 
@@ -24,15 +26,18 @@ public class ClientFPWCodeController {
     @PostMapping("/CLIENT-fpwcode")
     public String verifyResetCode(@RequestParam("email") String email,
                                   @RequestParam("code") String code,
-                                  Model model, RedirectAttributes redirectAttributes) {
+                                  RedirectAttributes redirectAttributes) {
         boolean isCodeValid = clientFPWService.verifyResetCode(email, code);
+
         if (isCodeValid) {
-            redirectAttributes.addFlashAttribute("email", email);  // Pass the email for the reset form
+            // Pass email for the reset page
+            redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("message", "Code verified successfully! You can now reset your password.");
-            return "redirect:/CLIENT-reset";  // Redirect to the password reset page
+            // Make sure you are redirecting to the correct path
+            return "redirect:/CLIENT-reset";  // Check that this path exists
         } else {
-            model.addAttribute("error", "Invalid or expired code.");
-            return "CLIENT-fpwcode";  // Stay on the same page for reattempt
+            redirectAttributes.addFlashAttribute("error", "Invalid or expired code.");
+            return "redirect:/CLIENT-fpwcode?email=" + email;  // Stay on the same page if the code is invalid
         }
     }
 }

@@ -27,7 +27,8 @@
                 <span class="text-wrapper-3">reset code</span>
                 <span class="span">you received via email to proceed with password reset.</span>
             </p>
-            <form th:action="@{/CLIENT-reset}" method="post">  <!-- Now points to reset -->
+            <!-- Now points to the verification handler -->
+            <form th:action="@{/CLIENT-fpwcode}" method="post">
                 <!-- Hidden field to send the email along with the code -->
                 <input type="hidden" th:value="${email}" name="email" />
 
