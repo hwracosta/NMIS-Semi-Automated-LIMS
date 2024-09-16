@@ -1,5 +1,6 @@
 package com.example.semiautomatedlims.Controller;
 
+import com.example.semiautomatedlims.Entity.Staff;
 import com.example.semiautomatedlims.Service.StaffFPWService;
 import com.example.semiautomatedlims.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class StaffFPWController {
     @PostMapping("/STAFF-fpw")
     public String sendResetCode(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
         // Check if the staff exists before sending the code
-        if (staffService.findStaffByEmail(email) != null) {
+        Staff staff = staffService.findStaffByEmail(email);
+
+        // Log to ensure the staff check works
+        System.out.println("Found staff: " + staff);
+
+        if (staff != null) {
             staffFPWService.sendPasswordResetCodeToEmail(email);
             redirectAttributes.addFlashAttribute("message", "A password reset code has been sent to your email.");
         } else {
@@ -35,4 +41,5 @@ public class StaffFPWController {
         }
         return "redirect:/STAFF-fpwcode";  // Redirect to the page where the user enters the code
     }
+
 }
