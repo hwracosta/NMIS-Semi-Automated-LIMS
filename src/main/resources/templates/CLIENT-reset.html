@@ -24,15 +24,21 @@
                 </div>
             </div>
             <div class="button">
-                <button class="button-2">Submit</button>
-            </div>
-            <div class="enter-password">
-                <label class="labbel" for="input-1">Enter Password</label>
-                <input class="input" id="input-1" placeholder="Enter New Password" />
-            </div>
-            <div class="confirm-password">
-                <label class="labbel" for="input-2">Confirm Password</label>
-                <input class="input" id="input-2" placeholder="Re-enter New Password" />
+                <form th:action="@{/client-reset}" method="post">
+                    <input type="hidden" th:value="${token}" name="token" />
+
+                    <div class="enter-password">
+                        <label class="labbel" for="input-1">Enter Password</label>
+                        <input class="input" id="input-1" type="password" name="password" placeholder="Enter New Password" required />
+                    </div>
+
+                    <div class="confirm-password">
+                        <label class="labbel" for="input-2">Confirm Password</label>
+                        <input class="input" id="input-2" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
+                    </div>
+
+                    <button type="submit" class="button-2">Submit</button>
+                </form>
             </div>
         </div>
     </div>
