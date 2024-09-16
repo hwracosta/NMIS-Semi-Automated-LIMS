@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class StaffFPWService {
@@ -23,53 +21,58 @@ public class StaffFPWService {
     @Autowired
     private JavaMailSender mailSender;
 
-    private static final Logger logger = LoggerFactory.getLogger(StaffFPWService.class);
-    private static final int EXPIRATION_MINUTES = 15;
-
-    // Store reset codes and expiration times (using ConcurrentHashMap for thread safety)
-    private final Map<String, PasswordResetData> passwordResetCodes = new ConcurrentHashMap<>();
+    // Store reset codes and expiration times
+    private final Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
 
     // Generate and send reset code to the staff's email
     public void sendPasswordResetCodeToEmail(String email) {
-        if (email == null || email.isEmpty()) {
-            logger.error("Invalid email address.");
-            return;
-        }
-
         Staff staff = staffRepository.findByEmail(email);
-        logger.info("Looking up staff with email: {}", email);
+
+        // Log email lookup for debugging purposes
+        System.out.println("Looking up staff with email: " + email);
 
         if (staff != null) {
-            String resetCode = generateResetCode();
-            LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(EXPIRATION_MINUTES);
+            String resetCode = generateResetCode();  // Generate reset code
+            LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // Code expires in 15 minutes
             passwordResetCodes.put(email, new PasswordResetData(resetCode, expirationTime));
 
-            logger.info("Generated reset code: {} for email: {}", resetCode, email);
+            // Log to verify code generation and email preparation
+            System.out.println("Generated reset code: " + resetCode + " for email: " + email);
 
+            // Send the email
             String subject = "Your Password Reset Code";
-            String content = "Your password reset code is: " + resetCode + ". It will expire in " + EXPIRATION_MINUTES + " minutes.";
+            String content = "Your password reset code is: " + resetCode + ". It will expire in 15 minutes.";
+
+            // Log before sending email
+            System.out.println("Sending reset email to: " + email);
             sendEmail(email, subject, content);
         } else {
-            logger.warn("No staff found with email: {}", email);
+            // Log if no staff found for the email
+            System.out.println("No staff found with email: " + email);
         }
     }
 
     // Verify the entered reset code
     public boolean verifyResetCode(String email, String resetCode) {
-        logger.info("Verifying reset code: {} for email: {}", resetCode, email);
-
         PasswordResetData resetData = passwordResetCodes.get(email);
+
+        // Log the verification attempt
+        System.out.println("Verifying reset code: " + resetCode + " for email: " + email);
 
         if (resetData != null && resetData.resetCode().equals(resetCode)) {
             if (LocalDateTime.now().isBefore(resetData.expirationTime())) {
-                passwordResetCodes.remove(email);
-                logger.info("Code verified successfully for email: {}", email);
+                passwordResetCodes.remove(email);  // Remove the code after successful verification
+
+                // Log successful verification
+                System.out.println("Code verified successfully for email: " + email);
                 return true;
             } else {
-                logger.warn("Code expired for email: {}", email);
+                // Log code expiration
+                System.out.println("Code expired for email: " + email);
             }
         } else {
-            logger.warn("Invalid code or no data found for email: {}", email);
+            // Log invalid code or no data found
+            System.out.println("Invalid code or no data found for email: " + email);
         }
         return false;
     }
@@ -77,15 +80,20 @@ public class StaffFPWService {
     // Reset the staff's password
     public boolean resetPassword(String email, String newPassword) {
         Staff staff = staffRepository.findByEmail(email);
-        logger.info("Resetting password for email: {}", email);
+
+        // Log the password reset attempt
+        System.out.println("Resetting password for email: " + email);
 
         if (staff != null) {
-            staff.setPassword(newPassword);  // Use passwordEncoder.encode(newPassword) if you implement password encoding
+            staff.setPassword(newPassword); // Consider hashing the password before saving
             staffRepository.save(staff);
-            logger.info("Password reset successfully for email: {}", email);
+
+            // Log successful password reset
+            System.out.println("Password reset successfully for email: " + email);
             return true;
         } else {
-            logger.error("Failed to reset password: Staff not found for email: {}", email);
+            // Log failure to find staff for password reset
+            System.out.println("Failed to reset password: Staff not found for email: " + email);
         }
         return false;
     }
@@ -93,8 +101,11 @@ public class StaffFPWService {
     // Generate a random 6-digit reset code
     private String generateResetCode() {
         Random random = new Random();
-        int code = 100000 + random.nextInt(900000);
-        logger.info("Generated 6-digit reset code: {}", code);
+        int code = 100000 + random.nextInt(900000);  // Generates a number between 100000 and 999999
+
+        // Log code generation
+        System.out.println("Generated 6-digit reset code: " + code);
+
         return String.valueOf(code);
     }
 
@@ -106,9 +117,13 @@ public class StaffFPWService {
         message.setSubject(subject);
         message.setText(content);
 
-        logger.info("Attempting to send email to: {}", toEmail);
+        // Log email sending attempt
+        System.out.println("Attempting to send email to: " + toEmail);
+
         mailSender.send(message);
-        logger.info("Email sent to: {}", toEmail);
+
+        // Log after email is sent
+        System.out.println("Email sent to: " + toEmail);
     }
 
     // Inner class to store reset code and expiration time
