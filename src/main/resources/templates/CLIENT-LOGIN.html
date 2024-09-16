@@ -15,6 +15,10 @@
             <span>Hello,<br /></span>
             <span class="text-wrapper-4">welcome!</span>
           </p>
+
+          <div th:if="${error}" class="error-message">
+            <p th:text="${error}" style="color: red; font-weight: bold;"></p>
+          </div>
           
           <form th:action="@{/client-login}" method="post">
             <div class="credentials">
