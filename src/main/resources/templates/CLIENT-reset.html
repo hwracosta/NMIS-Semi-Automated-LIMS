@@ -25,7 +25,6 @@
             </div>
             <div class="button">
                 <form th:action="@{/CLIENT-reset}" method="post">
-                    <!-- Hidden field for email (this should be passed along as well) -->
                     <input type="hidden" th:value="${email}" name="email" />
 
                     <div class="enter-password">
