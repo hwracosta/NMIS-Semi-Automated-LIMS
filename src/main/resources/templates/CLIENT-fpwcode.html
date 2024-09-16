@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Client Password Reset Code</title>
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/CLIENT-fpwcode.css}" />
+</head>
+<body>
+<div class="CLIENT-FPWCODE">
+    <div class="div">
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <img class="img" th:src="@{/img/HEADER.png}" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="text-wrapper-2">Client Login</div>
+            </div>
+        </header>
+        <div class="element-form">
+            <input class="overlap" />
+            <div class="forgot-password-wrapper">
+                <div class="forgot-password">Enter Reset Code</div>
+            </div>
+            <p class="fpw-descriptor">
+        <span class="span">Enter the
+        <span class="text-wrapper-3">reset code</span>
+        <span class="span">you received via email to proceed with password reset.</span>
+            </p>
+            <form action="#" th:action="@{/client-verify-reset-code}" method="post">
+                <p>
+                    <input class="input" id="input-1" type="text" name="resetCode" placeholder="6-digit reset code" required />
+                </p>
+                <button type="submit" class="button">
+                    <span class="button-text">Submit</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
