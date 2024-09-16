@@ -23,9 +23,10 @@
                     <div class="reset-text">Reset Password</div>
                 </div>
             </div>
+
             <div class="button">
                 <form th:action="@{/CLIENT-reset}" method="post">
-                    <input type="hidden" th:value="${email}" name="email" />
+                    <input type="hidden" th:value="${email}" name="email" />  <!-- Ensure email is passed -->
 
                     <div class="enter-password">
                         <label class="labbel" for="input-1">Enter Password</label>
