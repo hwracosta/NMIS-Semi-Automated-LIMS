@@ -23,6 +23,7 @@ public class ClientFPWService {
 
     // Store reset codes and expiration times for clients
     private Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
+    private Client verifiedClient;  // Store the verified client object here
 
     // Generate and send reset code to the client's email
     public void sendPasswordResetCodeToEmail(String email) {
@@ -30,7 +31,7 @@ public class ClientFPWService {
         if (client != null) {
             String code = generateResetCode();
             LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // Code expires in 15 minutes
-            passwordResetCodes.put(email, new PasswordResetData(code, expirationTime));
+            passwordResetCodes.put(code, new PasswordResetData(code, expirationTime, client));  // Store with code
 
             // Send the email
             String subject = "Your Password Reset Code";
@@ -39,24 +40,23 @@ public class ClientFPWService {
         }
     }
 
-    // Verify the entered reset code
-    public boolean verifyResetCode(String email, String code) {
-        PasswordResetData resetData = passwordResetCodes.get(email);
-        if (resetData != null && resetData.getCode().equals(code)) {
-            if (LocalDateTime.now().isBefore(resetData.getExpirationTime())) {
-                passwordResetCodes.remove(email);  // Remove the code after successful verification
-                return true;
-            }
+    // Verify the entered reset code and save the corresponding client
+    public boolean verifyResetCode(String code) {
+        PasswordResetData resetData = passwordResetCodes.get(code);
+        if (resetData != null && LocalDateTime.now().isBefore(resetData.getExpirationTime())) {
+            verifiedClient = resetData.getClient();  // Save the verified client
+            passwordResetCodes.remove(code);  // Remove the code after verification
+            return true;
         }
         return false;
     }
 
-    // Reset the client's password
-    public boolean resetPassword(String email, String newPassword) {
-        Client client = clientRepository.findByEmail(email);
-        if (client != null) {
-            client.setPassword(newPassword); // Ensure password encoding happens here
-            clientRepository.save(client);
+    // Reset the client's password after code verification
+    public boolean resetPassword(String newPassword) {
+        if (verifiedClient != null) {
+            verifiedClient.setPassword(newPassword); // Ensure password encoding happens here
+            clientRepository.save(verifiedClient);  // Save the client with the new password
+            verifiedClient = null;  // Clear after reset
             return true;
         }
         return false;
@@ -79,14 +79,16 @@ public class ClientFPWService {
         mailSender.send(message);
     }
 
-    // Inner class to store reset code and expiration time
+    // Inner class to store reset code, expiration time, and client information
     private static class PasswordResetData {
         private String code;
         private LocalDateTime expirationTime;
+        private Client client;
 
-        public PasswordResetData(String code, LocalDateTime expirationTime) {
+        public PasswordResetData(String code, LocalDateTime expirationTime, Client client) {
             this.code = code;
             this.expirationTime = expirationTime;
+            this.client = client;
         }
 
         public String getCode() {
@@ -95,6 +97,10 @@ public class ClientFPWService {
 
         public LocalDateTime getExpirationTime() {
             return expirationTime;
+        }
+
+        public Client getClient() {
+            return client;
         }
     }
 }
