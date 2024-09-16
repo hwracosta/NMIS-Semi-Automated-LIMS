@@ -23,26 +23,25 @@
                 <div class="reset-password-wrapper">
                     <div class="reset-text">Reset Password</div>
                 </div>
-            </div>
+                <div class="button">
+                    <!-- Form to handle password reset -->
+                    <form th:action="@{/CLIENT-reset}" method="post">
+                        <!-- Hidden field to capture email from flash attributes -->
+                        <input type="hidden" th:value="${email}" name="email" />
 
-            <div class="button">
-                <!-- Form to handle password reset -->
-                <form th:action="@{/CLIENT-reset}" method="post">
-                    <!-- Hidden field to capture email from URL parameter -->
-                    <input type="hidden" th:value="${email}" name="email" />
+                        <div class="enter-password">
+                            <label class="labbel" for="input-1">Enter Password</label>
+                            <input class="input" id="input-1" type="password" name="password" placeholder="Enter New Password" required />
+                        </div>
 
-                    <div class="enter-password">
-                        <label class="labbel" for="input-1">Enter Password</label>
-                        <input class="input" id="input-1" type="password" name="password" placeholder="Enter New Password" required />
-                    </div>
+                        <div class="confirm-password">
+                            <label class="labbel" for="input-2">Confirm Password</label>
+                            <input class="input" id="input-2" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
+                        </div>
 
-                    <div class="confirm-password">
-                        <label class="labbel" for="input-2">Confirm Password</label>
-                        <input class="input" id="input-2" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
-                    </div>
-
-                    <button type="submit" class="button-2">Submit</button>
-                </form>
+                        <button type="submit" class="button-2">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

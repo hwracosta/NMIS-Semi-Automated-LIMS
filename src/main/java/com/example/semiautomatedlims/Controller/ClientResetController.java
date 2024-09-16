@@ -20,20 +20,23 @@ public class ClientResetController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/CLIENT-reset")
-    public String showClientResetPage(Model model) {
-        return "CLIENT-reset";  // Simply return the reset page
+    public String showClientResetPage() {
+        return "CLIENT-reset";
     }
 
     @PostMapping("/CLIENT-reset")
     public String resetPassword(@RequestParam("password") String password,
                                 @RequestParam("confirmPassword") String confirmPassword,
                                 RedirectAttributes redirectAttributes) {
+        // Retrieve email from session attributes or flash attributes if necessary
+        String email = (String) redirectAttributes.getFlashAttributes().get("email");
+
         if (!password.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
             return "redirect:/CLIENT-reset";
         }
 
-        boolean resetSuccessful = clientFPWService.resetPassword(passwordEncoder.encode(password)); // Only password required
+        boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(password));
         if (resetSuccessful) {
             redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
             return "redirect:/CLIENT-login";
