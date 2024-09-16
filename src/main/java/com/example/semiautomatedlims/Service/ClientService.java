@@ -21,13 +21,10 @@ public class ClientService {
         return clientRepository.findByEmail(email);
     }
 
-    // Add this method in your ClientService class
-    public Client findByResetToken(String resetToken) {
+    // Method to find client by reset token
+    public Client findByResetToken(String resetToken) {  // Ensure the name matches in both files
         return clientRepository.findByResetToken(resetToken);
     }
-
-    // Method to find client by reset token
-    public Client findClientByResetToken(String token) { return clientRepository.findByResetToken(token); }
 
     // Method to save a new client
     public void saveClient(Client client) {
