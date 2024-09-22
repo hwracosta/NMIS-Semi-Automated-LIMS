@@ -1,112 +1,136 @@
-.CLIENT-RESET {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .CLIENT-RESET .div {
-    background-color: #f0f1f4;
-    overflow: hidden;
-    width: 1440px;
-    height: 1024px;
-    position: relative;
-  }
-  
-  .CLIENT-RESET .header {
-    position: absolute;
-    width: 1449px;
-    height: 150px;
-    top: 0;
-    left: -9px;
-    box-shadow: 0px 5px 70px #0000004c;
-  }
-  
-  .CLIENT-RESET .overlap-group {
-    position: relative;
-    width: 1449px;
-    height: 150px;
-  }
-  
-  .CLIENT-RESET .rectangle {
-    position: absolute;
-    width: 1440px;
-    height: 150px;
-    top: 0;
-    left: 9px;
-    background-color: #002267;
-  }
+.CLIENT-RESET { 
+  background-color: #f0f1f4;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh; 
+  overflow: auto;
+}
 
-  .CLIENT-RESET .img {
-    position: absolute;
-    width: 597px;
-    height: 122px;
-    top: 14px;
-    left: 14px;
-  }
-  
-   .CLIENT-RESET .text-wrapper {
-    position: absolute;
-    width: 531px;
-    top: 72px;
-    left: 888px;
-    font-family: "Averia Serif Libre-Bold", Helvetica;
-    font-weight: 700;
-    color: #f0f1f4;
-    font-size: 19px;
-    letter-spacing: 0.57px;
-    line-height: 26.6px;
-    white-space: nowrap;
-  }
+.CLIENT-RESET .div {
+  background-color: #f0f1f4;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-  .CLIENT-RESET .text-wrapper-2 {
+.CLIENT-RESET .header {
+position: relative;
+width: 100%;
+height: 150px;
+background-color: transparent;
+box-shadow: 0px 5px 70px #0000004c;
+}
+
+.CLIENT-RESET .overlap-group {
+position: relative;
+width: 100%;
+height: 150px;
+}
+
+.CLIENT-RESET .rectangle {
+position: absolute;
+width: 100vw; 
+height: 150px;
+top: 0;
+left: 0;
+background-color: #002267;
+}
+
+.CLIENT-RESET .img {
+position: absolute;
+width: auto;
+height: 122px;
+top: 14px;
+left: 20px;
+max-width: 100%; 
+}
+
+.CLIENT-RESET .text-wrapper {
+max-width: calc(100% - 40px); 
+top: 72px;
+font-family: "Averia Serif Libre-Bold", Helvetica;
+font-weight: 700;
+font-size: 1.1875rem; 
+letter-spacing: 0.57px;
+line-height: 1.6875rem; 
+position: absolute;
+right: 20px; 
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
+
+.CLIENT-RESET .text-wrapper-2 {
+max-width: calc(100% - 40px); 
+top: 47px;
+font-family: "Averia Serif Libre-Regular", Helvetica;
+font-weight: 400;
+font-size: 1.0625rem; 
+letter-spacing: 0.51px;
+line-height: 1.4875rem; 
+position: absolute;
+right: 20px;
+color: #f0f1f4;
+white-space: normal; 
+overflow-wrap: break-word; 
+word-wrap: break-word; 
+word-break: break-word; 
+}
+  
+.CLIENT-RESET .element-form {
+  position: relative;
+  width: 90%;
+  max-width: 643px;
+  height: auto; 
+  min-height: 415px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 10px 10px 4px #00000021;
+  margin: 100px auto; 
+  left: 0; 
+  transform: translateX(0);
+}
+  
+.CLIENT-RESET .overlap {
     position: absolute;
-    width: 200px;
-    top: 47px;
-    left: 888px;
-    font-family: "Averia Serif Libre-Regular", Helvetica;
+    width: 505px;
+    height: 21px;
+    top: 10px;
+    left: 69px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #000000;
+    border: 0;
+    background: none;
+    font-family: "Inter-Regular", Helvetica;
     font-weight: 400;
-    color: #f0f1f4;
-    font-size: 17px;
-    letter-spacing: 0.51px;
-    line-height: 23.8px;
-    white-space: nowrap;
-  }
-
-  .CLIENT-RESET .overlap {
-    position: absolute;
-    width: 643px;
-    height: 494px;
-    top: 296px;
-    left: 398px;
-    border-radius: 10px;
-  }
-
-  .CLIENT-RESET .element-form {
-    position: absolute;
-    width: 643px;
-    height: 494px;
-    top: 0;
-    left: 0;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: -3px -3px 20px 5px #00000021, 10px 10px 4px #00000021;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 21px;
+    padding: 0;
   }
   
-  .CLIENT-RESET .reset-password-wrapper{
-    position: relative;
-    width: 642px;
+.CLIENT-RESET .reset-password-wrapper {
+    position: absolute;
+    width: 100%;
     height: 64px;
     top: -1px;
     left: 1px;
-    background-color: #EBEBEB;
+    background-color: rgba(0, 0, 0, 0.03);
   }
-
-  .CLIENT-RESET .reset-text{
+  
+.CLIENT-RESET .reset-password {
     position: absolute;
     width: 449px;
-    top: 14px;
+    top: 10px;
     left: 23px;
     font-family: "Inter-Bold", Helvetica;
     font-weight: 700;
@@ -115,111 +139,88 @@
     letter-spacing: 0;
     line-height: 42px;
     white-space: nowrap;
-  }
+  } 
+  
+.CLIENT-RESET .form-wrapper {
+    position: absolute; 
+    top: 90px; 
+    width: 100%; 
+    left: 0;
+}
 
+.CLIENT-RESET .input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    margin-left: 70px;
+    top: 500px;
+}
+
+.CLIENT-RESET .label-1, .CLIENT-RESET .label-2 {
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #002267;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 28.8px;
+}
+
+.CLIENT-RESET .input-1, .CLIENT-RESET .input-2 {
+    min-width: 309px;
+    padding: var(--size-space-300) var(--size-space-400);
+    width: 85%;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: var(--color-background-default-default);
+    overflow: hidden;
+    border: none;
+    border-bottom: 1.29px solid;
+    border-radius: 10px;
+    border-color: var(--color-border-default-default);
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: 20.6px;
+    outline: none;
+}
+  
+  
 .CLIENT-RESET .button {
     all: unset;
     box-sizing: border-box;
     display: flex;
-    width: 585px;
+    width: 76.5%;
     height: 52px;
     align-items: center;
     justify-content: center;
-    gap: var(--size-space-200);
-    padding: var(--size-space-300);
+    gap: 8px;
+    padding: 12px;
     position: absolute;
-    top: 379px;
-    left: 24px;
+    top: 330px;
+    left: 70px;
     background-color: #002267;
-    border-radius: var(--size-radius-200);
+    border-radius: 8px;
     overflow: hidden;
     border: 1px solid;
-    border-color: var(--color-border-brand-default);
+    border-color: #2c2c2c;
     transition: all 0.2s ease;
   }
-  
-  .CLIENT-RESET .button:hover {
-    transform: scale(0.9);
-  }
-
-.CLIENT-RESET .button-2 {
-    all: unset;
-    box-sizing: border-box;
-    position: relative;
-    width: fit-content;
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    color: #F5F5F5;
-    font-size: var(--single-line-body-base-font-size);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    line-height: var(--single-line-body-base-line-height);
+.CLIENT-RESET .button-text {
+    font-family: "Averia Serif Libre-Bold", Helvetica;
+    font-size: 17px;
+    color: #f0f1f4; 
     white-space: nowrap;
-    font-style: var(--single-line-body-base-font-style);
-  }
-
-  .CLIENT-RESET .enter-password {
-    display: flex;
-    flex-direction: column;
-    width: 585px;
-    height: 97px;
-    align-items: flex-start;
-    gap: var(--size-space-200);
-    position: absolute;
-    top: 114px;
-    left: 24px;
-  }
-
-  .CLIENT-RESET .labbel{
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.29px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #002267;
-    font-size: 20.6px;
-    letter-spacing: 0;
-    line-height: 28.8px;
+    position: static; 
+    text-align: center; 
+    width: auto; 
+  }  
+  
+.CLIENT-RESET .button:hover {
+    transform: scale(0.9); 
+    cursor: pointer;
   }
   
-  .CLIENT-RESET .input {
-    min-width: 309px;
-    padding: 10px 20px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    margin-bottom: -0.64px;
-    margin-left: -0.64px;
-    margin-right: -0.64px;
-    background-color: #ffffff;
-    border-radius: 9.97px;
-    overflow: hidden;
-    border: 1.29px solid;
-    border-color: #D9D9D9;
-    flex: 1;
-    flex-grow: 1;
-    margin-top: -0,64px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: var(--color-text-default-tertiary);
-    font-size: 20.6px;
-    letter-spacing: 0;
-    line-height: 20.6px;
-  }
-
-  .CLIENT-RESET .input::placeholder {
-    color: #B3B3B3;
-    opacity: 1;
-  }
   
-
-  .CLIENT-RESET .confirm-password {
-    display: flex;
-    flex-direction: column;
-    width: 585px;
-    height: 97px;
-    align-items: flex-start;
-    gap: var(--size-space-200);
-    position: absolute;
-    top: 236px;
-    left: 24px;
-  }

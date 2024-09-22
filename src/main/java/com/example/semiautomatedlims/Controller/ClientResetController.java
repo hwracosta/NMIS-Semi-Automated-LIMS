@@ -20,26 +20,32 @@ public class ClientResetController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/CLIENT-reset")
-    public String showClientResetPage() {
+    public String showClientResetPage(Model model) {
+        // Ensure the email is passed to the reset page if required
+        if (!model.containsAttribute("email")) {
+            model.addAttribute("email", "");
+        }
         return "CLIENT-reset";
     }
 
     @PostMapping("/CLIENT-reset")
-    public String resetPassword(@RequestParam("password") String password,
+    public String resetPassword(@RequestParam("newPassword") String newPassword,
                                 @RequestParam("confirmPassword") String confirmPassword,
+                                @RequestParam("email") String email, // Expecting email to come from the form
                                 RedirectAttributes redirectAttributes) {
-        // Retrieve email from session attributes or flash attributes if necessary
-        String email = (String) redirectAttributes.getFlashAttributes().get("email");
 
-        if (!password.equals(confirmPassword)) {
+        // Check if the passwords match
+        if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
             return "redirect:/CLIENT-reset";
         }
 
-        boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(password));
+        // Call the service to handle password reset
+        boolean resetSuccessful = clientFPWService.resetPassword(email, passwordEncoder.encode(newPassword));
+
         if (resetSuccessful) {
             redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
-            return "redirect:/CLIENT-login";
+            return "redirect:/client-login";
         } else {
             redirectAttributes.addFlashAttribute("error", "Failed to reset password.");
             return "redirect:/CLIENT-reset";
