@@ -1,6 +1,6 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Service.StaffFPWService;
+import com.example.semiautomatedlims.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,34 +14,50 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class StaffResetController {
 
     @Autowired
-    private StaffFPWService staffFPWService;
+    private StaffService staffService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/STAFF-reset")
-    public String showStaffResetPage() {
+    public String showStaffResetPage(Model model) {
+        // Ensure the email is passed to the reset page if required
+        if (!model.containsAttribute("email")) {
+            model.addAttribute("email", "");
+        }
         return "STAFF-reset";
     }
 
-    // Handle the reset password form submission
     @PostMapping("/STAFF-reset")
-    public String resetPassword(@RequestParam("email") String email,
-                                @RequestParam("password") String password,
+    public String resetPassword(@RequestParam("newPassword") String newPassword,
                                 @RequestParam("confirmPassword") String confirmPassword,
-                                Model model, RedirectAttributes redirectAttributes) {
-        if (!password.equals(confirmPassword)) {
-            model.addAttribute("error", "Passwords do not match.");
-            return "STAFF-reset";
+                                @RequestParam("email") String email, // Expecting email to come from the form
+                                RedirectAttributes redirectAttributes) {
+
+        System.out.println("Email received in resetPassword POST: " + email); // Log the email
+
+        if (email == null || email.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Email is missing.");
+            return "redirect:/STAFF-reset";
         }
 
-        boolean resetSuccessful = staffFPWService.resetPassword(email, passwordEncoder.encode(password));
+        redirectAttributes.addFlashAttribute("email", email);
+
+        // Check if the passwords match
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            return "redirect:/STAFF-reset";
+        }
+
+        // Call the service to handle password reset
+        boolean resetSuccessful = staffService.resetPassword(email, passwordEncoder.encode(newPassword));
+
         if (resetSuccessful) {
             redirectAttributes.addFlashAttribute("message", "Password reset successfully! You can now log in.");
-            return "redirect:/staff-login";  // Redirect to login page after successful reset
+            return "redirect:/STAFF-login";
         } else {
-            model.addAttribute("error", "Failed to reset the password. Please try again.");
-            return "STAFF-reset";
+            redirectAttributes.addFlashAttribute("error", "Failed to reset password.");
+            return "redirect:/STAFF-reset";
         }
     }
 }

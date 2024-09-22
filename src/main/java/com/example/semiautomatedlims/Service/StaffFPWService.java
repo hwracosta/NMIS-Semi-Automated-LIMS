@@ -5,6 +5,7 @@ import com.example.semiautomatedlims.Repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,43 +20,39 @@ public class StaffFPWService {
     private StaffRepository staffRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private JavaMailSender mailSender;
 
-    // Store reset codes and expiration times
+    // Store reset codes and expiration times for staff
     private final Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
 
     // Generate and send reset code to the staff's email
     public void sendPasswordResetCodeToEmail(String email) {
-            String resetCode = generateResetCode();  // Generate reset code
+        Staff staff = staffRepository.findByEmail(email);
+        if (staff != null) {
+            String code = generateResetCode();
             LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // Code expires in 15 minutes
-            passwordResetCodes.put(email, new PasswordResetData(resetCode, expirationTime));
+            passwordResetCodes.put(email, new PasswordResetData(code, expirationTime));
 
             // Send the email
             String subject = "Your Password Reset Code";
-            String content = "Your password reset code is: " + resetCode + ". It will expire in 15 minutes.";
-
+            String content = "Your password reset code is: " + code + ". It will expire in 15 minutes.";
             sendEmail(email, subject, content);
         }
-
-    // Verify the entered reset code
-    public boolean verifyResetCode(String email, String resetCode) {
-        PasswordResetData resetData = passwordResetCodes.get(email);
-        if (resetData != null && resetData.getResetCode().equals(resetCode)) {
-            if (LocalDateTime.now().isBefore(resetData.getExpirationTime())) {
-                passwordResetCodes.remove(email);  // Remove the code after successful verification
-                return true;
-            }
-        }
-        return false;
     }
 
-    // Reset the staff's password
-    public boolean resetPassword(String email, String newPassword) {
-        Staff staff = staffRepository.findByEmail(email);
-
-        if (staff != null) {
-            staff.setPassword(newPassword); // Consider hashing the password before saving
-            staffRepository.save(staff);
+    // Verify the entered reset code
+    public boolean verifyResetCode(String code) {
+        for (Map.Entry<String, PasswordResetData> entry : passwordResetCodes.entrySet()) {
+            PasswordResetData resetData = entry.getValue();
+            if (resetData.getCode().equals(code)) {
+                if (LocalDateTime.now().isBefore(resetData.getExpirationTime())) {
+                    passwordResetCodes.remove(entry.getKey());  // Remove the code after verification
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -75,5 +72,33 @@ public class StaffFPWService {
         message.setSubject(subject);
         message.setText(content);
         mailSender.send(message);
+    }
+
+    public String getEmailByCode(String code) {
+        for (Map.Entry<String, PasswordResetData> entry : passwordResetCodes.entrySet()) {
+            if (entry.getValue().getCode().equals(code)) {
+                return entry.getKey();  // Return the email associated with the code
+            }
+        }
+        return null;  // Return null if no match found
+    }
+
+    // Inner class to store reset code and expiration time
+    private static class PasswordResetData {
+        private String code;
+        private LocalDateTime expirationTime;
+
+        public PasswordResetData(String code, LocalDateTime expirationTime) {
+            this.code = code;
+            this.expirationTime = expirationTime;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public LocalDateTime getExpirationTime() {
+            return expirationTime;
+        }
     }
 }

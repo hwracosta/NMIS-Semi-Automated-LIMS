@@ -3,7 +3,6 @@ package com.example.semiautomatedlims.Controller;
 import com.example.semiautomatedlims.Service.StaffFPWService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,18 +19,18 @@ public class StaffFPWCodeController {
         return "STAFF-fpwcode";
     }
 
-    // Handle the form submission for code verification
     @PostMapping("/STAFF-fpwcode")
-    public String verifyResetCode(@RequestParam("email") String email,
-                                  @RequestParam("code") String code,
-                                  Model model, RedirectAttributes redirectAttributes) {
-        boolean isCodeValid = staffFPWService.verifyResetCode(email, code);
-        if (isCodeValid) {
-            redirectAttributes.addFlashAttribute("message", "Code verified successfully! You can now reset your password.");
-            return "redirect:/STAFF-reset";  // Redirect to the password reset page
+    public String verifyResetCode(@RequestParam("code") String code,
+                                  RedirectAttributes redirectAttributes) {
+        String email = staffFPWService.getEmailByCode(code);  // Assuming the code is tied to an email
+
+        if (email != null && staffFPWService.verifyResetCode(code)) {
+            // Redirect to reset page with email in flash attributes
+            redirectAttributes.addFlashAttribute("email", email);
+            return "redirect:/STAFF-reset";
         } else {
-            model.addAttribute("error", "Invalid or expired code.");
-            return "STAFF-fpwcode";  // Stay on the same page for reattempt
+            redirectAttributes.addFlashAttribute("error", "Invalid or expired code.");
+            return "redirect:/STAFF-fpwcode";
         }
     }
 }
