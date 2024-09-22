@@ -140,6 +140,10 @@
   box-shadow: 0px 3px 40px #00000040;
 }
 
+.overlap-2:hover {
+  transform: scale(1); 
+}
+
 .CLIENT-HOME .text-wrapper-5 {
   position: absolute;
   width: 167px;
