@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory Request Form</title>
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+     <link rel="stylesheet" th:href="@{/css/CLIENT-reqform.css}" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h2>Republic of the Philippines</h2>
+                <h3>Department of Agriculture</h3>
+                <h3>NATIONAL MEAT INSPECTION SERVICE</h3>
+            </div>
+            <div class="client-info">
+                <h3>Client</h3>
+                <h2>LABORATORY INFORMATION MANAGEMENT SYSTEM</h2>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <h1>LABORATORY REQUEST FORM</h1>
+                <p>By completing this from, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to
+                    adhere to the principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.</p>
+            </div>
+
+            <form class="lab-form">
+                <!-- First Section -->
+                <div class="form-section">
+                    <label>Company Name</label>
+                    <input type="text" placeholder="Value">
+
+                    <label>Representative Name</label>
+                    <input type="text" placeholder="Value">
+                    
+                    <label>Address</label>
+                    <input type="text" placeholder="Value">
+
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Value">
+
+                    <label>Contact Number</label>
+                    <input type="text" placeholder="Value">
+
+                    <label>*LD Control No(s)</label>
+                    <input type="text" placeholder="Value">
+
+                    <label>LTO No. (if applicable)</label>
+                    <input type="text" placeholder="Value">
+
+                    <label>OR No.</label>
+                    <input type="text" placeholder="Value">
+                </div>
+
+                <!-- Client Classification Section -->
+                <div class="form-section">
+                    <h3>Client Classification (check what is applicable)</h3>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="importer" name="client" value="importer">
+                        <label for="importer">Importer/Exporter</label>
+
+                        <input type="checkbox" id="meat_dealer" name="client" value="meat_dealer">
+                        <label for="meat_dealer">Meat Dealer</label>
+
+                        <input type="checkbox" id="consumer" name="client" value="consumer">
+                        <label for="consumer">Consumer</label>
+
+                        <input type="checkbox" id="plant_officer" name="client" value="plant_officer">
+                        <label for="plant_officer">Plant Officer</label>
+
+                        <input type="checkbox" id="slh" name="client" value="slh">
+                        <label for="slh">SLH</label>
+
+                        <input type="checkbox" id="pdp" name="client" value="pdp">
+                        <label for="pdp">PDP</label>
+
+                        <input type="checkbox" id="mpp" name="client" value="mpp">
+                        <label for="mpp">MPP</label>
+
+                        <input type="checkbox" id="mcp" name="client" value="mcp">
+                        <label for="mcp">MCP</label>
+
+                        <input type="checkbox" id="csw" name="client" value="csw">
+                        <label for="csw">CSW</label>
+                    </div>
+                </div>
+
+                <!-- Sample Information -->
+                <div class="form-section">
+                    <h3>GENERAL SAMPLE INFORMATION</h3>
+                    <p>Samples for Laboratory Test must be hygienically and individually packed, sealed and labelled, with no unusual odor.</p>
+                    <p>Instructions for the client on how to fill-up this section:<br>
+                        1. Put your sample code, if any, in the “Client’s Sample Code”<br>
+                        2. In the “Sample Description and Details”, write the type of sample (species & meat part classification/cuts) you are submitting, with batch/lot
+                        number of the sample and brand name, if any.<br>
+                               a. For imported samples, provide the batch/lot number of the sample and the container number where the sample/s were kept.
+                        3. In the “Sample Source” box:<br>
+                               a. For Local samples, indicate the name of the slaughterhouse, meat cutting plant, or poultry dressing plant source and the farm hog dealer source, if possible.<br>
+                               b. For Imported samples, indicate the name of the local cold storage warehouse and the name of the Foreign Meat Establishment and
+                        country where the sample/s were sourced.<br>
+                        4. Fill up the remaining boxes accordingly.</p>
+                    
+                </div>
+
+                <!-- Examination Section -->
+                <div class="form-section">
+                    <h3>EXAMINATION</h3>
+                    <label>Purpose of Laboratory Test</label>
+                    <input type="text" placeholder="Value"> <!--Should be dropdown menu-->
+
+                    <!-- Microbiological Tests -->
+                    <div class="checkbox-group">
+                        <h4>Microbiological Tests</h4>
+                        <input type="checkbox" id="standard_count" name="test" value="standard_count">
+                        <label for="standard_count">Standard Plate Count (Php 150.00)</label>
+
+                        <input type="checkbox" id="staphylococcus" name="test" value="staphylococcus">
+                        <label for="staphylococcus">Staphylococcus aureus (Php 350.00)</label>
+
+                        <input type="checkbox" id="salmonella" name="test" value="salmonella">
+                        <label for="salmonella">Salmonella sp. (Php 350.00)</label>
+                        
+                        <input type="checkbox" id="campylobacter" name="test" value="campylobacter">
+                        <label for="campylobacter">Campylobacter (Php 1,500.00)</label>
+
+                        <input type="checkbox" id="coliform" name="test" value="coliform">
+                        <label for="coliform">Coliform Count (Php 150.00)</label>
+
+                        <input type="checkbox" id="culture" name="test" value="culture">
+                        <label for="culture">Culture and Sensitivity Test (Php1,500/panel)</label> <!--Should be checkbox within dropdown menu-->
+
+                        <input type="checkbox" id="e_coli" name="test" value="e_coli">
+                        <label for="e_coli">E. Coli (Php 350.00)</label>
+
+                        <input type="checkbox" id="e_coli2" name="test" value="e_coli2">
+                        <label for="e_coli2">E. Coli & E. Coli O157;H7 (Php 700.00)</label>
+
+                        <input type="checkbox" id="yeast" name="test" value="yeast">
+                        <label for="yeast">Yeast and Molds (Php 300.00)</label>
+                    <!-- MolBio Tests -->
+                    <!-- Chem Tests -->
+                    <!--Releasing of Lab Result-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+<!--Refer to Figma REQUEST FORM PAGE-->
