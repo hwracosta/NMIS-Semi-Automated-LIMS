@@ -21,10 +21,10 @@ public class ClientFPWCodeController {
 
     @PostMapping("/CLIENT-fpwcode")
     public String verifyResetCode(@RequestParam("code") String code,
-                                  @RequestParam(value = "email", required = false) String email,  // Email is optional
                                   RedirectAttributes redirectAttributes) {
-        boolean isCodeValid = clientFPWService.verifyResetCode(code);
-        if (isCodeValid) {
+        String email = clientFPWService.getEmailByCode(code);  // Assuming the code is tied to an email
+
+        if (email != null && clientFPWService.verifyResetCode(code)) {
             // Redirect to reset page with email in flash attributes
             redirectAttributes.addFlashAttribute("email", email);
             return "redirect:/CLIENT-reset";

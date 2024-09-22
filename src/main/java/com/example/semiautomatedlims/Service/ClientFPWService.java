@@ -5,6 +5,7 @@ import com.example.semiautomatedlims.Repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,10 +20,13 @@ public class ClientFPWService {
     private ClientRepository clientRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private JavaMailSender mailSender;
 
     // Store reset codes and expiration times for clients
-    private Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
+    private final Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
 
     // Generate and send reset code to the client's email
     public void sendPasswordResetCodeToEmail(String email) {
@@ -53,16 +57,16 @@ public class ClientFPWService {
         return false;
     }
 
-    // Reset the client's password
-    public boolean resetPassword(String email, String newPassword) {
-        Client client = clientRepository.findByEmail(email);
-        if (client != null) {
-            client.setPassword(newPassword); // Ensure password encoding happens here
-            clientRepository.save(client);
-            return true;
-        }
-        return false;
-    }
+//    public boolean resetPassword(String email, String newPassword) {
+//        Client client = clientRepository.findByEmail(email);
+//        if (client != null) {
+//            client.setPassword(passwordEncoder.encode(newPassword));
+//            clientRepository.save(client);
+//            return true;
+//        }
+//        return false;
+//    }
+
 
     // Generate a random 6-digit reset code
     private String generateResetCode() {
@@ -79,6 +83,15 @@ public class ClientFPWService {
         message.setSubject(subject);
         message.setText(content);
         mailSender.send(message);
+    }
+
+    public String getEmailByCode(String code) {
+        for (Map.Entry<String, PasswordResetData> entry : passwordResetCodes.entrySet()) {
+            if (entry.getValue().getCode().equals(code)) {
+                return entry.getKey();  // Return the email associated with the code
+            }
+        }
+        return null;  // Return null if no match found
     }
 
     // Inner class to store reset code and expiration time

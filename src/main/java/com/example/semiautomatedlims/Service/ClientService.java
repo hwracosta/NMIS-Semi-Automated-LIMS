@@ -43,12 +43,13 @@ public class ClientService {
         return false;
     }
 
-    // Method to reset the password
-    public boolean resetPassword(String token, String newPassword) {
-        Client client = clientRepository.findByResetToken(token);
-        if (client != null && client.getTokenExpiry().isAfter(LocalDateTime.now())) {
-            client.setPassword(passwordEncoder.encode(newPassword));  // Encode the new password
-            client.setResetToken(null);  // Clear the token after reset
+    // Reset the client's password
+// Example when resetting a password
+    public boolean resetPassword(String email, String newPassword) {
+        Client client = clientRepository.findByEmail(email);
+        if (client != null) {
+            // Hash the new password before saving
+            client.setPassword(passwordEncoder.encode(newPassword));
             clientRepository.save(client);
             return true;
         }
