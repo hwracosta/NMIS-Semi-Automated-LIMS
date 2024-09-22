@@ -15,19 +15,22 @@
                 <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
                 <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
                 <div class="text-wrapper-2">Client Login</div>
+                <div class="logout-button">
+                    <span class="log-out"> <a th:href="@{/client-login}">Log out</a></span> 
+                </div>
             </div>
         </header>
-        <div class="overlap">
+        <button class="overlap">
             <div class="text-wrapper-3">Track My Request</div>
             <img class="log" th:src="@{/img/TrackMyRequest-Icon.png}" />
-        </div>
-        <div class="overlap-2">
+        </button>
+        <button class="overlap-2">
             <div class="text-wrapper-4">Submit a Request</div>
             <img class="submit" th:src="@{/img/SubmitARequest-Icon.png}" />
-        </div>
-        <div class="overlap-3">
+        </button>
+        <button class="overlap-3">
             <div class="text-wrapper-5">Guide</div>
-        </div>
+        </button>
     </div>
 </div>
 </body>
