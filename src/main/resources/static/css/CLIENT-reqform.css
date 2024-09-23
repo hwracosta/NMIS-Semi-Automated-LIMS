@@ -222,6 +222,21 @@ p {
     line-height: 1.5;
 }
 
+.certify-checkbox {
+    width: 20px;  
+    height: 20px; 
+    cursor: pointer; 
+    margin-right: 10px; 
+}
+
+label[for="certify"] {
+    font-size: 14px; 
+    line-height: 1.5; 
+    display: flex;    
+    align-items: center; 
+}
+
+
 form {
     margin-top: 20px;
 }
@@ -311,6 +326,7 @@ textarea {
     appearance: none;             
     outline: none;              
     transition: border-color 0.3s ease; 
+    margin-bottom: 20px;
 }
 
 .purpose-options:focus {
@@ -322,7 +338,6 @@ textarea {
 }
 
 .others-input {
-    margin-top: 10px;
     margin-bottom: 20px;
 }
 /*client information section*/
