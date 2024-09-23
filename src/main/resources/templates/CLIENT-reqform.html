@@ -20,8 +20,8 @@
         <div class="form-container">
             <div class="form-header">
                 <h1>LABORATORY REQUEST FORM</h1>
-                <p>By completing this from, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to
-                    adhere to the principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.</p>
+                <p><i>By completing this from, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to
+                    adhere to the principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.</i></p>
                 <hr>    
             </div>
 
@@ -35,13 +35,6 @@
                     <div class="form-group">
                         <label for="repName">Representative Name</label>
                         <input type="text" id="repName" name="repName" placeholder="Value">
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Value">
                     </div>
                 </div>
                 <div class="row">
@@ -66,13 +59,25 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="ltoNo">LTO No. <i>(if applicable)</i></label>
-                        <input type="text" id="ltoNo" name="ltoNo" placeholder="Value">
+                        <label for="lto_no">LTO No. <i>(if applicable)</i></label>
+                        <input type="text" id="lto_no" name="lto_no" placeholder="Value">
+                    </div>
+                    <div class="form-group">
+                        <label for="client_classif">Client Classification</label>
+                        <input type="text" id="client_classif" name="client_classif" placeholder="Value">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="Value">
+                    </div>
+                </div>
+                
 
                 <!-- Client Classification Section -->
-                <h4>Client Classification <i>(check what is applicable)</i></h4>
+
+                <!--<h4>Client Classification <i>(check what is applicable)</i></h4>
                 <div class="client-group">
                     <div class="checkbox-items">
                         <div class="checkbox-item">
@@ -120,7 +125,7 @@
                             <label for="csw">CSW</label>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <!--Sample Section-->
                 <div class="container">
@@ -179,12 +184,13 @@
                         <!-- Checkbox and certification text -->
                         <div class="form-footer">
                             <label for="certify">
-                                <input type="checkbox" id="certify" name="certify" required>
+                                <input class="certify-checkbox"type="checkbox" id="certify" name="certify" required>
                                 I hereby certify that all the above information is true and correct. All information provided herein can be used for whatever legal purpose it may serve. 
                                 Samples shall be discarded after six (6) months and related laboratory documents shall be disposed of according to MNIS-RDS as approved by NAP.
                             </label>
                         </div>
                     </div>
+                    <hr>
                 <!--Purpose of Testing-->
                 <div class="form-section">
                     <label class="purpose-label" for="test-purpose">Purpose of Laboratory Test</label>
@@ -199,6 +205,7 @@
                     </select>
                 <input class="others-input" type="text" id="other-purpose" placeholder="Please specify" style="display: none;">
                 <script th:src="@{/js/CLIENT-labpurpose.js}"></script>
+                <hr>
                     
                     <!-- Examination Section -->
                     <!-- Microbiological Tests -->
