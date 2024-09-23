@@ -5,8 +5,8 @@ CREATE TABLE CLIENT_register (
     representative_name VARCHAR(255) NOT NULL,
     contact_number VARCHAR(20) NOT NULL,
     company_name VARCHAR(255) NOT NULL,
-    lto_no VARCHAR(100);
-    client_classif VARCHAR(100) NOT NULL,
+    lto_no VARCHAR(100),
+    client_classif VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE STAFF_register (

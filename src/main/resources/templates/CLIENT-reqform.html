@@ -12,11 +12,11 @@
           <div class="rectangle"></div>
           <img class="img" th:src="@{/img/HEADER.png}" />
           <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-          <div class="text-wrapper-2">Staff Login</div>
+          <div class="text-wrapper-2">Client Request Form</div>
         </div>
       </header>
     
-    <main>
+    <form th:action="@{/CLIENT-reqform}" method="post">
         <div class="form-container">
             <div class="form-header">
                 <h1>LABORATORY REQUEST FORM</h1>
@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="form-group">
                         <label for="ldControl">*LD Control No(s)</label>
-                        <input type="text" id="ldControl" name="ldControl" placeholder="Value">
+                        <input type="text" id="ldControl" name="ldNo" placeholder="Value">
                     </div>
                     <div class="form-group">
                         <label for="orNo">OR No.</label>
@@ -142,7 +142,7 @@
                         4. Fill up the remaining boxes accordingly.</i>
                     </p>
                     <br>
-                    <form>
+                    
                         <div class="form-layout">
                             <!-- Left Side -->
                             <div class="form-left">
@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="form-section">
                                     <label for="sampleDescription">Sample Description and Details:</label>
-                                    <textarea id="sampleDescription" name="sampleDescription"></textarea>
+                                    <textarea id="sampleDescription" name="sampleDetails"></textarea>
                                 </div>
                                 <div class="form-section">
                                     <label for="sampleSource">Sample Source:</label>
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="form-section">
                                     <label for="weight">Weight (grams):</label>
-                                    <input type="number" id="weight" name="weight">
+                                    <input type="number" id="weight" name="weightGrams">
                                 </div>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                 <!--Purpose of Testing-->
                 <div class="form-section">
                     <label class="purpose-label" for="test-purpose">Purpose of Laboratory Test</label>
-                    <select class="purpose-options" id="test-purpose" name="test-purpose">
+                    <select class="purpose-options" id="test-purpose" name="purposeTest">
                         <option value="">Select an option</option>
                         <option value="monitoring">Monitoring</option>
                         <option value="local_trade">Local Trade</option>
@@ -217,47 +217,47 @@
                     
                         <div class="checkbox-items">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="standard_count" name="test" value="standard_count">
+                                <input type="checkbox" id="standard_count" name="microbioTests" value="standard_count">
                                 <label for="standard_count">Standard Plate Count (Php 150.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="staphylococcus" name="test" value="staphylococcus">
+                                <input type="checkbox" id="staphylococcus" name="microbioTests" value="staphylococcus">
                                 <label for="staphylococcus">Staphylococcus aureus (Php 350.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="salmonella" name="test" value="salmonella">
+                                <input type="checkbox" id="salmonella" name="microbioTests" value="salmonella">
                                 <label for="salmonella">Salmonella sp. (Php 350.00)</label>
                             </div>
                             
                             <div class="checkbox-item">
-                                <input type="checkbox" id="campylobacter" name="test" value="campylobacter">
+                                <input type="checkbox" id="campylobacter" name="microbioTests" value="campylobacter">
                                 <label for="campylobacter">Campylobacter (Php 1,500.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="coliform" name="test" value="coliform">
+                                <input type="checkbox" id="coliform" name="microbioTests" value="coliform">
                                 <label for="coliform">Coliform Count (Php 150.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="culture" name="test" value="culture">
+                                <input type="checkbox" id="culture" name="microbioTests" value="culture">
                                 <label for="culture">Culture and Sensitivity Test (Php 1,500/panel)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="e_coli" name="test" value="e_coli">
+                                <input type="checkbox" id="e_coli" name="microbioTests" value="e_coli">
                                 <label for="e_coli">E. Coli (Php 350.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="e_coli2" name="test" value="e_coli2">
+                                <input type="checkbox" id="e_coli2" name="microbioTests" value="e_coli2">
                                 <label for="e_coli2">E. Coli & E. Coli O157;H7 (Php 700.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="yeast" name="test" value="yeast">
+                                <input type="checkbox" id="yeast" name="microbioTests" value="yeast">
                                 <label for="yeast">Yeast and Molds (Php 300.00)</label>
                             </div>
                         </div>
@@ -271,47 +271,47 @@
                         
                         <div class="checkbox-items">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="dog" name="test" value="dog">
+                                <input type="checkbox" id="dog" name="molecTests" value="dog">
                                 <label for="dog">Dog (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="cat" name="test" value="cat">
+                                <input type="checkbox" id="cat" name="molecTests" value="cat">
                                 <label for="cat">Cat (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="chicken" name="test" value="chicken">
+                                <input type="checkbox" id="chicken" name="molecTests" value="chicken">
                                 <label for="chicken">Chicken (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="buffalo" name="test" value="buffalo">
+                                <input type="checkbox" id="buffalo" name="molecTests" value="buffalo">
                                 <label for="buffalo">Buffalo (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="cattle" name="test" value="cattle">
+                                <input type="checkbox" id="cattle" name="molecTests" value="cattle">
                                 <label for="cattle">Cattle (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="horse" name="test" value="horse">
+                                <input type="checkbox" id="horse" name="molecTests" value="horse">
                                 <label for="horse">Horse (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="goat" name="test" value="goat">
+                                <input type="checkbox" id="goat" name="molecTests" value="goat">
                                 <label for="goat">Goat (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="sheep" name="test" value="sheep">
+                                <input type="checkbox" id="sheep" name="molecTests" value="sheep">
                                 <label for="sheep">Sheep (Php 1,500)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="swine" name="test" value="swine">
+                                <input type="checkbox" id="swine" name="molecTests" value="swine">
                                 <label for="swine">Swine (Php 1,500)</label>
                             </div>
                         </div>
@@ -324,32 +324,32 @@
                         <h4 class ="chem-sub-labels">• Microbial Inhibition Test (5 Days)</h4>                            
                         <div class="checkbox-items">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="beta-lactams" name="test" value="beta-lactams">
+                                <input type="checkbox" id="beta-lactams" name="chemTests" value="beta-lactams">
                                 <label for="beta-lactams">Beta-lactams (Php 375.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="tetracyclines" name="test" value="tetracyclines">
+                                <input type="checkbox" id="tetracyclines" name="chemTests" value="tetracyclines">
                                 <label for="tetracyclines">Tetracyclines (Php 375.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="sulfonamides" name="test" value="sulfonamides">
+                                <input type="checkbox" id="sulfonamides" name="chemTests" value="sulfonamides">
                                 <label for="sulfonamides">Sulfonamides (Php 375.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="aminoglycosides" name="test" value="aminoglycosides">
+                                <input type="checkbox" id="aminoglycosides" name="chemTests" value="aminoglycosides">
                                 <label for="aminoglycosides">Aminoglycosides (Php 375.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="macrolides" name="test" value="macrolides">
+                                <input type="checkbox" id="macrolides" name="chemTests" value="macrolides">
                                 <label for="macrolides">Macrolides (Php 375.00)</label>
                             </div>
                     
                             <div class="checkbox-item">
-                                <input type="checkbox" id="quinolones" name="test" value="quinolones">
+                                <input type="checkbox" id="quinolones" name="chemTests" value="quinolones">
                                 <label for="quinolones">Quinolones (Php 375.00)</label>
                             </div>
                         </div>
@@ -358,42 +358,42 @@
                         <h4 class ="chem-sub-labels">• Enzyme-Linked ImmunoSorbent Assay (ELISA) (6 Days)</h4>                            
                             <div class="checkbox-items">
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="chloramphenicol" name="test" value="chloramphenicol">
+                                    <input type="checkbox" id="chloramphenicol" name="chemTests" value="chloramphenicol">
                                     <label for="chloramphenicol">Chloramphenicol (Php1,500)</label>
                                 </div>
                     
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="nitrofuran-aoz" name="test" value="nitrofuran-aoz">
+                                    <input type="checkbox" id="nitrofuran-aoz" name="chemTests" value="nitrofuran-aoz">
                                     <label for="nitrofuran-aoz">Nitrofuran AOZ (Php1,500)</label>
                                 </div>
                     
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="nitrofuran-amoz" name="test" value="nitrofuran-amoz">
+                                    <input type="checkbox" id="nitrofuran-amoz" name="chemTests" value="nitrofuran-amoz">
                                     <label for="nitrofuran-amoz">Nitrofuran AMOZ (Php1,500)</label>
                                 </div>
                     
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="corticosteroids" name="test" value="corticosteroids">
+                                    <input type="checkbox" id="corticosteroids" name="chemTests" value="corticosteroids">
                                     <label for="corticosteroids">Corticosteroids (Php1,500)</label>
                                 </div>
                     
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="olaquindox" name="test" value="olaquindox">
+                                    <input type="checkbox" id="olaquindox" name="chemTests" value="olaquindox">
                                     <label for="olaquindox">Olaquindox (Php1,500)</label>
                                 </div>
                     
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="beta-agonists" name="test" value="beta-agonists">
+                                    <input type="checkbox" id="beta-agonists" name="chemTests" value="beta-agonists">
                                     <label for="beta-agonists"> Beta-agonists (Php1,500)</label>
                                 </div>
 
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="stilbenes" name="test" value="stilbenes">
+                                    <input type="checkbox" id="stilbenes" name="chemTests" value="stilbenes">
                                     <label for="stilbenes">Stilbenes (Php1,500)</label>
                                 </div>
 
                                 <div class="checkbox-item">
-                                    <input type="checkbox" id="ractopamine" name="test" value="ractopamine">
+                                    <input type="checkbox" id="ractopamine" name="chemTests" value="ractopamine">
                                     <label for="ractopamine">Ractopamine (Php1,500)</label>
                                 </div>
                             </div>
@@ -403,32 +403,32 @@
                     <h2>Releasing of Laboratory Result:</h2>
                     <div class="options-grid">
                       <div class="option">
-                        <input type="radio" id="central" name="release" value="central">
+                        <input type="radio" id="central" name="releasingResults" value="central">
                         <label class="releasing-option" for="central">Pick-up through Central Office</label>
                       </div>
               
                       <div class="option">
-                        <input type="radio" id="regional" name="release" value="regional">
+                        <input type="radio" id="regional" name="releasingResults" value="regional">
                         <label class="releasing-option" for="regional">Pick-up through Regional Office:</label>
                         <input type="specify" id="regional-office" name="regional-office" placeholder="specify">
                       </div>
               
                       <div class="option">
-                        <input type="radio" id="registered-mail" name="release" value="registered-mail">
+                        <input type="radio" id="registered-mail" name="releasingResults" value="registered-mail">
                         <label class="releasing-option" for="registered-mail">Registered Mail with return card (mailing fee applies)</label>
                       </div>
               
                       <div class="option">
-                        <input type="radio" id="courier" name="release" value="courier">
+                        <input type="radio" id="courier" name="releasingResults" value="courier">
                         <label class="releasing-option" for="courier">Courier (mailing fee applies)</label>
                       </div>
                     </div>
                     </div>
                 </div>
-            </form>
+            
         </div>
-        <button>Submit</button>
-    </main>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
 
