@@ -57,17 +57,6 @@ public class ClientFPWService {
         return false;
     }
 
-//    public boolean resetPassword(String email, String newPassword) {
-//        Client client = clientRepository.findByEmail(email);
-//        if (client != null) {
-//            client.setPassword(passwordEncoder.encode(newPassword));
-//            clientRepository.save(client);
-//            return true;
-//        }
-//        return false;
-//    }
-
-
     // Generate a random 6-digit reset code
     private String generateResetCode() {
         Random random = new Random();
