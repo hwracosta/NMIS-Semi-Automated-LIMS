@@ -1,0 +1,86 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: "Inter-Regular", Helvetica;
+    box-sizing: border-box;
+  }
+  
+  .CLIENT-guide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  .CLIENT-guide .div {
+    display: flex;
+    background-color: #F0F1F4;
+    border-radius: 5%; 
+    width: 90%;
+    max-width: 1200px;
+    height: 95vh;
+    position: relative;
+    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .CLIENT-guide .overlap-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 50px;
+    padding: 20px;
+  }
+  
+  .CLIENT-guide .overlap-group.scrollable {
+    overflow-y: auto; /* Makes the left side scrollable */
+    max-height: 100%; /* Ensures it takes the full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling within the scrollable area */
+  }
+  
+  .CLIENT-guide .extra-text {
+    font-size: 17px; /* Adjust size as needed */
+    color: #002267;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-left: 10px;
+  }
+  
+  .CLIENT-guide .requirement-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+  }
+  
+  .CLIENT-guide .istock {
+    flex: 1;
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0 5% 5% 0;
+    box-shadow: -5px 0px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .CLIENT-guide .div {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .CLIENT-guide .istock {
+      width: 100%;
+      height: 50vh;
+      border-radius: 0 0 5% 5%;
+    }
+  }
+  
