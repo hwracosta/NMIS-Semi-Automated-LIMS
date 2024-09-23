@@ -156,8 +156,8 @@
   box-shadow: 0px 3px 40px #00000040;
 }
 
-.overlap-2:hover {
-  transform: scale(1); 
+.overlap-2:hover, .overlap:hover {
+  transform: scale(1.05); 
 }
 
 .CLIENT-HOME .text-wrapper-5 {
