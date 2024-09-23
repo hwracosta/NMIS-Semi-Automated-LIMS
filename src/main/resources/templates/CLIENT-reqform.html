@@ -4,454 +4,392 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratory Request Form</title>
-    <link rel="stylesheet" th:href="@{/css/globals.css}" />
-    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
     <link rel="stylesheet" th:href="@{/css/CLIENT-reqform.css}" />
 </head>
 <body>
-    <div class="REQUEST-FORM">
-        <div class="REQUEST-FORM-P">
-            <div class="overlap">
-                <div class="home">
-                    <img class="vector" src="img/vector-1.svg" />
-                    <div class="overlap-group">
-                        <div class="rectangle"></div>
-                        <header class="header">
-                            <div class="div">
-                                <img class="img" th:src="@{/img/HEADER.png}" />
-                                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-                                <div class="text-wrapper-2">Client</div>
-                            </div>
-                        </header>
-                        <img class="home-2" src="img/home-1.png" />
-                    </div>        
-                </div>
-                <div class="lab-request-form">
-                    <div class="overlap-2">
-                        <p class="consent-text">
-                            By completing this form, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to <br />
-                            adhere tothe principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.
-                        </p>
-                        <div class="LABORATORY-REQUEST">Laboratory Request Form</div>
-                        <div class="company-nmae">
-                            <div class="label">Company Name</div>
-                            <div class="input"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <div class="representative-name">
-                            <div class="label">Representative Name</div>
-                            <div class="div-wrapper"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <div class="address">
-                            <div class="label">Address</div>
-                            <div class="div-wrapper"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <div class="contact-number">
-                            <div class="label">Contact Number</div>
-                            <div class="div-wrapper"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <div class="email-address">
-                            <div class="label">Email Address</div>
-                            <div class="div-wrapper"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <img class="vector-2" src="img/vector-1-2.svg" />
-                        <div class="control-number">
-                            <div class="label">*LD Control No(s)</div>
-                            <div class="input"><div class="text-wrapper-2">Value</div></div>
-                        </div>
-                        <div class="OR-number"></div>
-                            <div class="label">OR No.</div>
-                            <div class="div-wrapper"><div class="text-wrapper-3">Value</div></div>
-                        </div>
-                        <div class="LTO-NUMBER">
-                            <p class="label">
-                                <span class="span">LTO No. </span> <span class="text-wrapper-4">(if applicable)</span>
-                            </p>
-                            <div class="input"><div class="text-wrapper-2">Value</div></div>
-                        </div>
-                        <div class="group">
-                            <div class="overlap-group-2">
-                                <div class="rectangle-2"></div>
-                                <div class="rectangle-3"></div>
-                                <div class="text-wrapper-5">Importer/Exporter</div>
-                            </div>
-                        </div>
-                        <div class="overlap-wrapper">
-                            <div class="overlap-group-2">
-                                <div class="rectangle-2"></div>
-                                <div class="rectangle-3"></div>
-                                <div class="text-wrapper-5">Plant Officer</div>
-                            </div>
-                        </div>
-                        <div class="overlap-group-wrapper">
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">MPP</div>
-                            </div>
-                        </div>
-                        <div class="group-2"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">MCP</div>
-                            </div>
-                        </div>
-                        <div class="group-3"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">CSW</div>
-                            </div>
-                        </div>
-                        <div class="group-4"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">SLH</div>
-                            </div>
-                        </div>
-                        <div class="group-5"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">Meat Dealer</div>
-                            </div>
-                        </div>
-                        <div class="group-6"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">Consumer</div>
-                            </div>
-                        </div>
-                        <div class="group-7"></div>
-                            <div class="overlap-3">
-                                <div class="rectangle-4"></div>
-                                <div class="text-wrapper-6">PDP</div>
-                            </div>
-                        </div>
-                        <p class="client">
-                            <span class="text-wrapper-7">Client Classification</span>
-                            <span class="text-wrapper-4">(check what is applicable)</span>
-                        </p>
-                        <img class="vector-3" src="img/image/svg" />
-                        <div class="text-wrapper-8">GENERAL SAMPLE INFORMATION</div>
-                        <p class="p">
-                            Samples for Laboratory Test must be hygienically and individually packed, sealed and labelled, with no unusual odor.
-                        </p>
-                        <p class="instructions-for-the">
-                            Instructions for the client on how to fill-up this section: <br />1. Put your sample code, if any, in the “Client’s Sample Code” <br />2. In the “Sample Description and Details”, write the type of sample (species &amp; meat part classification/cuts) you are submitting, with batch/lot <br />
-                            number of the sample and brand name, if any. <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a. For imported samples, provide the batch/lot number of the sample and the container number where the sample/s were kept.
-                            <br />3. In the “Sample Source” box: <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a. For Local samples, indicate the name of the slaughterhouse, meat cutting plant, or poultry dressing plant source and the farm/&nbsp;&nbsp; hog dealer source, if possible. <br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b. For Imported samples, indicate the name of the local cold storage warehouse and the name of the Foreign Meat Establishment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and
-                            country where the sample/s were sourced. <br />4. Fill up the remaining boxes accordingly.
-                        </p>
-                        <div class="tooltip"></div>
-                        <div class="tooltip-2"></div>
-                        <div class="textarea-field">
-                            <p class="text-wrapper-9">
-                                Sample Type, Description and Details <br />[Batch/Lot #, Container # (if any)]
-                            </p>
-                        </div>
-                        <div class="client-sample-code">
-                            <div class="text-wrapper-10">Client Sample Code</div>
-                            <div class="input-2"><div class="text-wrapper-11">Value</div></div>
-                        </div>
-                        <div class="LTO-number-2">
-                            <div class="text-wrapper-10">Production Date</div>
-                            <div class="input-3"><div class="text-wrapper-11">Value</div></div>
-                        </div>
-                        <div class="control-number-2">
-                            <div class="label">Expiration Date</div>
-                            <div class="input"><div class="text-wrapper-11">Value</div></div>
-                        </div>
-                        <div class="textarea-field-2"></div>
-                            <p class="text-wrapper-9">
-                                Sample Source<br />Local: SLH/PDP/MCP, Farm<br />Imported:&nbsp;&nbsp;CSW, FME, Country
-                            </p>
-                        </div>
-                        <div class="contact-number-2">
-                            <div class="text-wrapper-10">Sampling Date</div>
-                            <div class="input-2"><div class="text-wrapper-11">Value</div></div>
-                        </div>
-                        <div class="representative-name-2">
-                            <div class="text-wrapper-10">Weight (grams)</div>
-                            <div class="input-2"><div class="text-wrapper-11">Value</div></div>
-                        </div>
-                        <p class="consent-text-2">
-                            I hereby certify that all the above information is true and correct. All information provided herein can be used for whatever legal purpose it may serve. Samples shall be discarded after six (6) months and related laboratory documents shall be disposed of according to NMIS-RDS as approved by NAP.
-                        </p>
-                        <img class="vector-4" src="img/vector-3.svg" />
-                        <div class="select-field">
-                            <div class="label">Purpose of Laboratory Test</div>
-                            <div class="select">
-                                <div class="text-wrapper-3">Value</div>
-                                <img class="chevron-down" src="img/size-16.svg" />
-                            </div>
-                        </div>
-                        <p class="EXAMINATION-kindly">
-                            <span class="text-wrapper-4">EXAMINATION: </span>
-                            <span class="text-wrapper-4">
-                                (kindly select the box for the requested tests and check its respective sample requirements.)
-                            </span>
-                        </p>
-                        <div class="overlap-4">
-                            <div class="micro-bio-tests">
-                                <div class="group-8">
-                                    <div class="overlap-3">
-                                        <div class="rectangle-5"></div>
-                                        <p class="text-wrapper-12">Standard Plate Count / Aerobic Plate Count (Php 150.00)</p>
-                                    </div>
-                                </div>
-                                <div class="group-9">
-                                    <div class="overlap-3">
-                                        <div class="rectangle-5"></div>
-                                        <div class="text-wrapper-13">Staphylococcus aureus (Php 350.00)</div>
-                                    </div>
-                                </div>
-                                <div class="group-10">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-6"></div>
-                                        <div class="rectangle-5"></div>
-                                        <div class="text-wrapper-13">Campylobacter (Php 1,500.00)</div>
-                                    </div>
-                                </div>
-                                <div class="group-11">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <div class="text-wrapper-13">Coliform Count (Php 150.00)</div>
-                                    </div>
-                                </div>
-                                <div class="group-12">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <p class="text-wrapper-13">Culture and Sensitivity Test(Php 1,500/panel)</p>
-                                    </div>
-                                </div>
-                                <div class="group-13">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <p class="text-wrapper-13">Yeast and Molds (Php 300.00)</p>
-                                    </div>
-                                </div>
-                                <div class="group-14">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <div class="text-wrapper-13">E. Coli (Php 350.00)</div>
-                                    </div>
-                                </div>
-                                <div class="group-15">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <p class="text-wrapper-13">E. Coli &amp; E. Coli 0157;H7 (Php 700.00)</p>
-                                    </div>
-                                </div>
-                                <div class="group-16">
-                                    <div class="overlap-group-3">
-                                        <div class="rectangle-5"></div>
-                                        <div class="text-wrapper-13">Salmonella sp. (Php 350.00)</div>
-                                    </div>
-                                </div>
-                                <p class="div-2">
-                                    <span class="text-wrapper-7">MICROBIOLOGICAL TESTS (7-16 Days) </span>
-                                    <span class="text-wrapper-4">
-                                        □ average sample temperature must be 10°C or below, and □ average sample weight must be 250g
-for meat, minimum; □ average sample weight must be 50g for cecal content or intact ceccum, minimum;
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="rectangle-7"></div>
-                        </div>
-                        <div class="mol-bio-tests">
-                            <div class="group-17">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-14">Dog (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-18">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Cat (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-19">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-6"></div>
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Buffalo (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-20">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Cattle (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-21">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Horse (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-22">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Swine (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-23">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Goat (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-24">
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Sheep (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <div class="group-25"></div>
-                                <div class="overlap-group-3">
-                                    <div class="rectangle-5"></div>
-                                    <div class="text-wrapper-13">Chicken (Php 1,500)</div>
-                                </div>
-                            </div>
-                            <p class="MOLECULAR-BIOLOGY">
-                                <span class="text-wrapper-7">MOLECULAR BIOLOGY TESTS (5 Days) </span>
-                                <span class="text-wrapper-4">•average sample weight is 5g at minimum</span>
-                            </p>
-                            <div class="text-wrapper-15">Species Identification</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chem-tests">
-                    <div class="group-26">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-16">Beta-lactams (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <div class="group-27">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Tetracyclines (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <div class="group-28">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-9"></div>
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Aminoglycosides (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <div class="group-29">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Macrolides (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <div class="group-30">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Quinolones (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <div class="group-31">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Sulfonamides (Php 375.00)</div>
-                        </div>
-                    </div>
-                    <p class="div-2">
-                        <span class="text-wrapper-7">CHEMINCAL/VETENIRARY DRUG RESIDUE TESTS (5-6 Days) </span>
-                        <span class="text-wrapper-4">
-                            •Samples should not include fat tissues and; •average sample weight must be 250g, minimum;
-                        </span>
-                    </p>
-                    <p class="text-wrapper-18">Microbial Inhibition Test (5 Days)</p>
-                    <div class="group-32">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-16">Chloramphenicol (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-33">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Nitrofuran AOZ (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-34">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-9"></div>
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Olaquindox (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-35">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Nitrofuran AMOZ (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-36">
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Stilbenes (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-37"></div>
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Beta-agonists (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-38"></div>
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Ractopamine (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <div class="group-39"></div>
-                        <div class="overlap-group-4">
-                            <div class="rectangle-8"></div>
-                            <div class="text-wrapper-17">Costicosteroids (Php 1,500)</div>
-                        </div>
-                    </div>
-                    <p class="text-wrapper-19">Enzyme-Linked ImmunoSorbent Assay (ELISA) (6 Days)</p>
-                </div>
-            </div>
-            <img class="vector-5" src="img/vector-2.svg" />
-            <div class="releasing">
-                <div class="overlap-5">
-                    <div class="regional-office-spec">
-                        <div class="overlap-5"><div class="text-wrapper-20">specify</div></div>
-                    </div>
-                    <div class="radio-field">
-                        <div class="checkbox-and-label">
-                            <div class="radio"></div>
-                            <div class="label-2">Pick-up through Regional Office:</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-wrapper-21">Releasing of Laboratory Result:</div>
-                <div class="radio-field-2">
-                    <div class="checkbox-and-label">
-                        <div class="radio"></div>
-                        <div class="label-3">Pick-up through Central Office</div>
-                    </div>
-                </div>
-                <div class="radio-field-3">
-                    <div class="checkbox-and-label">
-                        <div class="radio"></div>
-                        <p class="label-3">Registered Mail with return card (mailing fee applies)</p>
-                    </div>
-                </div>
-                <div class="radio-field-4"></div>
-                    <div class="checkbox-and-label">
-                        <div class="radio"></div>
-                        <p class="label-3">Courier (mailing fee applies)</p>
-                    </div>
-                </div>
-            </div>
-            <button class="button"><button class="button-2">Submit</button></button>
+    <header class="header">
+        <div class="overlap-group">
+          <div class="rectangle"></div>
+          <img class="img" th:src="@{/img/HEADER.png}" />
+          <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+          <div class="text-wrapper-2">Staff Login</div>
         </div>
-    </div>
+      </header>
+    
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <h1>LABORATORY REQUEST FORM</h1>
+                <p>By completing this from, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to
+                    adhere to the principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.</p>
+                <hr>    
+            </div>
+
+            <form class="lab-form">
+                <!-- Client Information Section -->
+                <div class="row">
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" name="companyName" placeholder="Value">
+                    </div>
+                    <div class="form-group">
+                        <label for="repName">Representative Name</label>
+                        <input type="text" id="repName" name="repName" placeholder="Value">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="Value">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Value">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact Number</label>
+                        <input type="text" id="contact" name="contact" placeholder="Value">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="ldControl">*LD Control No(s)</label>
+                        <input type="text" id="ldControl" name="ldControl" placeholder="Value">
+                    </div>
+                    <div class="form-group">
+                        <label for="orNo">OR No.</label>
+                        <input type="text" id="orNo" name="orNo" placeholder="Value">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="ltoNo">LTO No. <i>(if applicable)</i></label>
+                        <input type="text" id="ltoNo" name="ltoNo" placeholder="Value">
+                    </div>
+                </div>
+
+                <!-- Client Classification Section -->
+                <h4>Client Classification <i>(check what is applicable)</i></h4>
+                <div class="client-group">
+                    <div class="checkbox-items">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="importer-exporter" name="test" value="importer-exporter">
+                            <label for="importer-exporter">Importer/Exporter</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="meat_dealer" name="test" value="meat_dealer">
+                            <label for="meat_dealer">Meat Dealer</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="consumer" name="test" value="consumer">
+                            <label for="consumer">Consumer</label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="plant_officer" name="test" value="plant_officer">
+                            <label for="plant_officer">Plant Officer</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="slh" name="test" value="slh">
+                            <label for="slh">SLH</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pdp" name="test" value="pdp">
+                            <label for="pdp">PDP</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mpp" name="test" value="mpp">
+                            <label for="mpp">MPP</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mcp" name="test" value="mcp">
+                            <label for="mcp">MCP</label>
+                        </div>
+                
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="csw" name="test" value="csw">
+                            <label for="csw">CSW</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Sample Section-->
+                <div class="container">
+                    <hr>
+                    <h2 class="sample-info-label">General Sample Information</h2>
+                    <p><u>Samples for Laboratory Test must be hygienically and individually packed, sealed and labelled, with no unusual odor.</u></p>
+                    <p class="sample-instructions"><i>Instructions for the client on how to fill-up this section:<br>
+                        1. Put your sample code, if any, in the “Client’s Sample Code”<br>
+                        2. In the “Sample Description and Details”, write the type of sample (species & meat part classification/cuts) you are submitting, with batch/lot number of the sample and brand name, if any.<br>
+                        a. For imported samples, provide the batch/lot number of the sample and the container number where the sample/s were kept.<br>
+                        3. In the “Sample Source” box:<br>
+                        a. For Local samples, indicate the name of the slaughterhouse, meat cutting plant, or poultry dressing plant source and the farm/hog dealer source, if possible.<br>
+                        b. For Imported samples, indicate the name of the local cold storage warehouse and the name of the Foreign Meat Establishment <br>and country where the sample/s were sourced.<br>
+                        4. Fill up the remaining boxes accordingly.</i>
+                    </p>
+                    <br>
+                    <form>
+                        <div class="form-layout">
+                            <!-- Left Side -->
+                            <div class="form-left">
+                                <div class="form-section">
+                                    <label for="clientSampleCode">Client's Sample Code:</label>
+                                    <input type="text" id="clientSampleCode" name="clientSampleCode">
+                                </div>
+                                <div class="form-section">
+                                    <label for="sampleDescription">Sample Description and Details:</label>
+                                    <textarea id="sampleDescription" name="sampleDescription"></textarea>
+                                </div>
+                                <div class="form-section">
+                                    <label for="sampleSource">Sample Source:</label>
+                                    <textarea type="text" id="sampleSource" name="sampleSource"></textarea>
+                                </div>
+                            </div>
+            
+                            <!-- Right Side -->
+                            <div class="form-right">
+                                <div class="form-section">
+                                    <label for="productionDate">Production Date:</label>
+                                    <input type="date" id="productionDate" name="productionDate">
+                                </div>
+                                <div class="form-section">
+                                    <label for="expirationDate">Expiration Date:</label>
+                                    <input type="date" id="expirationDate" name="expirationDate">
+                                </div>
+                                <div class="form-section">
+                                    <label for="samplingDate">Sampling Date:</label>
+                                    <input type="date" id="samplingDate" name="samplingDate">
+                                </div>
+                                <div class="form-section">
+                                    <label for="weight">Weight (grams):</label>
+                                    <input type="number" id="weight" name="weight">
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Checkbox and certification text -->
+                        <div class="form-footer">
+                            <label for="certify">
+                                <input type="checkbox" id="certify" name="certify" required>
+                                I hereby certify that all the above information is true and correct. All information provided herein can be used for whatever legal purpose it may serve. 
+                                Samples shall be discarded after six (6) months and related laboratory documents shall be disposed of according to MNIS-RDS as approved by NAP.
+                            </label>
+                        </div>
+                    </div>
+                <!--Purpose of Testing-->
+
+                <!-- Examination Section -->
+                <div class="form-section">
+                    <h3 class="exam-section-label">EXAMINATION</h3>
+                    <label>Purpose of Laboratory Test</label>
+                    <input type="text" placeholder="Value"> <!--Should be dropdown menu-->
+
+                    <!-- Microbiological Tests -->
+                    <div class="checkbox-group">
+                        <h4 class="exam-labels">MICROBIOLOGICAL TESTS (7-16 Days) <span class="exam-req">• average sample temperature must be 10°C or below, 
+                            and average sample weight must be 250g for meat, minimum; average sample weight must be 50g for 
+                            cecal content or intact cecum, minimum</span></h4>
+                    
+                        <div class="checkbox-items">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="standard_count" name="test" value="standard_count">
+                                <label for="standard_count">Standard Plate Count (Php 150.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="staphylococcus" name="test" value="staphylococcus">
+                                <label for="staphylococcus">Staphylococcus aureus (Php 350.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="salmonella" name="test" value="salmonella">
+                                <label for="salmonella">Salmonella sp. (Php 350.00)</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="campylobacter" name="test" value="campylobacter">
+                                <label for="campylobacter">Campylobacter (Php 1,500.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="coliform" name="test" value="coliform">
+                                <label for="coliform">Coliform Count (Php 150.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="culture" name="test" value="culture">
+                                <label for="culture">Culture and Sensitivity Test (Php 1,500/panel)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="e_coli" name="test" value="e_coli">
+                                <label for="e_coli">E. Coli (Php 350.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="e_coli2" name="test" value="e_coli2">
+                                <label for="e_coli2">E. Coli & E. Coli O157;H7 (Php 700.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="yeast" name="test" value="yeast">
+                                <label for="yeast">Yeast and Molds (Php 300.00)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- MolBio Tests -->
+                    
+                    <div class="checkbox-group">
+                        <h4 class="exam-labels">MOLECULAR BIOLOGY TESTS (5 Days) <span class="exam-req">• average sample weight is 5g at minimum</span></h4>
+                        
+                        <div class="checkbox-items">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="dog" name="test" value="dog">
+                                <label for="dog">Dog (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cat" name="test" value="cat">
+                                <label for="cat">Cat (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="chicken" name="test" value="chicken">
+                                <label for="chicken">Chicken (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="buffalo" name="test" value="buffalo">
+                                <label for="buffalo">Buffalo (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cattle" name="test" value="cattle">
+                                <label for="cattle">Cattle (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="horse" name="test" value="horse">
+                                <label for="horse">Horse (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="goat" name="test" value="goat">
+                                <label for="goat">Goat (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sheep" name="test" value="sheep">
+                                <label for="sheep">Sheep (Php 1,500)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="swine" name="test" value="swine">
+                                <label for="swine">Swine (Php 1,500)</label>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- Chem Tests -->
+                     
+                    <div class="checkbox-group">
+                        <h4 class="exam-labels">CHEMICAL/VETERINARY DRUG RESIDUE TESTS (5-6 Days) <span class="exam-req">•Samples should not include fat tissues and; •average sample weight must be
+                            250g, minimum;</span></h4><br>
+                        <h4 class ="chem-sub-labels">• Microbial Inhibition Test (5 Days)</h4>                            
+                        <div class="checkbox-items">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="beta-lactams" name="test" value="beta-lactams">
+                                <label for="beta-lactams">Beta-lactams (Php 375.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="tetracyclines" name="test" value="tetracyclines">
+                                <label for="tetracyclines">Tetracyclines (Php 375.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sulfonamides" name="test" value="sulfonamides">
+                                <label for="sulfonamides">Sulfonamides (Php 375.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aminoglycosides" name="test" value="aminoglycosides">
+                                <label for="aminoglycosides">Aminoglycosides (Php 375.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="macrolides" name="test" value="macrolides">
+                                <label for="macrolides">Macrolides (Php 375.00)</label>
+                            </div>
+                    
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="quinolones" name="test" value="quinolones">
+                                <label for="quinolones">Quinolones (Php 375.00)</label>
+                            </div>
+                        </div>
+                    
+
+                        <h4 class ="chem-sub-labels">• Enzyme-Linked ImmunoSorbent Assay (ELISA) (6 Days)</h4>                            
+                            <div class="checkbox-items">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="chloramphenicol" name="test" value="chloramphenicol">
+                                    <label for="chloramphenicol">Chloramphenicol (Php1,500)</label>
+                                </div>
+                    
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="nitrofuran-aoz" name="test" value="nitrofuran-aoz">
+                                    <label for="nitrofuran-aoz">Nitrofuran AOZ (Php1,500)</label>
+                                </div>
+                    
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="nitrofuran-amoz" name="test" value="nitrofuran-amoz">
+                                    <label for="nitrofuran-amoz">Nitrofuran AMOZ (Php1,500)</label>
+                                </div>
+                    
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="corticosteroids" name="test" value="corticosteroids">
+                                    <label for="corticosteroids">Corticosteroids (Php1,500)</label>
+                                </div>
+                    
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="olaquindox" name="test" value="olaquindox">
+                                    <label for="olaquindox">Olaquindox (Php1,500)</label>
+                                </div>
+                    
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="beta-agonists" name="test" value="beta-agonists">
+                                    <label for="beta-agonists"> Beta-agonists (Php1,500)</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="stilbenes" name="test" value="stilbenes">
+                                    <label for="stilbenes">Stilbenes (Php1,500)</label>
+                                </div>
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="ractopamine" name="test" value="ractopamine">
+                                    <label for="ractopamine">Ractopamine (Php1,500)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Releasing of Lab Result-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
 </body>
 </html>
+
+<!--Refer to Figma REQUEST FORM PAGE-->
