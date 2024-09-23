@@ -1,93 +1,8 @@
-.CLIENT-REQFORM { 
-    background-color: #f0f1f4;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    min-height: 100vh; 
-  }
-  
-  .CLIENT-REQFORM .div {
-    background-color: #f0f1f4;
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  
-  .CLIENT-REQFORM .header {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  background-color: transparent;
-  box-shadow: 0px 5px 70px #0000004c;
-  }
-  
-  .CLIENT-REQFORM .overlap-group {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  }
-  
-  .CLIENT-REQFORM .rectangle {
-  position: absolute;
-  width: 100vw; 
-  height: 150px;
-  top: 0;
-  left: 0;
-  background-color: #002267;
-  }
-  
-  .CLIENT-REQFORM .img {
-  position: absolute;
-  width: auto;
-  height: 122px;
-  top: 14px;
-  left: 20px;
-  max-width: 100%; 
-  }
-  
-  .CLIENT-REQFORM .text-wrapper {
-  max-width: calc(100% - 40px); 
-  top: 72px;
-  font-family: "Averia Serif Libre-Bold", Helvetica;
-  font-weight: 700;
-  font-size: 1.1875rem; 
-  letter-spacing: 0.57px;
-  line-height: 1.6875rem; 
-  position: absolute;
-  right: 20px; 
-  color: #f0f1f4;
-  white-space: normal; 
-  overflow-wrap: break-word; 
-  word-wrap: break-word; 
-  word-break: break-word; 
-  }
-  
-  .CLIENT-REQFORM .text-wrapper-2 {
-  max-width: calc(100% - 40px); 
-  top: 47px;
-  font-family: "Averia Serif Libre-Regular", Helvetica;
-  font-weight: 400;
-  font-size: 1.0625rem; 
-  letter-spacing: 0.51px;
-  line-height: 1.4875rem; 
-  position: absolute;
-  right: 20px;
-  color: #f0f1f4;
-  white-space: normal; 
-  overflow-wrap: break-word; 
-  word-wrap: break-word; 
-  word-break: break-word; 
-  }
-
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 body {
@@ -95,35 +10,94 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
-    background-color: #003366;
-    color: #fff;
+ .header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    box-shadow: 0px 5px 70px #0000004c;
+  }
+  
+   .overlap-group {
+    position: relative;
+    width: 100%;
+    height: 150px;
+  }
+  
+   .rectangle {
+    position: absolute;
+    width: 100vw; 
+    height: 150px;
+    top: 0;
+    left: 0;
+    background-color: #002267;
+  }
+  
+   .img {
+    position: absolute;
+    width: auto;
+    height: 122px;
+    top: 14px;
+    left: 20px;
+    max-width: 100%; 
+  }
+  
+   .text-wrapper {
+    max-width: calc(100% - 40px); 
+    top: 72px;
+    font-family: "Averia Serif Libre-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 1.1875rem; 
+    letter-spacing: 0.57px;
+    line-height: 1.6875rem; 
+    position: absolute;
+    right: 20px; 
+    color: #f0f1f4;
+    white-space: normal; 
+    overflow-wrap: break-word; 
+    word-wrap: break-word; 
+    word-break: break-word; 
+  }
+  
+   .text-wrapper-2 {
+    max-width: calc(100% - 40px); 
+    top: 47px;
+    font-family: "Averia Serif Libre-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 1.0625rem; 
+    letter-spacing: 0.51px;
+    line-height: 1.4875rem; 
+    position: absolute;
+    right: 20px;
+    color: #f0f1f4;
+    white-space: normal; 
+    overflow-wrap: break-word; 
+    word-wrap: break-word; 
+    word-break: break-word; 
+  }
+
+main {
     padding: 20px;
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-content h2, .header-content h3 {
-    margin: 0;
-}
-
-main {
-    padding: 40px;
-    background-color: #f4f4f4;
+hr {
+    border: none; /* Remove default border */
+    height: 1px; /* Set the height of the line */
+    background-color: #000000; /* Set the color of the line */
+    margin: 20px 0; /* Add space above and below the line */
 }
 
 .form-container {
     background-color: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    margin: 0 auto;
+    padding: 50px; /* Reduce padding for a more compact look */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 800px; /* Decrease max-height for a smaller container */
+    overflow-y: auto; /* Keep scrollable if content exceeds height */
+    width: 90%; /* Set a specific width */
+    margin: 20px auto; /* Center the container */
 }
+
 
 .form-header {
     text-align: center;
@@ -131,15 +105,12 @@ main {
 }
 
 .form-header h1 {
-    font-size: 24px;
-    color: #003366;
-    font-weight: 600;
     margin-bottom: 10px;
 }
 
 .form-header p {
     font-size: 14px;
-    color: #666;
+    color: #555;
 }
 
 .lab-form {
@@ -147,68 +118,221 @@ main {
     flex-direction: column;
 }
 
-.CLIENT-REQFORM .credentials {
-    font-size: 1.5rem;
-    color: black;
-    margin-bottom: 10px;
-  }
-
-.CLIENT-REQFORM .label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: black;
-    font-size: 14px;
-}
-
-.CLIENT-REQFORM .inputcn {
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 14px; 
-    width: 462px;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-input::placeholder {
-    color: #999;
-}
-
-.form-section input.full-width {
-    width: 100%;
-}
-
-/* Align elements in two columns for section 1 */
 .form-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    margin-bottom: 20px;
 }
 
-input, select {
-    border: 1px solid #d1d1d1;
-    padding: 10px;
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*exam section start*/
+
+.exam-section-label {
+    margin-top: 10px;
+}
+.exam-labels {
+    font-weight: normal; 
+}
+
+.exam-req {
+    font-style: italic; 
+}
+
+.chem-sub-labels {
+    font-weight: normal;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .checkbox-group {
+    margin: 20px;
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
+    flex-direction: column; 
+    width: 100%; 
 }
 
-.checkbox-group input {
-    margin-right: 5px;
+.checkbox-items {
+    display: flex;
+    flex-wrap: wrap; 
+    width: 100%; 
 }
 
-.checkbox-group label {
+.checkbox-item {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    align-items: center;
+    background-color: #f9f9f9; 
+    width: calc(30% - 20px); 
+    box-sizing: border-box; 
+    justify-content: space-between;
+    min-height: 60px; 
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    flex-grow: 1;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal; 
+}
+
+.checkbox-item input {
+    margin-right: 10px; 
+}
+
+
+/*p2 start*/
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.form-layout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-left,
+.form-right {
+    flex: 1;
     margin-right: 20px;
 }
 
-.form-container {
-    max-width: 1000px;
-    margin: 0 auto;
+.form-right {
+    margin-right: 0;
+}
+
+.form-section {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 74px;
+    resize: none; /* Disable resizing for the textarea */
+}
+
+.form-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+    text-align: justify;
+}
+
+.form-footer label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; /* Space between checkbox and text */
+}
+
+.form-footer input[type="checkbox"] {
+    margin-top: 4px; /* Align the checkbox with the text */
+}
+
+.sample-info-label {
+    text-align: left; 
+    margin-bottom: 10px; 
+}
+
+.sample-instructions {
+    display: flex;
+    align-items: flex-start;
+    text-align: justify;
+    gap: 10px; /* Space between checkbox and text */
+}
+
+/*client information section*/
+form {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.client-group {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1; /* Allows form groups to evenly distribute in the row */
+    margin-right: 10px; /* Add margin for spacing between elements */
+}
+
+.form-group:last-child {
+    margin-right: 0; /* Removes margin from the last item in the row */
+}
+
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
