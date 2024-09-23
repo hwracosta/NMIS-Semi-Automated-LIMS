@@ -29,6 +29,8 @@ public class ClientRegisterController {
             @RequestParam String representativeName,
             @RequestParam String password,
             @RequestParam String email,
+            @RequestParam(required = false) String ltoNumber,  // Ensure LTO number is passed
+            @RequestParam String clientClassif,
             RedirectAttributes redirectAttributes) {
 
         // Create a new client entity
@@ -36,8 +38,10 @@ public class ClientRegisterController {
         newClient.setCompanyName(companyName);
         newClient.setContactNumber(contactNumber);
         newClient.setRepresentativeName(representativeName);
-        newClient.setPassword(password);  // Ensure to hash the password in production
+        newClient.setPassword(password);  // Hash the password in production
         newClient.setEmail(email);
+        newClient.setLtoNo(ltoNumber);  // Set LTO No.
+        newClient.setClientClassif(clientClassif);  // Set client classification
 
         // Save client to the database
         clientService.saveClient(newClient);

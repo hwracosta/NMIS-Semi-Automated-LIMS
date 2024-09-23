@@ -1,7 +1,6 @@
 package com.example.semiautomatedlims.Entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,12 +26,17 @@ public class Client {
     @Column(nullable = false)
     private String companyName;
 
+    @Column(length = 100)  // Optional field
+    private String ltoNo;
+
+    @Column(nullable = false, length = 100)
+    private String clientClassif;
+
     @Column
     private String resetToken;
 
     @Column
     private LocalDateTime tokenExpiry;
-
 
     // Getters and Setters
 
@@ -82,6 +86,22 @@ public class Client {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getLtoNo() {
+        return ltoNo;
+    }
+
+    public void setLtoNo(String ltoNo) {
+        this.ltoNo = ltoNo;
+    }
+
+    public String getClientClassif() {
+        return clientClassif;
+    }
+
+    public void setClientClassif(String clientClassif) {
+        this.clientClassif = clientClassif;
     }
 
     public String getResetToken() {

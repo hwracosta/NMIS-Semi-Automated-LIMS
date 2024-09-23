@@ -7,113 +7,112 @@
   <link rel="stylesheet" th:href="@{/css/CLIENT-register.css}" />
 </head>
 <body>
-  <div class="CLIENT-REGISTER">
-    <div class="div">
-      <div class="overlap-group">
-        <div class="logo-and-text">
-          <img class="company-logo" th:src="@{/img/NMIS.png}" />
-          <p class="set-up-your-account">
-            <span>Set up your<br /></span>
-            <span class="text-wrapper">Account</span>
-          </p>
-        </div>
-        
-        <form th:action="@{/CLIENT-register}" method="post">
-          <div class="credentials">
-            <label class="label" for="email">Email Address</label>
-            <input class="input" id="email" name="email" type="email" placeholder="Enter your Email Address" required />
-          </div>
-
-          <div class="credentials">
-            <label class="label" for="password">Password</label>
-            <div class="password-input-container">
-              <input class="input" id="password" name="password" type="password" placeholder="Enter your Password" required />
-              <img class="eye-undefined-glyph" id="togglePassword" th:src="@{/img/EYE-CLOSED.png}" />
-            </div>
-          </div>
-
-          <div class="credentials">
-            <label class="label" for="input-3">Representative Name</label>
-            <input class="input" id="input-3" name="representativeName" placeholder="Enter Representative Name" required />
-          </div>
-
-          <div class="credentials">
-            <label class="label" for="input-4">Contact Number</label>
-            <input class="input" id="input-4" name="contactNumber" placeholder="Enter Contact Number" required />
-          </div>
-
-          <div class="credentials">
-            <label class="label" for="input-5">Company Name</label>
-            <input class="input" id="input-5" name="companyName" placeholder="Enter Company Name" required />
-          </div>
-
-          <div class="credentials">
-            <label class="label" for="lto-number">LTO No. (Optional)</label>
-            <input class="input" id="lto-number" name="ltoNumber" type="text" placeholder="Enter LTO No." />
-          </div>
-          
-          <div class="credentials">
-            <label class="label" for="client-type">Client Classification</label>
-            <select class="input" id="client-type" name="clientType" required>
-              <option value="" disabled selected>Select Client Classification</option>
-              <option value="type1">Importer/Exporter</option>
-              <option value="type2">Meat Dealer</option>
-              <option value="type3">Consumer</option>
-              <option value="type4">Plant Officer</option>
-              <option value="type5">SLH</option>
-              <option value="type6">PDP</option>
-              <option value="type7">MPP</option>
-              <option value="type8">MCP</option>
-              <option value="type9">CSW</option>
-              <option value="others">Others</option> <!-- "Others" option -->
-            </select>
-          </div>
-          
-          <!-- This input field will be hidden by default -->
-          <div class="credentials" id="other-client-type-wrapper" style="display:none;">
-            <label class="label" for="other-client-type">Please specify:</label>
-            <input class="input" id="other-client-type" name="otherClientType" type="text" placeholder="Enter your classification" />
-          </div>
-
-          <button class="button" type="register">
-            <span class="text-wrapper-2">Register</span>
-          </button>
-
-          <div class="text-wrapper-3">
-            <span class="sign-in-link"> <a th:href="@{/client-login}">Already have an account?</span> 
-            <span class="sign-in-link2">Sign In</a></span>
-          </div>
-        </form>
+<div class="CLIENT-REGISTER">
+  <div class="div">
+    <div class="overlap-group">
+      <div class="logo-and-text">
+        <img class="company-logo" th:src="@{/img/NMIS.png}" />
+        <p class="set-up-your-account">
+          <span>Set up your<br /></span>
+          <span class="text-wrapper">Account</span>
+        </p>
       </div>
-      <img class="istock" th:src="@{/img/STOCK IMAGE.jpg}" />
+
+      <form th:action="@{/CLIENT-register}" method="post">
+        <div class="credentials">
+          <label class="label" for="email">Email Address</label>
+          <input class="input" id="email" name="email" type="email" placeholder="Enter your Email Address" required />
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="password">Password</label>
+          <div class="password-input-container">
+            <input class="input" id="password" name="password" type="password" placeholder="Enter your Password" required />
+            <img class="eye-undefined-glyph" id="togglePassword" th:src="@{/img/EYE-CLOSED.png}" />
+          </div>
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="input-3">Representative Name</label>
+          <input class="input" id="input-3" name="representativeName" placeholder="Enter Representative Name" required />
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="input-4">Contact Number</label>
+          <input class="input" id="input-4" name="contactNumber" placeholder="Enter Contact Number" required />
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="input-5">Company Name</label>
+          <input class="input" id="input-5" name="companyName" placeholder="Enter Company Name" required />
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="lto-number">LTO No. (Optional)</label>
+          <input class="input" id="lto-number" name="ltoNumber" type="text" placeholder="Enter LTO No." />
+        </div>
+
+        <div class="credentials">
+          <label class="label" for="client-classif">Client Classification</label>
+          <select class="input" id="client-classif" name="clientClassif" required>
+            <option value="" disabled selected>Select Client Classification</option>
+            <option value="Importer/Exporter">Importer/Exporter</option>
+            <option value="Meat Dealer">Meat Dealer</option>
+            <option value="Consumer">Consumer</option>
+            <option value="Plant Officer">Plant Officer</option>
+            <option value="SLH">SLH</option>
+            <option value="PDP">PDP</option>
+            <option value="MPP">MPP</option>
+            <option value="MCP">MCP</option>
+            <option value="CSW">CSW</option>
+            <option value="others">Others</option> <!-- "Others" option -->
+          </select>
+        </div>
+
+        <!-- This input field will be hidden by default -->
+        <div class="credentials" id="other-client-type-wrapper" style="display:none;">
+          <label class="label" for="other-client-type">Please specify:</label>
+          <input class="input" id="other-client-type" name="otherClientType" type="text" placeholder="Enter your classification" />
+        </div>
+
+        <button class="button" type="submit">
+          <span class="text-wrapper-2">Register</span>
+        </button>
+
+        <div class="text-wrapper-3">
+          <span class="sign-in-link"> <a th:href="@{/client-login}">Already have an account?</a></span>
+          <span class="sign-in-link2">Sign In</span>
+        </div>
+      </form>
     </div>
+    <img class="istock" th:src="@{/img/STOCK IMAGE.jpg}" />
   </div>
-  <script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
-  
-    togglePassword.addEventListener('click', function () {
-      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-      password.setAttribute('type', type);
-  
-      // Optionally toggle the icon if you have two versions (e.g., open eye and closed eye)
-      this.src = type === 'password' ? '/img/EYE-CLOSED.png' : '/img/EYE.svg';
-    });
-  </script>
-  
-  <script>
-    const clientTypeSelect = document.querySelector('#client-type');
-    const otherClientTypeWrapper = document.querySelector('#other-client-type-wrapper');
-  
-    clientTypeSelect.addEventListener('change', function() {
-      if (clientTypeSelect.value === 'others') {
-        otherClientTypeWrapper.style.display = 'block'; // Show the input field
-      } else {
-        otherClientTypeWrapper.style.display = 'none'; // Hide the input field
-      }
-    });
-  </script>
-  
+</div>
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+
+  togglePassword.addEventListener('click', function () {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+
+    // Optionally toggle the icon if you have two versions (e.g., open eye and closed eye)
+    this.src = type === 'password' ? '/img/EYE-CLOSED.png' : '/img/EYE.svg';
+  });
+</script>
+
+<script>
+  const clientTypeSelect = document.querySelector('#client-classif');
+  const otherClientTypeWrapper = document.querySelector('#other-client-type-wrapper');
+
+  clientTypeSelect.addEventListener('change', function() {
+    if (clientTypeSelect.value === 'others') {
+      otherClientTypeWrapper.style.display = 'block'; // Show the input field
+    } else {
+      otherClientTypeWrapper.style.display = 'none'; // Hide the input field
+    }
+  });
+</script>
+
 </body>
 </html>
-
