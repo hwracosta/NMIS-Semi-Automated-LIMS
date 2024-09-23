@@ -1,10 +1,12 @@
 CREATE TABLE CLIENT_register (
+    client_id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     representative_name VARCHAR(255) NOT NULL,
     contact_number VARCHAR(20) NOT NULL,
     company_name VARCHAR(255) NOT NULL,
-    client_id SERIAL PRIMARY KEY,
+    lto_no VARCHAR(100);
+    client_classif VARCHAR(100) NOT NULL,
 );
 
 CREATE TABLE STAFF_register (
@@ -33,6 +35,4 @@ CREATE TABLE client_reqform (
     releasing_results VARCHAR(100) NOT NULL
 );
 
-ALTER TABLE client_register
-ADD COLUMN client_classif VARCHAR(100) NOT NULL,
-ADD COLUMN lto_no VARCHAR(100);
+DROP TABLE client_register;
