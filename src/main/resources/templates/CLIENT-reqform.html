@@ -187,9 +187,8 @@
                     </div>
                 <!--Purpose of Testing-->
                 <div class="form-section">
-                    <h3 class="exam-section-label">EXAMINATION</h3>
-                    <label for="test-purpose">Purpose of Laboratory Test</label>
-                    <select id="test-purpose" name="test-purpose">
+                    <label class="purpose-label" for="test-purpose">Purpose of Laboratory Test</label>
+                    <select class="purpose-options" id="test-purpose" name="test-purpose">
                         <option value="">Select an option</option>
                         <option value="monitoring">Monitoring</option>
                         <option value="local_trade">Local Trade</option>
@@ -198,11 +197,12 @@
                         <option value="complaint">Complaint</option>
                         <option value="others">Others (please specify)</option>
                     </select>
-                <input type="text" id="other-purpose" placeholder="Please specify" style="display: none;">
+                <input class="others-input" type="text" id="other-purpose" placeholder="Please specify" style="display: none;">
                 <script th:src="@{/js/CLIENT-labpurpose.js}"></script>
                     
                     <!-- Examination Section -->
                     <!-- Microbiological Tests -->
+                    <h3 class="exam-section-label">EXAMINATION : <span class="exam-section-sublabel">(kindly select the box for the requested tests and check its respective sample requirements.)</span></h3>
                     <div class="checkbox-group">
                         <h4 class="exam-labels">MICROBIOLOGICAL TESTS (7-16 Days) <span class="exam-req">• average sample temperature must be 10°C or below, 
                             and average sample weight must be 250g for meat, minimum; average sample weight must be 50g for 

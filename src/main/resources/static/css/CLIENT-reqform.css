@@ -141,8 +141,14 @@ hr {
 /*exam section start*/
 
 .exam-section-label {
-    margin-top: 10px;
+    margin-top: 40px;
 }
+
+.exam-section-sublabel {
+    font-weight: normal;
+    font-style: italic;
+}
+
 .exam-labels {
     font-weight: normal; 
 }
@@ -205,7 +211,7 @@ hr {
 }
 
 
-/*p2 start*/
+/*sample section*/
 h1 {
     text-align: center;
     color: #333;
@@ -291,6 +297,34 @@ textarea {
     gap: 10px; /* Space between checkbox and text */
 }
 
+/*purpose section*/
+.purpose-options {
+    width: 100%;                
+    padding: 10px;              
+    border: 1px solid #ccc;      
+    border-radius: 5px;          
+    background-color: #f9f9f9;   
+    font-size: 14px;             
+    color: #333;                 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);    
+    cursor: pointer;
+    appearance: none;             
+    outline: none;              
+    transition: border-color 0.3s ease; 
+}
+
+.purpose-options:focus {
+    border-color: #002267; 
+}
+.purpose-label {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.others-input {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 /*client information section*/
 form {
     width: 100%;
