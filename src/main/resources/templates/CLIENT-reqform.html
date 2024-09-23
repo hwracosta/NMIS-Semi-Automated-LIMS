@@ -186,13 +186,22 @@
                         </div>
                     </div>
                 <!--Purpose of Testing-->
-
-                <!-- Examination Section -->
                 <div class="form-section">
                     <h3 class="exam-section-label">EXAMINATION</h3>
-                    <label>Purpose of Laboratory Test</label>
-                    <input type="text" placeholder="Value"> <!--Should be dropdown menu-->
-
+                    <label for="test-purpose">Purpose of Laboratory Test</label>
+                    <select id="test-purpose" name="test-purpose">
+                        <option value="">Select an option</option>
+                        <option value="monitoring">Monitoring</option>
+                        <option value="local_trade">Local Trade</option>
+                        <option value="imported">Imported</option>
+                        <option value="export">Export</option>
+                        <option value="complaint">Complaint</option>
+                        <option value="others">Others (please specify)</option>
+                    </select>
+                <input type="text" id="other-purpose" placeholder="Please specify" style="display: none;">
+                <script th:src="@{/js/CLIENT-labpurpose.js}"></script>
+                    
+                    <!-- Examination Section -->
                     <!-- Microbiological Tests -->
                     <div class="checkbox-group">
                         <h4 class="exam-labels">MICROBIOLOGICAL TESTS (7-16 Days) <span class="exam-req">• average sample temperature must be 10°C or below, 
