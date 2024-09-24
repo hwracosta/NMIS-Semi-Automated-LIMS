@@ -1,9 +1,12 @@
 package com.example.semiautomatedlims.Controller;
 
+import com.example.semiautomatedlims.Entity.Client;
 import com.example.semiautomatedlims.Entity.ClientReqForm;
 import com.example.semiautomatedlims.Service.ClientReqFormService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +20,27 @@ public class ClientReqFormController {
     @Autowired
     private ClientReqFormService clientReqFormService;
 
-    // Display the form page
+    // Display the form page and autofill client details from session
     @GetMapping("/CLIENT-reqform")
-    public String clientReqForm() {
-        return "CLIENT-reqform"; // This will render CLIENT-reqform.html
+    public String clientReqForm(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        // Check if client is logged in (from session)
+        Client loggedInClient = (Client) session.getAttribute("loggedInClient");
+
+        if (loggedInClient == null) {
+            // Redirect to login if no client is in session
+            redirectAttributes.addFlashAttribute("error", "Please log in first.");
+            return "redirect:/client-login";
+        }
+
+        // Add client data to the model for Thymeleaf to use
+        model.addAttribute("companyName", loggedInClient.getCompanyName());
+        model.addAttribute("representativeName", loggedInClient.getRepresentativeName());
+        model.addAttribute("email", loggedInClient.getEmail());
+        model.addAttribute("contactNumber", loggedInClient.getContactNumber());
+        model.addAttribute("ltoNo", loggedInClient.getLtoNo());
+        model.addAttribute("clientClassif", loggedInClient.getClientClassif());
+
+        return "CLIENT-reqform"; // Render the CLIENT-reqform page with autofilled details
     }
 
     // Process the form submission
@@ -43,15 +63,16 @@ public class ClientReqFormController {
             @RequestParam(required = false) String chemTests,
             @RequestParam String releasingResults,
             @RequestParam(required = false) String regionalOffice,
+            HttpSession session,
             RedirectAttributes redirectAttributes) {
-            
-                if ("others".equals(purposeTest) && otherPurposeTest != null && !otherPurposeTest.isEmpty()) {
-                    purposeTest = otherPurposeTest;
-                }
 
-                if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
-                    releasingResults = regionalOffice;
-                }
+        if ("others".equals(purposeTest) && otherPurposeTest != null && !otherPurposeTest.isEmpty()) {
+            purposeTest = otherPurposeTest;
+        }
+
+        if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
+            releasingResults = regionalOffice;
+        }
 
         // Create a new ClientReqForm entity and set its properties
         ClientReqForm clientReqForm = new ClientReqForm();

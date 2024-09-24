@@ -2,6 +2,7 @@ package com.example.semiautomatedlims.Controller;
 
 import com.example.semiautomatedlims.Entity.Client;
 import com.example.semiautomatedlims.Service.ClientService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,15 +36,25 @@ public class ClientLoginController {
         return "CLIENT-LOGIN";  // Renders CLIENT-login.html from the templates folder
     }
 
+    // Process login and store user info in session
     @PostMapping("/client-login")
-    public String processLogin(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes) {
+    public String processLogin(@RequestParam String email, @RequestParam String password,
+                               HttpSession session, RedirectAttributes redirectAttributes) {
         Client client = clientService.findClientByEmail(email);
 
         if (client != null && client.getPassword().equals(password)) {
+            session.setAttribute("loggedInClient", client);  // Store the client object in session
             return "redirect:/CLIENT-home";  // Redirect to the client dashboard after successful login
         }
         // Invalid login
         redirectAttributes.addFlashAttribute("error", "Invalid credentials, please try again.");
         return "redirect:/client-login";
+    }
+
+    // Logout functionality to clear the session
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();  // Clear the session
+        return "redirect:/client-login";  // Redirect to login page after logout
     }
 }

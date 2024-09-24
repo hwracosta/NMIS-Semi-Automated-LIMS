@@ -11,25 +11,25 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "representative_name", nullable = false)
     private String representativeName;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "contact_number", nullable = false, length = 20)
     private String contactNumber;
 
-    @Column(nullable = false)
+    @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @Column(length = 100)  // Optional field
+    @Column(name = "lto_no", length = 100)  // Optional field
     private String ltoNo;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "client_classif", nullable = false, length = 100)
     private String clientClassif;
 
     @Column
