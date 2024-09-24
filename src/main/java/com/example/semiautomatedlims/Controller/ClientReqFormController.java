@@ -37,11 +37,21 @@ public class ClientReqFormController {
             @RequestParam Date samplingDate,
             @RequestParam int weightGrams,
             @RequestParam String purposeTest,
+            @RequestParam(required = false) String otherPurposeTest,
             @RequestParam(required = false) String microbioTests,  // Optional fields
             @RequestParam(required = false) String molecTests,
             @RequestParam(required = false) String chemTests,
             @RequestParam String releasingResults,
+            @RequestParam(required = false) String regionalOffice,
             RedirectAttributes redirectAttributes) {
+            
+                if ("others".equals(purposeTest) && otherPurposeTest != null && !otherPurposeTest.isEmpty()) {
+                    purposeTest = otherPurposeTest;
+                }
+
+                if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
+                    releasingResults = regionalOffice;
+                }
 
         // Create a new ClientReqForm entity and set its properties
         ClientReqForm clientReqForm = new ClientReqForm();
@@ -66,6 +76,6 @@ public class ClientReqFormController {
 
         // Redirect after successful submission
         redirectAttributes.addFlashAttribute("message", "Form submitted successfully!");
-        return "redirect:/CLIENT-home"; // Redirect to the same page after submission
+        return "redirect:/CLIENT-home"; // Redirect to the home page after submission
     }
 }
