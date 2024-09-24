@@ -410,7 +410,7 @@
                       <div class="option">
                         <input type="radio" id="regional" name="releasingResults" value="regional">
                         <label class="releasing-option" for="regional">Pick-up through Regional Office:</label>
-                        <input type="specify" id="regional-office" name="regional-office" placeholder="specify">
+                        <input type="specify" id="regional-office" name="regional-office" placeholder="specify" style="display: none;">
                       </div>
               
                       <div class="option">
@@ -429,6 +429,31 @@
         </div>
         <button type="submit">Submit</button>
     </form>
+    <script>
+        document.getElementById("test-purpose").addEventListener("change", function() {
+            var otherPurposeInput = document.getElementById("other-purpose");
+            if (this.value === "others") {
+                otherPurposeInput.style.display = "block";
+                otherPurposeInput.setAttribute("name", "otherPurposeTest");
+            } else {
+                otherPurposeInput.style.display = "none";
+                otherPurposeInput.removeAttribute("name");
+            }
+        });
+
+        document.querySelectorAll("input[name='releasingResults']").forEach(function(radio) {
+            radio.addEventListener("change", function() {
+                var regionalOfficeInput = document.getElementById("regional-office");
+                if (this.value === "regional") {
+                    regionalOfficeInput.style.display = "block";
+                    regionalOfficeInput.setAttribute("name", "regionalOffice");
+                } else {
+                    regionalOfficeInput.style.display = "none";
+                    regionalOfficeInput.removeAttribute("name");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
