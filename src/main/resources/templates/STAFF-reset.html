@@ -7,14 +7,14 @@
   <link rel="stylesheet" th:href="@{/css/STAFF-reset.css}" />
 </head>
 <body>
-<div class="STAFF-RESET">
+<div class="STAFF-RESET"> <!-- Changed to CLIENT-RESET to match the styling -->
   <div class="div">
     <header class="header">
       <div class="overlap-group">
         <div class="rectangle"></div>
         <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
         <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-        <div class="text-wrapper-2">Staff</div>
+        <div class="text-wrapper-2">Staff</div> <!-- Keep this as "Staff" for staff page -->
       </div>
     </header>
     <div class="element-form">
@@ -27,19 +27,23 @@
         <form th:action="@{/STAFF-reset}" method="post">
             <!-- Hidden field to capture email from flash attributes -->
             <input type="hidden" th:value="${email}" name="email" />
-
+            
             <!-- New Password field -->
+            <div class="input-container">
             <div class="new-pw">
                 <label class="label-1" for="input-1">New Password</label>
                 <input class="input-1" id="input-1" type="password" name="newPassword" placeholder="Enter New Password" required />
             </div>
-
+            </div>
+            
             <!-- Confirm Password field -->
+            <div class="input-container">
             <div class="confirm-pw">
                 <label class="label-2" for="input-2">Confirm Password</label>
                 <input class="input-2" id="input-2" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
+            </div>    
             </div>
-
+        </div>
             <!-- Submit button -->
             <button type="submit" class="button">
                 <span class="button-text">Submit</span>
@@ -47,7 +51,6 @@
         </form>
     </div>
   </div>
-</div>
 </div>
 </body>
 </html>
