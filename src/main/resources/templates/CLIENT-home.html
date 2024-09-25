@@ -17,17 +17,19 @@
                 <div class="text-wrapper-2">Client Home</div>
             </div>
         </header>
-        <a th:href="@{/CLIENT-trackreq}" class="overlap">
-            <div class="text-wrapper-3">Track My Request</div>
-            <img class="log" th:src="@{/img/TrackMyRequest-Icon.png}" />
-        </a>
-        <a th:href="@{/CLIENT-reqform}" class="overlap-2">
-            <div class="text-wrapper-4">Submit a Request</div>
-            <img class="submit" th:src="@{/img/SubmitARequest-Icon.png}" />
-        </a>        
-        <a th:href="@{/CLIENT-guide}" class="overlap-3">
-            <div class="text-wrapper-5">Guide</div>
-        </a>
+        <div class="buttons-container">
+            <a th:href="@{/CLIENT-trackreq}" class="overlap">
+                <div class="text-wrapper-3">Track My Request</div>
+                <img class="log" th:src="@{/img/TrackMyRequest-Icon.png}" />
+            </a>
+            <a th:href="@{/CLIENT-reqform}" class="overlap-2">
+                <div class="text-wrapper-4">Submit a Request</div>
+                <img class="submit" th:src="@{/img/SubmitARequest-Icon.png}" />
+            </a>        
+            <a th:href="@{/CLIENT-guide}" class="overlap-3">
+                <div class="text-wrapper-5">Guide</div>
+            </a>
+        </div>
     </div>
 </div>
 </body>
