@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" th:href="@{/css/globals.css}">
-  <link rel="stylesheet" th:href="@{/css/styleguide.css}">
-  <link rel="stylesheet" th:href="@{/css/STAFF-2FA.css}">
+  <link rel="stylesheet" th:href="@{/css/globals.css}" />
+  <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+  <link rel="stylesheet" th:href="@{/css/STAFF-2FA.css}" />
 </head>
 <body>
 <div class="STAFF-2FA">
@@ -18,20 +18,21 @@
       </div>
     </header>
     <div class="element-form">
-      <input class="overlap" />
       <div class="forgot-password-wrapper">
         <div class="forgot-password">Two-Factor Authentication</div>
       </div>
       <p class="fpw-descriptor">
-        <span class="span">Please enter the authentication code sent to your</span>
-        <span class="text-wrapper-3">email.</span>
+        <span class="span">Enter the email address you used for this account and we’ll</span><br>
+        <span class="span">send you a </span>
+        <span class="text-wrapper-3">code</span>
+        <span class="span">to confirm your request.</span>
       </p>
 
       <!-- Form to verify 2FA code -->
       <form th:action="@{/STAFF-2FA}" method="post">
         <input class="input" id="input-1" type="text" name="code" placeholder="Enter 2FA Code" required/>
         <input type="hidden" name="email" th:value="${email}" /> <!-- Hidden email field -->
-        <button class="button">
+        <button type="submit" class="button">
           <span class="button-text">Submit</span>
         </button>
       </form>
