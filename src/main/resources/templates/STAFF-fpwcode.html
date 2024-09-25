@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" th:href="@{/css/globals.css}" />
-  <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
-  <link rel="stylesheet" th:href="@{/css/STAFF-fpwcode.css}" />
+    <meta charset="utf-8" />
+    <title>Staff Password Reset Code</title>
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/STAFF-fpwcode.css}" />
 </head>
 <body>
 <div class="STAFF-FPWCODE">
-  <div class="div">
-    <header class="header">
-      <div class="overlap-group">
-        <div class="rectangle"></div>
-        <img class="img" th:src="@{/img/HEADER.png}" />
-        <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-        <div class="text-wrapper-2">Laboratory Staff</div>
-      </div>
-    </header>
-    <div class="element-form">
-      <input class="overlap" />
-      <div class="forgot-password-wrapper">
-        <div class="forgot-password">Reset Password</div>
-      </div>
-      <p class="fpw-descriptor">
-        <span class="span">Enter the  
-        <span class="text-wrapper-3">code</span>
-        <span class="span">to verify your request.</span>
-      </p>
-      <p>
-        <input class="input" id="input-1" type="email" placeholder="*-digit code" />
-      </p>
-      <a th:href="@{/STAFF-reset}" class="reset-link">
-        <button class="button">
-          <span class="button-text">Submit</span>
-        </button>
-      </a>
+    <div class="div">
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <img class="img" th:src="@{/img/HEADER.png}" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="text-wrapper-2">Staff Login</div>
+            </div>
+        </header>
+        <div class="element-form">
+            <div class="forgot-password-wrapper">
+                <div class="forgot-password">Enter Reset Code</div>
+            </div>
+            <p class="fpw-descriptor">
+                <span class="span">Enter the</span>
+                <span class="text-wrapper-3">reset code</span>
+                <span class="span">you received via email to proceed with password reset.</span>
+            </p>
+            <form th:action="@{/STAFF-fpwcode}" method="post">
+                <p>
+                    <input class="input" id="input-1" type="text" name="code" placeholder="6-digit reset code" required />
+                </p>
+                <button type="submit" class="button">
+                    <span class="button-text">Submit</span>
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 </body>
 </html>
+
