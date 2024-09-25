@@ -27,20 +27,19 @@ body, html {
   position: relative;
   padding-left: 50px;
   box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.2); 
-  
 }
-  
+
 .CLIENT-REGISTER .overlap-group {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   margin-right: 50px;
   margin-bottom: 70px;
   padding: 20px;
-  overflow: auto;
-  height: 100%;
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 .CLIENT-REGISTER .logo-and-text {
@@ -51,17 +50,20 @@ body, html {
 }
 
 .CLIENT-REGISTER .company-logo {
-  width: 150px; 
-  height: 150px;
+  width: 120px; 
+  height: 120px;
   margin-bottom: 10px;
   margin-top: 5px;
 }
 
 .CLIENT-REGISTER .set-up-your-account {
-  font-size: 4rem; 
+  font-size: 3rem;
   color: #002267;
-  margin-bottom: 40px;
-  margin-top: 15px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  word-wrap: break-word;
+  line-height: 1.2;
+  text-align: left;
 }
 
 .CLIENT-REGISTER .text-wrapper {
@@ -98,7 +100,7 @@ body, html {
 }
 
 .CLIENT-REGISTER .label {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #002267;
   margin-bottom: 10px;
 }
@@ -108,7 +110,7 @@ body, html {
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid #ccc;
-  font-size: 1.5rem; 
+  font-size: 1.2rem; 
   width: 100%;
   box-sizing: border-box;
 }
@@ -122,7 +124,7 @@ body, html {
   padding: 10px; 
   width: 100%;
   border-radius: 10px;
-  font-size: 1.5rem; 
+  font-size: 1.2rem; 
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -133,7 +135,7 @@ body, html {
 
 .CLIENT-REGISTER .text-wrapper-3 {
   text-align: center;
-  font-size: 1.2rem; 
+  font-size: 1rem; 
   margin-top: 10px;
 }
 
@@ -156,24 +158,5 @@ body, html {
   border-radius: 0 5% 5% 0; 
   box-shadow: -5px 0px 20px rgba(0, 0, 0, 0.3); 
   z-index: 1;
-  
 }
-
-.CLIENT-REGISTER select.input {
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 1.5rem; 
-  width: 100%;
-  box-sizing: border-box;
-  appearance: none; /* Removes default dropdown arrow */
-}
-
-.CLIENT-REGISTER .other-client-type-wrapper {
-  transition: all 0.3s ease;
-}
-
-
-
 
