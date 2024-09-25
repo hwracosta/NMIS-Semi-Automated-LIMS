@@ -31,7 +31,12 @@ public class ClientRegisterController {
             @RequestParam String email,
             @RequestParam(required = false) String ltoNumber,  // Ensure LTO number is passed
             @RequestParam String clientClassif,
+            @RequestParam(required = false) String otherClientType, // Capture the "Others" input
             RedirectAttributes redirectAttributes) {
+
+                if ("others".equals(clientClassif) && otherClientType != null && !otherClientType.isEmpty()) {
+                    clientClassif = otherClientType;
+                }
 
         // Create a new client entity
         Client newClient = new Client();
