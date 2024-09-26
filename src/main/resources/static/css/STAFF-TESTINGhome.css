@@ -74,6 +74,19 @@
   white-space: nowrap;
 }
 
+.STAFF-RELEASINGhome .logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
 
 .STAFF-TESTINGhome .text-wrapper-3 {
   position: absolute;

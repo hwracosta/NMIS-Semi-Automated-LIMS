@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 public class ClientLoginController {
-
-    private static final Logger logger = LoggerFactory.getLogger(ClientLoginController.class);
 
     @Autowired
     private ClientService clientService;
@@ -42,19 +38,14 @@ public class ClientLoginController {
                                HttpSession session, RedirectAttributes redirectAttributes) {
         Client client = clientService.findClientByEmail(email);
 
-        if (client != null && client.getPassword().equals(password)) {
+        // Check if client exists and password matches
+        if (client != null && passwordEncoder.matches(password, client.getPassword())) {
             session.setAttribute("loggedInClient", client);  // Store the client object in session
             return "redirect:/CLIENT-home";  // Redirect to the client dashboard after successful login
         }
+
         // Invalid login
         redirectAttributes.addFlashAttribute("error", "Invalid credentials, please try again.");
         return "redirect:/client-login";
-    }
-
-    // Logout functionality to clear the session
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();  // Clear the session
-        return "redirect:/client-login";  // Redirect to login page after logout
     }
 }
