@@ -252,6 +252,37 @@ form {
     margin-right: 20px;
 }
 
+.sample-scrollable {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative; /* Position relative to position the button */
+    max-height: 200px; /* Set a maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+.add-button {
+    position: absolute;
+    top: 5px; /* Space from the top */
+    right: 40px; /* Space from the right */
+    padding: 5px 5px;
+    background-color: #002267;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px; /* Space from the top */
+    right: 20px; /* Space from the right */
+    padding: 5px 6px;
+    background-color: #002267;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 .form-right {
     margin-right: 0;
 }
@@ -387,7 +418,7 @@ form {
 }
 
 /*Submit*/
-button {
+.submit {
     background-color: #002267;     
     color: white;                 
     padding: 12px 24px;            

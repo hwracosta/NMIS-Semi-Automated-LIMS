@@ -97,10 +97,21 @@
                                     <label for="clientSampleCode">Client's Sample Code:</label>
                                     <input type="text" id="clientSampleCode" name="clientSampleCode">
                                 </div>
-                                <div class="form-section">
-                                    <label for="sampleDescription">Sample Description and Details:</label>
-                                    <textarea id="sampleDescription" name="sampleDetails"></textarea>
+
+                                <div class="sample-scrollable">
+                                    <button class="add-button" type="button" id="addSampleButton">+</button>
+                                    <button class="delete-button" type="button" id="deleteSampleButton">-</button>
+                                    <div class="form-section">
+                                        <label for="sampleDescription">Sample Description and Details:</label>
+                                        <textarea id="sampleDescription" name="sampleDetails"></textarea>
+                                    </div>
+
+                                    <div id="additionalSamplesContainer">
+                                        
+                                    </div>
                                 </div>
+                                
+
                                 <div class="form-section">
                                     <label for="sampleSource">Sample Source:</label>
                                     <textarea type="text" id="sampleSource" name="sampleSource"></textarea>
@@ -374,7 +385,7 @@
                 </div>
             
         </div>
-        <button type="submit">Submit</button>
+        <button class="submit" type="submit">Submit</button>
     </form>
     <script>
         document.getElementById("test-purpose").addEventListener("change", function() {
@@ -399,6 +410,38 @@
                     regionalOfficeInput.removeAttribute("name");
                 }
             });
+        });
+
+        document.getElementById('addSampleButton').addEventListener('click', function() {
+            // Create a new div for the additional sample input
+            var newSampleDiv = document.createElement('div');
+            newSampleDiv.className = 'form-section';
+
+            // Create the label for the new sample description
+            var newLabel = document.createElement('label');
+            newLabel.textContent = 'Sample Description and Details:';
+
+            // Create the textarea for the new sample description
+            var newTextarea = document.createElement('textarea');
+            newTextarea.name = 'sampleDetails'; // You can change this if you need different names for each
+            newTextarea.id = 'sampleDescription' + (document.querySelectorAll('textarea[name="sampleDetails"]').length + 1); // Unique ID
+
+            // Append the label and textarea to the new div
+            newSampleDiv.appendChild(newLabel);
+            newSampleDiv.appendChild(newTextarea);
+            
+            // Append the new sample div to the additional samples container
+            document.getElementById('additionalSamplesContainer').appendChild(newSampleDiv);
+        });
+
+        document.getElementById('deleteSampleButton').addEventListener('click', function() {
+            var container = document.getElementById('additionalSamplesContainer');
+            var samples = container.children; // Get all child elements
+
+            // Remove the last sample input if there is any
+            if (samples.length > 0) {
+                container.removeChild(samples[samples.length - 1]);
+            }
         });
     </script>
 </body>
