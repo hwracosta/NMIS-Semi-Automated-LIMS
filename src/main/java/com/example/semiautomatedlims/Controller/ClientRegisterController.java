@@ -29,6 +29,7 @@ public class ClientRegisterController {
             @RequestParam String representativeName,
             @RequestParam String password,
             @RequestParam String email,
+            @RequestParam String address,
             @RequestParam(required = false) String ltoNumber,  // Ensure LTO number is passed
             @RequestParam String clientClassif,
             @RequestParam(required = false) String otherClientType, // Capture the "Others" input
@@ -45,6 +46,7 @@ public class ClientRegisterController {
         newClient.setRepresentativeName(representativeName);
         newClient.setPassword(password);  // Hash the password in production
         newClient.setEmail(email);
+        newClient.setEmail(address);
         newClient.setLtoNo(ltoNumber);  // Set LTO No.
         newClient.setClientClassif(clientClassif);  // Set client classification
 
