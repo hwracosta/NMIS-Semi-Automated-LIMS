@@ -23,6 +23,9 @@ public class Client {
     @Column(name = "contact_number", nullable = false, length = 20)
     private String contactNumber;
 
+    @Column(name = "address", nullable = false, length = 20)
+    private String address;
+
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
@@ -78,6 +81,14 @@ public class Client {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getaddress() {
+        return address;
+    }
+
+    public void setaddress(String address) {
+        this.address = address;
     }
 
     public String getCompanyName() {
