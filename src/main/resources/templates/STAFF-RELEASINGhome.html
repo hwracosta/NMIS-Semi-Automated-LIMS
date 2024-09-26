@@ -14,19 +14,22 @@
                 <div class="rectangle"></div>
                 <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
                 <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-                <div class="text-wrapper-2">Receiving/Releasing Staff</div>
+                <div class="text-wrapper-2">Receiving/Releasing Laboratory Home</div>
             </div>
         </header>
-        <div class="overlap">
-            <div class="text-wrapper-3">Database</div>
-            <img class="log" th:src="@{/img/TrackMyRequest-Icon.png}" />
-        </div>
-        <div class="overlap-2">
-            <div class="text-wrapper-4">For Release</div>
-            <img class="submit" th:src="@{/img/SubmitARequest-Icon.png}" />
-        </div>
-        <div class="overlap-3">
-            <div class="text-wrapper-5">Request Review</div>
+        <div class="buttons-container">
+            <a th:href="@{/CLIENT-guide}" class="overlap-3">
+                <div class="text-wrapper-5">Request Review</div>
+                <img class="log" th:src="@{/img/release-request.png}" />
+            </a>
+            <a th:href="@{/CLIENT-trackreq}" class="overlap">
+                <div class="text-wrapper-3">For Release</div>
+                <img class="log" th:src="@{/img/release-forrelease.png}" />
+            </a>
+            <a th:href="@{/CLIENT-reqform}" class="overlap-2">
+                <div class="text-wrapper-4">Database</div>
+                <img class="submit" th:src="@{/img/release-database.png}" />
+            </a>        
         </div>
     </div>
 </div>
