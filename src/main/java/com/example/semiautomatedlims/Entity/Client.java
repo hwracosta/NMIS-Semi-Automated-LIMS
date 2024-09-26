@@ -23,7 +23,7 @@ public class Client {
     @Column(name = "contact_number", nullable = false, length = 20)
     private String contactNumber;
 
-    @Column(name = "address", nullable = false, length = 20)
+    @Column(name = "address", nullable = false, length = 255)
     private String address;
 
     @Column(name = "company_name", nullable = false)
