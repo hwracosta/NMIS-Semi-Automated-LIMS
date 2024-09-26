@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Review</title>
+    <link rel="stylesheet" th:href="@{/css/RELEASE-review.css}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+          <div class="rectangle"></div>
+          <img class="img" th:src="@{/img/HEADER.png}" />
+          <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+          <div class="text-wrapper-2">Client Track Request</div>
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">Request Review</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th>Submission Date</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Row -->
+                        <tr>
+                            <td>Sample Client</td>
+                            <td>01/09/2024</td>
+                            <td><a href="#"><u>View Details</u></a></td>
+                            <td>
+                                <select>
+                                    <option>Compliance Check</option>
+                                    <option>Passed</option>
+                                    <option>Failed</option>
+                                </select>
+                            </td>
+                            <td><button class="submit-btn">Submit</button></td>
+                        </tr>
+                        <!-- More rows can be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
