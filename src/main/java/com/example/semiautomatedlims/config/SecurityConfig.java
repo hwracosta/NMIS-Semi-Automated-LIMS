@@ -6,8 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -20,7 +18,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())  // Modern method for authorization
-                .csrf(AbstractHttpConfigurer::disable);  // Disable CSRF if not required
+                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF if not required
+                .logout(logout -> logout  // Add logout configuration
+                        .logoutUrl("/logout")  // URL to trigger logout
+                        .logoutSuccessUrl("/client-login")  // Redirect to login page after logout
+                        .invalidateHttpSession(true)  // Invalidate the session
+                        .deleteCookies("JSESSIONID")  // Delete session cookie
+                );
 
         return http.build();
     }
@@ -35,20 +39,19 @@ public class SecurityConfig {
         return manager;
     }
 
-//    //Hash but normal login
+//    // Hash but normal login
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
 
-
-//    No Hash
+    // No Hash
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();  // No password hashing
     }
 
-    //hashed
+    // hashed
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();

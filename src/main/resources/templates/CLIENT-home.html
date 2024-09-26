@@ -17,8 +17,11 @@
                 <div class="text-wrapper-2">Client Home</div>
 
                 <div class="logout-button">
-                    <span class="log-out"> <a th:href="@{/client-login}">Log out</a></span>
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <button type="submit" class="log-out">Log out</button>
+                    </form>
                 </div>
+
             </div>
         </header>
         <div class="buttons-container">
