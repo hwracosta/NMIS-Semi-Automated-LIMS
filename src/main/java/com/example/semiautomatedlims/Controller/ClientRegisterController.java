@@ -46,7 +46,7 @@ public class ClientRegisterController {
         newClient.setRepresentativeName(representativeName);
         newClient.setPassword(password);  // Hash the password in production
         newClient.setEmail(email);
-        newClient.setEmail(address);
+        newClient.setAddress(address);
         newClient.setLtoNo(ltoNumber);  // Set LTO No.
         newClient.setClientClassif(clientClassif);  // Set client classification
 
