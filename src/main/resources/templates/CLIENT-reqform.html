@@ -202,6 +202,12 @@
                             <div class="checkbox-item">
                                 <input type="checkbox" id="culture" name="microbioTests" value="culture">
                                 <label for="culture">Culture and Sensitivity Test (Php 1,500/panel)</label>
+                                <select class="culture-options" id="culture-options" name="culture-options" style="display: none;">
+                                    <option value=" ">Select an option</option>
+                                    <option value="gram-positive">Gram Positive AST</option>
+                                    <option value="gram-negative">Gram Negative AST</option>
+                                    <option value="gram-both">Both</option>
+                                </select>
                             </div>
                     
                             <div class="checkbox-item">
@@ -219,6 +225,33 @@
                                 <label for="yeast">Yeast and Molds (Php 300.00)</label>
                             </div>
                         </div>
+
+                        <br><h4 class ="exam-labels">• Physical Tests (2 Days) <span class="exam-section-sublabel">•average sample weight must be 250g, minimum;</span></h4>                            
+                        <div class="checkbox-items">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="organoleptic" name="microbioTests" value="organoleptic">
+                                <label for="organoleptic">Organoleptic Test (Php 50.00)</label>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pH" name="microbioTests" value="pH">
+                                <label for="pH">pH (Php 35.00)</label>
+                            </div>
+                        </div>    
+
+                        <br><h4 class ="exam-labels">• Parasitological Tests (2 Days) <span class="exam-section-sublabel">•Samples should not include fat tissues and; •average sample weight must be 250g, minimum;</span></h4>                            
+                        <div class="checkbox-items">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="trichinella" name="microbioTests" value="trichinella">
+                                <label for="trichinella">Trichinella spp. Identification (Php 150.00)</label>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="others-para" name="microbioTests" value="others-para">
+                                <label for="others-para">Others: </label>
+                                <input type="specify" id="specify-para" name="specify-para" placeholder="specify" class="specify-input" style="display: none;">
+                            </div>
+                        </div>    
                     </div>
                     
                     
@@ -313,7 +346,7 @@
                         </div>
                     
 
-                        <h4 class ="chem-sub-labels">• Enzyme-Linked ImmunoSorbent Assay (ELISA) (6 Days)</h4>                            
+                        <br><h4 class ="chem-sub-labels">• Enzyme-Linked ImmunoSorbent Assay (ELISA) (6 Days)</h4>                            
                             <div class="checkbox-items">
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="chloramphenicol" name="chemTests" value="chloramphenicol">
@@ -396,6 +429,34 @@
             } else {
                 otherPurposeInput.style.display = "none";
                 otherPurposeInput.removeAttribute("name");
+            }
+        });
+
+        // Get the checkbox and the dropdown
+        const cultureCheckbox = document.getElementById('culture');
+        const dropdown = document.getElementById('culture-options');
+
+        // Add an event listener to the checkbox
+        cultureCheckbox.addEventListener('change', function() {
+            // Toggle the display of the dropdown based on checkbox state
+            if (cultureCheckbox.checked) {
+                dropdown.style.display = 'inline'; // Show dropdown
+            } else {
+                dropdown.style.display = 'none'; // Hide dropdown
+                dropdown.selectedIndex = 0; // Reset dropdown to the first option
+            }
+        });
+
+        const checkbox = document.getElementById('others-para');
+        const inputField = document.getElementById('specify-para');
+
+        // Add an event listener to the checkbox
+        checkbox.addEventListener('change', function() {
+            // Toggle the display of the input field based on checkbox state
+            if (checkbox.checked) {
+                inputField.style.display = 'inline'; // Show input field
+            } else {
+                inputField.style.display = 'none'; // Hide input field
             }
         });
 

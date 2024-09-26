@@ -473,4 +473,8 @@ button:active {
     border-radius: 4px;
     width: 250px; /* Adjust the width as desired */
   }
+
+  .specify-input {
+    width: 20px;
+  }
   
