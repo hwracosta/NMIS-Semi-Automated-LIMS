@@ -39,6 +39,7 @@ public class ClientReqFormController {
         model.addAttribute("contactNumber", loggedInClient.getContactNumber());
         model.addAttribute("ltoNo", loggedInClient.getLtoNo());
         model.addAttribute("clientClassif", loggedInClient.getClientClassif());
+        model.addAttribute("address", loggedInClient.getAddress());
 
         return "CLIENT-reqform"; // Render the CLIENT-reqform page with autofilled details
     }
