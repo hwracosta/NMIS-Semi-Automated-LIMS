@@ -6,6 +6,7 @@ CREATE TABLE CLIENT_register (
     contact_number VARCHAR(20) NOT NULL,
     company_name VARCHAR(255) NOT NULL,
     lto_no VARCHAR(100),
+    address VARCHAR(255) NOT NULL;
     client_classif VARCHAR(100) NOT NULL
 );
 
@@ -18,7 +19,6 @@ CREATE TABLE STAFF_register (
 
 CREATE TABLE client_reqform (
     client_reqid SERIAL PRIMARY KEY,
-    address VARCHAR (100) NOT NULL,
     or_no VARCHAR(100) NOT NULL,
     ld_no VARCHAR(100) NOT NULL,
     client_sample_code VARCHAR(100) NOT NULL,
@@ -32,6 +32,9 @@ CREATE TABLE client_reqform (
     microbio_tests VARCHAR(500),
     molec_tests VARCHAR(500),
     chem_tests VARCHAR(500),
+    client_id INT,
+    status VARCHAR(50),
+    submit_date DATE,
     releasing_results VARCHAR(100) NOT NULL
 );
 
