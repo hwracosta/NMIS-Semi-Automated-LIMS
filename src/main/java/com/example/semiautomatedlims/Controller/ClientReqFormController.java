@@ -48,7 +48,6 @@ public class ClientReqFormController {
     // Process the form submission
     @PostMapping("/CLIENT-reqform")
     public String processClientReqForm(
-        @RequestParam String address,
         @RequestParam String orNo,
         @RequestParam String ldNo,
         @RequestParam String clientSampleCode,
@@ -79,7 +78,6 @@ public class ClientReqFormController {
 
         // Create a new ClientReqForm entity and set its properties
         ClientReqForm clientReqForm = new ClientReqForm();
-        clientReqForm.setAddress(address);
         clientReqForm.setOrNo(orNo);
         clientReqForm.setLdNo(ldNo);
         clientReqForm.setClientSampleCode(clientSampleCode);

@@ -11,7 +11,6 @@ public class ClientReqForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientReqid;
 
-    private String address;
     private String orNo;
     private String ldNo;
     private String clientSampleCode;
@@ -35,14 +34,6 @@ public class ClientReqForm {
 
     public void setClientReqid(Long clientReqid) {
         this.clientReqid = clientReqid;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getOrNo() {
