@@ -12,11 +12,11 @@ public class StaffTestingHomeController {
         return "STAFF-TESTINGhome"; 
     }
 
-    @GetMapping("/staff-testing-logout")
-    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
-        session.invalidate();  // Clear the session
-        redirectAttributes.addFlashAttribute("message", "Logged out successfully!");
-        return "redirect:/STAFF-login";  // Redirect to login page after logout
-    }
+//    @GetMapping("/staff-testing-logout")
+//    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+//        session.invalidate();  // Clear the session
+//        redirectAttributes.addFlashAttribute("message", "Logged out successfully!");
+//        return "redirect:/STAFF-login";  // Redirect to login page after logout
+//    }
 }
 
