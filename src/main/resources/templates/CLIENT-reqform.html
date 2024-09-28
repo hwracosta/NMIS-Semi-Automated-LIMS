@@ -14,129 +14,126 @@
           <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
           <div class="text-wrapper-2">Client Request Form</div>
         </div>
-      </header>
+    </header>
     
     <form th:action="@{/CLIENT-reqform}" method="post">
         <div class="form-container">
             <div class="form-header">
                 <h1>LABORATORY REQUEST FORM</h1>
-                <p><i>By completing this from, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose. NMIS ensures to
-                    adhere to the principles and provision of Data Privacy Act and shall store the data in accordance with the National Archives of the Philippines Act.</i></p>
+                <p><i>By completing this form, you are giving NMIS the consent to collect and process Sensitive Information for this legitimate purpose...</i></p>
                 <hr>    
             </div>
 
-            <form class="lab-form">
-                <!-- Client Information Section -->
-                <div class="row">
-                    <div class="form-group">
-                        <label for="companyName">Company Name</label>
-                        <input type="text" id="companyName" name="companyName" th:value="${companyName}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="repName">Representative Name</label>
-                        <input type="text" id="repName" name="representativeName" th:value="${representativeName}" readonly>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" th:value="${email}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact">Contact Number</label>
-                        <input type="text" id="contact" name="contactNumber" th:value="${contactNumber}" readonly>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="ltoNo">LTO No. (if applicable)</label>
-                        <input type="text" id="ltoNo" name="ltoNo" th:value="${ltoNo}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="clientClassif">Client Classification</label>
-                        <input type="text" id="clientClassif" name="clientClassif" th:value="${clientClassif}" readonly>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="ldNo">*LD Control No(s)</label>
-                        <input type="text" id="ldNo" name="ldNo" placeholder="Enter LD Control Number">
-                    </div>
-                    <div class="form-group">
-                        <label for="orNo">OR No.</label>
-                        <input type="text" id="orNo" name="orNo" placeholder="Enter OR Number">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" th:value="${address}" readonly>
-                    </div>
-                </div>
+            <!-- Category Selection Section (Radio Buttons) -->
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <!-- Inline radio buttons -->
+                <input type="radio" id="monitoring" name="sample_category" value="monitoring">
+                <label for="monitoring">Monitoring</label>
+                
+                <input type="radio" id="walk-in" name="sample_category" value="walk-in">
+                <label for="walk-in">Walk-In</label>
+            </div>
 
-                <!--Sample Section-->
-                <div class="container">
-                    <hr>
-                    <h2 class="sample-info-label">General Sample Information</h2>
-                    <p><u>Samples for Laboratory Test must be hygienically and individually packed, sealed and labelled, with no unusual odor.</u></p>
-                    <p class="sample-instructions"><i>Instructions for the client on how to fill-up this section:<br>
-                        1. Put your sample code, if any, in the “Client’s Sample Code”<br>
-                        2. In the “Sample Description and Details”, write the type of sample (species & meat part classification/cuts) you are submitting, with batch/lot number of the sample and brand name, if any.<br>
-                        a. For imported samples, provide the batch/lot number of the sample and the container number where the sample/s were kept.<br>
-                        3. In the “Sample Source” box:<br>
-                        a. For Local samples, indicate the name of the slaughterhouse, meat cutting plant, or poultry dressing plant source and the farm/hog dealer source, if possible.<br>
-                        b. For Imported samples, indicate the name of the local cold storage warehouse and the name of the Foreign Meat Establishment <br>and country where the sample/s were sourced.<br>
-                        4. Fill up the remaining boxes accordingly.</i>
-                    </p>
-                    <br>
-                    
-                        <div class="form-layout">
-                            <!-- Left Side -->
-                            <div class="form-left">
-                                <div class="form-section">
-                                    <label for="clientSampleCode">Client's Sample Code:</label>
-                                    <input type="text" id="clientSampleCode" name="clientSampleCode">
-                                </div>
+            <!-- Client Information Section -->
+            <div class="row">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" name="companyName" th:value="${companyName}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="repName">Representative Name</label>
+                    <input type="text" id="repName" name="representativeName" th:value="${representativeName}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" th:value="${email}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="text" id="contact" name="contactNumber" th:value="${contactNumber}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="ltoNo">LTO No. (if applicable)</label>
+                    <input type="text" id="ltoNo" name="ltoNo" th:value="${ltoNo}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="clientClassif">Client Classification</label>
+                    <input type="text" id="clientClassif" name="clientClassif" th:value="${clientClassif}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="ldNo">*LD Control No(s)</label>
+                    <input type="text" id="ldNo" name="ldNo" placeholder="Enter LD Control Number">
+                </div>
+                <!-- OR No. Section, conditionally displayed -->
+                <div class="form-group" id="orNoContainer" style="display: none;">
+                    <label for="orNo">OR No.</label>
+                    <input type="text" id="orNo" name="orNo" placeholder="Enter OR Number">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" th:value="${address}" readonly>
+                </div>
+            </div>
 
-                                <div class="sample-scrollable">
-                                    <button class="add-button" type="button" id="addSampleButton">+</button>
-                                    <button class="delete-button" type="button" id="deleteSampleButton">-</button>
-                                    <div class="form-section">
-                                        <label for="sampleDescription">Sample Description and Details:</label>
-                                        <textarea id="sampleDescription" name="sampleDetails"></textarea>
-                                    </div>
+            <!-- Sample Section -->
+            <div class="container">
+                <hr>
+                <h2 class="sample-info-label">General Sample Information</h2>
+                <p><u>Samples for Laboratory Test must be hygienically and individually packed, sealed, and labeled, with no unusual odor.</u></p>
+                <br>
+                
+                <div class="form-layout">
+                    <!-- Left Side -->
+                    <div class="form-left">
+                        <div class="form-section">
+                            <label for="clientSampleCode">Client's Sample Code:</label>
+                            <input type="text" id="clientSampleCode" name="clientSampleCode">
+                        </div>
+                        <div class="sample-scrollable">
+                            <button class="add-button" type="button" id="addSampleButton">+</button>
+                            <button class="delete-button" type="button" id="deleteSampleButton">-</button>
+                            <div class="form-section">
+                                <label for="sampleDescription">Sample Description and Details:</label>
+                                <textarea id="sampleDescription" name="sampleDetails"></textarea>
+                            </div>
 
-                                    <div id="additionalSamplesContainer">
-                                        
-                                    </div>
-                                </div>
+                            <div id="additionalSamplesContainer">
                                 
-
-                                <div class="form-section">
-                                    <label for="sampleSource">Sample Source:</label>
-                                    <textarea type="text" id="sampleSource" name="sampleSource"></textarea>
-                                </div>
                             </div>
-            
+                        </div>
+                        <div class="form-section">
+                            <label for="sampleSource">Sample Source:</label>
+                            <textarea type="text" id="sampleSource" name="sampleSource"></textarea>
+                        </div>
+                    </div>
+                </div>
                             <!-- Right Side -->
-                            <div class="form-right">
-                                <div class="form-section">
-                                    <label for="productionDate">Production Date:</label>
-                                    <input type="date" id="productionDate" name="productionDate">
-                                </div>
-                                <div class="form-section">
-                                    <label for="expirationDate">Expiration Date:</label>
-                                    <input type="date" id="expirationDate" name="expirationDate">
-                                </div>
-                                <div class="form-section">
-                                    <label for="samplingDate">Sampling Date:</label>
-                                    <input type="date" id="samplingDate" name="samplingDate">
-                                </div>
-                                <div class="form-section">
-                                    <label for="weight">Weight (grams):</label>
-                                    <input type="number" id="weight" name="weightGrams">
-                                </div>
+                        <div class="form-right">
+                            <div class="form-section">
+                                <label for="productionDate">Production Date:</label>
+                                <input type="date" id="productionDate" name="productionDate">
                             </div>
+                            <div class="form-section">
+                                <label for="expirationDate">Expiration Date:</label>
+                                <input type="date" id="expirationDate" name="expirationDate">
+                            </div>
+                            <div class="form-section">
+                                <label for="samplingDate">Sampling Date:</label>
+                                <input type="date" id="samplingDate" name="samplingDate">
+                            </div>
+                            <div class="form-section">
+                                <label for="weight">Weight (grams):</label>
+                                <input type="number" id="weight" name="weightGrams">
+                            </div>                            
                         </div>
             
                         <!-- Checkbox and certification text -->
@@ -416,11 +413,11 @@
                     </div>
                     </div>
                 </div>
-            
         </div>
         <button class="submit" type="submit">Submit</button>
     </form>
     <script>
+        // Existing functionality for "test-purpose" dropdown and other UI interactions
         document.getElementById("test-purpose").addEventListener("change", function() {
             var otherPurposeInput = document.getElementById("other-purpose");
             if (this.value === "others") {
@@ -431,11 +428,11 @@
                 otherPurposeInput.removeAttribute("name");
             }
         });
-
+    
         // Get the checkbox and the dropdown
         const cultureCheckbox = document.getElementById('culture');
         const dropdown = document.getElementById('culture-options');
-
+    
         // Add an event listener to the checkbox
         cultureCheckbox.addEventListener('change', function() {
             // Toggle the display of the dropdown based on checkbox state
@@ -446,10 +443,10 @@
                 dropdown.selectedIndex = 0; // Reset dropdown to the first option
             }
         });
-
+    
         const checkbox = document.getElementById('others-para');
         const inputField = document.getElementById('specify-para');
-
+    
         // Add an event listener to the checkbox
         checkbox.addEventListener('change', function() {
             // Toggle the display of the input field based on checkbox state
@@ -459,7 +456,8 @@
                 inputField.style.display = 'none'; // Hide input field
             }
         });
-
+    
+        // Radio button logic for "Releasing Results" section
         document.querySelectorAll("input[name='releasingResults']").forEach(function(radio) {
             radio.addEventListener("change", function() {
                 var regionalOfficeInput = document.getElementById("regional-office");
@@ -472,39 +470,125 @@
                 }
             });
         });
-
+    
+        // Sample section: Add new sample inputs
         document.getElementById('addSampleButton').addEventListener('click', function() {
-            // Create a new div for the additional sample input
             var newSampleDiv = document.createElement('div');
             newSampleDiv.className = 'form-section';
-
-            // Create the label for the new sample description
+    
             var newLabel = document.createElement('label');
             newLabel.textContent = 'Sample Description and Details:';
-
-            // Create the textarea for the new sample description
+    
             var newTextarea = document.createElement('textarea');
-            newTextarea.name = 'sampleDetails'; // You can change this if you need different names for each
+            newTextarea.name = 'sampleDetails';
             newTextarea.id = 'sampleDescription' + (document.querySelectorAll('textarea[name="sampleDetails"]').length + 1); // Unique ID
-
-            // Append the label and textarea to the new div
+    
             newSampleDiv.appendChild(newLabel);
             newSampleDiv.appendChild(newTextarea);
-            
-            // Append the new sample div to the additional samples container
+    
             document.getElementById('additionalSamplesContainer').appendChild(newSampleDiv);
         });
-
+    
+        // Sample section: Remove last sample input
         document.getElementById('deleteSampleButton').addEventListener('click', function() {
             var container = document.getElementById('additionalSamplesContainer');
-            var samples = container.children; // Get all child elements
-
-            // Remove the last sample input if there is any
+            var samples = container.children;
+    
             if (samples.length > 0) {
                 container.removeChild(samples[samples.length - 1]);
             }
         });
-    </script>
+    
+        // New Code: Category radio button functionality for monitoring/walk-in
+        const categoryRadios = document.querySelectorAll('input[name="category"]');
+        const orNoContainer = document.getElementById('orNoContainer');
+        const addSampleButton = document.getElementById('addSampleButton');
+        const deleteSampleButton = document.getElementById('deleteSampleButton');
+        const sampleInputs = document.querySelectorAll('#clientSampleCode, #sampleDescription, #sampleSource');
+    
+        // Handle the display logic based on selected category
+        function handleCategoryChange() {
+            // Reset all fields
+            resetFormFields();
+            
+            if (document.getElementById('monitoring').checked) {
+                orNoContainer.style.display = 'none'; // Hide OR Number field
+                sampleInputs.forEach(input => input.removeAttribute('disabled')); // Enable sample inputs
+                addSampleButton.style.display = 'inline'; // Show Add button
+                deleteSampleButton.style.display = 'inline'; // Show Delete button
+                addSampleButton.disabled = false; // Enable Add button
+                deleteSampleButton.disabled = false; // Enable Delete button
+            } else if (document.getElementById('walk-in').checked) {
+                orNoContainer.style.display = 'block'; // Show OR Number field
+                sampleInputs.forEach(input => input.removeAttribute('disabled')); // Enable initial sample fields
+                addSampleButton.style.display = 'none'; // Hide Add button
+                deleteSampleButton.style.display = 'none'; // Hide Delete button
+                addSampleButton.disabled = true; // Disable Add button
+                deleteSampleButton.disabled = true; // Disable Delete button
+            }
+        }
+    
+        // Function to reset all form fields
+        function resetFormFields() {
+            // Clear specific fields (not autofilled ones)
+            const manualInputs = document.querySelectorAll('input[type="text"]:not([readonly]), input[type="number"], input[type="date"], textarea');
+            manualInputs.forEach(input => {
+                input.value = ''; // Clear input values
+            });
+    
+            // Clear additional samples
+            const additionalSamplesContainer = document.getElementById('additionalSamplesContainer');
+            while (additionalSamplesContainer.firstChild) {
+                additionalSamplesContainer.removeChild(additionalSamplesContainer.firstChild);
+            }
+    
+            // Clear OR No. field
+            document.getElementById('orNo').value = '';
+    
+            // Clear LD Control Number field
+            document.getElementById('ldNo').value = '';
+    
+            // Reset examination section checkbox inputs
+            const checkboxItems = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
+            checkboxItems.forEach(checkbox => {
+                checkbox.checked = false; // Uncheck each checkbox
+            });
+    
+            // Reset culture dropdown
+            const cultureDropdown = document.getElementById('culture-options');
+            cultureDropdown.style.display = 'none'; // Hide culture options
+            cultureDropdown.selectedIndex = 0; // Reset to default
+    
+            // Reset certification checkbox
+            const certifyCheckbox = document.getElementById('certify');
+            certifyCheckbox.checked = false; // Uncheck certification checkbox
+    
+            // Clear selected radio buttons in the releasing results section
+            const releasingResultsRadios = document.querySelectorAll("input[name='releasingResults']");
+            releasingResultsRadios.forEach(radio => {
+                radio.checked = false; // Uncheck each radio button
+            });
+    
+            // Reset the regional office input
+            document.getElementById("regional-office").value = ''; // Clear regional office input
+            document.getElementById("regional-office").style.display = 'none'; // Hide regional office input
+    
+            // Reset the dropdown for Purpose of Laboratory Test
+            const purposeDropdown = document.getElementById("test-purpose");
+            purposeDropdown.selectedIndex = 0; // Reset to default option
+            document.getElementById("other-purpose").style.display = "none"; // Hide the other-purpose input
+    
+            // Reset "Others" checkbox and its input field
+            const othersCheckbox = document.getElementById("others-para");
+            othersCheckbox.checked = false; // Uncheck the Others checkbox
+            document.getElementById("specify-para").value = ''; // Clear specify input field
+            document.getElementById("specify-para").style.display = 'none'; // Hide the specify input field
+        }
+    
+        // Attach event listeners to all category radio inputs for monitoring/walk-in
+        categoryRadios.forEach(radio => {
+            radio.addEventListener('change', handleCategoryChange);
+        });
+    </script>           
 </body>
 </html>
-

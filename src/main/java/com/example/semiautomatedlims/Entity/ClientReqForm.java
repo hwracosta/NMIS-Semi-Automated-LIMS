@@ -26,6 +26,7 @@ public class ClientReqForm {
     private String molecTests;
     private String chemTests;
     private String releasingResults;
+    private String sampleCategory; 
 
     // Getters and Setters
     public Long getClientReqid() {
@@ -154,5 +155,13 @@ public class ClientReqForm {
 
     public void setReleasingResults(String releasingResults) {
         this.releasingResults = releasingResults;
+    }
+
+    public String getSampleCategory() {
+        return sampleCategory;
+    }
+
+    public void setSampleCategory(String sampleCategory) {
+        this.sampleCategory = sampleCategory;
     }
 }
