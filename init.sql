@@ -36,3 +36,5 @@ CREATE TABLE client_reqform (
 );
 
 DROP TABLE client_register;
+DROP TABLE staff_register;
+DROP TABLE client_reqform;
