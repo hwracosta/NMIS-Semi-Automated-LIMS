@@ -24,8 +24,13 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/client-login")  // Redirect to login page after logout
                         .invalidateHttpSession(true)  // Invalidate the session
                         .deleteCookies("JSESSIONID")  // Delete session cookie
+                )
+                .logout(logout -> logout  // Add logout configuration for staff
+                        .logoutUrl("/staff-logout")  // URL to trigger logout for staff
+                        .logoutSuccessUrl("/STAFF-login")  // Redirect to staff login page after logout
+                        .invalidateHttpSession(true)  // Invalidate the session
+                        .deleteCookies("JSESSIONID")  // Delete session cookie
                 );
-
         return http.build();
     }
 
