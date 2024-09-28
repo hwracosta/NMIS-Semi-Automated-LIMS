@@ -19,7 +19,7 @@
           <div th:if="${error}" class="error-message">
             <p th:text="${error}" style="color: red; font-weight: bold;"></p>
           </div>
-          
+
           <form th:action="@{/client-login}" method="post">
             <div class="credentials">
               <label class="label" for="email">Email Address</label>
@@ -41,9 +41,9 @@
             <button class="button" type="submit">
               <span class="text-wrapper">Submit</span>
             </button>
-            
+
             <div class="text-wrapper-3">
-              <span class="register-link1"> <a th:href="@{/client-register}"> Not registered yet? </span> 
+              <span class="register-link1"> <a th:href="@{/client-register}"> Not registered yet? </span>
               <span class="register-link2">Create an Account</a></span>
             </div>
           </form>
@@ -54,11 +54,11 @@
     <script>
       const togglePassword = document.querySelector('#togglePassword');
       const password = document.querySelector('#password');
-    
+
       togglePassword.addEventListener('click', function () {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
-    
+
         // Optionally toggle the icon if you have two versions (e.g., open eye and closed eye)
         this.src = type === 'password' ? '/img/EYE-CLOSED.png' : '/img/EYE.svg';
       });

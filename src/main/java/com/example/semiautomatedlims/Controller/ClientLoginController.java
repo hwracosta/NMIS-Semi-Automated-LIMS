@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +27,11 @@ public class ClientLoginController {
         return "redirect:/client-login";  // Redirects to client-login
     }
 
-    // Display login page
     @GetMapping("/client-login")
-    public String loginPage() {
-        return "CLIENT-LOGIN";  // Renders CLIENT-login.html from the templates folder
+    public String loginPage(HttpSession session, Model model) {
+        session.invalidate();  // Invalidate any existing session
+        model.addAttribute("isLoggedIn", false);  // Add a flag to indicate user is not logged in
+        return "CLIENT-LOGIN";  // Render CLIENT-login.html from the templates folder
     }
 
     // Process login and store user info in session

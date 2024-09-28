@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -17,22 +18,35 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())  // Modern method for authorization
-                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF if not required
-                .logout(logout -> logout  // Add logout configuration
-                        .logoutUrl("/logout")  // URL to trigger logout
-                        .logoutSuccessUrl("/client-login")  // Redirect to login page after logout
-                        .invalidateHttpSession(true)  // Invalidate the session
-                        .deleteCookies("JSESSIONID")  // Delete session cookie
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll()  // Allow all requests; access control is handled in controllers
                 )
-                .logout(logout -> logout  // Add logout configuration for staff
-                        .logoutUrl("/staff-logout")  // URL to trigger logout for staff
-                        .logoutSuccessUrl("/STAFF-login")  // Redirect to staff login page after logout
-                        .invalidateHttpSession(true)  // Invalidate the session
-                        .deleteCookies("JSESSIONID")  // Delete session cookie
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF if not required
+                .headers(headers -> headers
+                        .cacheControl(cache -> cache.disable())  // Disable caching for all pages
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // General logout URL for client
+                        .logoutSuccessUrl("/client-login") // Redirect to client login page after logout
+                        .invalidateHttpSession(true) // Invalidate session
+                        .deleteCookies("JSESSIONID") // Delete session cookies
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/staff-testing-logout") // Logout URL for staff-testing
+                        .logoutSuccessUrl("/STAFF-login") // Redirect to the common staff login page
+                        .invalidateHttpSession(true) // Invalidate session
+                        .deleteCookies("JSESSIONID") // Delete session cookies
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/staff-releasing-logout") // Logout URL for staff-releasing
+                        .logoutSuccessUrl("/STAFF-login") // Redirect to the common staff login page
+                        .invalidateHttpSession(true) // Invalidate session
+                        .deleteCookies("JSESSIONID") // Delete session cookies
                 );
+
         return http.build();
     }
+
 
     @Bean
     public UserDetailsService userDetailsService() {
