@@ -500,7 +500,7 @@
         });
     
         // New Code: Category radio button functionality for monitoring/walk-in
-        const categoryRadios = document.querySelectorAll('input[name="category"]');
+        const categoryRadios = document.querySelectorAll('input[name="sample_category"]');
         const orNoContainer = document.getElementById('orNoContainer');
         const addSampleButton = document.getElementById('addSampleButton');
         const deleteSampleButton = document.getElementById('deleteSampleButton');
@@ -589,6 +589,6 @@
         categoryRadios.forEach(radio => {
             radio.addEventListener('change', handleCategoryChange);
         });
-    </script>           
+    </script>    
 </body>
 </html>
