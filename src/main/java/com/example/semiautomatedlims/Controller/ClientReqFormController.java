@@ -45,27 +45,29 @@ public class ClientReqFormController {
     }
 
     // Process the form submission
+    // Process the form submission
     @PostMapping("/CLIENT-reqform")
     public String processClientReqForm(
-            @RequestParam String address,
-            @RequestParam String orNo,
-            @RequestParam String ldNo,
-            @RequestParam String clientSampleCode,
-            @RequestParam String sampleDetails,
-            @RequestParam String sampleSource,
-            @RequestParam Date productionDate,
-            @RequestParam Date expirationDate,
-            @RequestParam Date samplingDate,
-            @RequestParam int weightGrams,
-            @RequestParam String purposeTest,
-            @RequestParam(required = false) String otherPurposeTest,
-            @RequestParam(required = false) String microbioTests,  // Optional fields
-            @RequestParam(required = false) String molecTests,
-            @RequestParam(required = false) String chemTests,
-            @RequestParam String releasingResults,
-            @RequestParam(required = false) String regionalOffice,
-            HttpSession session,
-            RedirectAttributes redirectAttributes) {
+        @RequestParam String address,
+        @RequestParam String orNo,
+        @RequestParam String ldNo,
+        @RequestParam String clientSampleCode,
+        @RequestParam String sampleDetails,
+        @RequestParam String sampleSource,
+        @RequestParam Date productionDate,
+        @RequestParam Date expirationDate,
+        @RequestParam Date samplingDate,
+        @RequestParam int weightGrams,
+        @RequestParam String purposeTest,
+        @RequestParam(required = false) String otherPurposeTest,
+        @RequestParam(required = false) String microbioTests,  // Optional fields
+        @RequestParam(required = false) String molecTests,
+        @RequestParam(required = false) String chemTests,
+        @RequestParam String releasingResults,
+        @RequestParam(required = false) String regionalOffice,
+        @RequestParam String sample_category, // <-- Add this line
+        HttpSession session,
+        RedirectAttributes redirectAttributes) {
 
         if ("others".equals(purposeTest) && otherPurposeTest != null && !otherPurposeTest.isEmpty()) {
             purposeTest = otherPurposeTest;
@@ -92,8 +94,7 @@ public class ClientReqFormController {
         clientReqForm.setMolecTests(molecTests);
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);
-
-        // Save the form data to the database
+        clientReqForm.setSampleCategory(sample_category);
         clientReqFormService.saveClientReqForm(clientReqForm);
 
         // Redirect after successful submission

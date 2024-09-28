@@ -32,7 +32,11 @@ CREATE TABLE client_reqform (
     microbio_tests VARCHAR(500),
     molec_tests VARCHAR(500),
     chem_tests VARCHAR(500),
-    releasing_results VARCHAR(100) NOT NULL
+    releasing_results VARCHAR(100) NOT NULL,
+    sample_category VARCHAR(255) NOT NULL
 );
 
 DROP TABLE client_register;
+
+ALTER TABLE client_reqform
+ADD COLUMN sample_category VARCHAR(255) NOT NULL;
