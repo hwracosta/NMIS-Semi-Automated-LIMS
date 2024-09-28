@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 public class ClientReqFormController {
@@ -45,7 +46,6 @@ public class ClientReqFormController {
     }
 
     // Process the form submission
-    // Process the form submission
     @PostMapping("/CLIENT-reqform")
     public String processClientReqForm(
         @RequestParam String orNo,
@@ -64,10 +64,20 @@ public class ClientReqFormController {
         @RequestParam(required = false) String chemTests,
         @RequestParam String releasingResults,
         @RequestParam(required = false) String regionalOffice,
-        @RequestParam String sample_category, // <-- Add this line
+        @RequestParam String sample_category,
         HttpSession session,
         RedirectAttributes redirectAttributes) {
 
+        // Check if client is logged in (from session)
+        Client loggedInClient = (Client) session.getAttribute("loggedInClient");
+
+        if (loggedInClient == null) {
+            // Redirect to login if no client is in session
+            redirectAttributes.addFlashAttribute("error", "Please log in first.");
+            return "redirect:/client-login";
+        }
+
+        // Set purpose and releasing results logic
         if ("others".equals(purposeTest) && otherPurposeTest != null && !otherPurposeTest.isEmpty()) {
             purposeTest = otherPurposeTest;
         }
@@ -93,6 +103,15 @@ public class ClientReqFormController {
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);
         clientReqForm.setSampleCategory(sample_category);
+
+        // Set the logged-in client as a foreign key (association)
+        clientReqForm.setClient(loggedInClient);
+
+        // **New Fields**
+        clientReqForm.setStatus("Pending");  // Set the default status
+        clientReqForm.setSubmitDate(Date.valueOf(LocalDate.now())); // Set the current date as submit date
+
+        // Save the form using the service
         clientReqFormService.saveClientReqForm(clientReqForm);
 
         // Redirect after successful submission

@@ -11,23 +11,63 @@ public class ClientReqForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientReqid;
 
+    @Column(name = "or_no", nullable = false)
     private String orNo;
+
+    @Column(name = "ld_no", nullable = false)
     private String ldNo;
+
+    @Column(name = "client_sample_code", nullable = false)
     private String clientSampleCode;
+
+    @Column(name = "sample_details", nullable = false)
     private String sampleDetails;
+
+    @Column(name = "sample_source", nullable = false)
     private String sampleSource;
+
+    @Column(name = "production_date", nullable = false)
     private Date productionDate;
+
+    @Column(name = "expiration_date", nullable = false)
     private Date expirationDate;
+
+    @Column(name = "sampling_date", nullable = false)
     private Date samplingDate;
+
+    @Column(name = "weight_grams", nullable = false)
     private int weightGrams;
+
+    @Column(name = "purpose_test", nullable = false)
     private String purposeTest;
+
+    @Column(name = "microbio_tests", length = 500)
     private String microbioTests;
+
+    @Column(name = "molec_tests", length = 500)
     private String molecTests;
+
+    @Column(name = "chem_tests", length = 500)
     private String chemTests;
+
+    @Column(name = "releasing_results", nullable = false)
     private String releasingResults;
-    private String sampleCategory; 
+
+    @Column(name = "sample_category", nullable = false)
+    private String sampleCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")  // Foreign key to Client entity
+    private Client client;
+
+    @Column(name = "status", length = 50)
+    private String status;
+
+    @Column(name = "submit_date")
+    private Date submitDate;
 
     // Getters and Setters
+
     public Long getClientReqid() {
         return clientReqid;
     }
@@ -154,5 +194,29 @@ public class ClientReqForm {
 
     public void setSampleCategory(String sampleCategory) {
         this.sampleCategory = sampleCategory;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getSubmitDate() {
+        return submitDate;
+    }
+
+    public void setSubmitDate(Date submitDate) {
+        this.submitDate = submitDate;
     }
 }

@@ -2,6 +2,7 @@ package com.example.semiautomatedlims.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "CLIENT_register")
@@ -9,7 +10,8 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "client_id")
+    private Long clientId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -23,7 +25,7 @@ public class Client {
     @Column(name = "contact_number", nullable = false, length = 20)
     private String contactNumber;
 
-    @Column(name = "address", nullable = false, length = 255)
+    @Column(name = "address", nullable = false, length = 100)  // Updated length
     private String address;
 
     @Column(name = "company_name", nullable = false)
@@ -35,20 +37,23 @@ public class Client {
     @Column(name = "client_classif", nullable = false, length = 100)
     private String clientClassif;
 
-    @Column
+    @Column(name = "reset_token")  // Assuming this field exists for password reset purposes
     private String resetToken;
 
-    @Column
+    @Column(name = "token_expiry")  // Assuming this field exists for token expiration tracking
     private LocalDateTime tokenExpiry;
 
-    // Getters and Setters
+    // Relationship with ClientReqForm
+    @OneToMany(mappedBy = "client")
+    private Set<ClientReqForm> clientReqForms;
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getEmail() {
@@ -129,5 +134,13 @@ public class Client {
 
     public void setTokenExpiry(LocalDateTime tokenExpiry) {
         this.tokenExpiry = tokenExpiry;
+    }
+
+    public Set<ClientReqForm> getClientReqForms() {
+        return clientReqForms;
+    }
+
+    public void setClientReqForms(Set<ClientReqForm> clientReqForms) {
+        this.clientReqForms = clientReqForms;
     }
 }
