@@ -441,16 +441,11 @@
             }
         });
     
-        const cultureCheckbox = document.getElementById('culture');
-        const dropdown = document.getElementById('culture-options');
-
-        // Show or hide the dropdown based on checkbox state
-        cultureCheckbox.addEventListener('change', function() {
-            if (cultureCheckbox.checked) {
-                dropdown.style.display = 'inline';
-            } else {
-                dropdown.style.display = 'none';
-                dropdown.value = ""; // Reset selected value
+        document.getElementById('culture').addEventListener('change', function() {
+            const cultureOptions = document.getElementById('culture-options');
+            cultureOptions.style.display = this.checked ? 'inline' : 'none';
+            if (!this.checked) {
+                cultureOptions.value = ""; // Reset the value if unchecked
             }
         });
     
