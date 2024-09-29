@@ -1,6 +1,7 @@
 package com.example.semiautomatedlims.Service;
 
 import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Entity.Client; // Import Client entity
 import com.example.semiautomatedlims.Repository.ClientReqFormRepository;
 
 import java.util.List; 
@@ -20,5 +21,9 @@ public class ClientReqFormService {
     public void saveClientReqForm(ClientReqForm clientReqForm) {
         clientReqFormRepository.save(clientReqForm);
     }
-}
 
+    // Updated method to find requests by Client
+    public List<ClientReqForm> getRequestsByClient(Client client) {
+        return clientReqFormRepository.findByClient(client);
+    }
+}
