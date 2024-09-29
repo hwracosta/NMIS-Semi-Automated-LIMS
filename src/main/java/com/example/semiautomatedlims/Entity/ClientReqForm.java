@@ -44,6 +44,9 @@ public class ClientReqForm {
     @Column(name = "microbio_tests", length = 500)
     private String microbioTests;
 
+    @Column(name = "culture_option", length = 100) // New field for culture option dropdown
+    private String cultureOption;
+
     @Column(name = "molec_tests", length = 500)
     private String molecTests;
 
@@ -162,6 +165,14 @@ public class ClientReqForm {
 
     public void setMicrobioTests(String microbioTests) {
         this.microbioTests = microbioTests;
+    }
+
+    public String getCultureOption() {
+        return cultureOption;
+    }
+
+    public void setCultureOption(String cultureOption) {
+        this.cultureOption = cultureOption;
     }
 
     public String getMolecTests() {

@@ -60,6 +60,7 @@ public class ClientReqFormController {
         @RequestParam String purposeTest,
         @RequestParam(required = false) String otherPurposeTest,
         @RequestParam(required = false) String microbioTests,  // Optional fields
+        @RequestParam(required = false) String cultureOption,
         @RequestParam(required = false) String molecTests,
         @RequestParam(required = false) String chemTests,
         @RequestParam String releasingResults,
@@ -99,6 +100,7 @@ public class ClientReqFormController {
         clientReqForm.setWeightGrams(weightGrams);
         clientReqForm.setPurposeTest(purposeTest);
         clientReqForm.setMicrobioTests(microbioTests);
+        clientReqForm.setCultureOption(cultureOption);
         clientReqForm.setMolecTests(molecTests);
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);

@@ -30,7 +30,7 @@
                 <label for="category">Category:</label>
                 <!-- Inline radio buttons -->
                 <div class="form-type-options">
-                    <input type="radio" id="monitoring" name="sample_category" value="monitoring">
+                    <input type="radio" id="monitoring" name="sample_category" value="monitoring" checked>
                     <label for="monitoring">Monitoring</label>
                     
                     <input type="radio" id="walk-in" name="sample_category" value="walk-in">
@@ -162,7 +162,7 @@
                 <div class="form-section">
                     <label class="purpose-label" for="test-purpose">Purpose of Laboratory Test</label>
                     <select class="purpose-options" id="test-purpose" name="purposeTest">
-                        <option value="">Select an option</option>
+                        <option value="" disabled selected>Select an option</option>
                         <option value="monitoring">Monitoring</option>
                         <option value="local_trade">Local Trade</option>
                         <option value="imported">Imported</option>
@@ -212,7 +212,7 @@
                                 <input type="checkbox" id="culture" name="microbioTests" value="culture">
                                 <label for="culture">Culture and Sensitivity Test (Php 1,500/panel)</label>
                                 <select class="culture-options" id="culture-options" name="culture-options" style="display: none;">
-                                    <option value=" ">Select an option</option>
+                                    <option value="" disabled selected>Select an option</option>
                                     <option value="gram-positive">Gram Positive AST</option>
                                     <option value="gram-negative">Gram Negative AST</option>
                                     <option value="gram-both">Both</option>
