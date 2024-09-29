@@ -211,7 +211,7 @@
                             <div class="checkbox-item">
                                 <input type="checkbox" id="culture" name="microbioTests" value="culture">
                                 <label for="culture">Culture and Sensitivity Test (Php 1,500/panel)</label>
-                                <select class="culture-options" id="culture-options" name="culture-options" style="display: none;">
+                                <select class="culture-options" id="culture-options" name="cultureOption" style="display: none;">
                                     <option value="" disabled selected>Select an option</option>
                                     <option value="gram-positive">Gram Positive AST</option>
                                     <option value="gram-negative">Gram Negative AST</option>
@@ -258,7 +258,7 @@
                             <div class="checkbox-item">
                                 <input type="checkbox" id="others-para" name="microbioTests" value="others-para">
                                 <label for="others-para">Others: </label>
-                                <input type="specify" id="specify-para" name="specify-para" placeholder="specify" class="specify-input" style="display: none;">
+                                <input type="text" id="specify-para" name="otherMicrobioTests" placeholder="specify" class="specify-input" style="display: none;">
                             </div>
                         </div>    
                     </div>
@@ -441,31 +441,24 @@
             }
         });
     
-        // Get the checkbox and the dropdown
         const cultureCheckbox = document.getElementById('culture');
         const dropdown = document.getElementById('culture-options');
-    
-        // Add an event listener to the checkbox
+
+        // Show or hide the dropdown based on checkbox state
         cultureCheckbox.addEventListener('change', function() {
-            // Toggle the display of the dropdown based on checkbox state
             if (cultureCheckbox.checked) {
-                dropdown.style.display = 'inline'; // Show dropdown
+                dropdown.style.display = 'inline';
             } else {
-                dropdown.style.display = 'none'; // Hide dropdown
-                dropdown.selectedIndex = 0; // Reset dropdown to the first option
+                dropdown.style.display = 'none';
+                dropdown.value = ""; // Reset selected value
             }
         });
     
-        const checkbox = document.getElementById('others-para');
-        const inputField = document.getElementById('specify-para');
-    
-        // Add an event listener to the checkbox
-        checkbox.addEventListener('change', function() {
-            // Toggle the display of the input field based on checkbox state
-            if (checkbox.checked) {
-                inputField.style.display = 'inline'; // Show input field
-            } else {
-                inputField.style.display = 'none'; // Hide input field
+        document.getElementById('others-para').addEventListener('change', function() {
+            const specifyInput = document.getElementById('specify-para');
+            specifyInput.style.display = this.checked ? 'inline' : 'none';
+            if (!this.checked) {
+                specifyInput.value = ""; // Reset the value if unchecked
             }
         });
     
