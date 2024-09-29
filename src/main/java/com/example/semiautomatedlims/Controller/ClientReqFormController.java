@@ -61,6 +61,7 @@ public class ClientReqFormController {
         @RequestParam(required = false) String otherPurposeTest,
         @RequestParam(required = false) String microbioTests,  // Optional fields
         @RequestParam(required = false) String cultureOption,
+        @RequestParam(required = false) String otherMicrobioTests, // New parameter for "Others"
         @RequestParam(required = false) String molecTests,
         @RequestParam(required = false) String chemTests,
         @RequestParam String releasingResults,
@@ -83,6 +84,19 @@ public class ClientReqFormController {
             purposeTest = otherPurposeTest;
         }
 
+        // Combine microbioTests with cultureOption if present
+        if ("culture".equals(microbioTests) && cultureOption != null && !cultureOption.isEmpty()) {
+            microbioTests = microbioTests + ": " + cultureOption; // Append the selected option to the microbioTests
+        }
+
+        // Add others specification to microbioTests
+        if ("others-para".equals(microbioTests) && otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
+            microbioTests += ": " + otherMicrobioTests; // Append the specified other tests
+        } else if (otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
+            microbioTests += ": " + otherMicrobioTests; // Handle the case if the checkbox is not checked but a value is provided
+        }
+
+
         if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
             releasingResults = regionalOffice;
         }
@@ -100,7 +114,6 @@ public class ClientReqFormController {
         clientReqForm.setWeightGrams(weightGrams);
         clientReqForm.setPurposeTest(purposeTest);
         clientReqForm.setMicrobioTests(microbioTests);
-        clientReqForm.setCultureOption(cultureOption);
         clientReqForm.setMolecTests(molecTests);
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);
