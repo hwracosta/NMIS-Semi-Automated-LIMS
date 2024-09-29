@@ -84,17 +84,34 @@ public class ClientReqFormController {
             purposeTest = otherPurposeTest;
         }
 
-        // Combine microbioTests with cultureOption if present
-        if ("culture".equals(microbioTests) && cultureOption != null && !cultureOption.isEmpty()) {
-            microbioTests = microbioTests + ": " + cultureOption; // Append the selected option to the microbioTests
+        // Initialize microbioTests
+        StringBuilder microbioTestsBuilder = new StringBuilder();
+
+        // Check if culture is part of the microbioTests
+        if (microbioTests != null && microbioTests.contains("culture")) {
+            microbioTestsBuilder.append("culture");
+            
+            // Append the selected culture option if available
+            if (cultureOption != null && !cultureOption.isEmpty()) {
+                microbioTestsBuilder.append(": ").append(cultureOption);
+            }
         }
 
-        // Add others specification to microbioTests
+        // Check for "others-para" selection
         if ("others-para".equals(microbioTests) && otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
-            microbioTests += ": " + otherMicrobioTests; // Append the specified other tests
+            if (microbioTestsBuilder.length() > 0) {
+                microbioTestsBuilder.append(", "); // Add a comma if there's already something in the builder
+            }
+            microbioTestsBuilder.append("others-para: ").append(otherMicrobioTests);
         } else if (otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
-            microbioTests += ": " + otherMicrobioTests; // Handle the case if the checkbox is not checked but a value is provided
+            if (microbioTestsBuilder.length() > 0) {
+                microbioTestsBuilder.append(", "); // Add a comma if there's already something in the builder
+            }
+            microbioTestsBuilder.append("others-para: ").append(otherMicrobioTests);
         }
+
+        // Final microbioTests string
+        String microbioTestsFinal = microbioTestsBuilder.toString();
 
 
         if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
@@ -113,7 +130,7 @@ public class ClientReqFormController {
         clientReqForm.setSamplingDate(samplingDate);
         clientReqForm.setWeightGrams(weightGrams);
         clientReqForm.setPurposeTest(purposeTest);
-        clientReqForm.setMicrobioTests(microbioTests);
+        clientReqForm.setMicrobioTests(microbioTestsFinal);
         clientReqForm.setMolecTests(molecTests);
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);
