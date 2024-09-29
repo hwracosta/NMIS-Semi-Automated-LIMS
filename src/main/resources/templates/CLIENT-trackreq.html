@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,23 +29,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example Rows -->
-                        <tr>
-                            <td>1234</td>
-                            <td>5678</td>
-                            <td>Processing</td>
+                        <!-- Loop through requests and display them dynamically -->
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.clientReqid}">1234</td>
+                            <td th:text="${request.clientSampleCode}">5678</td>
+                            <td th:text="${request.status}">Processing</td>
                         </tr>
-                        <tr>
-                            <td>5678</td>
-                            <td>9012</td>
-                            <td>Completed</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </body>
 </html>
+
