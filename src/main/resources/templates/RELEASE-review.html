@@ -33,21 +33,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td>Sample Client</td>
-                            <td><a href="#"><u>View Details</u></a></td>
-                            <td>01/09/2024</td>
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.client.companyName}">Client Name</td> <!-- Change if rep name / client name is needed -->
+                            <td>
+                                <a th:href="@{/client/details/{id}(id=${request.client.clientId})}">
+                                    <u>View Details</u>
+                                </a>
+                            </td>
+                            <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td> 
                             <td>
                                 <select>
                                     <option value="" disabled selected>Select an option</option>
-                                    <option>For Testing</option>
-                                    <option>Sample/s Rejected</option>
+                                    <option value="testing">For Testing</option>
+                                    <option value="rejected">Sample/s Rejected</option>
                                 </select>
                             </td>
                             <td><button class="submit-btn">Submit</button></td>
                         </tr>
-                        <!-- More rows can be added here -->
+                        <tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="5" style="text-align:center;">No pending requests</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -55,3 +60,4 @@
     </main>
 </body>
 </html>
+
