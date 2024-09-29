@@ -13,22 +13,22 @@
           <div class="rectangle"></div>
           <img class="img" th:src="@{/img/HEADER.png}" />
           <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-          <div class="text-wrapper-2">Client Track Request</div>
+          <div class="text-wrapper-2">Receiving/Releasing Staff</div>
         </div>
     </header>
 
     <!-- Content Area -->
     <main class="content">
         <div class="request-review-box">
-            <h2 class="title">Request Review</h2>
+            <h2 class="title">Pending Request List</h2>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Client Name</th>
+                            <th>Client Details</th>
                             <th>Submission Date</th>
-                            <th></th>
-                            <th></th>
+                            <th>Compliance Check Tools</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -36,11 +36,11 @@
                         <!-- Example Row -->
                         <tr>
                             <td>Sample Client</td>
-                            <td>01/09/2024</td>
                             <td><a href="#"><u>View Details</u></a></td>
+                            <td>01/09/2024</td>
                             <td>
                                 <select>
-                                    <option>Compliance Check</option>
+                                    <option value="" disabled selected>Select an option</option>
                                     <option>For Testing</option>
                                     <option>Sample/s Rejected</option>
                                 </select>
