@@ -108,7 +108,7 @@ public class ClientReqFormController {
         clientReqForm.setClient(loggedInClient);
 
         // **New Fields**
-        clientReqForm.setStatus("Pending");  // Set the default status
+        clientReqForm.setStatus("Under Review");  // Set the default status
         clientReqForm.setSubmitDate(Date.valueOf(LocalDate.now())); // Set the current date as submit date
 
         // Save the form using the service
