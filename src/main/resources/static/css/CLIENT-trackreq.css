@@ -37,39 +37,62 @@ body {
     max-width: 100%; 
 }
     
-.text-wrapper {
-    max-width: calc(100% - 40px); 
-    top: 72px;
+ .text-wrapper {
+    max-width: calc(100% - 40px);
+    top: 47px;
     font-family: "Averia Serif Libre-Bold", Helvetica;
     font-weight: 700;
-    font-size: 1.1875rem; 
+    font-size: 1.1875rem;
     letter-spacing: 0.57px;
-    line-height: 1.6875rem; 
-    position: absolute;
-    right: 20px; 
-    color: #f0f1f4;
-    white-space: normal; 
-    overflow-wrap: break-word; 
-    word-wrap: break-word; 
-    word-break: break-word; 
-}
-    
-.text-wrapper-2 {
-    max-width: calc(100% - 40px); 
-    top: 47px;
-    font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
-    font-size: 1.0625rem; 
-    letter-spacing: 0.51px;
-    line-height: 1.4875rem; 
+    line-height: 1.6875rem;
     position: absolute;
     right: 20px;
     color: #f0f1f4;
-    white-space: normal; 
-    overflow-wrap: break-word; 
-    word-wrap: break-word; 
-    word-break: break-word; 
-}
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+  
+.header-links {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 85px;
+    right: 20px;
+  }
+  
+.text-wrapper-2 {
+    font-family: "Averia Serif Libre-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 1.0625rem;
+    letter-spacing: 0.51px;
+    line-height: 1.4875rem;
+    color: #f0f1f4;
+    text-decoration: none;
+    margin-right: 15px;
+  }
+  
+.text-wrapper-2:hover {
+    text-decoration: underline;
+  }
+  
+.log-out {
+    font-family: "Averia Serif Libre-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 1.0625rem;
+    letter-spacing: 0.51px;
+    line-height: 1.4875rem;
+    color: #f0f1f4;
+    text-decoration: none;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+.log-out:hover {
+    text-decoration: underline;
+  }
+  
 /* Content Area */
 .content {
     display: flex;

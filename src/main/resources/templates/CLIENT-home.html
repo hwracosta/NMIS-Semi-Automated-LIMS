@@ -14,14 +14,14 @@
                 <div class="rectangle"></div>
                 <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
                 <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-                <div class="text-wrapper-2">Client Home</div>
-
-                <div class="logout-button">
-                    <form th:action="@{/logout}" method="get" style="display: inline;">
-                        <button type="submit" class="log-out">Log out</button>
-                    </form>
-                </div>
-
+                <div class="header-links">
+                    <a href="/CLIENT-home" class="text-wrapper-2">Client Home</a>
+                    <div class="logout-button">
+                      <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/client-login" class="log-out">Logout</a>
+                      </form>
+                    </div>
+                  </div>                  
             </div>
         </header>
         <div class="buttons-container">
