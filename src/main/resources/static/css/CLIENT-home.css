@@ -50,7 +50,7 @@
 
 .CLIENT-HOME .text-wrapper {
   max-width: calc(100% - 40px);
-  top: 72px;
+  top: 47px;
   font-family: "Averia Serif Libre-Bold", Helvetica;
   font-weight: 700;
   font-size: 1.1875rem;
@@ -65,40 +65,45 @@
   word-break: break-word;
 }
 
+.CLIENT-HOME .header-links {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 85px;
+  right: 20px;
+}
+
 .CLIENT-HOME .text-wrapper-2 {
-  max-width: calc(100% - 40px);
-  top: 47px;
   font-family: "Averia Serif Libre-Regular", Helvetica;
   font-weight: 400;
   font-size: 1.0625rem;
   letter-spacing: 0.51px;
   line-height: 1.4875rem;
-  position: absolute;
-  right: 20px;
   color: #f0f1f4;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
+  text-decoration: none;
+  margin-right: 15px;
 }
 
-.CLIENT-HOME .logout-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #002267;
+.CLIENT-HOME .text-wrapper-2:hover {
+  text-decoration: underline;
+}
+
+.CLIENT-HOME .log-out {
+  font-family: "Averia Serif Libre-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  letter-spacing: 0.51px;
+  line-height: 1.4875rem;
   color: #f0f1f4;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
+  text-decoration: none;
+  margin-left: 10px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
 }
 
-.CLIENT-HOME .logout-button:hover {
-  box-shadow: 0px 3px 10px #00000040;
+.CLIENT-HOME .log-out:hover {
+  text-decoration: underline;
 }
+
 
 .CLIENT-HOME .text-wrapper-3 {
   position: absolute;
