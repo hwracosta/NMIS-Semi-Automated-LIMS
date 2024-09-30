@@ -71,16 +71,16 @@
             <form id="requestForm">
                 <input type="hidden" name="clientReqid" id="clientReqid" />
                 <div>
+                    <label for="sampleCategory">Sample Category:</label>
+                    <input type="text" name="sampleCategory" id="sampleCategory" readonly />
+                </div>
+                <div>
                     <label for="orNo">OR No:</label>
                     <input type="text" name="orNo" id="orNo" readonly />
                 </div>
                 <div>
                     <label for="ldNo">LD No:</label>
                     <input type="text" name="ldNo" id="ldNo" readonly />
-                </div>
-                <div>
-                    <label for="sampleCategory">Sample Category:</label>
-                    <input type="text" name="sampleCategory" id="sampleCategory" readonly />
                 </div>
                 <div>
                     <label for="clientSampleCode">Sample Code:</label>
@@ -152,65 +152,78 @@
         });
 
         function showPopup(clientReqid) {
-            // Clear existing data
-            $('#clientReqid').val(clientReqid);
-            $('#orNo').val('');
-            $('#ldNo').val('');
-            $('#clientSampleCode').val('');
-            $('#sampleDetails').val('');
-            $('#sampleSource').val('');
-            $('#productionDate').val('');
-            $('#expirationDate').val('');
-            $('#samplingDate').val('');
-            $('#weightGrams').val('');
-            $('#purposeTest').val('');
-            $('#microbioTests').val('');
-            $('#molecTests').val('');
-            $('#chemTests').val('');
-            $('#releasingResults').val('');
-            $('#sampleCategory').val('');
+    // Clear existing data
+    $('#clientReqid').val(clientReqid);
+    $('#orNo').val('');
+    $('#ldNo').val('');
+    $('#clientSampleCode').val('');
+    $('#sampleDetails').val('');
+    $('#sampleSource').val('');
+    $('#productionDate').val('');
+    $('#expirationDate').val('');
+    $('#samplingDate').val('');
+    $('#weightGrams').val('');
+    $('#purposeTest').val('');
+    $('#microbioTests').val('');
+    $('#molecTests').val('');
+    $('#chemTests').val('');
+    $('#releasingResults').val('');
+    $('#sampleCategory').val('');
 
-            // Fetch the request data based on clientReqid using AJAX
-            $.ajax({
-                url: '/api/getRequestDetails',
-                type: 'GET',
-                data: { clientReqid: clientReqid },
-                success: function(data) {
-                    // Format datetime to date string (yyyy-MM-dd)
-                    function formatDate(dateTimeString) {
-                        const date = new Date(dateTimeString);
-                        return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
-                    }
+    // Hide all fields by default
+    $('div:has(#orNo)').hide();
+    $('div:has(#ldNo)').hide();
+    $('div:has(#clientSampleCode)').hide();
+    $('div:has(#sampleDetails)').hide();
+    $('div:has(#sampleSource)').hide();
+    $('div:has(#productionDate)').hide();
+    $('div:has(#expirationDate)').hide();
+    $('div:has(#samplingDate)').hide();
+    $('div:has(#weightGrams)').hide();
+    $('div:has(#purposeTest)').hide();
+    $('div:has(#microbioTests)').hide();
+    $('div:has(#molecTests)').hide();
+    $('div:has(#chemTests)').hide();
+    $('div:has(#releasingResults)').hide();
+    $('div:has(#sampleCategory)').hide();
 
-                    // Assuming 'data' is an object with the request details
-                    $('#orNo').val(data.orNo);
-                    $('#ldNo').val(data.ldNo);
-                    $('#clientSampleCode').val(data.clientSampleCode);
-                    $('#sampleDetails').val(data.sampleDetails);
-                    $('#sampleSource').val(data.sampleSource);
+    // Fetch the request data based on clientReqid using AJAX
+    $.ajax({
+        url: '/api/getRequestDetails',
+        type: 'GET',
+        data: { clientReqid: clientReqid },
+        success: function(data) {
+            // Format datetime to date string (yyyy-MM-dd)
+            function formatDate(dateTimeString) {
+                const date = new Date(dateTimeString);
+                return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
+            }
 
-                    // Set the date fields after formatting
-                    $('#productionDate').val(formatDate(data.productionDate));
-                    $('#expirationDate').val(formatDate(data.expirationDate));
-                    $('#samplingDate').val(formatDate(data.samplingDate));
+            // Assuming 'data' is an object with the request details
+            if (data.orNo) { $('#orNo').val(data.orNo); $('div:has(#orNo)').show(); }
+            if (data.ldNo) { $('#ldNo').val(data.ldNo); $('div:has(#ldNo)').show(); }
+            if (data.clientSampleCode) { $('#clientSampleCode').val(data.clientSampleCode); $('div:has(#clientSampleCode)').show(); }
+            if (data.sampleDetails) { $('#sampleDetails').val(data.sampleDetails); $('div:has(#sampleDetails)').show(); }
+            if (data.sampleSource) { $('#sampleSource').val(data.sampleSource); $('div:has(#sampleSource)').show(); }
+            if (data.productionDate) { $('#productionDate').val(formatDate(data.productionDate)); $('div:has(#productionDate)').show(); }
+            if (data.expirationDate) { $('#expirationDate').val(formatDate(data.expirationDate)); $('div:has(#expirationDate)').show(); }
+            if (data.samplingDate) { $('#samplingDate').val(formatDate(data.samplingDate)); $('div:has(#samplingDate)').show(); }
+            if (data.weightGrams) { $('#weightGrams').val(data.weightGrams); $('div:has(#weightGrams)').show(); }
+            if (data.purposeTest) { $('#purposeTest').val(data.purposeTest); $('div:has(#purposeTest)').show(); }
+            if (data.microbioTests) { $('#microbioTests').val(data.microbioTests); $('div:has(#microbioTests)').show(); }
+            if (data.molecTests) { $('#molecTests').val(data.molecTests); $('div:has(#molecTests)').show(); }
+            if (data.chemTests) { $('#chemTests').val(data.chemTests); $('div:has(#chemTests)').show(); }
+            if (data.releasingResults) { $('#releasingResults').val(data.releasingResults); $('div:has(#releasingResults)').show(); }
+            if (data.sampleCategory) { $('#sampleCategory').val(data.sampleCategory); $('div:has(#sampleCategory)').show(); }
 
-                    $('#weightGrams').val(data.weightGrams);
-                    $('#purposeTest').val(data.purposeTest);
-                    $('#microbioTests').val(data.microbioTests);
-                    $('#molecTests').val(data.molecTests);
-                    $('#chemTests').val(data.chemTests);
-                    $('#releasingResults').val(data.releasingResults);
-                    $('#sampleCategory').val(data.sampleCategory);
-
-                    // Show the popup after data is loaded
-                    $('#requestPopup').fadeIn(); 
-                },
-                error: function(xhr, status, error) {
-                    alert('Error fetching request details: ' + error);
-                }
-            });
+            // Show the popup after data is loaded
+            $('#requestPopup').fadeIn(); 
+        },
+        error: function(xhr, status, error) {
+            alert('Error fetching request details: ' + error);
         }
-
+    });
+}
         // Function to close the popup
         function closePopup() {
             // Hide the popup
