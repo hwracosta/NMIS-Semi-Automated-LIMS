@@ -3,6 +3,8 @@ package com.example.semiautomatedlims.Entity;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "client_reqform")
 public class ClientReqForm {
@@ -57,6 +59,7 @@ public class ClientReqForm {
     private String sampleCategory;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")  // Foreign key to Client entity
     private Client client;
 

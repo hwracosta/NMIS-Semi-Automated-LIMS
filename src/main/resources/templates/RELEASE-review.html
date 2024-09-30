@@ -11,10 +11,10 @@
     <!-- Header Section -->
     <header class="header">
         <div class="overlap-group">
-          <div class="rectangle"></div>
-          <img class="img" th:src="@{/img/HEADER.png}" />
-          <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-          <div class="text-wrapper-2">Receiving/Releasing Staff</div>
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="text-wrapper-2">Receiving/Releasing Staff</div>
         </div>
     </header>
 
@@ -37,9 +37,9 @@
                         <tr th:each="request : ${requests}">
                             <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
                             <td>
-                                <a th:href="@{/client/details/{id}(id=${request.client.clientId})}">
+                                <a href="#" th:onclick="'showPopup(' + ${request.clientReqid} + ')'">
                                     <u>View Details</u>
-                                </a>
+                                </a>                                         
                             </td>
                             <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
                             <td>
@@ -63,8 +63,80 @@
         </div>
     </main>
 
+    <!-- Popup for Request Form -->
+    <div class="popup" id="requestPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <h3>Request Form</h3>
+            <form id="requestForm">
+                <input type="hidden" name="clientReqid" id="clientReqid" />
+                <div>
+                    <label for="orNo">OR No:</label>
+                    <input type="text" name="orNo" id="orNo" readonly />
+                </div>
+                <div>
+                    <label for="ldNo">LD No:</label>
+                    <input type="text" name="ldNo" id="ldNo" readonly />
+                </div>
+                <div>
+                    <label for="sampleCategory">Sample Category:</label>
+                    <input type="text" name="sampleCategory" id="sampleCategory" readonly />
+                </div>
+                <div>
+                    <label for="clientSampleCode">Sample Code:</label>
+                    <input type="text" name="clientSampleCode" id="clientSampleCode" readonly />
+                </div>
+                <div>
+                    <label for="sampleDetails">Sample Details:</label>
+                    <input type="text" name="sampleDetails" id="sampleDetails" readonly />
+                </div>
+                <div>
+                    <label for="sampleSource">Sample Source:</label>
+                    <input type="text" name="sampleSource" id="sampleSource" readonly />
+                </div>
+                <div>
+                    <label for="productionDate">Production Date:</label>
+                    <input type="date" name="productionDate" id="productionDate" readonly />
+                </div>
+                <div>
+                    <label for="expirationDate">Expiration Date:</label>
+                    <input type="date" name="expirationDate" id="expirationDate" readonly />
+                </div>
+                <div>
+                    <label for="samplingDate">Sampling Date:</label>
+                    <input type="date" name="samplingDate" id="samplingDate" readonly />
+                </div>
+                <div>
+                    <label for="weightGrams">Weight (grams):</label>
+                    <input type="number" name="weightGrams" id="weightGrams" readonly />
+                </div>
+                <div>
+                    <label for="purposeTest">Purpose of Test:</label>
+                    <input type="text" name="purposeTest" id="purposeTest" readonly />
+                </div>
+                <div>
+                    <label for="microbioTests">Microbiology Tests:</label>
+                    <input type="text" name="microbioTests" id="microbioTests" readonly />
+                </div>
+                <div>
+                    <label for="molecTests">Molecular Biology Tests:</label>
+                    <input type="text" name="molecTests" id="molecTests" readonly />
+                </div>
+                <div>
+                    <label for="chemTests">Chemical/Veterinary Drug Residue Tests:</label>
+                    <input type="text" name="chemTests" id="chemTests" readonly />
+                </div>
+                <div>
+                    <label for="releasingResults">Releasing of Laboratory Results:</label>
+                    <input type="text" name="releasingResults" id="releasingResults" readonly />
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {
+            // Handle the status form submission
             $('.status-form').on('submit', function(event) {
                 event.preventDefault(); 
 
@@ -77,6 +149,79 @@
                     }
                 });
             });
+        });
+
+        function showPopup(clientReqid) {
+            // Clear existing data
+            $('#clientReqid').val(clientReqid);
+            $('#orNo').val('');
+            $('#ldNo').val('');
+            $('#clientSampleCode').val('');
+            $('#sampleDetails').val('');
+            $('#sampleSource').val('');
+            $('#productionDate').val('');
+            $('#expirationDate').val('');
+            $('#samplingDate').val('');
+            $('#weightGrams').val('');
+            $('#purposeTest').val('');
+            $('#microbioTests').val('');
+            $('#molecTests').val('');
+            $('#chemTests').val('');
+            $('#releasingResults').val('');
+            $('#sampleCategory').val('');
+
+            // Fetch the request data based on clientReqid using AJAX
+            $.ajax({
+                url: '/api/getRequestDetails',
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    // Format datetime to date string (yyyy-MM-dd)
+                    function formatDate(dateTimeString) {
+                        const date = new Date(dateTimeString);
+                        return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
+                    }
+
+                    // Assuming 'data' is an object with the request details
+                    $('#orNo').val(data.orNo);
+                    $('#ldNo').val(data.ldNo);
+                    $('#clientSampleCode').val(data.clientSampleCode);
+                    $('#sampleDetails').val(data.sampleDetails);
+                    $('#sampleSource').val(data.sampleSource);
+
+                    // Set the date fields after formatting
+                    $('#productionDate').val(formatDate(data.productionDate));
+                    $('#expirationDate').val(formatDate(data.expirationDate));
+                    $('#samplingDate').val(formatDate(data.samplingDate));
+
+                    $('#weightGrams').val(data.weightGrams);
+                    $('#purposeTest').val(data.purposeTest);
+                    $('#microbioTests').val(data.microbioTests);
+                    $('#molecTests').val(data.molecTests);
+                    $('#chemTests').val(data.chemTests);
+                    $('#releasingResults').val(data.releasingResults);
+                    $('#sampleCategory').val(data.sampleCategory);
+
+                    // Show the popup after data is loaded
+                    $('#requestPopup').fadeIn(); 
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching request details: ' + error);
+                }
+            });
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            // Hide the popup
+            $('#requestPopup').fadeOut();
+        }
+
+        // Close the popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#requestPopup')) {
+                closePopup();
+            }
         });
     </script>
 </body>
