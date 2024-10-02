@@ -79,10 +79,6 @@
                     <input type="text" name="orNo" id="orNo" readonly />
                 </div>
                 <div>
-                    <label for="ldNo">LD No:</label>
-                    <input type="text" name="ldNo" id="ldNo" readonly />
-                </div>
-                <div>
                     <label for="clientSampleCode">Sample Code:</label>
                     <input type="text" name="clientSampleCode" id="clientSampleCode" readonly />
                 </div>
@@ -155,7 +151,6 @@
     // Clear existing data
     $('#clientReqid').val(clientReqid);
     $('#orNo').val('');
-    $('#ldNo').val('');
     $('#clientSampleCode').val('');
     $('#sampleDetails').val('');
     $('#sampleSource').val('');
@@ -172,7 +167,6 @@
 
     // Hide all fields by default
     $('div:has(#orNo)').hide();
-    $('div:has(#ldNo)').hide();
     $('div:has(#clientSampleCode)').hide();
     $('div:has(#sampleDetails)').hide();
     $('div:has(#sampleSource)').hide();
@@ -201,7 +195,6 @@
 
             // Assuming 'data' is an object with the request details
             if (data.orNo) { $('#orNo').val(data.orNo); $('div:has(#orNo)').show(); }
-            if (data.ldNo) { $('#ldNo').val(data.ldNo); $('div:has(#ldNo)').show(); }
             if (data.clientSampleCode) { $('#clientSampleCode').val(data.clientSampleCode); $('div:has(#clientSampleCode)').show(); }
             if (data.sampleDetails) { $('#sampleDetails').val(data.sampleDetails); $('div:has(#sampleDetails)').show(); }
             if (data.sampleSource) { $('#sampleSource').val(data.sampleSource); $('div:has(#sampleSource)').show(); }
