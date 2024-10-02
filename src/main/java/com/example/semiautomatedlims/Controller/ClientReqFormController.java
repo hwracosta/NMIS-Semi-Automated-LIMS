@@ -5,13 +5,11 @@ import com.example.semiautomatedlims.Entity.ClientReqForm;
 import com.example.semiautomatedlims.Service.ClientReqFormService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
@@ -149,17 +147,5 @@ public class ClientReqFormController {
         // Redirect after successful submission
         redirectAttributes.addFlashAttribute("message", "Form submitted successfully!");
         return "redirect:/CLIENT-home"; // Redirect to the home page after submission
-    }
-
-    //For RELEASE-reeview pop-up
-    @GetMapping("/api/getRequestDetails")
-    @ResponseBody
-    public ResponseEntity<ClientReqForm> getRequestDetails(@RequestParam Long clientReqid) {
-        ClientReqForm requestDetails = clientReqFormService.findRequestById(clientReqid);
-        if (requestDetails != null) {
-            return ResponseEntity.ok(requestDetails);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 }
