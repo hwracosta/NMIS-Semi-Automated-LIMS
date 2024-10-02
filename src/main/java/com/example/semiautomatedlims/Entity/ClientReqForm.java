@@ -16,9 +16,6 @@ public class ClientReqForm {
     @Column(name = "or_no", nullable = false)
     private String orNo;
 
-    @Column(name = "ld_no", nullable = false)
-    private String ldNo;
-
     @Column(name = "client_sample_code", nullable = false)
     private String clientSampleCode;
 
@@ -85,14 +82,6 @@ public class ClientReqForm {
 
     public void setOrNo(String orNo) {
         this.orNo = orNo;
-    }
-
-    public String getLdNo() {
-        return ldNo;
-    }
-
-    public void setLdNo(String ldNo) {
-        this.ldNo = ldNo;
     }
 
     public String getClientSampleCode() {
