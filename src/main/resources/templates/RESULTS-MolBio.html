@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Requests</title>
+    <title>MolBio Results</title>
     <!-- Use Thymeleaf to reference the CSS file -->
     <link rel="stylesheet" th:href="@{/css/RESULTS-MolBio.css}">
 </head>
@@ -26,7 +26,7 @@
 
     <div class="content">
         <div class="track-box">
-            <h2>Track Requests</h2>
+            <h2>Molecular Biology Results</h2>
             <div class="table-container">
                 <table>
                     <thead>
@@ -39,9 +39,9 @@
                     <tbody>
                         <!-- Example Rows -->
                         <tr>
-                            <td>1234</td>
-                            <td>Processing</td>
-                            <td>Test</td>
+                            <td><input type="text" name="details"></td>
+                            <td><input type="text" name="exam_conducted"></td>
+                            <td><input type="text" name="species_result"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ResultsChemController {
 
     @GetMapping("/RESULTS-Chem")
-    public String showReleaseReleasePage() {
+    public String showResultsChemPage() {
         return "RESULTS-Chem";  
     }
 }
