@@ -38,9 +38,9 @@
                     <tbody>
                         <!-- Loop through requests and display them dynamically -->
                         <tr th:each="request : ${requests}">
-                            <td th:text="${request.clientReqid}">1234</td>
-                            <td th:text="${request.clientSampleCode}">5678</td>
-                            <td th:text="${request.status}">Processing</td>
+                            <td th:text="${request.clientReqid}"></td>
+                            <td th:text="${request.clientSampleCode}"></td>
+                            <td th:text="${request.status}"></td>
                         </tr>
                     </tbody>
                 </table>

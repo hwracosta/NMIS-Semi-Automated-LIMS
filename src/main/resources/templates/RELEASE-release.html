@@ -21,7 +21,7 @@
     <!-- Content Area -->
     <main class="content">
         <div class="request-review-box">
-            <h2 class="title">Pending Request List</h2>
+            <h2 class="title">Release List</h2>
             <div class="table-container">
                 <table>
                     <thead>
@@ -29,7 +29,7 @@
                             <th>Client Name</th>
                             <th>Client Details</th>
                             <th>Submission Date</th>
-                            <th>Results</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,17 +42,7 @@
                                 </a>                                         
                             </td>
                             <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
-                            <td>
-                                <form class="status-form" th:action="@{/release/update-status}" method="post">
-                                    <input type="hidden" th:name="clientReqid" th:value="${request.clientReqid}" /> 
-                                    <select name="status" required>
-                                        <option value="" disabled selected>Select an option</option>
-                                        <option value="For Testing">For Testing</option>
-                                        <option value="Sample/s Rejected">Sample/s Rejected</option>
-                                    </select>
-                                    <button type="submit" class="submit-btn">Submit</button> 
-                                </form>
-                            </td>
+                            <td th:text="${request.status}">Status</td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">
                             <td colspan="5" style="text-align:center;">No pending requests</td>
@@ -128,7 +118,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>\
 
     <script>
         $(document).ready(function() {
