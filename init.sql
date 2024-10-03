@@ -14,13 +14,13 @@ CREATE TABLE STAFF_register (
     staff_id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    staff_type VARCHAR(50) NOT NULL
+    staff_type VARCHAR(50) NOT NULL,
+    testing_section VARCHAR (255)
 );
 
 CREATE TABLE client_reqform (
     client_reqid SERIAL PRIMARY KEY,
     or_no VARCHAR(100) NOT NULL,
-    ld_no VARCHAR(100) NOT NULL,
     client_sample_code VARCHAR(100) NOT NULL,
     sample_details VARCHAR(255) NOT NULL,
     sample_source VARCHAR(255) NOT NULL,
