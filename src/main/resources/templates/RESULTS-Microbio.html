@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Requests</title>
+    <!-- Use Thymeleaf to reference the CSS file -->
+    <link rel="stylesheet" th:href="@{/css/RESULTS-Microbio.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Home</a>
+                <div class="logout-button">
+                  <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/STAFF-login" class="log-out">Logout</a>
+                  </form>
+                </div>
+              </div>                  
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="track-box">
+            <h2>MICROBIOLOGICAL TEST RESULTS</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TEST CONDUCTED</th>
+                            <th>RESULT</th>
+                            <th>REFERENCE VALUE</th>
+                            <th>REMARKS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="testConducted1" placeholder="Test Name"></td>
+                            <td><input type="text" name="result1" placeholder="Result"></td>
+                            <td><input type="text" name="referenceValue1" placeholder="Reference Value"></td>
+                            <td><input type="text" name="remarks1" placeholder="Remarks"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="testConducted2" placeholder="Test Name"></td>
+                            <td><input type="text" name="result2" placeholder="Result"></td>
+                            <td><input type="text" name="referenceValue2" placeholder="Reference Value"></td>
+                            <td><input type="text" name="remarks2" placeholder="Remarks"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="testConducted3" placeholder="Test Name"></td>
+                            <td><input type="text" name="result3" placeholder="Result"></td>
+                            <td><input type="text" name="referenceValue3" placeholder="Reference Value"></td>
+                            <td><input type="text" name="remarks3" placeholder="Remarks"></td>
+                        </tr>
+                        <!-- You can add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
