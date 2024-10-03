@@ -442,59 +442,6 @@
      </form>
 
     <script>
-        $(document).ready(function() {
-            // Get elements
-            const reviewSubmitBtn = $('#reviewSubmit');
-            const reviewPopup = $('#reviewPopup');
-            const closePopupBtn = $('.close-popup');
-            const reviewContent = $('#reviewContent');
-            const confirmSubmitBtn = $('#confirmSubmit');
-            const labRequestForm = $('form');
-
-            // Function to populate the popup with form data
-            function populateReviewContent() {
-                const formData = labRequestForm.serializeArray();
-                let contentHtml = '<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
-
-                formData.forEach(item => {
-                    // Format field names to be more user-friendly
-                    const formattedName = item.name
-                        .replace(/([A-Z])/g, ' $1') // Insert spaces before capital letters
-                        .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
-                    contentHtml += `<tr><td>${formattedName}</td><td>${item.value || 'N/A'}</td></tr>`;
-                });
-
-                contentHtml += '</tbody></table>';
-                reviewContent.html(contentHtml);
-            }
-
-            // Open the popup
-            reviewSubmitBtn.on('click', function(event) {
-                event.preventDefault(); // Prevent form submission
-                console.log("Review Submit button clicked"); // Debugging line
-                populateReviewContent();
-                reviewPopup.fadeIn(); // Use fadeIn for a smooth display effect
-            });
-
-            // Close the popup when clicking the close button
-            closePopupBtn.on('click', function() {
-                reviewPopup.fadeOut(); // Use fadeOut for a smoother hide effect
-            });
-
-            // Close the popup if clicking outside of it
-            $(window).on('click', function(event) {
-                if ($(event.target).is('#reviewPopup')) {
-                    reviewPopup.fadeOut(); // Hide the popup
-                }
-            });
-
-            // Handle the confirm submission button inside the popup
-            confirmSubmitBtn.on('click', function() {
-                reviewPopup.fadeOut(); // Close the popup before form submission
-                labRequestForm.submit(); // Submit the form
-            });
-        });
-
         // Existing functionality for "test-purpose" dropdown and other UI interactions
         document.getElementById("test-purpose").addEventListener("change", function() {
             var otherPurposeInput = document.getElementById("other-purpose");
@@ -601,59 +548,158 @@
             manualInputs.forEach(input => {
                 input.value = ''; // Clear input values
             });
-    
+
             // Clear additional samples
             const additionalSamplesContainer = document.getElementById('additionalSamplesContainer');
-            while (additionalSamplesContainer.firstChild) {
+            while (additionalSamplesContainer && additionalSamplesContainer.firstChild) {
                 additionalSamplesContainer.removeChild(additionalSamplesContainer.firstChild);
             }
-    
-            // Clear OR No. field
-            document.getElementById('orNo').value = '';
-    
-            // Clear LD Control Number field
-            document.getElementById('ldNo').value = '';
-    
+
+            // Check and Clear OR No. field
+            const orNoField = document.getElementById('orNo');
+            if (orNoField) {
+                orNoField.value = '';
+            } else {
+                console.log("Element with ID 'orNo' not found."); // Debug log
+            }
+
+            // Check and Clear LD Control Number field
+            const ldNoField = document.getElementById('ldNo');
+            if (ldNoField) {
+                ldNoField.value = '';
+            } else {
+                console.log("Element with ID 'ldNo' not found."); // Debug log
+            }
+
             // Reset examination section checkbox inputs
             const checkboxItems = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
             checkboxItems.forEach(checkbox => {
                 checkbox.checked = false; // Uncheck each checkbox
             });
-    
+
             // Reset culture dropdown
             const cultureDropdown = document.getElementById('culture-options');
-            cultureDropdown.style.display = 'none'; // Hide culture options
-            cultureDropdown.selectedIndex = 0; // Reset to default
-    
+            if (cultureDropdown) {
+                cultureDropdown.style.display = 'none'; // Hide culture options
+                cultureDropdown.selectedIndex = 0; // Reset to default
+            } else {
+                console.log("Element with ID 'culture-options' not found."); // Debug log
+            }
+
             // Reset certification checkbox
             const certifyCheckbox = document.getElementById('certify');
-            certifyCheckbox.checked = false; // Uncheck certification checkbox
-    
+            if (certifyCheckbox) {
+                certifyCheckbox.checked = false; // Uncheck certification checkbox
+            } else {
+                console.log("Element with ID 'certify' not found."); // Debug log
+            }
+
             // Clear selected radio buttons in the releasing results section
             const releasingResultsRadios = document.querySelectorAll("input[name='releasingResults']");
             releasingResultsRadios.forEach(radio => {
                 radio.checked = false; // Uncheck each radio button
             });
-    
+
             // Reset the regional office input
-            document.getElementById("regional-office").value = ''; // Clear regional office input
-            document.getElementById("regional-office").style.display = 'none'; // Hide regional office input
-    
+            const regionalOfficeInput = document.getElementById("regional-office");
+            if (regionalOfficeInput) {
+                regionalOfficeInput.value = ''; // Clear regional office input
+                regionalOfficeInput.style.display = 'none'; // Hide regional office input
+            } else {
+                console.log("Element with ID 'regional-office' not found."); // Debug log
+            }
+
             // Reset the dropdown for Purpose of Laboratory Test
             const purposeDropdown = document.getElementById("test-purpose");
-            purposeDropdown.selectedIndex = 0; // Reset to default option
-            document.getElementById("other-purpose").style.display = "none"; // Hide the other-purpose input
-    
+            if (purposeDropdown) {
+                purposeDropdown.selectedIndex = 0; // Reset to default option
+            } else {
+                console.log("Element with ID 'test-purpose' not found."); // Debug log
+            }
+
+            const otherPurposeInput = document.getElementById("other-purpose");
+            if (otherPurposeInput) {
+                otherPurposeInput.style.display = "none"; // Hide the other-purpose input
+            } else {
+                console.log("Element with ID 'other-purpose' not found."); // Debug log
+            }
+
             // Reset "Others" checkbox and its input field
             const othersCheckbox = document.getElementById("others-para");
-            othersCheckbox.checked = false; // Uncheck the Others checkbox
-            document.getElementById("specify-para").value = ''; // Clear specify input field
-            document.getElementById("specify-para").style.display = 'none'; // Hide the specify input field
+            if (othersCheckbox) {
+                othersCheckbox.checked = false; // Uncheck the Others checkbox
+            } else {
+                console.log("Element with ID 'others-para' not found."); // Debug log
+            }
+
+            const specifyParaInput = document.getElementById("specify-para");
+            if (specifyParaInput) {
+                specifyParaInput.value = ''; // Clear specify input field
+                specifyParaInput.style.display = 'none'; // Hide the specify input field
+            } else {
+                console.log("Element with ID 'specify-para' not found."); // Debug log
+            }
         }
+
     
         // Attach event listeners to all category radio inputs for monitoring/walk-in
         categoryRadios.forEach(radio => {
             radio.addEventListener('change', handleCategoryChange);
+        });
+        
+        $(document).ready(function() {
+            handleCategoryChange();
+            $('input[name="sample_category"]').on('change', handleCategoryChange);
+            // Get elements
+            const reviewSubmitBtn = $('#reviewSubmit');
+            const reviewPopup = $('#reviewPopup');
+            const closePopupBtn = $('.close-popup');
+            const reviewContent = $('#reviewContent');
+            const confirmSubmitBtn = $('#confirmSubmit');
+            const labRequestForm = $('form');
+
+            // Function to populate the popup with form data
+            function populateReviewContent() {
+                const formData = labRequestForm.serializeArray();
+                let contentHtml = '<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
+
+                formData.forEach(item => {
+                    // Format field names to be more user-friendly
+                    const formattedName = item.name
+                        .replace(/([A-Z])/g, ' $1') // Insert spaces before capital letters
+                        .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
+                    contentHtml += `<tr><td>${formattedName}</td><td>${item.value || 'N/A'}</td></tr>`;
+                });
+
+                contentHtml += '</tbody></table>';
+                reviewContent.html(contentHtml);
+            }
+
+            // Open the popup
+            reviewSubmitBtn.on('click', function(event) {
+                event.preventDefault(); // Prevent form submission
+                console.log("Review Submit button clicked"); // Debugging line
+                populateReviewContent();
+                reviewPopup.fadeIn(); // Use fadeIn for a smooth display effect
+            });
+
+            // Close the popup when clicking the close button
+            closePopupBtn.on('click', function() {
+                reviewPopup.fadeOut(); // Use fadeOut for a smoother hide effect
+            });
+
+            // Close the popup if clicking outside of it
+            $(window).on('click', function(event) {
+                if ($(event.target).is('#reviewPopup')) {
+                    reviewPopup.fadeOut(); // Hide the popup
+                }
+            });
+
+            // Handle the confirm submission button inside the popup
+            confirmSubmitBtn.on('click', function() {
+                reviewPopup.fadeOut(); // Close the popup before form submission
+                labRequestForm.submit(); // Submit the form
+            });
         });
     </script>
 </body>
