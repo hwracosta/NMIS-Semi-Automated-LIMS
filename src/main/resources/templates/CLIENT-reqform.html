@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratory Request Form</title>
     <link rel="stylesheet" th:href="@{/css/CLIENT-reqform.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 <body>
     <header class="header">
@@ -431,15 +434,21 @@
         <div class="popup" id="reviewPopup">
             <div class="popup-content">
                 <span class="close-popup" onclick="closePopup()">&times;</span>
-                <h3>Review Your Request</h3>
                 <div id="reviewContent" class="table-container"></div>
+
+<!--                &lt;!&ndash; Download PDF Button with Icon and Tooltip &ndash;&gt;-->
+<!--                <div class="tooltip">-->
+<!--                    <i class="fas fa-download" id="downloadPdfBtn"></i>-->
+<!--                    <span class="tooltiptext">Download PDF</span>-->
+<!--                </div>-->
 
                 <!-- Confirm Submit Button inside the popup -->
                 <button type="button" class="submit" id="confirmSubmit">Confirm and Submit</button>
             </div>
         </div>
 
-     </form>
+
+    </form>
 
     <script>
         // Existing functionality for "test-purpose" dropdown and other UI interactions
@@ -646,10 +655,8 @@
         categoryRadios.forEach(radio => {
             radio.addEventListener('change', handleCategoryChange);
         });
-        
+
         $(document).ready(function() {
-            handleCategoryChange();
-            $('input[name="sample_category"]').on('change', handleCategoryChange);
             // Get elements
             const reviewSubmitBtn = $('#reviewSubmit');
             const reviewPopup = $('#reviewPopup');
@@ -661,24 +668,79 @@
             // Function to populate the popup with form data
             function populateReviewContent() {
                 const formData = labRequestForm.serializeArray();
-                let contentHtml = '<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
+                let contentHtml = `
+        <div class="pdf-header">
+            <h2>Laboratory Request Form Review</h2>
+        </div>
+        <hr>
+        <div class="pdf-section">
+            <h3>Client Information</h3>
+            <table class="pdf-table">
+                <tbody>`;
 
+                // Add client-related fields
                 formData.forEach(item => {
-                    // Format field names to be more user-friendly
-                    const formattedName = item.name
-                        .replace(/([A-Z])/g, ' $1') // Insert spaces before capital letters
-                        .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
-                    contentHtml += `<tr><td>${formattedName}</td><td>${item.value || 'N/A'}</td></tr>`;
+                    if (["companyName", "representativeName", "email", "contactNumber", "ltoNo", "clientClassif", "address"].includes(item.name)) {
+                        const formattedName = item.name
+                            .replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, str => str.toUpperCase());
+                        contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
+                    }
                 });
 
-                contentHtml += '</tbody></table>';
+                contentHtml += `
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pdf-section">
+            <h3>Sample Details</h3>
+            <table class="pdf-table">
+                <tbody>`;
+
+                // Add sample-related fields
+                formData.forEach(item => {
+                    if (["clientSampleCode", "sampleDetails", "sampleSource", "productionDate", "expirationDate", "samplingDate", "weightGrams", "purposeTest", "microbioTests", "molecTests", "chemTests"].includes(item.name)) {
+                        const formattedName = item.name
+                            .replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, str => str.toUpperCase());
+                        contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
+                    }
+                });
+
+                contentHtml += `
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pdf-section">
+            <h3>Additional Information</h3>
+            <table class="pdf-table">
+                <tbody>`;
+
+                // Add additional fields
+                formData.forEach(item => {
+                    if (["orNo", "releasingResults", "regionalOffice", "sample_category"].includes(item.name)) {
+                        const formattedName = item.name
+                            .replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, str => str.toUpperCase());
+                        contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
+                    }
+                });
+
+                contentHtml += `
+                </tbody>
+            </table>
+        </div>
+    `;
+
                 reviewContent.html(contentHtml);
             }
+
 
             // Open the popup
             reviewSubmitBtn.on('click', function(event) {
                 event.preventDefault(); // Prevent form submission
-                console.log("Review Submit button clicked"); // Debugging line
                 populateReviewContent();
                 reviewPopup.fadeIn(); // Use fadeIn for a smooth display effect
             });
@@ -688,17 +750,30 @@
                 reviewPopup.fadeOut(); // Use fadeOut for a smoother hide effect
             });
 
-            // Close the popup if clicking outside of it
-            $(window).on('click', function(event) {
-                if ($(event.target).is('#reviewPopup')) {
-                    reviewPopup.fadeOut(); // Hide the popup
-                }
-            });
-
             // Handle the confirm submission button inside the popup
             confirmSubmitBtn.on('click', function() {
                 reviewPopup.fadeOut(); // Close the popup before form submission
                 labRequestForm.submit(); // Submit the form
+            });
+
+            // Function to generate PDF from the review content
+            function generatePDF() {
+                // Set options for the PDF
+                const options = {
+                    margin: 0.5,
+                    filename: 'request-form-review.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                // Use html2pdf to generate the PDF from the reviewContent element
+                html2pdf().set(options).from(reviewContent[0]).save();
+            }
+
+            // Add event listener for the Download PDF button (add this button in your HTML)
+            $('#downloadPdfBtn').on('click', function() {
+                generatePDF();
             });
         });
     </script>

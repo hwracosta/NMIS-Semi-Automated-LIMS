@@ -571,3 +571,89 @@ input[readonly] {
     background-color: #004a99;
     transform: scale(0.98);
 }
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the icon */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Arrow at the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text on hover */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Style the download icon */
+#downloadPdfBtn {
+    font-size: 24px;
+    color: #002267; /* Download icon color */
+}
+
+#downloadPdfBtn:hover {
+    color: #0056b3; /* Change color on hover */
+}
+
+/* PDF Styling */
+.pdf-header {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #002267;
+}
+
+.pdf-section {
+    margin-bottom: 20px;
+}
+
+.pdf-section h3 {
+    font-size: 16px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.pdf-table th, .pdf-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.pdf-field {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.pdf-value {
+    color: #333;
+}
