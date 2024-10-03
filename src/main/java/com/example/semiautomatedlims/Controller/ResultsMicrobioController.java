@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ResultsMolBioController {
+public class ResultsMicrobioController {
 
-    @GetMapping("/RESULTS-MolBio")
-    public String showResultMolbioPage() {
-        return "RESULTS-MolBio";  
+    @GetMapping("/RESULTS-Microbio")
+    public String showResultMicrobioPage() {
+        return "RESULTS-Microbio";  
     }
 }

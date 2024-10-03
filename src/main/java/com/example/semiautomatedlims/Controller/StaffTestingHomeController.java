@@ -29,7 +29,7 @@ public class StaffTestingHomeController {
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/TESTING-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/TESTING-MicroBio";
+            return "redirect:/TESTING-Microbio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/TESTING-Chem";
         } else {
