@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import jakarta.servlet.http.HttpSession; 
 @Controller
 public class Staff2FAController {
 
@@ -27,11 +27,12 @@ public class Staff2FAController {
 
    // Process 2FA code verification (POST to the same URL)
    @PostMapping("/STAFF-2FA")
-   public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes) {
+   public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes, HttpSession session) {
        if (staff2FAService.verify2FACode(email, code)) {
            // Code is valid, proceed with redirecting to appropriate home page
            Staff staff = staffService.findStaffByEmail(email);
            if (staff.getStaffType().equals("testing")) {
+                session.setAttribute("testingSection", staff.getTestingSection());
                return "redirect:/STAFF-TESTINGhome";  // Redirect to testing homepage
            } else if (staff.getStaffType().equals("receiving/releasing")) {
                return "redirect:/STAFF-RELEASINGhome";  // Redirect to receiving/releasing homepage

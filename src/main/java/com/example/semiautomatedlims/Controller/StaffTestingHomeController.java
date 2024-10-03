@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class StaffTestingHomeController {
+
     @GetMapping("/STAFF-TESTINGhome")
     public String staffForgotPassword() {
         return "STAFF-TESTINGhome"; 
@@ -18,5 +19,24 @@ public class StaffTestingHomeController {
         redirectAttributes.addFlashAttribute("message", "Logged out successfully!");
         return "redirect:/STAFF-login";  // Redirect to login page after logout
     }
+
+    @GetMapping("/TESTING-results")
+    public String redirectToTestingResults(HttpSession session) {
+        // Retrieve the testing_section from the session
+        String testingSection = (String) session.getAttribute("testingSection");
+        
+        // Check the value of testing_section and redirect accordingly
+        if ("molbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/RESULTS-MolBio";
+        } else if ("microbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/RESULTS-MicroBio";
+        } else if ("chem".equalsIgnoreCase(testingSection)) {
+            return "redirect:/RESULTS-Chem";
+        } else {
+            // Redirect to a default page or show an error message if testing_section is not valid
+            return "redirect:/default-results";  
+        }
+    }
 }
+
 
