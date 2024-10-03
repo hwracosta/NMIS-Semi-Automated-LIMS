@@ -20,6 +20,24 @@ public class StaffTestingHomeController {
         return "redirect:/STAFF-login";  // Redirect to login page after logout
     }
 
+    @GetMapping("/TESTING-testing")
+    public String redirectToTestingTesting(HttpSession session) {
+        // Retrieve the testing_section from the session
+        String testingSection = (String) session.getAttribute("testingSection");
+        
+        // Check the value of testing_section and redirect accordingly
+        if ("molbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/TESTING-MolBio";
+        } else if ("microbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/TESTING-MicroBio";
+        } else if ("chem".equalsIgnoreCase(testingSection)) {
+            return "redirect:/TESTING-Chem";
+        } else {
+            // Redirect to a default page or show an error message if testing_section is not valid
+            return "redirect:/default-results";  
+        }
+    }
+
     @GetMapping("/TESTING-results")
     public String redirectToTestingResults(HttpSession session) {
         // Retrieve the testing_section from the session
@@ -32,6 +50,24 @@ public class StaffTestingHomeController {
             return "redirect:/RESULTS-MicroBio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/RESULTS-Chem";
+        } else {
+            // Redirect to a default page or show an error message if testing_section is not valid
+            return "redirect:/default-results";  
+        }
+    }
+
+    @GetMapping("/TESTING-database")
+    public String redirectToTestingDatabase(HttpSession session) {
+        // Retrieve the testing_section from the session
+        String testingSection = (String) session.getAttribute("testingSection");
+        
+        // Check the value of testing_section and redirect accordingly
+        if ("molbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/DATABASE-MolBio";
+        } else if ("microbio".equalsIgnoreCase(testingSection)) {
+            return "redirect:/DATABASE-MicroBio";
+        } else if ("chem".equalsIgnoreCase(testingSection)) {
+            return "redirect:/DATABASE-Chem";
         } else {
             // Redirect to a default page or show an error message if testing_section is not valid
             return "redirect:/default-results";  
