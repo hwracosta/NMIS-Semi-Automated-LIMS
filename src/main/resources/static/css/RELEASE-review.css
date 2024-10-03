@@ -148,44 +148,102 @@ select {
     background-color: #142c6c;
 }
 
+/* Popup Overlay */
 .popup {
-    display: none; 
-    position: fixed; 
+    display: none;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; 
-    }
+    background-color: rgba(0, 0, 0, 0.5); /* Lighter overlay for better contrast */
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in/out effect */
+}
 
+/* Popup Content Styling */
 .popup-content {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 30px;
-    padding-right: 50px;
-    border-radius: 5px;
-    width: 500px;
-    max-height: 750px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    overflow-y: scroll;
+    padding-right: 40px;
+    padding-left: 25px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* Softer shadow for depth */
+    overflow-y: auto;
+    z-index: 10000;
+    animation: popupOpen 0.4s ease-out; /* Animation for the popup */
 }
 
+/* Smooth opening animation */
+@keyframes popupOpen {
+    0% {
+        transform: translate(-50%, -55%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
 
+/* Close Button Styling */
 .close-popup {
     cursor: pointer;
-    top: 10px;
-    color: red;
-    float: right;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 25px; /* Slightly larger for visibility */
+    color: #ff5c5c; /* Softer red for aesthetics */
+    transition: color 0.2s;
 }
 
+.close-popup:hover {
+    color: #ff0000; /* Bright red on hover */
+}
 
+/* Input Styles for Read-Only Fields */
 input[readonly] {
-    background-color: #f0f0f0;
-    border: none; 
-    width: 100%; 
-    padding: 8px;
+    background-color: #f9f9f9; /* Softer background for better readability */
+    border: 1px solid #ddd; /* Light border */
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 15px; /* Spacing between inputs */
+    font-size: 14px;
+    color: #333;
+}
+
+/* Label Styles */
+form label {
+    display: block;
+    font-weight: 600; /* Slightly bolder font */
+    margin-bottom: 5px; /* Space between label and input */
+    color: #1E3A8A; /* Softened color */
+}
+
+/* Form Sections Styling */
+form div {
+    margin-bottom: 20px; /* Space between form sections */
+}
+
+/* Popup Title */
+.popup-content h3 {
+    font-family: 'Arial', sans-serif;
+    color: #1E3A8A;
+    border-bottom: 2px solid #ddd; /* Light separator */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/* Add slight spacing to the body when popup is open */
+body.popup-open {
+    overflow: hidden; /* Prevent background scrolling */
 }
