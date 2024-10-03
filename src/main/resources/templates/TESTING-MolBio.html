@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Review</title>
+    <link rel="stylesheet" th:href="@{/css/TESTING-MolBio.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="text-wrapper-2">Molecular Biology</div>
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">For Testing</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control Number</th>
+                            <th>Test Request/s</th>
+                            <th>Sample Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-10-9999</td>
+                            <td>
+                                <a href="#">
+                                    <u>Test Request/s</u>
+                                </a>                                         
+                            </td>
+                            <td>
+                                <a href="#">
+                                 <u>Sample Details</u>
+                                </a>
+                            </td>
+                        </tr>
+                        <!--<tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="5" style="text-align:center;">No pending requests</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
