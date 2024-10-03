@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Requests</title>
+    <!-- Use Thymeleaf to reference the CSS file -->
+    <link rel="stylesheet" th:href="@{/css/RESULTS-Chem.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Home</a>
+                <div class="logout-button">
+                  <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/STAFF-login" class="log-out">Logout</a>
+                  </form>
+                </div>
+              </div>                  
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="track-box">
+            <h2>CHEMICAL/VETERINARY DRUG RESIDUE TESTS</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Result</th>
+                            <th>Remarks</th>
+                            <th>Detection Limit</th>
+                            <th>Regulatory Limits</th>
+                            <th>Analysis Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Rows with Input Fields -->
+                        <tr>
+                            <td><input type="text" name="analyte" value="1234"></td>
+                            <td><input type="text" name="result" value="Processing"></td>
+                            <td><input type="text" name="remarks" value="Test"></td>
+                            <td><input type="text" name="detectionLimit"></td>
+                            <td><input type="text" name="regulatoryLimits"></td>
+                            <td><input type="date" name="analysisDate"></td>
+                        </tr>
+                    </tbody>                    
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
