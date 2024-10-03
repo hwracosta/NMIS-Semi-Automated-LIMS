@@ -27,6 +27,9 @@ public class Staff {
     @Column(name = "token_expiry")
     private LocalDateTime tokenExpiry;
 
+    @Column(name = "testing_section")
+    private String testingSection;
+
     // Getters and Setters
     public Long getStaffId() {
         return staffId;
@@ -78,5 +81,13 @@ public class Staff {
 
     public boolean isTokenExpired() {
         return tokenExpiry.isBefore(LocalDateTime.now());
+    }
+
+    public String getTestingSection() {
+        return testingSection;
+    }
+
+    public void setTestingSection(String testingSection) {
+        this.testingSection = testingSection;
     }
 }

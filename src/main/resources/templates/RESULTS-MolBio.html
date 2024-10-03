@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Requests</title>
+    <!-- Use Thymeleaf to reference the CSS file -->
+    <link rel="stylesheet" th:href="@{/css/RESULTS-MolBio.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/CLIENT-home" class="text-wrapper-2">Testing Home</a>
+                <div class="logout-button">
+                  <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/client-login" class="log-out">Logout</a>
+                  </form>
+                </div>
+              </div>                  
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="track-box">
+            <h2>Track Requests</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sample Details</th>
+                            <th>Examination Conducted</th>
+                            <th>Meat Species Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Rows -->
+                        <tr>
+                            <td>1234</td>
+                            <td>Processing</td>
+                            <td>Test</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
