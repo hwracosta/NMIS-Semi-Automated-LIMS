@@ -1,50 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Requests</title>
-    <!-- Use Thymeleaf to reference the CSS file -->
-    <link rel="stylesheet" th:href="@{/css/RELEASE-release.css}">
+    <title>Request Review</title>
+    <link rel="stylesheet" th:href="@{/css/RELEASE-review.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+    <!-- Header Section -->
     <header class="header">
         <div class="overlap-group">
             <div class="rectangle"></div>
-            <!-- Use Thymeleaf to reference the image -->
-            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <img class="img" th:src="@{/img/HEADER.png}" />
             <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-            <div class="text-wrapper-2">Client Track Request</div>
+            <div class="text-wrapper-2">Receiving/Releasing Staff</div>
         </div>
     </header>
 
-    <div class="content">
-        <div class="track-box">
-            <h2>Track Requests</h2>
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">Pending Request List</h2>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>Status</th>
+                            <th>Client Name</th>
+                            <th>Client Details</th>
+                            <th>Submission Date</th>
+                            <th>Results</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example Rows -->
-                        <tr>
-                            <td>1234</td>
-                            <td>Processing</td>
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
+                            <td>
+                                <a href="#" th:onclick="'showPopup(' + ${request.clientReqid} + ')'">
+                                    <u>View Details</u>
+                                </a>                                         
+                            </td>
+                            <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
+                            <td>
+                                <form class="status-form" th:action="@{/release/update-status}" method="post">
+                                    <input type="hidden" th:name="clientReqid" th:value="${request.clientReqid}" /> 
+                                    <select name="status" required>
+                                        <option value="" disabled selected>Select an option</option>
+                                        <option value="For Testing">For Testing</option>
+                                        <option value="Sample/s Rejected">Sample/s Rejected</option>
+                                    </select>
+                                    <button type="submit" class="submit-btn">Submit</button> 
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>5678</td>
-                            <td>Completed</td>
+                        <tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="5" style="text-align:center;">No pending requests</td>
                         </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
         </div>
+    </main>
+
+    <!-- Popup for Request Form -->
+    <div class="popup" id="requestPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <h3>Request Form</h3>
+            <form id="requestForm">
+                <input type="hidden" name="clientReqid" id="clientReqid" />
+                <div>
+                    <label for="sampleCategory">Sample Category:</label>
+                    <input type="text" name="sampleCategory" id="sampleCategory" readonly />
+                </div>
+                <div>
+                    <label for="orNo">OR No:</label>
+                    <input type="text" name="orNo" id="orNo" readonly />
+                </div>
+                <div>
+                    <label for="clientSampleCode">Sample Code:</label>
+                    <input type="text" name="clientSampleCode" id="clientSampleCode" readonly />
+                </div>
+                <div>
+                    <label for="sampleDetails">Sample Details:</label>
+                    <input type="text" name="sampleDetails" id="sampleDetails" readonly />
+                </div>
+                <div>
+                    <label for="sampleSource">Sample Source:</label>
+                    <input type="text" name="sampleSource" id="sampleSource" readonly />
+                </div>
+                <div>
+                    <label for="productionDate">Production Date:</label>
+                    <input type="date" name="productionDate" id="productionDate" readonly />
+                </div>
+                <div>
+                    <label for="expirationDate">Expiration Date:</label>
+                    <input type="date" name="expirationDate" id="expirationDate" readonly />
+                </div>
+                <div>
+                    <label for="samplingDate">Sampling Date:</label>
+                    <input type="date" name="samplingDate" id="samplingDate" readonly />
+                </div>
+                <div>
+                    <label for="weightGrams">Weight (grams):</label>
+                    <input type="number" name="weightGrams" id="weightGrams" readonly />
+                </div>
+                <div>
+                    <label for="purposeTest">Purpose of Test:</label>
+                    <input type="text" name="purposeTest" id="purposeTest" readonly />
+                </div>
+                <div>
+                    <label for="microbioTests">Microbiology Tests:</label>
+                    <input type="text" name="microbioTests" id="microbioTests" readonly />
+                </div>
+                <div>
+                    <label for="molecTests">Molecular Biology Tests:</label>
+                    <input type="text" name="molecTests" id="molecTests" readonly />
+                </div>
+                <div>
+                    <label for="chemTests">Chemical/Veterinary Drug Residue Tests:</label>
+                    <input type="text" name="chemTests" id="chemTests" readonly />
+                </div>
+                <div>
+                    <label for="releasingResults">Releasing of Laboratory Results:</label>
+                    <input type="text" name="releasingResults" id="releasingResults" readonly />
+                </div>
+            </form>
+        </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            // Handle the status form submission
+            $('.status-form').on('submit', function(event) {
+                event.preventDefault(); 
+
+                $.ajax({
+                    url: $(this).attr('action'), 
+                    type: 'POST',
+                    data: $(this).serialize(), 
+                    error: function(xhr, status, error) {
+                        alert('Error updating status: ' + error); 
+                    }
+                });
+            });
+        });
+
+        function showPopup(clientReqid) {
+    // Clear existing data
+    $('#clientReqid').val(clientReqid);
+    $('#orNo').val('');
+    $('#clientSampleCode').val('');
+    $('#sampleDetails').val('');
+    $('#sampleSource').val('');
+    $('#productionDate').val('');
+    $('#expirationDate').val('');
+    $('#samplingDate').val('');
+    $('#weightGrams').val('');
+    $('#purposeTest').val('');
+    $('#microbioTests').val('');
+    $('#molecTests').val('');
+    $('#chemTests').val('');
+    $('#releasingResults').val('');
+    $('#sampleCategory').val('');
+
+    // Hide all fields by default
+    $('div:has(#orNo)').hide();
+    $('div:has(#clientSampleCode)').hide();
+    $('div:has(#sampleDetails)').hide();
+    $('div:has(#sampleSource)').hide();
+    $('div:has(#productionDate)').hide();
+    $('div:has(#expirationDate)').hide();
+    $('div:has(#samplingDate)').hide();
+    $('div:has(#weightGrams)').hide();
+    $('div:has(#purposeTest)').hide();
+    $('div:has(#microbioTests)').hide();
+    $('div:has(#molecTests)').hide();
+    $('div:has(#chemTests)').hide();
+    $('div:has(#releasingResults)').hide();
+    $('div:has(#sampleCategory)').hide();
+
+    // Fetch the request data based on clientReqid using AJAX
+    $.ajax({
+        url: '/api/getRequestDetails',
+        type: 'GET',
+        data: { clientReqid: clientReqid },
+        success: function(data) {
+            // Format datetime to date string (yyyy-MM-dd)
+            function formatDate(dateTimeString) {
+                const date = new Date(dateTimeString);
+                return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
+            }
+
+            // Assuming 'data' is an object with the request details
+            if (data.orNo) { $('#orNo').val(data.orNo); $('div:has(#orNo)').show(); }
+            if (data.clientSampleCode) { $('#clientSampleCode').val(data.clientSampleCode); $('div:has(#clientSampleCode)').show(); }
+            if (data.sampleDetails) { $('#sampleDetails').val(data.sampleDetails); $('div:has(#sampleDetails)').show(); }
+            if (data.sampleSource) { $('#sampleSource').val(data.sampleSource); $('div:has(#sampleSource)').show(); }
+            if (data.productionDate) { $('#productionDate').val(formatDate(data.productionDate)); $('div:has(#productionDate)').show(); }
+            if (data.expirationDate) { $('#expirationDate').val(formatDate(data.expirationDate)); $('div:has(#expirationDate)').show(); }
+            if (data.samplingDate) { $('#samplingDate').val(formatDate(data.samplingDate)); $('div:has(#samplingDate)').show(); }
+            if (data.weightGrams) { $('#weightGrams').val(data.weightGrams); $('div:has(#weightGrams)').show(); }
+            if (data.purposeTest) { $('#purposeTest').val(data.purposeTest); $('div:has(#purposeTest)').show(); }
+            if (data.microbioTests) { $('#microbioTests').val(data.microbioTests); $('div:has(#microbioTests)').show(); }
+            if (data.molecTests) { $('#molecTests').val(data.molecTests); $('div:has(#molecTests)').show(); }
+            if (data.chemTests) { $('#chemTests').val(data.chemTests); $('div:has(#chemTests)').show(); }
+            if (data.releasingResults) { $('#releasingResults').val(data.releasingResults); $('div:has(#releasingResults)').show(); }
+            if (data.sampleCategory) { $('#sampleCategory').val(data.sampleCategory); $('div:has(#sampleCategory)').show(); }
+
+            // Show the popup after data is loaded
+            $('#requestPopup').fadeIn(); 
+        },
+        error: function(xhr, status, error) {
+            alert('Error fetching request details: ' + error);
+        }
+    });
+}
+        // Function to close the popup
+        function closePopup() {
+            // Hide the popup
+            $('#requestPopup').fadeOut();
+        }
+
+        // Close the popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#requestPopup')) {
+                closePopup();
+            }
+        });
+    </script>
 </body>
 </html>
