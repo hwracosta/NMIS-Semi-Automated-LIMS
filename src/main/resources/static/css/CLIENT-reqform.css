@@ -435,6 +435,12 @@ form {
     text-align: center;            
 }
 
+/* Additional styling for the Review and Submit button */
+.review-submit {
+    margin-top: 20px; /* Add margin to separate it from other elements */
+}
+
+
 button:hover {
     background-color: #0056b3;     
     transform: scale(1.05);        
@@ -492,7 +498,76 @@ button:active {
   label[for="monitoring"] {
     margin-right: 40px; /* Adjust this value to create desired space */
 }
-  
-  
 
-  
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed; /* Fixed to overlap everything and cover the viewport */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker overlay */
+    z-index: 9999; /* Very high z-index to overlap all other content */
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the popup */
+    background-color: #fff;
+    padding: 30px;
+    padding-right: 50px;
+    border-radius: 8px; /* Slightly larger border-radius for aesthetic */
+    width: 80%; /* Increased width for better visibility */
+    max-width: 700px; /* Set a max-width for larger screens */
+    max-height: 80vh; /* Limit height to 80% of the viewport */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow for better visibility */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    z-index: 10000; /* Higher z-index for the content inside the popup */
+}
+
+/* Close button styling */
+.close-popup {
+    cursor: pointer;
+    position: absolute; /* Make it float to the top-right */
+    top: 10px;
+    right: 20px;
+    font-size: 20px; /* Larger size for visibility */
+    color: red;
+}
+
+/* Read-only input styling */
+input[readonly] {
+    background-color: #f0f0f0;
+    border: none;
+    width: 100%;
+    padding: 8px;
+}
+
+/* Submit button styling */
+.submit {
+    background-color: #002267;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 200px;
+    margin: 20px auto;
+    display: block;
+}
+
+.submit:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.submit:active {
+    background-color: #004a99;
+    transform: scale(0.98);
+}

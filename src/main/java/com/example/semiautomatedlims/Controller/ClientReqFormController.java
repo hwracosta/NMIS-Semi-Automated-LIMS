@@ -30,7 +30,7 @@ public class ClientReqFormController {
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirect to login if no client is in session
+            // Redirect to log in if no client is in session
             redirectAttributes.addFlashAttribute("error", "Please log in first.");
             return "redirect:/client-login";
         }
@@ -75,7 +75,7 @@ public class ClientReqFormController {
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirect to login if no client is in session
+            // Redirect to log in if no client is in session
             redirectAttributes.addFlashAttribute("error", "Please log in first.");
             return "redirect:/client-login";
         }

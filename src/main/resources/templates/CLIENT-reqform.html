@@ -6,6 +6,9 @@
     <title>Laboratory Request Form</title>
     <link rel="stylesheet" th:href="@{/css/CLIENT-reqform.css}" />
 </head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <body>
     <header class="header">
         <div class="overlap-group">
@@ -420,12 +423,78 @@
                         <label class="releasing-option" for="courier">Courier (mailing fee applies)</label>
                       </div>
                     </div>
-                    </div>
                 </div>
+        <!-- Place the Review and Submit button here -->
+        <button type="button" class="submit" id="reviewSubmit">Review and Submit</button>
+
+        <!-- Popup for Review Form -->
+        <div class="popup" id="reviewPopup">
+            <div class="popup-content">
+                <span class="close-popup" onclick="closePopup()">&times;</span>
+                <h3>Review Your Request</h3>
+                <div id="reviewContent" class="table-container"></div>
+
+                <!-- Confirm Submit Button inside the popup -->
+                <button type="button" class="submit" id="confirmSubmit">Confirm and Submit</button>
+            </div>
         </div>
-        <button class="submit" type="submit">Submit</button>
-    </form>
+
+     </form>
+
     <script>
+        $(document).ready(function() {
+            // Get elements
+            const reviewSubmitBtn = $('#reviewSubmit');
+            const reviewPopup = $('#reviewPopup');
+            const closePopupBtn = $('.close-popup');
+            const reviewContent = $('#reviewContent');
+            const confirmSubmitBtn = $('#confirmSubmit');
+            const labRequestForm = $('form');
+
+            // Function to populate the popup with form data
+            function populateReviewContent() {
+                const formData = labRequestForm.serializeArray();
+                let contentHtml = '<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
+
+                formData.forEach(item => {
+                    // Format field names to be more user-friendly
+                    const formattedName = item.name
+                        .replace(/([A-Z])/g, ' $1') // Insert spaces before capital letters
+                        .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
+                    contentHtml += `<tr><td>${formattedName}</td><td>${item.value || 'N/A'}</td></tr>`;
+                });
+
+                contentHtml += '</tbody></table>';
+                reviewContent.html(contentHtml);
+            }
+
+            // Open the popup
+            reviewSubmitBtn.on('click', function(event) {
+                event.preventDefault(); // Prevent form submission
+                console.log("Review Submit button clicked"); // Debugging line
+                populateReviewContent();
+                reviewPopup.fadeIn(); // Use fadeIn for a smooth display effect
+            });
+
+            // Close the popup when clicking the close button
+            closePopupBtn.on('click', function() {
+                reviewPopup.fadeOut(); // Use fadeOut for a smoother hide effect
+            });
+
+            // Close the popup if clicking outside of it
+            $(window).on('click', function(event) {
+                if ($(event.target).is('#reviewPopup')) {
+                    reviewPopup.fadeOut(); // Hide the popup
+                }
+            });
+
+            // Handle the confirm submission button inside the popup
+            confirmSubmitBtn.on('click', function() {
+                reviewPopup.fadeOut(); // Close the popup before form submission
+                labRequestForm.submit(); // Submit the form
+            });
+        });
+
         // Existing functionality for "test-purpose" dropdown and other UI interactions
         document.getElementById("test-purpose").addEventListener("change", function() {
             var otherPurposeInput = document.getElementById("other-purpose");
@@ -586,6 +655,6 @@
         categoryRadios.forEach(radio => {
             radio.addEventListener('change', handleCategoryChange);
         });
-    </script>    
+    </script>
 </body>
 </html>
