@@ -14,5 +14,6 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
     // Find requests by Client object
     @Query("SELECT r FROM ClientReqForm r WHERE r.client = :client")
     List<ClientReqForm> findByClient(@Param("client") Client client);
-    List<ClientReqForm> findByStatus(String status);
+    
+    List<ClientReqForm> findByStatusAndMolecTestsIsNotNull(String status);
 }
