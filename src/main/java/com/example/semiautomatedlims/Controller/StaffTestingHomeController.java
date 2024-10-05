@@ -47,7 +47,7 @@ public class StaffTestingHomeController {
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/RESULTS-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/RESULTS-MicroBio";
+            return "redirect:/RESULTS-Microbio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/RESULTS-Chem";
         } else {
@@ -65,7 +65,7 @@ public class StaffTestingHomeController {
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/DATABASE-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/DATABASE-MicroBio";
+            return "redirect:/DATABASE-Microbio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/DATABASE-Chem";
         } else {
