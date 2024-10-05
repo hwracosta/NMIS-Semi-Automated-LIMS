@@ -32,26 +32,98 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2024-10-9999</td>
+                        <tr th:each="request : ${requests}">
+                            <td>Control Number</td> <!--th:text="${request.controlNumber}"-->
                             <td>
-                                <a href="#">
+                                <a href="#" th:onclick="'showTestRequestPopup(' + ${request.clientReqid} + ')'">
                                     <u>Test Request/s</u>
                                 </a>                                         
                             </td>
                             <td>
-                                <a href="#">
-                                 <u>Sample Details</u>
+                                <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
+                                    <u>Sample Details</u>
                                 </a>
                             </td>
                         </tr>
-                        <!--<tr th:if="${#lists.isEmpty(requests)}">
-                            <td colspan="5" style="text-align:center;">No pending requests</td> -->
+                        <tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="3" style="text-align:center;">No pending requests</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
+
+    <!-- Popup for Test Request Details -->
+    <div class="popup" id="testRequestPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
+            <h3>Test Request Details</h3>
+            <!-- Populate with relevant fields -->
+            <div id="testRequestDetails"></div>
+        </div>
+    </div>
+
+    <!-- Popup for Sample Details -->
+    <div class="popup" id="sampleDetailsPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeSampleDetailsPopup()">&times;</span>
+            <h3>Sample Details</h3>
+            <div id="sampleDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        function showTestRequestPopup(clientReqid) {
+            // Fetch and populate test request details via AJAX
+            $.ajax({
+                url: '/api/getTestRequestDetails', // Adjust according to your API
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    $('#testRequestDetails').html(data); // Populate data
+                    $('#testRequestPopup').fadeIn(); // Show popup
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching test request details: ' + error);
+                }
+            });
+        }
+
+        function showSampleDetailsPopup(clientReqid) {
+            // Fetch and populate sample details via AJAX
+            $.ajax({
+                url: '/api/getSampleDetails', // Adjust according to your API
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    $('#sampleDetails').html(data); // Populate data
+                    $('#sampleDetailsPopup').fadeIn(); // Show popup
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching sample details: ' + error);
+                }
+            });
+        }
+
+        function closeTestRequestPopup() {
+            $('#testRequestPopup').fadeOut();
+        }
+
+        function closeSampleDetailsPopup() {
+            $('#sampleDetailsPopup').fadeOut();
+        }
+
+        // Close the popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#testRequestPopup')) {
+                closeTestRequestPopup();
+            }
+            if ($(event.target).is('#sampleDetailsPopup')) {
+                closeSampleDetailsPopup();
+            }
+        });
+    </script>
 </body>
 </html>
+
