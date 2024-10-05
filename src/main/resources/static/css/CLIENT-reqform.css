@@ -252,6 +252,15 @@ form {
     margin-right: 20px;
 }
 
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-left-weight, .form-right-dates {
+    width: 48%; /* Adjust widths as necessary */
+}
+
 .sample-scrollable {
     border: 1px solid #ccc;
     padding: 10px;
