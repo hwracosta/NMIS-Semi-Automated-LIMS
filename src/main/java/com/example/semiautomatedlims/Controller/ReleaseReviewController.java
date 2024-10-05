@@ -1,7 +1,7 @@
 package com.example.semiautomatedlims.Controller;
 
 import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Service.ClientReqFormService;
+import com.example.semiautomatedlims.Service.ReleaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,24 +16,23 @@ import java.util.List;
 public class ReleaseReviewController {
 
     @Autowired
-    private ClientReqFormService clientReqFormService;
+    private ReleaseService releaseService;
 
     @GetMapping("/RELEASE-review")
     public String releaseReview(Model model) {
-        // Fetch all client requests
-        List<ClientReqForm> requests = clientReqFormService.getAllClientRequests();
-        model.addAttribute("requests", requests); 
-
+        // Fetch all client requests that are under review
+        List<ClientReqForm> requests = releaseService.getRequestsByStatus("Under Review");
+        model.addAttribute("requests", requests);
         return "RELEASE-review";
     }
 
-   @PostMapping("/release/update-status")
+    @PostMapping("/release/update-status")
     public String updateStatus(@RequestParam Long clientReqid, @RequestParam String status, RedirectAttributes redirectAttributes) {
-        ClientReqForm request = clientReqFormService.findRequestById(clientReqid);
-    
+        ClientReqForm request = releaseService.getRequestById(clientReqid); // Use ReleaseService to get the request by ID
+
         if (request != null) {
             request.setStatus(status); // Update the status
-            clientReqFormService.saveClientReqForm(request); // Save the updated request
+            releaseService.updateRequestStatus(request); // Save the updated request
             redirectAttributes.addFlashAttribute("message", "Status updated successfully!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Request not found.");
@@ -42,5 +41,3 @@ public class ReleaseReviewController {
         return "redirect:/RELEASE-review"; // Redirect back to the review page
     }
 }
-
-
