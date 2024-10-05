@@ -18,7 +18,7 @@ public class TestingMolBioController {
 
     @GetMapping("/TESTING-MolBio")
     public String staffTestingHome(Model model) {
-        List<ClientReqForm> testingRequests = testingMolBioService.getRequestsByStatus("For Testing"); // Fetch requests
+        List<ClientReqForm> testingRequests = testingMolBioService.getFilteredRequests(); // Fetch filtered requests
         model.addAttribute("requests", testingRequests); // Add requests to model
         return "TESTING-MolBio"; 
     }
