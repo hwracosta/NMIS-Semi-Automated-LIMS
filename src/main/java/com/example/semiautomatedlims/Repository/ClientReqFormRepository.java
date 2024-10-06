@@ -17,4 +17,5 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
 
     List<ClientReqForm> findByStatusAndMolecTestsIsNotNull(String status);
     List<ClientReqForm> findByStatusAndMicrobioTestsIsNotNull(String status);
+    List<ClientReqForm> findByStatusAndChemTestsIsNotNull(String status);
 }

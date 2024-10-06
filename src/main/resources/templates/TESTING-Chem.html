@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Review</title>
+    <link rel="stylesheet" th:href="@{/css/TESTING-Chemistry.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="text-wrapper-2">Chemistry</div>
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">For Testing</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control Number</th>
+                            <th>Test Request/s</th>
+                            <th>Sample Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="request : ${requests}">
+                            <td>Control Number</td> <!--th:text="${request.controlNumber}"-->
+                            <td>
+                                <a href="#" th:onclick="'showTestRequestPopup(' + ${request.clientReqid} + ')'">
+                                    <u>Test Request/s</u>
+                                </a>                                         
+                            </td>
+                            <td>
+                                <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
+                                    <u>Sample Details</u>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="3" style="text-align:center;">No pending requests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup for Test Request Details -->
+    <div class="popup" id="testRequestPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
+            <h3>Test Request Details</h3>
+            <!-- Populate with relevant fields -->
+            <div id="testRequestDetails"></div>
+        </div>
+    </div>
+
+    <!-- Popup for Sample Details -->
+    <div class="popup" id="sampleDetailsPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeSampleDetailsPopup()">&times;</span>
+            <h3>Sample Details</h3>
+            <div id="sampleDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        function showTestRequestPopup(clientReqid) {
+            // Fetch and populate test request details via AJAX
+            $.ajax({
+                url: '/api/getTestRequestDetails', // Adjust according to your API
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    $('#testRequestDetails').html(data); // Populate data
+                    $('#testRequestPopup').fadeIn(); // Show popup
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching test request details: ' + error);
+                }
+            });
+        }
+
+        function showSampleDetailsPopup(clientReqid) {
+            // Fetch and populate sample details via AJAX
+            $.ajax({
+                url: '/api/getSampleDetails', // Adjust according to your API
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    $('#sampleDetails').html(data); // Populate data
+                    $('#sampleDetailsPopup').fadeIn(); // Show popup
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching sample details: ' + error);
+                }
+            });
+        }
+
+        function closeTestRequestPopup() {
+            $('#testRequestPopup').fadeOut();
+        }
+
+        function closeSampleDetailsPopup() {
+            $('#sampleDetailsPopup').fadeOut();
+        }
+
+        // Close the popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#testRequestPopup')) {
+                closeTestRequestPopup();
+            }
+            if ($(event.target).is('#sampleDetailsPopup')) {
+                closeSampleDetailsPopup();
+            }
+        });
+    </script>
+</body>
+</html>
+
