@@ -1,9 +1,9 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.Client;
-import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Service.ClientReqFormService;
-import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import com.example.semiautomatedlims.Entity.Client;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Service.ClientReqFormService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClientReqFormController {
@@ -47,7 +50,6 @@ public class ClientReqFormController {
         return "CLIENT-reqform"; // Render the CLIENT-reqform page with autofilled details
     }
 
-    // Process the form submission
     @PostMapping("/CLIENT-reqform")
     public String processClientReqForm(
         @RequestParam String orNo,
@@ -60,9 +62,9 @@ public class ClientReqFormController {
         @RequestParam int weightGrams,
         @RequestParam String purposeTest,
         @RequestParam(required = false) String otherPurposeTest,
-        @RequestParam(required = false) String microbioTests,  // Optional fields
+        @RequestParam(required = false) List<String> microbioTests, 
         @RequestParam(required = false) String cultureOption,
-        @RequestParam(required = false) String otherMicrobioTests, // New parameter for "Others"
+        @RequestParam(required = false) String otherMicrobioTests, 
         @RequestParam(required = false) String molecTests,
         @RequestParam(required = false) String chemTests,
         @RequestParam String releasingResults,
@@ -71,11 +73,10 @@ public class ClientReqFormController {
         HttpSession session,
         RedirectAttributes redirectAttributes) {
 
-        // Check if client is logged in (from session)
+        // Logic to check if the client is logged in
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirect to log in if no client is in session
             redirectAttributes.addFlashAttribute("error", "Please log in first.");
             return "redirect:/client-login";
         }
@@ -88,32 +89,27 @@ public class ClientReqFormController {
         // Initialize microbioTests
         StringBuilder microbioTestsBuilder = new StringBuilder();
 
-        // Check if culture is part of the microbioTests
-        if (microbioTests != null && microbioTests.contains("culture")) {
-            microbioTestsBuilder.append("culture");
-            
-            // Append the selected culture option if available
-            if (cultureOption != null && !cultureOption.isEmpty()) {
-                microbioTestsBuilder.append(": ").append(cultureOption);
-            }
-        }
+        if (microbioTests != null && !microbioTests.isEmpty()) {
+            for (String test : microbioTests) {
+                if (microbioTestsBuilder.length() > 0) {
+                    microbioTestsBuilder.append(", "); // Add a comma if there's already something in the builder
+                }
+                microbioTestsBuilder.append(test);
 
-        // Check for "others-para" selection
-        if ("others-para".equals(microbioTests) && otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
-            if (microbioTestsBuilder.length() > 0) {
-                microbioTestsBuilder.append(", "); // Add a comma if there's already something in the builder
+                // If the test is "culture", append the selected culture option
+                if ("culture".equals(test) && cultureOption != null && !cultureOption.isEmpty()) {
+                    microbioTestsBuilder.append(": ").append(cultureOption);
+                }
+
+                // If the test is "others-para", append the specified other test
+                if ("others-para".equals(test) && otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
+                    microbioTestsBuilder.append(": ").append(otherMicrobioTests);
+                }
             }
-            microbioTestsBuilder.append("others-para: ").append(otherMicrobioTests);
-        } else if (otherMicrobioTests != null && !otherMicrobioTests.isEmpty()) {
-            if (microbioTestsBuilder.length() > 0) {
-                microbioTestsBuilder.append(", "); // Add a comma if there's already something in the builder
-            }
-            microbioTestsBuilder.append("others-para: ").append(otherMicrobioTests);
         }
 
         // Final microbioTests string
         String microbioTestsFinal = microbioTestsBuilder.toString();
-
 
         if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
             releasingResults = regionalOffice;
@@ -130,26 +126,25 @@ public class ClientReqFormController {
         clientReqForm.setSamplingDate(samplingDate);
         clientReqForm.setWeightGrams(weightGrams);
         clientReqForm.setPurposeTest(purposeTest);
-        clientReqForm.setMicrobioTests(microbioTestsFinal);
+        clientReqForm.setMicrobioTests(microbioTestsFinal);  // Set the final string here
         clientReqForm.setMolecTests(molecTests);
         clientReqForm.setChemTests(chemTests);
         clientReqForm.setReleasingResults(releasingResults);
         clientReqForm.setSampleCategory(sample_category);
-
-        // Set the logged-in client as a foreign key (association)
         clientReqForm.setClient(loggedInClient);
 
         // **New Fields**
-        clientReqForm.setStatus("Under Review");  // Set the default status
-        clientReqForm.setSubmitDate(Date.valueOf(LocalDate.now())); // Set the current date as submit date
+        clientReqForm.setStatus("Under Review");
+        clientReqForm.setSubmitDate(Date.valueOf(LocalDate.now()));
 
         // Save the form using the service
         clientReqFormService.saveClientReqForm(clientReqForm);
 
         // Redirect after successful submission
         redirectAttributes.addFlashAttribute("message", "Form submitted successfully!");
-        return "redirect:/CLIENT-home"; // Redirect to the home page after submission
+        return "redirect:/CLIENT-home";
     }
+
 
     //For RELEASE-review pop-up
     @GetMapping("/api/getRequestDetails")
