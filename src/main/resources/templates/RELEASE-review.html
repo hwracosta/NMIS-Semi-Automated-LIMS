@@ -141,18 +141,28 @@
         $(document).ready(function() {
             // Handle the status form submission
             $('.status-form').on('submit', function(event) {
-                event.preventDefault(); 
+                event.preventDefault();
+
+                var form = $(this); // Reference to the form
+                var row = form.closest('tr'); // Get the table row containing this form
 
                 $.ajax({
-                    url: $(this).attr('action'), 
+                    url: form.attr('action'),
                     type: 'POST',
-                    data: $(this).serialize(), 
+                    data: form.serialize(),
+                    success: function(response) {
+                        // On success, remove the row from the table
+                        row.fadeOut(function() {
+                            $(this).remove();
+                        });
+                    },
                     error: function(xhr, status, error) {
-                        alert('Error updating status: ' + error); 
+                        alert('Error updating status: ' + error);
                     }
                 });
             });
         });
+
 
         function showPopup(clientReqid) {
     // Clear existing data
