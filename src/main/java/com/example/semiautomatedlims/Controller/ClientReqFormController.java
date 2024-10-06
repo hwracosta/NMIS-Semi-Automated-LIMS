@@ -111,6 +111,10 @@ public class ClientReqFormController {
         // Final microbioTests string
         String microbioTestsFinal = microbioTestsBuilder.toString();
 
+        if (microbioTestsFinal.isEmpty()) {
+            microbioTestsFinal = null;  // Convert empty strings to null
+        }
+
         if ("regional".equals(releasingResults) && regionalOffice != null && !regionalOffice.isEmpty()) {
             releasingResults = regionalOffice;
         }
