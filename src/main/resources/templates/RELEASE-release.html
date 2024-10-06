@@ -12,9 +12,16 @@
     <header class="header">
         <div class="overlap-group">
             <div class="rectangle"></div>
-            <img class="img" th:src="@{/img/HEADER.png}" />
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
             <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-            <div class="text-wrapper-2">Receiving/Releasing Staff</div>
+            <div class="header-links">
+                <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Receiving/Releasing Staff Home</a>
+                <div class="logout-button">
+                  <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/STAFF-login" class="log-out">Logout</a>
+                  </form>
+                </div>
+              </div>                  
         </div>
     </header>
 
