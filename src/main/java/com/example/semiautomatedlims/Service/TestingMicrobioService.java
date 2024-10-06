@@ -15,8 +15,8 @@ public class TestingMicrobioService {
     private ClientReqFormRepository clientReqFormRepository; // Inject your repository
 
     // Method to get requests by status
-    public List<ClientReqForm> getRequestsByStatus(String status) {
-        return clientReqFormRepository.findByStatus(status); // This assumes you have a method in your repository
+    public List<ClientReqForm> getFilteredRequests() {
+        return clientReqFormRepository.findByStatusAndMicrobioTestsIsNotNull("For Testing"); // This assumes you have a method in your repository
     }
 
     // Method to get specific request details by clientReqid

@@ -18,7 +18,7 @@ public class TestingMicrobioController {
 
     @GetMapping("/TESTING-Microbio")
     public String staffTestingHome(Model model) {
-        List<ClientReqForm> testingRequests = testingMicrobioService.getRequestsByStatus("For Testing"); // Fetch requests
+        List<ClientReqForm> testingRequests = testingMicrobioService.getFilteredRequests(); // Fetch requests
         model.addAttribute("requests", testingRequests); // Add requests to model
         return "TESTING-Microbio"; 
     }
