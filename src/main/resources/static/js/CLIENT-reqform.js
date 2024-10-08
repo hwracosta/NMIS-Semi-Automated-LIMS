@@ -324,4 +324,20 @@ $(document).ready(function() {
             generatePDF();
         });
     });
+
+    document.getElementById('weight').addEventListener('input', function (e) {
+        const weightInput = this.value;
+        const weightError = document.getElementById('weightError');
+
+        console.log('Weight input changed:', weightInput);  // Log the input value
+
+        // Check if the input contains invalid characters (non-numeric)
+        if (isNaN(weightInput) || weightInput === "") {
+            console.log('Invalid input detected');  // Log when invalid input is found
+            weightError.style.display = 'inline';  // Show the error message
+        } else {
+            console.log('Valid input detected');  // Log when valid input is found
+            weightError.style.display = 'none';  // Hide the error message
+        }
+    });
 });
