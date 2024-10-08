@@ -33,4 +33,8 @@ public class ClientReqFormService {
         Optional<ClientReqForm> requestOptional = clientReqFormRepository.findById(clientReqid);
         return requestOptional.isPresent() ? requestOptional.get() : null;
     }
+
+    public Optional<ClientReqForm> findById(Long id) {
+        return clientReqFormRepository.findById(id);
+    }
 }
