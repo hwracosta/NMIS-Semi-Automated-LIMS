@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Requests</title>
     <link rel="stylesheet" th:href="@{/css/CLIENT-trackreq.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -33,20 +34,100 @@
                             <th>Request ID</th>
                             <th>Sample Code</th>
                             <th>Status</th>
+                            <th>Request Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Loop through requests and display them dynamically -->
-                        <tr th:each="request : ${requests}">
+                        <tr th:each="request : ${requests}"
+                            th:data-sample-details="${request.sampleDetails}" 
+                            th:data-sample-source="${request.sampleSource}" 
+                            th:data-weight="${request.weightGrams}" 
+                            th:data-production-date="${request.productionDate}" 
+                            th:data-expiration-date="${request.expirationDate}"
+                            th:data-sampling-date="${request.samplingDate}"   
+                            th:data-purpose-test="${request.purposeTest}"  
+                            th:data-microbio-tests="${request.microbioTests}" 
+                            th:data-molec-tests="${request.molecTests}"  
+                            th:data-chem-tests="${request.chemTests}"> 
                             <td th:text="${request.clientReqid}"></td>
                             <td th:text="${request.clientSampleCode}"></td>
                             <td th:text="${request.status}"></td>
+                            <td>
+                                <button class="view-details" data-request-id="${request.clientReqid}">View Details</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <div id="requestDetailsPopup" style="display:none;">
+        <div class="popup-content">
+            <h3>Request Details</h3>
+            <p><strong>Sample Code:</strong> <span id="popupSampleCode"></span></p>
+            <p><strong>Status:</strong> <span id="popupStatus"></span></p>
+            <p><strong>Sample Details:</strong> <span id="popupSampleDetails"></span></p>
+            <p><strong>Sample Source:</strong> <span id="popupSampleSource"></span></p>
+            <p><strong>Weight (grams):</strong> <span id="popupWeight"></span></p>
+            <p><strong>Production Date:</strong> <span id="popupProductionDate"></span></p>
+            <p><strong>Expiration Date:</strong> <span id="popupExpirationDate"></span></p>
+            <p><strong>Sampling Date:</strong> <span id="popupSamplingDate"></span></p>
+            <p><strong>Purpose of Test:</strong> <span id="popupPurposeTest"></span></p>
+            <p><strong>Microbiological Tests:</strong> <span id="popupMicrobioTests"></span></p>
+            <p><strong>Molecular Tests:</strong> <span id="popupMolecTests"></span></p>
+            <p><strong>Chemical Tests:</strong> <span id="popupChemTests"></span></p>
+            <button id="closePopup">x</button>
+        </div>
+    </div>
+
+    <script>
+   $(document).ready(function() {
+        $('.view-details').on('click', function() {
+            const requestId = $(this).data('request-id');
+            console.log("Request ID:", requestId);
+
+            const requestRow = $(this).closest('tr');
+            const sampleCode = requestRow.find('td:nth-child(2)').text(); // Sample Code
+            const status = requestRow.find('td:nth-child(3)').text(); // Status
+
+            // Retrieve other details from data attributes
+            const sampleDetails = requestRow.data('sample-details');  
+            const sampleSource = requestRow.data('sample-source');  
+            const weight = requestRow.data('weight');  
+            const productionDate = requestRow.data('production-date');  
+            const expirationDate = requestRow.data('expiration-date');  
+            const samplingDate = requestRow.data('sampling-date'); 
+            const purposeTest = requestRow.data('purpose-test'); 
+            const microbioTests = requestRow.data('microbio-tests'); 
+            const molecTests = requestRow.data('molec-tests'); 
+            const chemTests = requestRow.data('chem-tests'); 
+
+            // Populate the popup with request details
+            $('#popupRequestId').text(requestId);
+            $('#popupSampleCode').text(sampleCode);
+            $('#popupStatus').text(status);
+            $('#popupSampleDetails').text(sampleDetails);
+            $('#popupSampleSource').text(sampleSource);
+            $('#popupWeight').text(weight);
+            $('#popupProductionDate').text(productionDate);
+            $('#popupExpirationDate').text(expirationDate);
+            $('#popupSamplingDate').text(samplingDate);
+            $('#popupPurposeTest').text(purposeTest);
+            $('#popupMicrobioTests').text(microbioTests);
+            $('#popupMolecTests').text(molecTests);
+            $('#popupChemTests').text(chemTests);
+            // Show the popup
+            $('#requestDetailsPopup').fadeIn();
+        });
+
+        // Close the popup
+        $('#closePopup').on('click', function() {
+            $('#requestDetailsPopup').fadeOut();
+        });
+    });
+    </script>
 </body>
 </html>
 
