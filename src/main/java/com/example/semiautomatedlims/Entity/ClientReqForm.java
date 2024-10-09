@@ -211,4 +211,16 @@ public class ClientReqForm {
     public void setSubmitDate(Date submitDate) {
         this.submitDate = submitDate;
     }
+
+       // Add this field
+       private String ldControlNumber;
+
+       // Getters and setters for ldControlNumber
+       public String getLdControlNumber() {
+           return ldControlNumber;
+       }
+   
+       public void setLdControlNumber(String ldControlNumber) {
+           this.ldControlNumber = ldControlNumber;
+       }
 }
