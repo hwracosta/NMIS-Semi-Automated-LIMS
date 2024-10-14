@@ -26,7 +26,6 @@ public class TestingMolBioController {
         return "TESTING-MolBio"; 
     }
 
-    // Method to fetch test request details
     @GetMapping("/api/getTestRequestDetails")
     @ResponseBody
     public String getTestRequestDetails(@RequestParam Long clientReqid) {
@@ -40,11 +39,21 @@ public class TestingMolBioController {
         // Construct the HTML response to display in the popup
         StringBuilder details = new StringBuilder();
         
-        //details.append("<p><strong>Control Number:</strong> ").append(requestDetails.getOrNo()).append("</p>");
-        details.append("<p><strong>MolBio Tests:</strong> ").append(requestDetails.getMolecTests() != null ? requestDetails.getMolecTests() : "N/A").append("</p>");
+        details.append("<h4>MolBio Tests:</h4><div class='checklist'>");
+        String[] tests = requestDetails.getMolecTests() != null ? requestDetails.getMolecTests().split(",") : new String[0];
+        
+        // Use ldControlNumber for checkbox IDs
+        String ldControlNumber = requestDetails.getLdControlNumber();
+        for (String test : tests) {
+            String sanitizedTest = test.trim().replaceAll(" ", "_"); // Sanitize for ID usage
+            details.append("<label><input type='checkbox' id='").append(ldControlNumber).append("_").append(sanitizedTest).append("' name='tests' value='").append(test).append("'> ").append(test).append("</label><br>");
+        }
+        
+        details.append("</div>");
         
         return details.toString(); // Return the constructed HTML
     }
+
 
     @GetMapping("/api/getSampleDetails")
     @ResponseBody
