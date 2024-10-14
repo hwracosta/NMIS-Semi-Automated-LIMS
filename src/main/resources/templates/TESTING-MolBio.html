@@ -40,7 +40,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="request : ${requests}">
-                            <td>Control Number</td> <!--th:text="${request.controlNumber}"-->
+                            <td th:text="${request.ldControlNumber}">Control Number</td> 
                             <td>
                                 <a href="#" th:onclick="'showTestRequestPopup(' + ${request.clientReqid} + ')'">
                                     <u>Test Request/s</u>
