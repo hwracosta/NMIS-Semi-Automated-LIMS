@@ -164,6 +164,7 @@ select {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .submit-btn:hover {
@@ -192,6 +193,7 @@ select {
     background-color: #fff;
     padding-right: 40px;
     padding-left: 25px;
+    padding-bottom: 30px;
     border-radius: 10px;
     width: 80%;
     max-width: 600px;

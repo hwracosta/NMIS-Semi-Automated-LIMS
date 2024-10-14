@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Review</title>
+    <meta name="viewport" content="width=device-width, content=1.0">
+    <title>For Testing (MolBio)</title>
     <link rel="stylesheet" th:href="@{/css/TESTING-MolBio.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -34,22 +34,25 @@
                     <thead>
                         <tr>
                             <th>Control Number</th>
-                            <th>Test Request/s</th>
                             <th>Sample Details</th>
+                            <th>Test Request/s</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="request : ${requests}">
                             <td th:text="${request.ldControlNumber}">Control Number</td> 
                             <td>
-                                <a href="#" th:onclick="'showTestRequestPopup(' + ${request.clientReqid} + ')'">
-                                    <u>Test Request/s</u>
-                                </a>                                         
-                            </td>
-                            <td>
                                 <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
                                     <u>Sample Details</u>
                                 </a>
+                            </td>
+                            <td>
+                                <a href="#" th:data-client-reqid="${request.clientReqid}" th:onclick="'showTestRequestPopup(this.dataset.clientReqid)'">
+                                    <u>Test Request/s</u>
+                                </a>
+                                <!-- Submit button placed in the same column -->
+                                <button class="submit-btn" type="button" th:data-client-reqid="${request.clientReqid}" 
+                                        onclick="submitTestRequest(this.dataset.clientReqid)">Submit</button>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">
@@ -66,8 +69,17 @@
         <div class="popup-content">
             <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
             <h3>Test Request Details</h3>
-            <!-- Populate with relevant fields -->
-            <div id="testRequestDetails"></div>
+            <div id="testRequestDetails">
+                <!-- Example checklist items (these will be populated dynamically) -->
+                <form id="testRequestForm">
+                    <div class="checklist">
+                        <label><input type="checkbox" name="tests" value="Test A"> Test A</label><br>
+                        <label><input type="checkbox" name="tests" value="Test B"> Test B</label><br>
+                        <label><input type="checkbox" name="tests" value="Test C"> Test C</label><br>
+                        <label><input type="checkbox" name="tests" value="Test D"> Test D</label><br>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -86,14 +98,30 @@
             $.ajax({
                 url: '/api/getTestRequestDetails', // Adjust according to your API
                 type: 'GET',
-                data: { clientReqid: clientReqid },
+                data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
-                    $('#testRequestDetails').html(data); // Populate data
+                    $('#testRequestDetails').html(data); // Populate the returned HTML directly
+                    restoreCheckboxState(clientReqid); // Use clientReqid to restore state
                     $('#testRequestPopup').fadeIn(); // Show popup
                 },
                 error: function(xhr, status, error) {
                     alert('Error fetching test request details: ' + error);
                 }
+            });
+        }
+
+        function restoreCheckboxState(clientReqid) {
+            const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+            checkboxes.forEach((checkbox) => {
+                const testValue = checkbox.value.trim();
+                const storageKey = `${clientReqid}_${testValue}`; // Unique key for localStorage
+                const storedValue = localStorage.getItem(storageKey); // Use the unique key to get stored state
+                checkbox.checked = storedValue === 'true'; // Restore checked state
+
+                // Add change event listener to save state
+                checkbox.addEventListener('change', function () {
+                    localStorage.setItem(storageKey, this.checked); // Save state in localStorage with the unique key
+                });
             });
         }
 
@@ -109,6 +137,22 @@
                 },
                 error: function(xhr, status, error) {
                     alert('Error fetching sample details: ' + error);
+                }
+            });
+        }
+
+        function submitTestRequest(clientReqid) {
+            // Submit the test request for the given clientReqid
+            const formData = $('#testRequestForm').serialize(); // Get form data
+            $.ajax({
+                url: '/api/submitTestRequest', // Adjust according to your API
+                type: 'POST',
+                data: { clientReqid: clientReqid, ...formData }, // Combine clientReqid with form data
+                success: function(response) {
+                    alert('Test request submitted successfully!'); // Feedback to the user
+                },
+                error: function(xhr, status, error) {
+                    alert('Error submitting test request: ' + error);
                 }
             });
         }
@@ -133,4 +177,3 @@
     </script>
 </body>
 </html>
-
