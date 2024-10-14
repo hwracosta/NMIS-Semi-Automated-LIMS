@@ -45,7 +45,7 @@ public class StaffTestingHomeController {
         
         // Check the value of testing_section and redirect accordingly
         if ("molbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/RESULTS-MolBio";
+            return "redirect:/TR-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/RESULTS-Microbio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, content=1.0">
+    <title>Test Result List (MolBio)</title>
+    <link rel="stylesheet" th:href="@{/css/TR-MolBio.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
+                <div class="logout-button">
+                  <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/STAFF-login" class="log-out">Logout</a>
+                  </form>
+                </div>
+              </div>                  
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">Test Result List</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control Number</th>
+                            <th>Sample Details</th>
+                            <th>Input Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.ldControlNumber}">Control Number</td> 
+                            <td>
+                                <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
+                                    <u>Sample Details</u>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/RESULT-MolBio(clientReqid=${request.clientReqid})}">
+                                    <u>Input Result</u>
+                                </a>                                
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(requests)}">
+                            <td colspan="3" style="text-align:center;">No pending requests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup for Sample Details -->
+    <div class="popup" id="sampleDetailsPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeSampleDetailsPopup()">&times;</span>
+            <h3>Sample Details</h3>
+            <div id="sampleDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        function showSampleDetailsPopup(clientReqid) {
+            // Fetch and populate sample details via AJAX
+            $.ajax({
+                url: '/api/getSampleDetails', // Adjust according to your API
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    $('#sampleDetails').html(data); // Populate data
+                    $('#sampleDetailsPopup').fadeIn(); // Show popup
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching sample details: ' + error);
+                }
+            });
+        }
+
+        function closeSampleDetailsPopup() {
+            $('#sampleDetailsPopup').fadeOut();
+        }
+
+        // Close the popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#sampleDetailsPopup')) {
+                closeSampleDetailsPopup();
+            }
+        });
+    </script>
+</body>
+</html>
