@@ -27,11 +27,13 @@
     <div class="content">
         <div class="track-box">
             <h2>Molecular Biology Results</h2>
+            <div class="control-number-indicator">
+                <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Sample Details</th>
                             <th>Examination Conducted</th>
                             <th>Meat Species Result</th>
                         </tr>
@@ -39,8 +41,11 @@
                     <tbody>
                         <!-- Example Rows -->
                         <tr>
-                            <td><input type="text" name="details"></td>
-                            <td><input type="text" name="exam_conducted"></td>
+                            <td>Dog</td>
+                            <td><input type="text" name="species_result"></td>
+                        </tr>
+                        <tr>
+                            <td>Cat</td>
                             <td><input type="text" name="species_result"></td>
                         </tr>
                     </tbody>
@@ -51,3 +56,4 @@
 
 </body>
 </html>
+
