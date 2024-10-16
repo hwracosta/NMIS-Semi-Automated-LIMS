@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Requests</title>
+    <title>Chem Results</title>
     <!-- Use Thymeleaf to reference the CSS file -->
     <link rel="stylesheet" th:href="@{/css/RESULTS-Chem.css}">
 </head>
@@ -26,7 +26,10 @@
 
     <div class="content">
         <div class="track-box">
-            <h2>CHEMICAL/VETERINARY DRUG RESIDUE TESTS</h2>
+            <h2>Chemical/Veterinary Drug Residue Results</h2>
+            <div class="control-number-indicator">
+                <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
