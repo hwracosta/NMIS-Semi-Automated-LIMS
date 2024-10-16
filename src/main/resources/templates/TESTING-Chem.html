@@ -96,7 +96,7 @@
         function showTestRequestPopup(clientReqid) {
             // Fetch and populate test request details via AJAX
             $.ajax({
-                url: '/api/getTestRequestDetails', // Adjust according to your API
+                url: '/api/getChemRequestDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
@@ -128,7 +128,7 @@
         function showSampleDetailsPopup(clientReqid) {
             // Fetch and populate sample details via AJAX
             $.ajax({
-                url: '/api/getSampleDetails', // Adjust according to your API
+                url: '/api/getChemSampleDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid },
                 success: function(data) {

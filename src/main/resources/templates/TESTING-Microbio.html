@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Review</title>
+    <title>For Testing (MicroBio)</title>
     <link rel="stylesheet" th:href="@{/css/TESTING-Microbio.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="header">
-        <div class="overlap-group">
-            <div class="rectangle"></div>
-            <img class="img" th:src="@{/img/HEADER.png}" />
-            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-            <div class="text-wrapper-2">Microbiology</div>
-        </div>
-    </header>
+        <!-- Header Section -->
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="header-links">
+                    <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
+                    <div class="logout-button">
+                      <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/STAFF-login" class="log-out">Logout</a>
+                      </form>
+                    </div>
+                  </div>                  
+            </div>
+        </header>
 
     <!-- Content Area -->
     <main class="content">
@@ -27,22 +34,25 @@
                     <thead>
                         <tr>
                             <th>Control Number</th>
-                            <th>Test Request/s</th>
                             <th>Sample Details</th>
+                            <th>Test Request/s</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="request : ${requests}">
-                            <td>Control Number</td> <!--th:text="${request.controlNumber}"-->
-                            <td>
-                                <a href="#" th:onclick="'showTestRequestPopup(' + ${request.clientReqid} + ')'">
-                                    <u>Test Request/s</u>
-                                </a>                                         
-                            </td>
+                            <td th:text="${request.ldControlNumber}">Control Number</td> 
                             <td>
                                 <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
                                     <u>Sample Details</u>
                                 </a>
+                            </td>
+                            <td>
+                                <a href="#" th:data-client-reqid="${request.clientReqid}" th:onclick="'showTestRequestPopup(this.dataset.clientReqid)'">
+                                    <u>Test Request/s</u>
+                                </a>
+                                <!-- Submit button placed in the same column -->
+                                <button class="submit-btn" type="button" th:data-client-reqid="${request.clientReqid}" 
+                                        onclick="submitTestRequest(this.dataset.clientReqid)">Submit</button>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">
@@ -59,8 +69,17 @@
         <div class="popup-content">
             <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
             <h3>Test Request Details</h3>
-            <!-- Populate with relevant fields -->
-            <div id="testRequestDetails"></div>
+            <div id="testRequestDetails">
+                <!-- Example checklist items (these will be populated dynamically) -->
+                <form id="testRequestForm">
+                    <div class="checklist">
+                        <label><input type="checkbox" name="tests" value="Test A"> Test A</label><br>
+                        <label><input type="checkbox" name="tests" value="Test B"> Test B</label><br>
+                        <label><input type="checkbox" name="tests" value="Test C"> Test C</label><br>
+                        <label><input type="checkbox" name="tests" value="Test D"> Test D</label><br>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -77,11 +96,12 @@
         function showTestRequestPopup(clientReqid) {
             // Fetch and populate test request details via AJAX
             $.ajax({
-                url: '/api/getTestRequestDetails', // Adjust according to your API
+                url: '/api/getMicroBioRequestDetails', // Adjust according to your API
                 type: 'GET',
-                data: { clientReqid: clientReqid },
+                data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
-                    $('#testRequestDetails').html(data); // Populate data
+                    $('#testRequestDetails').html(data); // Populate the returned HTML directly
+                    restoreCheckboxState(clientReqid); // Use clientReqid to restore state
                     $('#testRequestPopup').fadeIn(); // Show popup
                 },
                 error: function(xhr, status, error) {
@@ -90,10 +110,25 @@
             });
         }
 
+        function restoreCheckboxState(clientReqid) {
+            const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+            checkboxes.forEach((checkbox) => {
+                const testValue = checkbox.value.trim();
+                const storageKey = `${clientReqid}_${testValue}`; // Unique key for localStorage
+                const storedValue = localStorage.getItem(storageKey); // Use the unique key to get stored state
+                checkbox.checked = storedValue === 'true'; // Restore checked state
+
+                // Add change event listener to save state
+                checkbox.addEventListener('change', function () {
+                    localStorage.setItem(storageKey, this.checked); // Save state in localStorage with the unique key
+                });
+            });
+        }
+
         function showSampleDetailsPopup(clientReqid) {
             // Fetch and populate sample details via AJAX
             $.ajax({
-                url: '/api/getSampleDetails', // Adjust according to your API
+                url: '/api/getMicroBioSampleDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid },
                 success: function(data) {
@@ -102,6 +137,22 @@
                 },
                 error: function(xhr, status, error) {
                     alert('Error fetching sample details: ' + error);
+                }
+            });
+        }
+
+        function submitTestRequest(clientReqid) {
+            // Submit the test request for the given clientReqid
+            const formData = $('#testRequestForm').serialize(); // Get form data
+            $.ajax({
+                url: '/api/submitTestRequest', // Adjust according to your API
+                type: 'POST',
+                data: { clientReqid: clientReqid, ...formData }, // Combine clientReqid with form data
+                success: function(response) {
+                    alert('Test request submitted successfully!'); // Feedback to the user
+                },
+                error: function(xhr, status, error) {
+                    alert('Error submitting test request: ' + error);
                 }
             });
         }
