@@ -49,7 +49,7 @@ public class StaffTestingHomeController {
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/RESULTS-Microbio";
         } else if ("chem".equalsIgnoreCase(testingSection)) {
-            return "redirect:/RESULTS-Chem";
+            return "redirect:/TR-Chem";
         } else {
             // Redirect to a default page or show an error message if testing_section is not valid
             return "redirect:/default-results";  
