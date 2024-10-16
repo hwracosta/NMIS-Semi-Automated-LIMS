@@ -24,4 +24,9 @@ public class TestingMolBioService {
         return clientReqFormRepository.findById(clientReqid)
                 .orElse(null); // Return null if not found
     }
+
+    public void saveRequest(ClientReqForm request) {
+        clientReqFormRepository.save(request);
+    }
+
 }

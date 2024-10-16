@@ -142,20 +142,42 @@
         }
 
         function submitTestRequest(clientReqid) {
-            // Submit the test request for the given clientReqid
-            const formData = $('#testRequestForm').serialize(); // Get form data
+            // Step 1: Get all the checkboxes in the test request form
+            const checkboxes = $('#testRequestForm input[type="checkbox"]');
+
+            // Step 2: Count how many checkboxes are checked
+            const checkedCount = checkboxes.filter(':checked').length;
+
+            // Step 3: Compare the total number of checkboxes with the number of checked ones
+            if (checkboxes.length !== checkedCount) {
+                // Show an alert if not all checkboxes are checked
+                alert('Please ensure all test requests are checked before submitting.');
+                return; // Prevent submission if not all checkboxes are checked
+            }
+
+            // If all checkboxes are checked, proceed with the submission via AJAX
+            const formData = $('#testRequestForm').serialize(); // Serialize the form data
+
             $.ajax({
-                url: '/api/submitTestRequest', // Adjust according to your API
+                url: '/api/submitTestRequest', // Adjust to your API endpoint
                 type: 'POST',
-                data: { clientReqid: clientReqid, ...formData }, // Combine clientReqid with form data
+                data: { clientReqid: clientReqid, ...formData }, // Pass clientReqid and form data
                 success: function(response) {
-                    alert('Test request submitted successfully!'); // Feedback to the user
+                    alert('Test request submitted successfully!'); // Success message
+                    console.log(response); // Log the response for debugging
+
+                    // Fade out and remove the row from the table after submission
+                    $('button[data-client-reqid="' + clientReqid + '"]').closest('tr').fadeOut(500, function() {
+                        $(this).remove(); // Remove the row from the DOM
+                    });
                 },
                 error: function(xhr, status, error) {
+                    console.log("Error: " + error); // Log the error for debugging
                     alert('Error submitting test request: ' + error);
                 }
             });
         }
+
 
         function closeTestRequestPopup() {
             $('#testRequestPopup').fadeOut();

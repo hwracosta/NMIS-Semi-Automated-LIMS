@@ -66,6 +66,9 @@ public class ClientReqForm {
     @Column(name = "submit_date")
     private Date submitDate;
 
+    @Column(name = "transferred", nullable = true)  // Set nullable to true
+    private Boolean transferred = false;  // Default value set to false
+
     // Getters and Setters
 
     public Long getClientReqid() {
@@ -212,15 +215,20 @@ public class ClientReqForm {
         this.submitDate = submitDate;
     }
 
-       // Add this field
-       private String ldControlNumber;
+    private String ldControlNumber;
 
-       // Getters and setters for ldControlNumber
-       public String getLdControlNumber() {
+    public String getLdControlNumber() {
            return ldControlNumber;
        }
-   
        public void setLdControlNumber(String ldControlNumber) {
            this.ldControlNumber = ldControlNumber;
        }
+
+    public Boolean getTransferred() {
+        return transferred;
+    }
+
+    public void setTransferred(Boolean transferred) {
+        this.transferred = transferred;
+    }
 }

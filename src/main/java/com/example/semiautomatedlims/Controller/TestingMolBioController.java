@@ -4,9 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,6 +80,19 @@ public class TestingMolBioController {
         details.append("<p><strong>Weight (grams):</strong> ").append(sampleDetails.getWeightGrams()).append("</p>");
 
         return details.toString();
+    }
+
+    @PostMapping("/api/submitTestRequest")
+    public ResponseEntity<String> submitTestRequest(@RequestParam Long clientReqid) {
+        ClientReqForm request = testingMolBioService.getRequestDetailsById(clientReqid);
+        if (request != null) {
+            request.setTransferred(true); // Add a flag or marker to show it was submitted
+            testingMolBioService.saveRequest(request); // Save the updated request
+
+            return ResponseEntity.ok("Request successfully submitted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found.");
+        }
     }
 }
 
