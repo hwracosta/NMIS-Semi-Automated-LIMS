@@ -35,10 +35,12 @@
                             <th>Sample Code</th>
                             <th>Status</th>
                             <th>Request Details</th>
+                            <th>Molecular Biology Test Results</th>
+                            <th>Microbiology Test Results</th>
+                            <th>Chemical Test Results</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop through requests and display them dynamically -->
                         <tr th:each="request : ${requests}"
                             th:data-sample-details="${request.sampleDetails}" 
                             th:data-sample-source="${request.sampleSource}" 
@@ -56,6 +58,9 @@
                             <td>
                                 <button class="view-details" data-request-id="${request.clientReqid}">View Details</button>
                             </td>
+                            <td th:text="${#strings.isEmpty(request.molecTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
+                            <td th:text="${#strings.isEmpty(request.microbioTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
+                            <td th:text="${#strings.isEmpty(request.chemTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
                         </tr>
                     </tbody>
                 </table>
