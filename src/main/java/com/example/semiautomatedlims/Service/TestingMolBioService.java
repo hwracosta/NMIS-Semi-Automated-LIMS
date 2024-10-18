@@ -16,8 +16,8 @@ public class TestingMolBioService {
 
     // Method to get requests by status
     public List<ClientReqForm> getFilteredRequests() {
-        return clientReqFormRepository.findByStatusAndMolecTestsIsNotNull("For Testing");
-    }
+        return clientReqFormRepository.findByStatusAndTransferredIsFalseAndMolecTestsIsNotNull("For Testing");
+    }    
 
     // Method to get specific request details by clientReqid
     public ClientReqForm getRequestDetailsById(Long clientReqid) {
