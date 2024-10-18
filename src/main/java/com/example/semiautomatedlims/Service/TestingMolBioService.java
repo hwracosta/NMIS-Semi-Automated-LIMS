@@ -2,17 +2,22 @@ package com.example.semiautomatedlims.Service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired; // Ensure you have this repository
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Entity.MolBioData; 
 import com.example.semiautomatedlims.Repository.ClientReqFormRepository;
+import com.example.semiautomatedlims.Repository.MolBioDataRepository; 
 
 @Service
 public class TestingMolBioService {
 
     @Autowired
-    private ClientReqFormRepository clientReqFormRepository; // Inject your repository
+    private ClientReqFormRepository clientReqFormRepository;
+
+    @Autowired
+    private MolBioDataRepository molBioDataRepository;
 
     // Method to get requests by status
     public List<ClientReqForm> getFilteredRequests() {
@@ -29,4 +34,13 @@ public class TestingMolBioService {
         clientReqFormRepository.save(request);
     }
 
+    // New method to save MolBioData
+    public void saveMolBioData(MolBioData molBioData) {
+        molBioDataRepository.save(molBioData);
+    }
+
+    // New method to retrieve MolBioData by LD control number
+    public List<MolBioData> findMolBioDataByLdControlNumber(String ldControlNumber) { // Changed to String
+        return molBioDataRepository.findByClientReqFormLdControlNumber(ldControlNumber);
+    }
 }

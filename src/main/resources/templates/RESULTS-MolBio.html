@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MolBio Results</title>
     <link rel="stylesheet" th:href="@{/css/RESULTS-MolBio.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <script>
+        $(document).ready(function() {
+            $('#resultsForm').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/submitResults', // Your submit URL
+                    data: $(this).serialize(), // Serialize form data
+                    success: function(response) {
+                        // Show success popup
+                        alert('Results submitted successfully!');
+                        // Optionally, reset the form
+                        $('#resultsForm')[0].reset();
+                    },
+                    error: function(xhr, status, error) {
+                        // Show error popup
+                        alert('Error submitting results: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -15,9 +39,9 @@
             <div class="header-links">
                 <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
                 <div class="logout-button">
-                  <form th:action="@{/logout}" method="get" style="display: inline;">
-                    <a href="/STAFF-login" class="log-out">Logout</a>
-                  </form>
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/STAFF-login" class="log-out">Logout</a>
+                    </form>
                 </div>                  
             </div>                  
         </div>
@@ -29,7 +53,7 @@
             <div class="control-number-indicator">
                 <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
             </div>
-            <form th:action="@{/submitResults}" method="post">
+            <form id="resultsForm">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -47,12 +71,12 @@
                         </tbody>
                     </table>
                 </div>
+                <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> <!-- Hidden field for ldControlNumber -->
                 <div class="submit-container">
                     <button type="submit">Submit Results</button>
                 </div>
             </form>
         </div>
     </div>
-
 </body>
 </html>
