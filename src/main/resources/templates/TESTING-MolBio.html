@@ -17,11 +17,11 @@
             <div class="header-links">
                 <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
                 <div class="logout-button">
-                  <form th:action="@{/logout}" method="get" style="display: inline;">
-                    <a href="/STAFF-login" class="log-out">Logout</a>
-                  </form>
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/STAFF-login" class="log-out">Logout</a>
+                    </form>
                 </div>
-              </div>                  
+            </div>                  
         </div>
     </header>
 
@@ -50,9 +50,6 @@
                                 <a href="#" th:data-client-reqid="${request.clientReqid}" th:onclick="'showTestRequestPopup(this.dataset.clientReqid)'">
                                     <u>Test Request/s</u>
                                 </a>
-                                <!-- Submit button placed in the same column -->
-                                <button class="submit-btn" type="button" th:data-client-reqid="${request.clientReqid}" 
-                                        onclick="submitTestRequest(this.dataset.clientReqid)">Submit</button>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">
@@ -65,20 +62,12 @@
     </main>
 
     <!-- Popup for Test Request Details -->
-    <div class="popup" id="testRequestPopup">
+    <div class="popup" id="testRequestPopup" style="display:none;">
         <div class="popup-content">
             <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
             <h3>Test Request Details</h3>
             <div id="testRequestDetails">
-                <!-- Example checklist items (these will be populated dynamically) -->
-                <form id="testRequestForm">
-                    <div class="checklist">
-                        <label><input type="checkbox" name="tests" value="Test A"> Test A</label><br>
-                        <label><input type="checkbox" name="tests" value="Test B"> Test B</label><br>
-                        <label><input type="checkbox" name="tests" value="Test C"> Test C</label><br>
-                        <label><input type="checkbox" name="tests" value="Test D"> Test D</label><br>
-                    </div>
-                </form>
+                <!-- Dynamic checklist items will be populated here -->
             </div>
         </div>
     </div>
@@ -93,14 +82,22 @@
     </div>
 
     <script>
+        let currentClientReqId; // Declare a variable to store the current clientReqid
+
         function showTestRequestPopup(clientReqid) {
+            currentClientReqId = clientReqid; // Store the clientReqid for use in submitTestRequest
             // Fetch and populate test request details via AJAX
             $.ajax({
                 url: '/api/getTestRequestDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
-                    $('#testRequestDetails').html(data); // Populate the returned HTML directly
+                    $('#testRequestDetails').html(`
+                        <form id="testRequestForm">
+                            <div class="checklist">${data}</div>
+                            <button class="submit-btn" type="button" onclick="submitTestRequest(${clientReqid})">Submit</button>
+                        </form>
+                    `); // Populate the returned HTML directly
                     restoreCheckboxState(clientReqid); // Use clientReqid to restore state
                     $('#testRequestPopup').fadeIn(); // Show popup
                 },
@@ -142,41 +139,35 @@
         }
 
         function submitTestRequest(clientReqid) {
-            // Step 1: Get all the checkboxes in the test request form
             const checkboxes = $('#testRequestForm input[type="checkbox"]');
-
-            // Step 2: Count how many checkboxes are checked
             const checkedCount = checkboxes.filter(':checked').length;
 
-            // Step 3: Compare the total number of checkboxes with the number of checked ones
             if (checkboxes.length !== checkedCount) {
-                // Show an alert if not all checkboxes are checked
                 alert('Please ensure all test requests are checked before submitting.');
-                return; // Prevent submission if not all checkboxes are checked
+                return;
             }
 
-            // If all checkboxes are checked, proceed with the submission via AJAX
-            const formData = $('#testRequestForm').serialize(); // Serialize the form data
+            const formData = $('#testRequestForm').serialize();
 
             $.ajax({
-                url: '/api/submitTestRequest', // Adjust to your API endpoint
+                url: '/api/submitTestRequest',
                 type: 'POST',
-                data: { clientReqid: clientReqid, ...formData }, // Pass clientReqid and form data
+                data: { clientReqid: clientReqid, ...formData },
                 success: function(response) {
-                    alert('Test request submitted successfully!'); // Success message
-                    console.log(response); // Log the response for debugging
-
-                    // Fade out and remove the row from the table after submission
-                    $('button[data-client-reqid="' + clientReqid + '"]').closest('tr').fadeOut(500, function() {
-                        $(this).remove(); // Remove the row from the DOM
+                    alert('Test request submitted successfully!');
+                    console.log(response);
+                    $('tr:has(a[data-client-reqid="' + clientReqid + '"])').fadeOut(500, function() {
+                        $(this).remove();
                     });
+                    closeTestRequestPopup();
                 },
                 error: function(xhr, status, error) {
-                    console.log("Error: " + error); // Log the error for debugging
+                    console.log("Error: " + error);
                     alert('Error submitting test request: ' + error);
                 }
             });
         }
+
 
 
         function closeTestRequestPopup() {
