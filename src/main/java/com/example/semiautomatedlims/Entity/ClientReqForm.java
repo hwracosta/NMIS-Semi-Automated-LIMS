@@ -2,6 +2,8 @@ package com.example.semiautomatedlims.Entity;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -57,7 +59,7 @@ public class ClientReqForm {
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")  // Foreign key to Client entity
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
     @Column(name = "status", length = 50)
@@ -66,8 +68,11 @@ public class ClientReqForm {
     @Column(name = "submit_date")
     private Date submitDate;
 
-    @Column(name = "transferred", nullable = true)  // Set nullable to true
-    private Boolean transferred = false;  // Default value set to false
+    @Column(name = "transferred", nullable = true)
+    private Boolean transferred = false;
+
+    @Column(name = "ld_control_number", nullable = true)
+    private String ldControlNumber;
 
     // Getters and Setters
 
@@ -215,14 +220,13 @@ public class ClientReqForm {
         this.submitDate = submitDate;
     }
 
-    private String ldControlNumber;
-
     public String getLdControlNumber() {
-           return ldControlNumber;
-       }
-       public void setLdControlNumber(String ldControlNumber) {
-           this.ldControlNumber = ldControlNumber;
-       }
+        return ldControlNumber;
+    }
+
+    public void setLdControlNumber(String ldControlNumber) {
+        this.ldControlNumber = ldControlNumber;
+    }
 
     public Boolean getTransferred() {
         return transferred;
@@ -230,5 +234,15 @@ public class ClientReqForm {
 
     public void setTransferred(Boolean transferred) {
         this.transferred = transferred;
+    }
+
+    // New method to extract the list of molecular tests
+    public List<String> getExaminations() {
+        if (this.molecTests != null && !this.molecTests.isEmpty()) {
+            // Assuming molecTests is a comma-separated string
+            return Arrays.asList(this.molecTests.split("\\s*,\\s*"));
+        } else {
+            return List.of(); // Return an empty list if no tests are present
+        }
     }
 }
