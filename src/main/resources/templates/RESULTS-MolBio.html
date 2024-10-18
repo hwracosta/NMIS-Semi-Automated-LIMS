@@ -30,30 +30,36 @@
             <div class="control-number-indicator">
                 <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
             </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Examination Conducted</th>
-                            <th>Meat Species Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example Rows -->
-                        <tr>
-                            <td>Dog</td>
-                            <td><input type="text" name="species_result"></td>
-                        </tr>
-                        <tr>
-                            <td>Cat</td>
-                            <td><input type="text" name="species_result"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- Wrap the table and button inside the form -->
+            <form th:action="@{/submitResults}" method="post">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Examination Conducted</th>
+                                <th>Meat Species Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example Rows -->
+                            <tr>
+                                <td>Dog</td>
+                                <td><input type="text" name="species_result_dog"></td>
+                            </tr>
+                            <tr>
+                                <td>Cat</td>
+                                <td><input type="text" name="species_result_cat"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Submit button within the form -->
+                <div class="submit-container">
+                    <button type="submit">Submit Results</button>
+                </div>
+            </form>
         </div>
     </div>
 
 </body>
 </html>
-
