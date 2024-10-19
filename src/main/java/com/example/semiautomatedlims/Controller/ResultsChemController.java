@@ -35,7 +35,7 @@ public class ResultsChemController {
         return "RESULTS-Chem"; // Return the template
     }
 
-    @PostMapping("/submitResults")
+    @PostMapping("/submitChemResults")
     public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
                                                 @RequestParam Map<String, String> allParams) {
         // Retrieve client request form by clientReqid
