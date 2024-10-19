@@ -88,14 +88,14 @@
             currentClientReqId = clientReqid; // Store the clientReqid for use in submitTestRequest
             // Fetch and populate test request details via AJAX
             $.ajax({
-                url: '/api/getTestRequestDetails', // Adjust according to your API
+                url: '/api/getMolBioRequestDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
                     $('#testRequestDetails').html(`
                         <form id="testRequestForm">
                             <div class="checklist">${data}</div>
-                            <button class="submit-btn" type="button" onclick="submitTestRequest(${clientReqid})">Submit</button>
+                            <button class="submit-btn" type="button" onclick="submitMolBioRequest(${clientReqid})">Submit</button>
                         </form>
                     `); // Populate the returned HTML directly
                     restoreCheckboxState(clientReqid); // Use clientReqid to restore state
@@ -138,7 +138,7 @@
             });
         }
 
-        function submitTestRequest(clientReqid) {
+        function submitMolBioRequest(clientReqid) {
             const checkboxes = $('#testRequestForm input[type="checkbox"]');
             const checkedCount = checkboxes.filter(':checked').length;
 
@@ -150,7 +150,7 @@
             const formData = $('#testRequestForm').serialize();
 
             $.ajax({
-                url: '/api/submitTestRequest',
+                url: '/api/submitMolBioRequest',
                 type: 'POST',
                 data: { clientReqid: clientReqid, ...formData },
                 success: function(response) {

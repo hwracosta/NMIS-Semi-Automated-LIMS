@@ -16,8 +16,8 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
     List<ClientReqForm> findByClient(@Param("client") Client client);
 
     List<ClientReqForm> findByStatusAndTransferredIsFalseAndMolecTestsIsNotNull(String status);
-    List<ClientReqForm> findByStatusAndMicrobioTestsIsNotNull(String status);
-    List<ClientReqForm> findByStatusAndChemTestsIsNotNull(String status);
+    List<ClientReqForm> findByStatusAndTransferredIsFalseAndMicrobioTestsIsNotNull(String status);
+    List<ClientReqForm> findByStatusAndTransferredIsFalseAndChemTestsIsNotNull(String status);
 
     List<ClientReqForm> findByTransferred(boolean transferred);
 
