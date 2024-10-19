@@ -6,6 +6,41 @@
     <title>Chem Results</title>
     <!-- Use Thymeleaf to reference the CSS file -->
     <link rel="stylesheet" th:href="@{/css/RESULTS-Chem.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#resultsForm').submit(function(event) {
+                event.preventDefault(); // Ensure the default form submission is prevented
+
+                let allFilled = true;
+
+                // Check if all fields are filled
+                $('input[type="text"]').each(function() {
+                    if ($(this).val() === '') {
+                        allFilled = false;
+                    }
+                });
+
+                if (!allFilled) {
+                    alert("Please fill out all fields before submitting.");
+                } else {
+                    // Submit via AJAX
+                    $.ajax({
+                        type: 'POST',
+                        url: '/submitResults',
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            alert('Results submitted successfully!');
+                            window.location.href = "/TR-Chem"; // Change this URL to the appropriate path
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Error submitting results: ' + error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -30,33 +65,39 @@
             <div class="control-number-indicator">
                 <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
             </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Analyte</th>
-                            <th>Result</th>
-                            <th>Remarks</th>
-                            <th>Detection Limit</th>
-                            <th>Regulatory Limits</th>
-                            <th>Analysis Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example Rows with Input Fields -->
-                        <tr>
-                            <td><input type="text" name="analyte" value="1234"></td>
-                            <td><input type="text" name="result" value="Processing"></td>
-                            <td><input type="text" name="remarks" value="Test"></td>
-                            <td><input type="text" name="detectionLimit"></td>
-                            <td><input type="text" name="regulatoryLimits"></td>
-                            <td><input type="date" name="analysisDate"></td>
-                        </tr>
-                    </tbody>                    
-                </table>
-            </div>
+            <form id="resultsForm" method="POST" th:action="@{/submitResults}">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Analyte</th>
+                                <th>Result</th>
+                                <th>Remarks</th>
+                                <th>Detection Limit</th>
+                                <th>Regulatory Limits</th>
+                                <th>Analysis Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example Rows with Input Fields -->
+                            <tr>
+                                <td><input type="text" name="analyte"></td>
+                                <td><input type="text" name="result"></td>
+                                <td><input type="text" name="remarks"></td>
+                                <td><input type="text" name="detectionLimit"></td>
+                                <td><input type="text" name="regulatoryLimits"></td>
+                                <td><input type="date" name="analysisDate"></td>
+                            </tr>
+                        </tbody>                    
+                    </table>
+                </div>
+                <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> <!-- Hidden field for ldControlNumber -->
+                <input type="hidden" name="clientReqid" th:value="${clientReqid}"> <!-- Hidden field for clientReqid -->
+                <div class="submit-container">
+                    <button type="submit">Submit Results</button>
+                </div>
+            </form>
         </div>
     </div>
-
 </body>
 </html>
