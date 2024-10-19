@@ -40,7 +40,7 @@ public class TestingMolBioService {
     }
 
     // New method to retrieve MolBioData by LD control number
-    public List<MolBioData> findMolBioDataByLdControlNumber(String ldControlNumber) { // Changed to String
-        return molBioDataRepository.findByClientReqFormLdControlNumber(ldControlNumber);
+    public List<MolBioData> findMolBioDataByLdControlNumber(String ldControlNumber) {
+        return molBioDataRepository.findByLdControlNumber(ldControlNumber);
     }
 }

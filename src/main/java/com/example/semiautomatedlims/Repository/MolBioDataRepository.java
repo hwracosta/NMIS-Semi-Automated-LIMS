@@ -11,6 +11,6 @@ import com.example.semiautomatedlims.Entity.MolBioData;
 
 public interface MolBioDataRepository extends JpaRepository<MolBioData, Long> {
 
-    @Query("SELECT m FROM MolBioData m WHERE m.clientReqForm.ldControlNumber = :ldControlNumber")
-    List<MolBioData> findByClientReqFormLdControlNumber(@Param("ldControlNumber") String ldControlNumber);
+    @Query("SELECT m FROM MolBioData m WHERE m.ldControlNumber = :ldControlNumber")
+    List<MolBioData> findByLdControlNumber(@Param("ldControlNumber") String ldControlNumber);
 }

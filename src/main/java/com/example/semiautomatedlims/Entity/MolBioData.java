@@ -9,11 +9,10 @@ public class MolBioData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long molId; // Primary key
+    private Long molId;
 
-    @ManyToOne
-    @JoinColumn(name = "ld_control_number", referencedColumnName = "ld_control_number", nullable = false)
-    private ClientReqForm clientReqForm; // Foreign key reference to ClientReqForm entity
+    @Column(name = "ld_control_number", nullable = false)
+    private String ldControlNumber; // Directly store the control number
 
     @Column(name = "test_name", nullable = false)
     private String testName;
@@ -22,20 +21,12 @@ public class MolBioData {
     private String meatSpeciesResult;
 
     // Getters and Setters
-    public Long getMolId() {
-        return molId;
+    public String getLdControlNumber() {
+        return ldControlNumber;
     }
 
-    public void setMolId(Long molId) {
-        this.molId = molId;
-    }
-
-    public ClientReqForm getClientReqForm() {
-        return clientReqForm;
-    }
-
-    public void setClientReqForm(ClientReqForm clientReqForm) {
-        this.clientReqForm = clientReqForm;
+    public void setLdControlNumber(String ldControlNumber) {
+        this.ldControlNumber = ldControlNumber;
     }
 
     public String getTestName() {
