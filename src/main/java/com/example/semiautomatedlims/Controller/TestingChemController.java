@@ -4,9 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,7 +31,7 @@ public class TestingChemController {
 
     @GetMapping("/api/getChemRequestDetails")
     @ResponseBody
-    public String getChemRequestDetails(@RequestParam Long clientReqid) {
+    public String getTestRequestDetails(@RequestParam Long clientReqid) {
         // Fetch the request details from the service
         ClientReqForm requestDetails = testingChemService.getRequestDetailsById(clientReqid);
         
@@ -78,4 +81,18 @@ public class TestingChemController {
 
         return details.toString();
     }
+
+    @PostMapping("/api/submitChemRequest")
+    public ResponseEntity<String> submitChemRequest(@RequestParam Long clientReqid) {
+        ClientReqForm request = testingChemService.getRequestDetailsById(clientReqid);
+        if (request != null) {
+            request.setTransferred(true); // Add a flag or marker to show it was submitted
+            testingChemService.saveRequest(request); // Save the updated request
+
+            return ResponseEntity.ok("Request successfully submitted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found.");
+        }
+    }
 }
+
