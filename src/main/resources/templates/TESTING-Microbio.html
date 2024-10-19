@@ -2,28 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, content=1.0">
     <title>For Testing (MicroBio)</title>
     <link rel="stylesheet" th:href="@{/css/TESTING-Microbio.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-        <!-- Header Section -->
-        <header class="header">
-            <div class="overlap-group">
-                <div class="rectangle"></div>
-                <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
-                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-                <div class="header-links">
-                    <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
-                    <div class="logout-button">
-                      <form th:action="@{/logout}" method="get" style="display: inline;">
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
+                <div class="logout-button">
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
                         <a href="/STAFF-login" class="log-out">Logout</a>
-                      </form>
-                    </div>
-                  </div>                  
-            </div>
-        </header>
+                    </form>
+                </div>
+            </div>                  
+        </div>
+    </header>
 
     <!-- Content Area -->
     <main class="content">
@@ -50,9 +50,6 @@
                                 <a href="#" th:data-client-reqid="${request.clientReqid}" th:onclick="'showTestRequestPopup(this.dataset.clientReqid)'">
                                     <u>Test Request/s</u>
                                 </a>
-                                <!-- Submit button placed in the same column -->
-                                <button class="submit-btn" type="button" th:data-client-reqid="${request.clientReqid}" 
-                                        onclick="submitTestRequest(this.dataset.clientReqid)">Submit</button>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">
@@ -65,20 +62,12 @@
     </main>
 
     <!-- Popup for Test Request Details -->
-    <div class="popup" id="testRequestPopup">
+    <div class="popup" id="testRequestPopup" style="display:none;">
         <div class="popup-content">
             <span class="close-popup" onclick="closeTestRequestPopup()">&times;</span>
             <h3>Test Request Details</h3>
             <div id="testRequestDetails">
-                <!-- Example checklist items (these will be populated dynamically) -->
-                <form id="testRequestForm">
-                    <div class="checklist">
-                        <label><input type="checkbox" name="tests" value="Test A"> Test A</label><br>
-                        <label><input type="checkbox" name="tests" value="Test B"> Test B</label><br>
-                        <label><input type="checkbox" name="tests" value="Test C"> Test C</label><br>
-                        <label><input type="checkbox" name="tests" value="Test D"> Test D</label><br>
-                    </div>
-                </form>
+                <!-- Dynamic checklist items will be populated here -->
             </div>
         </div>
     </div>
@@ -93,14 +82,22 @@
     </div>
 
     <script>
+        let currentClientReqId; // Declare a variable to store the current clientReqid
+
         function showTestRequestPopup(clientReqid) {
+            currentClientReqId = clientReqid; // Store the clientReqid for use in submitTestRequest
             // Fetch and populate test request details via AJAX
             $.ajax({
                 url: '/api/getMicroBioRequestDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid }, // Pass clientReqid
                 success: function(data) {
-                    $('#testRequestDetails').html(data); // Populate the returned HTML directly
+                    $('#testRequestDetails').html(`
+                        <form id="testRequestForm">
+                            <div class="checklist">${data}</div>
+                            <button class="submit-btn" type="button" onclick="submitMicrobioRequest(${clientReqid})">Submit</button>
+                        </form>
+                    `); // Populate the returned HTML directly
                     restoreCheckboxState(clientReqid); // Use clientReqid to restore state
                     $('#testRequestPopup').fadeIn(); // Show popup
                 },
@@ -128,7 +125,7 @@
         function showSampleDetailsPopup(clientReqid) {
             // Fetch and populate sample details via AJAX
             $.ajax({
-                url: '/api/getMicroBioSampleDetails', // Adjust according to your API
+                url: '/api/getSampleDetails', // Adjust according to your API
                 type: 'GET',
                 data: { clientReqid: clientReqid },
                 success: function(data) {
@@ -141,21 +138,37 @@
             });
         }
 
-        function submitTestRequest(clientReqid) {
-            // Submit the test request for the given clientReqid
-            const formData = $('#testRequestForm').serialize(); // Get form data
+        function submitMicrobioRequest(clientReqid) {
+            const checkboxes = $('#testRequestForm input[type="checkbox"]');
+            const checkedCount = checkboxes.filter(':checked').length;
+
+            if (checkboxes.length !== checkedCount) {
+                alert('Please ensure all test requests are checked before submitting.');
+                return;
+            }
+
+            const formData = $('#testRequestForm').serialize();
+
             $.ajax({
-                url: '/api/submitTestRequest', // Adjust according to your API
+                url: '/api/submitMicrobioRequest',
                 type: 'POST',
-                data: { clientReqid: clientReqid, ...formData }, // Combine clientReqid with form data
+                data: { clientReqid: clientReqid, ...formData },
                 success: function(response) {
-                    alert('Test request submitted successfully!'); // Feedback to the user
+                    alert('Test request submitted successfully!');
+                    console.log(response);
+                    $('tr:has(a[data-client-reqid="' + clientReqid + '"])').fadeOut(500, function() {
+                        $(this).remove();
+                    });
+                    closeTestRequestPopup();
                 },
                 error: function(xhr, status, error) {
+                    console.log("Error: " + error);
                     alert('Error submitting test request: ' + error);
                 }
             });
         }
+
+
 
         function closeTestRequestPopup() {
             $('#testRequestPopup').fadeOut();
@@ -177,4 +190,5 @@
     </script>
 </body>
 </html>
+
 

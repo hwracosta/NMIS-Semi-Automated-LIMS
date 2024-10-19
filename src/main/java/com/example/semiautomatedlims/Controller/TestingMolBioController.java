@@ -29,7 +29,7 @@ public class TestingMolBioController {
         return "TESTING-MolBio"; 
     }
 
-    @GetMapping("/api/getTestRequestDetails")
+    @GetMapping("/api/getMolBioRequestDetails")
     @ResponseBody
     public String getTestRequestDetails(@RequestParam Long clientReqid) {
         // Fetch the request details from the service
@@ -82,8 +82,8 @@ public class TestingMolBioController {
         return details.toString();
     }
 
-    @PostMapping("/api/submitTestRequest")
-    public ResponseEntity<String> submitTestRequest(@RequestParam Long clientReqid) {
+    @PostMapping("/api/submitMolBioRequest")
+    public ResponseEntity<String> submitMolBioRequest(@RequestParam Long clientReqid) {
         ClientReqForm request = testingMolBioService.getRequestDetailsById(clientReqid);
         if (request != null) {
             request.setTransferred(true); // Add a flag or marker to show it was submitted
