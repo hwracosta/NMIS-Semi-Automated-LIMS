@@ -19,17 +19,17 @@ public class TestingChemService {
     @Autowired
     private ChemDataRepository chemDataRepository;
 
-    // Method to get requests by status
+    // Method to get requests that are in "For Testing" status and have not been transferred
     public List<ClientReqForm> getFilteredRequests() {
         return clientReqFormRepository.findByStatusAndIsChemTransferredFalseAndChemTestsIsNotNull("For Testing");
-    }    
+    }
 
     // Method to get specific request details by clientReqid
     public ClientReqForm getRequestDetailsById(Long clientReqid) {
-        return clientReqFormRepository.findById(clientReqid)
-                .orElse(null); 
+        return clientReqFormRepository.findById(clientReqid).orElse(null);
     }
 
+    // Method to save ClientReqForm
     public void saveRequest(ClientReqForm request) {
         clientReqFormRepository.save(request);
     }
@@ -39,8 +39,13 @@ public class TestingChemService {
         chemDataRepository.save(chemData);
     }
 
-    // New method to retrieve MolBioData by LD control number
+    // New method to retrieve ChemData by LD control number
     public List<ChemData> findChemDataByLdControlNumber(String ldControlNumber) {
         return chemDataRepository.findByLdControlNumber(ldControlNumber);
+    }
+
+    // New method to retrieve requests with "pending" chem status
+    public List<ClientReqForm> findByChemPending(String status, String chemPending) {
+        return clientReqFormRepository.findByStatusAndChemPending(status, chemPending);
     }
 }

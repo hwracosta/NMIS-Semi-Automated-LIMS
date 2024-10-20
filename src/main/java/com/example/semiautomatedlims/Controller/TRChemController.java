@@ -8,18 +8,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Repository.ClientReqFormRepository;
+import com.example.semiautomatedlims.Service.TestingChemService;
 
 @Controller
 public class TRChemController {
 
     @Autowired
-    private ClientReqFormRepository clientReqFormRepository;  // Ensure correct autowiring
+    private TestingChemService testingChemService;  // Autowire the service
 
     @GetMapping("/TR-Chem")
     public String showTRChemPage(Model model) {
-        // Fetch only requests that have been "transferred" from TESTING-MolBio
-        List<ClientReqForm> resultRequests = clientReqFormRepository.findByIsChemTransferredTrue();
+        // Fetch only requests that have a status of "For Testing" and chem_pending as "pending"
+        List<ClientReqForm> resultRequests = testingChemService.findByChemPending("For Testing", "pending");
         model.addAttribute("requests", resultRequests);
         return "TR-Chem";
     }

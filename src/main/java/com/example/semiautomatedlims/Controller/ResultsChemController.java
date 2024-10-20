@@ -43,78 +43,74 @@ public class ResultsChemController {
     }
 
     @PostMapping("/submitChemResults")
-public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
-                                            @RequestParam Map<String, String> allParams) {
-    // Retrieve client request form by clientReqid
-    ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
+    public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
+                                                @RequestParam Map<String, String> allParams) {
+        // Retrieve client request form by clientReqid
+        ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
 
-    if (clientReqForm == null) {
-        return ResponseEntity.badRequest().body("Error: Client request ID not found.");
-    }
+        if (clientReqForm == null) {
+            return ResponseEntity.badRequest().body("Error: Client request ID not found.");
+        }
 
-    // Variables to hold concatenated values for test names, results, remarks, etc.
-    StringBuilder chemTestNames = new StringBuilder();
-    StringBuilder chemResults = new StringBuilder();
-    StringBuilder chemRemarks = new StringBuilder();
-    StringBuilder chemDetectionLimits = new StringBuilder();
-    StringBuilder chemRegulatoryLimits = new StringBuilder();
+        // Variables to hold concatenated values for test names, results, remarks, etc.
+        StringBuilder chemTestNames = new StringBuilder();
+        StringBuilder chemResults = new StringBuilder();
+        StringBuilder chemRemarks = new StringBuilder();
+        StringBuilder chemDetectionLimits = new StringBuilder();
+        StringBuilder chemRegulatoryLimits = new StringBuilder();
 
-    // Date format expected from the form (e.g., "yyyy-MM-dd")
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date analysisDate = null;
 
-    Date analysisDate = null; // Initialize a Date variable
+        // Loop through the parameters and build comma-separated strings for each field
+        for (String key : allParams.keySet()) {
+            if (key.startsWith("chemResult_")) {
+                String testName = key.replace("chemResult_", "");
+                String result = allParams.get(key);
+                String remarks = allParams.get("chemRemarks_" + testName);
+                String detectionLimit = allParams.get("chemDetectionLimit_" + testName);
+                String regulatoryLimits = allParams.get("chemRegulatoryLimits_" + testName);
+                String analysisDateStr = allParams.get("chemAnalysisDate_" + testName);
 
-    // Loop through the parameters and build comma-separated strings for each field
-    for (String key : allParams.keySet()) {
-        if (key.startsWith("chemResult_")) {
-            String testName = key.replace("chemResult_", "");
-            String result = allParams.get(key);
-            String remarks = allParams.get("chemRemarks_" + testName);
-            String detectionLimit = allParams.get("chemDetectionLimit_" + testName);
-            String regulatoryLimits = allParams.get("chemRegulatoryLimits_" + testName);
-            String analysisDateStr = allParams.get("chemAnalysisDate_" + testName);
+                if (chemTestNames.length() > 0) {
+                    chemTestNames.append(", ");
+                    chemResults.append(", ");
+                    chemRemarks.append(", ");
+                    chemDetectionLimits.append(", ");
+                    chemRegulatoryLimits.append(", ");
+                }
 
-            // Concatenate the test names and corresponding fields
-            if (chemTestNames.length() > 0) {
-                chemTestNames.append(", ");
-                chemResults.append(", ");
-                chemRemarks.append(", ");
-                chemDetectionLimits.append(", ");
-                chemRegulatoryLimits.append(", ");
-            }
+                chemTestNames.append(testName);
+                chemResults.append(result);
+                chemRemarks.append(remarks);
+                chemDetectionLimits.append(detectionLimit);
+                chemRegulatoryLimits.append(regulatoryLimits);
 
-            chemTestNames.append(testName);
-            chemResults.append(result);
-            chemRemarks.append(remarks);
-            chemDetectionLimits.append(detectionLimit);
-            chemRegulatoryLimits.append(regulatoryLimits);
-
-            // Convert the analysis date from String to Date
-            try {
-                analysisDate = dateFormat.parse(analysisDateStr);  // Parse and assign date here
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
+                try {
+                    analysisDate = dateFormat.parse(analysisDateStr);
+                } catch (Exception e) {
+                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
+                }
             }
         }
+
+        // Create and save ChemData entity
+        ChemData chemData = new ChemData();
+        chemData.setLdControlNumber(clientReqForm.getLdControlNumber());
+        chemData.setClientReqid(clientReqid);
+        chemData.setAnalyte(chemTestNames.toString());
+        chemData.setResult(chemResults.toString());
+        chemData.setRemarks(chemRemarks.toString());
+        chemData.setDetectionLimit(chemDetectionLimits.toString());
+        chemData.setRegulatoryLimits(chemRegulatoryLimits.toString());
+        chemData.setAnalysisDate(analysisDate);
+
+        testingChemService.saveChemData(chemData);
+
+        // Update the chem_pending status to 'accepted'
+        clientReqForm.setChemPending("accepted");
+        testingChemService.saveRequest(clientReqForm);
+
+        return ResponseEntity.ok("Results submitted successfully.");
     }
-
-    // Create a new ChemData entity and populate it with concatenated data
-    ChemData chemData = new ChemData();
-    chemData.setLdControlNumber(clientReqForm.getLdControlNumber());
-    chemData.setClientReqid(clientReqid);
-    chemData.setAnalyte(chemTestNames.toString());
-    chemData.setResult(chemResults.toString());
-    chemData.setRemarks(chemRemarks.toString());
-    chemData.setDetectionLimit(chemDetectionLimits.toString());
-    chemData.setRegulatoryLimits(chemRegulatoryLimits.toString());
-
-    // Set the parsed Date into chemData
-    chemData.setAnalysisDate(analysisDate);
-
-    // Save the result into the database
-    testingChemService.saveChemData(chemData);
-
-    return ResponseEntity.ok("Results submitted successfully.");
-}
-
 }

@@ -91,6 +91,9 @@ public class ClientReqForm {
     @Column(name = "molbio_pending", nullable = false)
     private String molbioPending = "pending";
 
+    @Column(name = "chem_pending", nullable = false)
+    private String chemPending = "pending"; // Default value is 'pending'
+
     // Getters and Setters
 
     public Long getClientReqid() {
@@ -305,5 +308,13 @@ public class ClientReqForm {
 
     public void setMolbioPending(String molbioPending) {
         this.molbioPending = molbioPending;
+    }
+
+    public String getChemPending() {
+        return chemPending;
+    }
+
+    public void setChemPending(String chemPending) {
+        this.chemPending = chemPending;
     }
 }
