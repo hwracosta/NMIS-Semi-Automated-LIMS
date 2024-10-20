@@ -3,6 +3,7 @@ package com.example.semiautomatedlims.Controller;
 import com.example.semiautomatedlims.Entity.ClientReqForm;
 import com.example.semiautomatedlims.Entity.MicroBioData;
 import com.example.semiautomatedlims.Service.TestingMicrobioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class ResultsMicrobioController {
         if (request != null) {
             model.addAttribute("ldControlNumber", request.getLdControlNumber());
             model.addAttribute("clientReqid", clientReqid); // Pass clientReqid to the model
-            List<String> examinations = request.getExaminations();
+            List<String> examinations = request.getMicrobioExaminations();
             model.addAttribute("examinations", examinations);
         } else {
             model.addAttribute("ldControlNumber", "Not available");
