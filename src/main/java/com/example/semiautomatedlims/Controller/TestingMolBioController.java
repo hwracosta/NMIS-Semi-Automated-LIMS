@@ -86,7 +86,7 @@ public class TestingMolBioController {
     public ResponseEntity<String> submitMolBioRequest(@RequestParam Long clientReqid) {
         ClientReqForm request = testingMolBioService.getRequestDetailsById(clientReqid);
         if (request != null) {
-            request.setTransferred(true); // Add a flag or marker to show it was submitted
+            request.setIsMolBioTransferred(true); // Add a flag or marker to show it was submitted
             testingMolBioService.saveRequest(request); // Save the updated request
 
             return ResponseEntity.ok("Request successfully submitted!");

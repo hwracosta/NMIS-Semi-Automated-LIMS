@@ -43,3 +43,5 @@ DROP TABLE client_register;
 
 ALTER TABLE client_reqform
 ADD COLUMN sample_category VARCHAR(255) NOT NULL;
+
+ALTER TABLE client_reqform DROP COLUMN transferred;

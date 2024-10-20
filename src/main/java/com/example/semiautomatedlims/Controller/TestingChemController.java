@@ -86,7 +86,7 @@ public class TestingChemController {
     public ResponseEntity<String> submitChemRequest(@RequestParam Long clientReqid) {
         ClientReqForm request = testingChemService.getRequestDetailsById(clientReqid);
         if (request != null) {
-            request.setTransferred(true); // Add a flag or marker to show it was submitted
+            request.setIsChemTransferred(true); // Add a flag or marker to show it was submitted
             testingChemService.saveRequest(request); // Save the updated request
 
             return ResponseEntity.ok("Request successfully submitted!");

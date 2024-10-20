@@ -86,7 +86,7 @@ public class TestingMicrobioController {
     public ResponseEntity<String> submitMicrobioRequest(@RequestParam Long clientReqid) {
         ClientReqForm request = testingMicrobioService.getRequestDetailsById(clientReqid);
         if (request != null) {
-            request.setTransferred(true); // Add a flag or marker to show it was submitted
+            request.setIsMicroBioTransferred(true); // Add a flag or marker to show it was submitted
             testingMicrobioService.saveRequest(request); // Save the updated request
 
             return ResponseEntity.ok("Request successfully submitted!");
