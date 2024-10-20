@@ -88,6 +88,9 @@ public class ClientReqForm {
     @Column(name = "ld_control_number", nullable = true)
     private String ldControlNumber;
 
+    @Column(name = "molbio_pending", nullable = false)
+    private String molbioPending = "pending";
+
     // Getters and Setters
 
     public Long getClientReqid() {
@@ -294,5 +297,13 @@ public class ClientReqForm {
         } else {
             return List.of(); // Return an empty list if no tests are present
         }
+    }
+
+    public String getMolbioPending() {
+        return molbioPending;
+    }
+
+    public void setMolbioPending(String molbioPending) {
+        this.molbioPending = molbioPending;
     }
 }

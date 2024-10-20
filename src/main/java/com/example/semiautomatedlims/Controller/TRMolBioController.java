@@ -18,9 +18,9 @@ public class TRMolBioController {
 
     @GetMapping("/TR-MolBio")
     public String showTRMolbioPage(Model model) {
-        // Fetch only requests that have been "transferred" from TESTING-MolBio
-        List<ClientReqForm> resultRequests = clientReqFormRepository.findByIsMolBioTransferredTrue();
-        model.addAttribute("requests", resultRequests);
+        // Fetch only requests where molbio_pending is 'pending'
+        List<ClientReqForm> pendingRequests = clientReqFormRepository.findByMolbioPending("pending");
+        model.addAttribute("requests", pendingRequests);
         return "TR-MolBio";
     }
 }

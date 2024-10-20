@@ -40,7 +40,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="request : ${requests}">
-                            <td th:text="${request.ldControlNumber}">Control Number</td> 
+                            <td th:text="${request.ldControlNumber}">Control Number</td>
                             <td>
                                 <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
                                     <u>Sample Details</u>
@@ -49,7 +49,7 @@
                             <td>
                                 <a th:href="@{/RESULTS-MolBio(clientReqid=${request.clientReqid})}">
                                     <u>Input Result</u>
-                                </a>                                
+                                </a>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(requests)}">

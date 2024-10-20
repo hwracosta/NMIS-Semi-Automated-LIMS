@@ -18,7 +18,6 @@ public class ReleaseReleaseController {
 
     @GetMapping("/RELEASE-release")
     public String showReleaseReleasePage(Model model) {
-        // Fetch only processed requests with specific statuses
         List<String> statuses = Arrays.asList("For Testing", "Sample/s Rejected");
         List<ClientReqForm> processedRequests = releaseService.getProcessedRequests(statuses);
         model.addAttribute("requests", processedRequests);

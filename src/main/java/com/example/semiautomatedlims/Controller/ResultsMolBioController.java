@@ -77,6 +77,10 @@ public class ResultsMolBioController {
         // Save the data into the MolBioData table
         testingMolBioService.saveMolBioData(molBioData);
 
+        // Update molbio_pending to 'accepted'
+        clientReqForm.setMolbioPending("accepted");
+        testingMolBioService.saveRequest(clientReqForm);  // Save the updated ClientReqForm entity
+
         return ResponseEntity.ok("Results submitted successfully.");
     }
 }

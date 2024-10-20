@@ -41,6 +41,7 @@ public class ReleaseService {
     // Method to get requests by multiple statuses
     public List<ClientReqForm> getProcessedRequests(List<String> statuses) {
         return releaseRepository.findByStatusIn(statuses);
+        //return releaseRepository.findByStatusInAndMolbioPending(statuses, "accepted");
     }
     
     private String generateLDControlNumber() {

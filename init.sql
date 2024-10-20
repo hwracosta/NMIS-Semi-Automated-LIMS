@@ -45,3 +45,7 @@ ALTER TABLE client_reqform
 ADD COLUMN sample_category VARCHAR(255) NOT NULL;
 
 ALTER TABLE client_reqform DROP COLUMN transferred;
+
+ALTER TABLE client_reqform ADD COLUMN molbio_pending VARCHAR(255) DEFAULT 'pending';
+ALTER TABLE client_reqform ADD COLUMN microbio_pending VARCHAR(255) DEFAULT 'pending';
+ALTER TABLE client_reqform ADD COLUMN chem_pending VARCHAR(255) DEFAULT 'pending';
