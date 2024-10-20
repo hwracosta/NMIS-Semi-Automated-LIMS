@@ -80,13 +80,13 @@
                         </thead>
                         <tbody>
                             <!-- Example Rows with Input Fields -->
-                            <tr>
-                                <td><input type="text" name="analyte"></td>
-                                <td><input type="text" name="result"></td>
-                                <td><input type="text" name="remarks"></td>
-                                <td><input type="text" name="detectionLimit"></td>
-                                <td><input type="text" name="regulatoryLimits"></td>
-                                <td><input type="date" name="analysisDate"></td>
+                            <tr th:each="examination : ${examinations}">
+                                <td th:text="${examination}">Test Name</td>
+                                <td><input type="text" th:name="'chemResult_' + ${examination}" placeholder="Result" required></td>
+                                <td><input type="text" th:name="'chemRemarks_' + ${examination}" placeholder="Remarks" required></td>
+                                <td><input type="text" th:name="'chemDetectionLimit_' + ${examination}" placeholder="Detection Limit" required></td>
+                                <td><input type="text" th:name="'chemRegulatoryLimits_' + ${examination}" placeholder="Regulatory Limits" required></td>
+                                <td><input type="date" th:name="'chemAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                             </tr>
                         </tbody>                    
                     </table>

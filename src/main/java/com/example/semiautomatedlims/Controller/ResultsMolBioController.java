@@ -27,8 +27,8 @@ public class ResultsMolBioController {
         if (request != null) {
             model.addAttribute("ldControlNumber", request.getLdControlNumber());
             model.addAttribute("clientReqid", clientReqid); // Pass clientReqid to the model
-            List<String> examinations = request.getExaminations();
-            model.addAttribute("examinations", examinations);
+            List<String> molecexaminations = request.getMolecExaminations();
+            model.addAttribute("examinations", molecexaminations);
         } else {
             model.addAttribute("ldControlNumber", "Not available");
             model.addAttribute("clientReqid", clientReqid); // Ensure clientReqid is still passed even if the request is not found

@@ -267,10 +267,30 @@ public class ClientReqForm {
     }
 
     // New method to extract the list of molecular tests
-    public List<String> getExaminations() {
+    public List<String> getMolecExaminations() {
         if (this.molecTests != null && !this.molecTests.isEmpty()) {
             // Assuming molecTests is a comma-separated string
             return Arrays.asList(this.molecTests.split("\\s*,\\s*"));
+        } else {
+            return List.of(); // Return an empty list if no tests are present
+        }
+    }
+
+     // New method to extract the list of microbio tests
+     public List<String> getMicrobioExaminations() {
+        if (this.microbioTests != null && !this.microbioTests.isEmpty()) {
+            // Assuming molecTests is a comma-separated string
+            return Arrays.asList(this.microbioTests.split("\\s*,\\s*"));
+        } else {
+            return List.of(); // Return an empty list if no tests are present
+        }
+    }
+
+     // New method to extract the list of microbio tests
+     public List<String> getChemExaminations() {
+        if (this.chemTests != null && !this.chemTests.isEmpty()) {
+            // Assuming molecTests is a comma-separated string
+            return Arrays.asList(this.chemTests.split("\\s*,\\s*"));
         } else {
             return List.of(); // Return an empty list if no tests are present
         }
