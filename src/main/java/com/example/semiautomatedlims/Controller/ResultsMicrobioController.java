@@ -57,11 +57,11 @@ public class ResultsMicrobioController {
 
         // Loop through the results and build comma-separated strings for each field
         for (String key : allParams.keySet()) {
-            if (key.startsWith("species_result_")) {
-                String testName = key.replace("species_result_", "");
+            if (key.startsWith("micResult_")) {
+                String testName = key.replace("micResult_", "");
                 String result = allParams.get(key);
-                String refValue = allParams.get("ref_value_" + testName);
-                String remarks = allParams.get("remarks_" + testName);
+                String refValue = allParams.get("micRefVal_" + testName);
+                String remarks = allParams.get("micRemarks_" + testName);
 
                 // Concatenate the test names and corresponding fields
                 if (micTestNames.length() > 0) {
@@ -88,6 +88,10 @@ public class ResultsMicrobioController {
         // Save the data into the MicroBioData table
         testingMicrobioService.saveMicroBioData(microBioData);
 
-        return ResponseEntity.ok("Results submitted successfully.");
+        // Update microbio_pending to 'accepted'
+        clientReqForm.setMicrobioPending("accepted");
+        testingMicrobioService.saveRequest(clientReqForm);
+
+        return ResponseEntity.ok("MicroBio Results submitted successfully.");
     }
 }

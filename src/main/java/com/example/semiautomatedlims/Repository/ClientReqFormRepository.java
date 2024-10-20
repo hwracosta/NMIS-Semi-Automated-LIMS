@@ -27,4 +27,7 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
     List<ClientReqForm> findByMolbioPending(@Param("status") String status);
 
     List<ClientReqForm> findByStatusAndChemPending(String status, String chemPending);
+
+    @Query("SELECT r FROM ClientReqForm r WHERE r.microbioPending = :status")
+    List<ClientReqForm> findByMicrobioPending(@Param("status") String status);
 }

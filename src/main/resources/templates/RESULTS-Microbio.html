@@ -26,7 +26,7 @@
                     // Submit via AJAX
                     $.ajax({
                         type: 'POST',
-                        url: '/submitResults',
+                        url: '/submitMicrobioResults',
                         data: $(this).serialize(),
                         success: function(response) {
                             alert('Results submitted successfully!');
@@ -64,7 +64,7 @@
         <div class="control-number-indicator">
             <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
         </div>
-        <form id="resultsForm" method="POST" th:action="@{/submitResults}">
+        <form id="resultsForm" method="POST" th:action="@{/submitMicrobioResults}">
             <div class="table-container">
                 <table>
                     <thead>
