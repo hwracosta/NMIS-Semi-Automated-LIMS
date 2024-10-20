@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.semiautomatedlims.Entity.ClientReqForm;
 import com.example.semiautomatedlims.Entity.ChemData;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
 import com.example.semiautomatedlims.Repository.ChemDataRepository;
 import com.example.semiautomatedlims.Repository.ClientReqFormRepository;
 
@@ -21,7 +21,7 @@ public class TestingChemService {
 
     // Method to get requests by status
     public List<ClientReqForm> getFilteredRequests() {
-        return clientReqFormRepository.findByStatusAndTransferredIsFalseAndChemTestsIsNotNull("For Testing");
+        return clientReqFormRepository.findByStatusAndIsChemTransferredFalseAndChemTestsIsNotNull("For Testing");
     }    
 
     // Method to get specific request details by clientReqid
