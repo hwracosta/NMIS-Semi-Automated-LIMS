@@ -15,19 +15,26 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
     @Query("SELECT r FROM ClientReqForm r WHERE r.client = :client")
     List<ClientReqForm> findByClient(@Param("client") Client client);
 
+    // Find requests for Chem that are in "For Testing" status and have chem_pending as 'pending'
+    List<ClientReqForm> findByStatusAndChemPending(String status, String chemPending);
+
+    // Find requests for MolBio that are in "For Testing" status and have molbio_pending as 'pending'
+    List<ClientReqForm> findByStatusAndMolbioPending(String status, String molbioPending);
+
+    // Find requests for MicroBio that are in "For Testing" status and have microbio_pending as 'pending'
+    List<ClientReqForm> findByStatusAndMicrobioPending(String status, String microbioPending);
+
+    // Find requests where MolBio is transferred
+    List<ClientReqForm> findByIsMolBioTransferredTrue();
+
+    // Find requests where MicroBio is transferred
+    List<ClientReqForm> findByIsMicroBioTransferredTrue();
+
+    // Find requests where Chem is transferred
+    List<ClientReqForm> findByIsChemTransferredTrue();
+
+    // Existing methods to get requests with specific tests that are not transferred yet
     List<ClientReqForm> findByStatusAndIsMolBioTransferredFalseAndMolecTestsIsNotNull(String status);
     List<ClientReqForm> findByStatusAndIsMicroBioTransferredFalseAndMicrobioTestsIsNotNull(String status);
     List<ClientReqForm> findByStatusAndIsChemTransferredFalseAndChemTestsIsNotNull(String status);
-
-    List<ClientReqForm> findByIsMolBioTransferredTrue();
-    List<ClientReqForm> findByIsMicroBioTransferredTrue();
-    List<ClientReqForm> findByIsChemTransferredTrue();
-
-    @Query("SELECT r FROM ClientReqForm r WHERE r.molbioPending = :status")
-    List<ClientReqForm> findByMolbioPending(@Param("status") String status);
-
-    List<ClientReqForm> findByStatusAndChemPending(String status, String chemPending);
-
-    @Query("SELECT r FROM ClientReqForm r WHERE r.microbioPending = :status")
-    List<ClientReqForm> findByMicrobioPending(@Param("status") String status);
 }

@@ -43,4 +43,9 @@ public class TestingMolBioService {
     public List<MolBioData> findMolBioDataByLdControlNumber(String ldControlNumber) {
         return molBioDataRepository.findByLdControlNumber(ldControlNumber);
     }
+
+    // Method to get requests by status and molbio_pending as 'pending'
+    public List<ClientReqForm> findByMolbioPending(String status, String molbioPending) {
+        return clientReqFormRepository.findByStatusAndMolbioPending(status, molbioPending);
+    }
 }

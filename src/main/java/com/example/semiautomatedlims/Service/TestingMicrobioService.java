@@ -40,4 +40,9 @@ public class TestingMicrobioService {
     public List<MicroBioData> findMicroBioDataByLdControlNumber(String ldControlNumber) {
         return microBioDataRepository.findByLdControlNumber(ldControlNumber);
     }
+
+    // Method to get requests by status and microbio_pending as 'pending'
+    public List<ClientReqForm> findByMicrobioPending(String status, String microbioPending) {
+        return clientReqFormRepository.findByStatusAndMicrobioPending(status, microbioPending);
+    }
 }

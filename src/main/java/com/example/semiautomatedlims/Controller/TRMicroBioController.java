@@ -1,24 +1,23 @@
 package com.example.semiautomatedlims.Controller;
 
 import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Repository.ClientReqFormRepository;
+import com.example.semiautomatedlims.Service.TestingMicrobioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import java.util.List;
 
 @Controller
 public class TRMicroBioController {
 
     @Autowired
-    private ClientReqFormRepository clientReqFormRepository;
+    private TestingMicrobioService testingMicrobioService;
 
     @GetMapping("/TR-MicroBio")
     public String showTRMicrobioPage(Model model) {
-        // Fetch only requests with microbio_pending set to 'pending'
-        List<ClientReqForm> resultRequests = clientReqFormRepository.findByMicrobioPending("pending");
+        // Fetch only requests that have a status of "For Testing" and microbio_pending as "pending"
+        List<ClientReqForm> resultRequests = testingMicrobioService.findByMicrobioPending("For Testing", "pending");
         model.addAttribute("requests", resultRequests);
         return "TR-MicroBio";
     }
