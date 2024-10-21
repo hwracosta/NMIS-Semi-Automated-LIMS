@@ -17,7 +17,7 @@ public class TRMolBioController {
 
     @GetMapping("/TR-MolBio")
     public String showTRMolbioPage(Model model) {
-        // Fetch only requests that have a status of "For Testing" and molbio_pending as "pending"
+        // Fetch only requests that have a status of "For Testing" and molbio_pending as "pending" and transferred
         List<ClientReqForm> resultRequests = testingMolBioService.findByMolbioPending("For Testing", "pending");
         model.addAttribute("requests", resultRequests);
         return "TR-MolBio";

@@ -37,4 +37,13 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
     List<ClientReqForm> findByStatusAndIsMolBioTransferredFalseAndMolecTestsIsNotNull(String status);
     List<ClientReqForm> findByStatusAndIsMicroBioTransferredFalseAndMicrobioTestsIsNotNull(String status);
     List<ClientReqForm> findByStatusAndIsChemTransferredFalseAndChemTestsIsNotNull(String status);
+
+    // Find requests for Chem where status is "For Testing", chem_pending is "pending", and chem is transferred
+    List<ClientReqForm> findByStatusAndChemPendingAndIsChemTransferredTrue(String status, String chemPending);
+
+    // Find requests for MolBio where status is "For Testing", molbio_pending is "pending", and molbio is transferred
+    List<ClientReqForm> findByStatusAndMolbioPendingAndIsMolBioTransferredTrue(String status, String molbioPending);
+
+    // Find requests for MicroBio where status is "For Testing", microbio_pending is "pending", and microbio is transferred
+    List<ClientReqForm> findByStatusAndMicrobioPendingAndIsMicroBioTransferredTrue(String status, String microbioPending);
 }

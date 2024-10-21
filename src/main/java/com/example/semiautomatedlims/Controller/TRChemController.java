@@ -18,7 +18,7 @@ public class TRChemController {
 
     @GetMapping("/TR-Chem")
     public String showTRChemPage(Model model) {
-        // Fetch only requests that have a status of "For Testing" and chem_pending as "pending"
+        // Fetch only requests that have a status of "For Testing" and chem_pending as "pending" and transferred
         List<ClientReqForm> resultRequests = testingChemService.findByChemPending("For Testing", "pending");
         model.addAttribute("requests", resultRequests);
         return "TR-Chem";

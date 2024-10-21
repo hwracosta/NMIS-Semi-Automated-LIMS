@@ -16,7 +16,7 @@ public class TRMicroBioController {
 
     @GetMapping("/TR-MicroBio")
     public String showTRMicrobioPage(Model model) {
-        // Fetch only requests that have a status of "For Testing" and microbio_pending as "pending"
+        // Fetch only requests that have a status of "For Testing" and microbio_pending as "pending" and transferred
         List<ClientReqForm> resultRequests = testingMicrobioService.findByMicrobioPending("For Testing", "pending");
         model.addAttribute("requests", resultRequests);
         return "TR-MicroBio";

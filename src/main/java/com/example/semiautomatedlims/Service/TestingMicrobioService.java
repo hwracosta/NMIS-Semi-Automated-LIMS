@@ -41,8 +41,8 @@ public class TestingMicrobioService {
         return microBioDataRepository.findByLdControlNumber(ldControlNumber);
     }
 
-    // Method to get requests by status and microbio_pending as 'pending'
+    // Fetch requests with "For Testing", microbio_pending as "pending", and transferred
     public List<ClientReqForm> findByMicrobioPending(String status, String microbioPending) {
-        return clientReqFormRepository.findByStatusAndMicrobioPending(status, microbioPending);
+        return clientReqFormRepository.findByStatusAndMicrobioPendingAndIsMicroBioTransferredTrue(status, microbioPending);
     }
 }

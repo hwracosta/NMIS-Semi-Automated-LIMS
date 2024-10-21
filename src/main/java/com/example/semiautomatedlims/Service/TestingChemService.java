@@ -44,8 +44,8 @@ public class TestingChemService {
         return chemDataRepository.findByLdControlNumber(ldControlNumber);
     }
 
-    // New method to retrieve requests with "pending" chem status
+    // Fetch requests with "For Testing", chem_pending as "pending", and transferred
     public List<ClientReqForm> findByChemPending(String status, String chemPending) {
-        return clientReqFormRepository.findByStatusAndChemPending(status, chemPending);
+        return clientReqFormRepository.findByStatusAndChemPendingAndIsChemTransferredTrue(status, chemPending);
     }
 }
