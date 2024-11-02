@@ -26,12 +26,12 @@ public class ResultsMolBioController {
 
         if (request != null) {
             model.addAttribute("ldControlNumber", request.getLdControlNumber());
-            model.addAttribute("clientReqid", clientReqid); // Pass clientReqid to the model
+            model.addAttribute("clientReqid", clientReqid);
             List<String> molecexaminations = request.getMolecExaminations();
             model.addAttribute("examinations", molecexaminations);
         } else {
             model.addAttribute("ldControlNumber", "Not available");
-            model.addAttribute("clientReqid", clientReqid); // Ensure clientReqid is still passed even if the request is not found
+            model.addAttribute("clientReqid", clientReqid);
             model.addAttribute("examinations", List.of());
         }
 
@@ -41,24 +41,20 @@ public class ResultsMolBioController {
     @PostMapping("/submitResults")
     public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
                                                 @RequestParam Map<String, String> allParams) {
-        // Retrieve client request form by clientReqid
         ClientReqForm clientReqForm = testingMolBioService.getRequestDetailsById(clientReqid);
 
         if (clientReqForm == null) {
             return ResponseEntity.badRequest().body("Error: Client request ID not found.");
         }
 
-        // Variables to hold concatenated results
         StringBuilder testNames = new StringBuilder();
         StringBuilder meatSpeciesResults = new StringBuilder();
 
-        // Loop through the results and build comma-separated strings
         for (String key : allParams.keySet()) {
             if (key.startsWith("species_result_")) {
                 String testName = key.replace("species_result_", "");
                 String speciesResult = allParams.get(key);
 
-                // Concatenate the test names and species results with commas
                 if (testNames.length() > 0) {
                     testNames.append(", ");
                     meatSpeciesResults.append(", ");
@@ -68,18 +64,15 @@ public class ResultsMolBioController {
             }
         }
 
-        // Create a new MolBioData entity
         MolBioData molBioData = new MolBioData();
-        molBioData.setLdControlNumber(clientReqForm.getLdControlNumber());  // Using ldControlNumber directly
-        molBioData.setTestName(testNames.toString());  // Concatenated test names
-        molBioData.setMeatSpeciesResult(meatSpeciesResults.toString());  // Concatenated species results
+        molBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
+        molBioData.setTestName(testNames.toString());
+        molBioData.setMeatSpeciesResult(meatSpeciesResults.toString());
 
-        // Save the data into the MolBioData table
         testingMolBioService.saveMolBioData(molBioData);
 
-        // Update molbio_pending to 'accepted'
         clientReqForm.setMolbioPending("accepted");
-        testingMolBioService.saveRequest(clientReqForm);  // Save the updated ClientReqForm entity
+        testingMolBioService.saveRequest(clientReqForm);
 
         return ResponseEntity.ok("Results submitted successfully.");
     }

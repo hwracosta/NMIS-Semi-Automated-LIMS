@@ -17,12 +17,10 @@ public class TestingMicrobioService {
     @Autowired
     private MicroBioDataRepository microBioDataRepository;
 
-    // Method to get requests by status
     public List<ClientReqForm> getFilteredRequests() {
         return clientReqFormRepository.findByStatusAndIsMicroBioTransferredFalseAndMicrobioTestsIsNotNull("For Testing");
     }
 
-    // Method to get specific request details by clientReqid
     public ClientReqForm getRequestDetailsById(Long clientReqid) {
         return clientReqFormRepository.findById(clientReqid).orElse(null);
     }
@@ -31,17 +29,14 @@ public class TestingMicrobioService {
         clientReqFormRepository.save(request);
     }
 
-    // Save MicroBioData
     public void saveMicroBioData(MicroBioData microBioData) {
         microBioDataRepository.save(microBioData);
     }
 
-    // Retrieve MicroBioData by LD control number
     public List<MicroBioData> findMicroBioDataByLdControlNumber(String ldControlNumber) {
         return microBioDataRepository.findByLdControlNumber(ldControlNumber);
     }
 
-    // Fetch requests with "For Testing", microbio_pending as "pending", and transferred
     public List<ClientReqForm> findByMicrobioPending(String status, String microbioPending) {
         return clientReqFormRepository.findByStatusAndMicrobioPendingAndIsMicroBioTransferredTrue(status, microbioPending);
     }

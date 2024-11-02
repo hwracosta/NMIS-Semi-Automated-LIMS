@@ -27,12 +27,12 @@ public class ResultsMicrobioController {
 
         if (request != null) {
             model.addAttribute("ldControlNumber", request.getLdControlNumber());
-            model.addAttribute("clientReqid", clientReqid); // Pass clientReqid to the model
+            model.addAttribute("clientReqid", clientReqid);
             List<String> examinations = request.getMicrobioExaminations();
             model.addAttribute("examinations", examinations);
         } else {
             model.addAttribute("ldControlNumber", "Not available");
-            model.addAttribute("clientReqid", clientReqid); // Ensure clientReqid is still passed even if the request is not found
+            model.addAttribute("clientReqid", clientReqid);
             model.addAttribute("examinations", List.of());
         }
 
@@ -42,20 +42,17 @@ public class ResultsMicrobioController {
     @PostMapping("/submitMicrobioResults")
     public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
                                                 @RequestParam Map<String, String> allParams) {
-        // Retrieve client request form by clientReqid
         ClientReqForm clientReqForm = testingMicrobioService.getRequestDetailsById(clientReqid);
 
         if (clientReqForm == null) {
             return ResponseEntity.badRequest().body("Error: Client request ID not found.");
         }
 
-        // Variables to hold concatenated values
         StringBuilder micTestNames = new StringBuilder();
         StringBuilder micResults = new StringBuilder();
         StringBuilder micRefVals = new StringBuilder();
         StringBuilder micRemarks = new StringBuilder();
 
-        // Loop through the results and build comma-separated strings for each field
         for (String key : allParams.keySet()) {
             if (key.startsWith("micResult_")) {
                 String testName = key.replace("micResult_", "");
@@ -63,7 +60,6 @@ public class ResultsMicrobioController {
                 String refValue = allParams.get("micRefVal_" + testName);
                 String remarks = allParams.get("micRemarks_" + testName);
 
-                // Concatenate the test names and corresponding fields
                 if (micTestNames.length() > 0) {
                     micTestNames.append(", ");
                     micResults.append(", ");
@@ -77,18 +73,15 @@ public class ResultsMicrobioController {
             }
         }
 
-        // Create a new MicroBioData entity
         MicroBioData microBioData = new MicroBioData();
-        microBioData.setLdControlNumber(clientReqForm.getLdControlNumber());  // Using ldControlNumber directly
-        microBioData.setMicTestName(micTestNames.toString());  // Concatenated test names
-        microBioData.setMicResult(micResults.toString());  // Concatenated results
-        microBioData.setMicRefVal(micRefVals.toString());  // Concatenated reference values
-        microBioData.setMicRemarks(micRemarks.toString());  // Concatenated remarks
+        microBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
+        microBioData.setMicTestName(micTestNames.toString());
+        microBioData.setMicResult(micResults.toString());
+        microBioData.setMicRefVal(micRefVals.toString());
+        microBioData.setMicRemarks(micRemarks.toString());
 
-        // Save the data into the MicroBioData table
         testingMicrobioService.saveMicroBioData(microBioData);
 
-        // Update microbio_pending to 'accepted'
         clientReqForm.setMicrobioPending("accepted");
         testingMicrobioService.saveRequest(clientReqForm);
 

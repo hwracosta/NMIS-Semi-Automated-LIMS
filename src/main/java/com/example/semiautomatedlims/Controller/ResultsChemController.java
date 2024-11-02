@@ -25,34 +25,31 @@ public class ResultsChemController {
 
     @GetMapping("/RESULTS-Chem")
     public String showResultChemPage(@RequestParam("clientReqid") Long clientReqid, Model model) {
-        // Fetch request details using clientReqid
         ClientReqForm request = testingChemService.getRequestDetailsById(clientReqid);
 
         if (request != null) {
             model.addAttribute("ldControlNumber", request.getLdControlNumber());
-            model.addAttribute("clientReqid", clientReqid); // Pass clientReqid to the model
+            model.addAttribute("clientReqid", clientReqid);
             List<String> examinations = request.getChemExaminations();
             model.addAttribute("examinations", examinations);
         } else {
             model.addAttribute("ldControlNumber", "Not available");
-            model.addAttribute("clientReqid", clientReqid); // Ensure clientReqid is still passed even if the request is not found
+            model.addAttribute("clientReqid", clientReqid);
             model.addAttribute("examinations", List.of());
         }
 
-        return "RESULTS-Chem"; // Return the template
+        return "RESULTS-Chem";
     }
 
     @PostMapping("/submitChemResults")
     public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
                                                 @RequestParam Map<String, String> allParams) {
-        // Retrieve client request form by clientReqid
         ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
 
         if (clientReqForm == null) {
             return ResponseEntity.badRequest().body("Error: Client request ID not found.");
         }
 
-        // Variables to hold concatenated values for test names, results, remarks, etc.
         StringBuilder chemTestNames = new StringBuilder();
         StringBuilder chemResults = new StringBuilder();
         StringBuilder chemRemarks = new StringBuilder();
@@ -62,7 +59,6 @@ public class ResultsChemController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date analysisDate = null;
 
-        // Loop through the parameters and build comma-separated strings for each field
         for (String key : allParams.keySet()) {
             if (key.startsWith("chemResult_")) {
                 String testName = key.replace("chemResult_", "");
@@ -94,7 +90,6 @@ public class ResultsChemController {
             }
         }
 
-        // Create and save ChemData entity
         ChemData chemData = new ChemData();
         chemData.setLdControlNumber(clientReqForm.getLdControlNumber());
         chemData.setClientReqid(clientReqid);
@@ -107,7 +102,6 @@ public class ResultsChemController {
 
         testingChemService.saveChemData(chemData);
 
-        // Update the chem_pending status to 'accepted'
         clientReqForm.setChemPending("accepted");
         testingChemService.saveRequest(clientReqForm);
 
