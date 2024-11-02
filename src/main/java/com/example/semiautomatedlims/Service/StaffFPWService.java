@@ -1,17 +1,18 @@
 package com.example.semiautomatedlims.Service;
 
-import com.example.semiautomatedlims.Entity.Staff;
-import com.example.semiautomatedlims.Repository.StaffRepository;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import com.example.semiautomatedlims.Entity.Staff;
+import com.example.semiautomatedlims.Repository.StaffRepository;
 
 @Service
 public class StaffFPWService {
@@ -29,19 +30,21 @@ public class StaffFPWService {
     private final Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
 
     // Generate and send reset code to the staff's email
-    public void sendPasswordResetCodeToEmail(String email) {
+    public boolean sendPasswordResetCodeToEmail(String email) {
         Staff staff = staffRepository.findByEmail(email);
         if (staff != null) {
             String code = generateResetCode();
             LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);  // Code expires in 15 minutes
             passwordResetCodes.put(email, new PasswordResetData(code, expirationTime));
-
+    
             // Send the email
             String subject = "Your Password Reset Code";
             String content = "Your password reset code is: " + code + ". It will expire in 15 minutes.";
             sendEmail(email, subject, content);
+            return true;  // Indicate success
         }
-    }
+        return false;  // Indicate that the email was not found
+    }    
 
     // Verify the entered reset code
     public boolean verifyResetCode(String code) {
@@ -83,6 +86,10 @@ public class StaffFPWService {
         return null;  // Return null if no match found
     }
 
+    public boolean emailExists(String email) {
+        return staffRepository.findByEmail(email) != null;
+    }    
+    
     // Inner class to store reset code and expiration time
     private static class PasswordResetData {
         private String code;
