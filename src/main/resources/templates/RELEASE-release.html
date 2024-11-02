@@ -32,33 +32,57 @@
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Client Name</th>
-                            <th>Client Details</th>
-                            <th>Submission Date</th>
-                            <th>Status</th>
-                            <th>RECEIVE-MolBio</th>
-                            <th>RECEIVE-Chem</th>
-                            <th>RECEIVE-Microbio</th>
-                        </tr>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Client Details</th>
+                        <th>Submission Date</th>
+                        <th>Status</th>
+                        <th>RECEIVE-MolBio</th>
+                        <th>RECEIVE-Chem</th>
+                        <th>RECEIVE-Microbio</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="request : ${requests}">
-                            <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
-                            <td>
-                                <a href="#" th:onclick="'showPopup(' + ${request.clientReqid} + ')'">
-                                    <u>View Details</u>
-                                </a>                                         
-                            </td>
-                            <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
-                            <td th:text="${request.status}">Status</td>
-                            <td th:text="${#strings.isEmpty(request.molecTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                            <td th:text="${#strings.isEmpty(request.chemTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                            <td th:text="${#strings.isEmpty(request.microbioTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(requests)}">
-                            <td colspan="5" style="text-align:center;">No pending requests</td>
-                        </tr>
+                    <tr th:each="request : ${requests}">
+                        <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
+                        <td>
+                            <a href="#" th:onclick="'showPopup(' + ${request.clientReqid} + ')'">
+                                <u>View Details</u>
+                            </a>
+                        </td>
+                        <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
+                        <td th:text="${request.status}">Status</td>
+
+                        <!-- MolBio Results Button -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
+                            <button th:if="${!#strings.isEmpty(request.molecTests)}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
+                                View Results
+                            </button>
+                        </td>
+
+                        <!-- Chem Results Button -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
+                            <button th:if="${!#strings.isEmpty(request.chemTests)}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
+                                View Results
+                            </button>
+                        </td>
+
+                        <!-- Microbio Results Button -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
+                            <button th:if="${!#strings.isEmpty(request.microbioTests)}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
+                                View Results
+                            </button>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(requests)}">
+                        <td colspan="7" style="text-align:center;">No pending requests</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -130,105 +154,249 @@
                 </div>
             </form>
         </div>
-    </div>\
+    </div>
+
+    <div class="popup" id="resultsPopup" style="display:none;">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeResultsPopup()">&times;</span>
+            <h3>Test Results</h3>
+            <form id="resultsForm">
+                <input type="hidden" name="clientReqid" id="resultClientReqid" />
+
+                <!-- LD Control Number Display -->
+                <div>
+                    <label for="ldControlNumber">LD Control Number:</label>
+                    <input type="text" name="ldControlNumber" id="ldControlNumber" readonly />
+                </div>
+
+                <!-- Chemical Test Results Table -->
+                <div id="chemResultsContainer" class="table-container" style="display:none;">
+                    <h4>Chemical Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Result</th>
+                            <th>Remarks</th>
+                            <th>Detection Limit</th>
+                            <th>Regulatory Limits</th>
+                            <th>Analysis Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="chemResultsTableBody">
+                        <!-- Rows will be dynamically populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Microbiology Test Results Table -->
+                <div id="microbioResultsContainer" class="table-container" style="display:none;">
+                    <h4>Microbiology Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Test Conducted</th>
+                            <th>Result</th>
+                            <th>Reference Value</th>
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody id="microbioResultsTableBody">
+                        <!-- Rows will be dynamically populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Molecular Biology Test Results Table -->
+                <div id="molbioResultsContainer" class="table-container" style="display:none;">
+                    <h4>Molecular Biology Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Examination Conducted</th>
+                            <th>Meat Species Result</th>
+                        </tr>
+                        </thead>
+                        <tbody id="molbioResultsTableBody">
+                        <!-- Rows will be dynamically populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function() {
             // Handle the status form submission
             $('.status-form').on('submit', function(event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
                 $.ajax({
-                    url: $(this).attr('action'), 
+                    url: $(this).attr('action'),
                     type: 'POST',
-                    data: $(this).serialize(), 
+                    data: $(this).serialize(),
                     error: function(xhr, status, error) {
-                        alert('Error updating status: ' + error); 
+                        alert('Error updating status: ' + error);
                     }
                 });
             });
         });
 
         function showPopup(clientReqid) {
-    // Clear existing data
-    $('#clientReqid').val(clientReqid);
-    $('#orNo').val('');
-    $('#clientSampleCode').val('');
-    $('#sampleDetails').val('');
-    $('#sampleSource').val('');
-    $('#productionDate').val('');
-    $('#expirationDate').val('');
-    $('#samplingDate').val('');
-    $('#weightGrams').val('');
-    $('#purposeTest').val('');
-    $('#microbioTests').val('');
-    $('#molecTests').val('');
-    $('#chemTests').val('');
-    $('#releasingResults').val('');
-    $('#sampleCategory').val('');
+            // Clear existing data
+            $('#clientReqid').val(clientReqid);
+            $('#orNo').val('');
+            $('#clientSampleCode').val('');
+            $('#sampleDetails').val('');
+            $('#sampleSource').val('');
+            $('#productionDate').val('');
+            $('#expirationDate').val('');
+            $('#samplingDate').val('');
+            $('#weightGrams').val('');
+            $('#purposeTest').val('');
+            $('#microbioTests').val('');
+            $('#molecTests').val('');
+            $('#chemTests').val('');
+            $('#releasingResults').val('');
+            $('#sampleCategory').val('');
 
-    // Hide all fields by default
-    $('div:has(#orNo)').hide();
-    $('div:has(#clientSampleCode)').hide();
-    $('div:has(#sampleDetails)').hide();
-    $('div:has(#sampleSource)').hide();
-    $('div:has(#productionDate)').hide();
-    $('div:has(#expirationDate)').hide();
-    $('div:has(#samplingDate)').hide();
-    $('div:has(#weightGrams)').hide();
-    $('div:has(#purposeTest)').hide();
-    $('div:has(#microbioTests)').hide();
-    $('div:has(#molecTests)').hide();
-    $('div:has(#chemTests)').hide();
-    $('div:has(#releasingResults)').hide();
-    $('div:has(#sampleCategory)').hide();
+            // Hide all fields by default
+            $('div:has(#orNo)').hide();
+            $('div:has(#clientSampleCode)').hide();
+            $('div:has(#sampleDetails)').hide();
+            $('div:has(#sampleSource)').hide();
+            $('div:has(#productionDate)').hide();
+            $('div:has(#expirationDate)').hide();
+            $('div:has(#samplingDate)').hide();
+            $('div:has(#weightGrams)').hide();
+            $('div:has(#purposeTest)').hide();
+            $('div:has(#microbioTests)').hide();
+            $('div:has(#molecTests)').hide();
+            $('div:has(#chemTests)').hide();
+            $('div:has(#releasingResults)').hide();
+            $('div:has(#sampleCategory)').hide();
 
-    // Fetch the request data based on clientReqid using AJAX
-    $.ajax({
-        url: '/api/getRequestDetails',
-        type: 'GET',
-        data: { clientReqid: clientReqid },
-        success: function(data) {
-            // Format datetime to date string (yyyy-MM-dd)
-            function formatDate(dateTimeString) {
-                const date = new Date(dateTimeString);
-                return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
-            }
+            // Fetch the request data based on clientReqid using AJAX
+            $.ajax({
+                url: '/api/getRequestDetails',
+                type: 'GET',
+                data: { clientReqid: clientReqid },
+                success: function(data) {
+                    // Format datetime to date string (yyyy-MM-dd)
+                    function formatDate(dateTimeString) {
+                        const date = new Date(dateTimeString);
+                        return date.toISOString().slice(0, 10); // Extract yyyy-MM-dd format
+                    }
 
-            // Assuming 'data' is an object with the request details
-            if (data.orNo) { $('#orNo').val(data.orNo); $('div:has(#orNo)').show(); }
-            if (data.clientSampleCode) { $('#clientSampleCode').val(data.clientSampleCode); $('div:has(#clientSampleCode)').show(); }
-            if (data.sampleDetails) { $('#sampleDetails').val(data.sampleDetails); $('div:has(#sampleDetails)').show(); }
-            if (data.sampleSource) { $('#sampleSource').val(data.sampleSource); $('div:has(#sampleSource)').show(); }
-            if (data.productionDate) { $('#productionDate').val(formatDate(data.productionDate)); $('div:has(#productionDate)').show(); }
-            if (data.expirationDate) { $('#expirationDate').val(formatDate(data.expirationDate)); $('div:has(#expirationDate)').show(); }
-            if (data.samplingDate) { $('#samplingDate').val(formatDate(data.samplingDate)); $('div:has(#samplingDate)').show(); }
-            if (data.weightGrams) { $('#weightGrams').val(data.weightGrams); $('div:has(#weightGrams)').show(); }
-            if (data.purposeTest) { $('#purposeTest').val(data.purposeTest); $('div:has(#purposeTest)').show(); }
-            if (data.microbioTests) { $('#microbioTests').val(data.microbioTests); $('div:has(#microbioTests)').show(); }
-            if (data.molecTests) { $('#molecTests').val(data.molecTests); $('div:has(#molecTests)').show(); }
-            if (data.chemTests) { $('#chemTests').val(data.chemTests); $('div:has(#chemTests)').show(); }
-            if (data.releasingResults) { $('#releasingResults').val(data.releasingResults); $('div:has(#releasingResults)').show(); }
-            if (data.sampleCategory) { $('#sampleCategory').val(data.sampleCategory); $('div:has(#sampleCategory)').show(); }
+                    // Populate fields based on the response
+                    if (data.orNo) { $('#orNo').val(data.orNo); $('div:has(#orNo)').show(); }
+                    if (data.clientSampleCode) { $('#clientSampleCode').val(data.clientSampleCode); $('div:has(#clientSampleCode)').show(); }
+                    if (data.sampleDetails) { $('#sampleDetails').val(data.sampleDetails); $('div:has(#sampleDetails)').show(); }
+                    if (data.sampleSource) { $('#sampleSource').val(data.sampleSource); $('div:has(#sampleSource)').show(); }
+                    if (data.productionDate) { $('#productionDate').val(formatDate(data.productionDate)); $('div:has(#productionDate)').show(); }
+                    if (data.expirationDate) { $('#expirationDate').val(formatDate(data.expirationDate)); $('div:has(#expirationDate)').show(); }
+                    if (data.samplingDate) { $('#samplingDate').val(formatDate(data.samplingDate)); $('div:has(#samplingDate)').show(); }
+                    if (data.weightGrams) { $('#weightGrams').val(data.weightGrams); $('div:has(#weightGrams)').show(); }
+                    if (data.purposeTest) { $('#purposeTest').val(data.purposeTest); $('div:has(#purposeTest)').show(); }
+                    if (data.microbioTests) { $('#microbioTests').val(data.microbioTests); $('div:has(#microbioTests)').show(); }
+                    if (data.molecTests) { $('#molecTests').val(data.molecTests); $('div:has(#molecTests)').show(); }
+                    if (data.chemTests) { $('#chemTests').val(data.chemTests); $('div:has(#chemTests)').show(); }
+                    if (data.releasingResults) { $('#releasingResults').val(data.releasingResults); $('div:has(#releasingResults)').show(); }
+                    if (data.sampleCategory) { $('#sampleCategory').val(data.sampleCategory); $('div:has(#sampleCategory)').show(); }
 
-            // Show the popup after data is loaded
-            $('#requestPopup').fadeIn(); 
-        },
-        error: function(xhr, status, error) {
-            alert('Error fetching request details: ' + error);
+                    // Show the popup after data is loaded
+                    $('#requestPopup').fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching request details: ' + error);
+                }
+            });
         }
-    });
-}
-        // Function to close the popup
+
+        // Function to close the "View Details" popup
         function closePopup() {
-            // Hide the popup
             $('#requestPopup').fadeOut();
         }
 
-        // Close the popup if clicking outside of it
+        // Close the "View Details" popup if clicking outside of it
         $(window).click(function(event) {
             if ($(event.target).is('#requestPopup')) {
                 closePopup();
+            }
+        });
+
+        function showResultsPopup(clientReqid, testType) {
+            // Clear previous data
+            $('#chemResultsTableBody').empty();
+            $('#microbioResultsTableBody').empty();
+            $('#molbioResultsTableBody').empty();
+            $('#chemResultsContainer, #microbioResultsContainer, #molbioResultsContainer').hide();
+
+            // Fetch test results based on clientReqid and testType using AJAX
+            $.ajax({
+                url: '/api/getResultDetails',
+                type: 'GET',
+                data: { clientReqid: clientReqid, testType: testType },
+                success: function(data) {
+                    $('#ldControlNumber').val(data.ldControlNumber || 'N/A');
+
+                    if (testType === 'Chem') {
+                        $('#chemResultsContainer').show();
+                        data.chemResults.forEach(result => {
+                            $('#chemResultsTableBody').append(`
+                        <tr>
+                            <td>${result.analyte || 'N/A'}</td>
+                            <td>${result.result || 'N/A'}</td>
+                            <td>${result.remarks || 'N/A'}</td>
+                            <td>${result.detectionLimit || 'N/A'}</td>
+                            <td>${result.regulatoryLimits || 'N/A'}</td>
+                            <td>${result.analysisDate || 'N/A'}</td>
+                        </tr>
+                    `);
+                        });
+                    } else if (testType === 'Microbio') {
+                        $('#microbioResultsContainer').show();
+                        data.microbioResults.forEach(result => {
+                            $('#microbioResultsTableBody').append(`
+                        <tr>
+                            <td>${result.testConducted || 'N/A'}</td>
+                            <td>${result.result || 'N/A'}</td>
+                            <td>${result.referenceValue || 'N/A'}</td>
+                            <td>${result.remarks || 'N/A'}</td>
+                        </tr>
+                    `);
+                        });
+                    } else if (testType === 'MolBio') {
+                        $('#molbioResultsContainer').show();
+                        data.molbioResults.forEach(result => {
+                            $('#molbioResultsTableBody').append(`
+                        <tr>
+                            <td>${result.examinationConducted || 'N/A'}</td>
+                            <td>${result.meatSpeciesResult || 'N/A'}</td>
+                        </tr>
+                    `);
+                        });
+                    }
+
+                    // Show the popup
+                    $('#resultsPopup').fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching test results: ' + error);
+                }
+            });
+        }
+
+        function closeResultsPopup() {
+            // Hide the "View Results" popup
+            $('#resultsPopup').fadeOut();
+        }
+
+        // Close the "View Results" popup if clicking outside of it
+        $(window).click(function(event) {
+            if ($(event.target).is('#resultsPopup')) {
+                closeResultsPopup();
             }
         });
     </script>
