@@ -98,6 +98,20 @@ left: 0;
 transform: translateX(0);
 }
 
+.STAFF-FPWCODE .error-message {
+  font-family: "Averia Serif Libre-Bold", Helvetica;
+  color: #d9534f; 
+  padding: 5px 0;
+  font-weight: bold;
+  text-align: center; 
+  position: absolute; 
+  width: 90%; 
+  top: 165px;
+  left: 24%; 
+  transform: translateX(-50%); 
+  font-size: 14px; 
+}
+
 .STAFF-FPWCODE .overlap {
   position: absolute;
   width: 505px;
@@ -189,7 +203,7 @@ transform: translateX(0);
   position: relative;
   align-self: stretch;
   width: 82%;
-  top : 150px;
+  top : 175px;
   height : 50px;
   margin-bottom: -0.64px;
   margin-left: 53px;
