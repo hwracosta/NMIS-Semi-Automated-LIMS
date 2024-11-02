@@ -29,7 +29,7 @@ public class ClientFPWService {
     private final Map<String, PasswordResetData> passwordResetCodes = new HashMap<>();
 
     // Generate and send reset code to the client's email
-    public void sendPasswordResetCodeToEmail(String email) {
+    public boolean sendPasswordResetCodeToEmail(String email) {
         Client client = clientRepository.findByEmail(email);
         if (client != null) {
             String code = generateResetCode();
@@ -40,7 +40,9 @@ public class ClientFPWService {
             String subject = "Your Password Reset Code";
             String content = "Your password reset code is: " + code + ". It will expire in 15 minutes.";
             sendEmail(email, subject, content);
+            return true;
         }
+        return false;
     }
 
     // Verify the entered reset code
@@ -82,6 +84,10 @@ public class ClientFPWService {
         }
         return null;  // Return null if no match found
     }
+
+    public boolean emailExists(String email) {
+        return clientRepository.findByEmail(email) != null;
+    }  
 
     // Inner class to store reset code and expiration time
     private static class PasswordResetData {

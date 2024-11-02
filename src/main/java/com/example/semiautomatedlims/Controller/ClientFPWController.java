@@ -22,7 +22,11 @@ public class ClientFPWController {
     // Handle email submission to send reset code
     @PostMapping("/CLIENT-fpw")
     public String sendResetCode(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
-        clientFPWService.sendPasswordResetCodeToEmail(email);
+        if (!clientFPWService.sendPasswordResetCodeToEmail(email)) {
+            redirectAttributes.addFlashAttribute("error", "This email is not registered in our system.");
+            return "redirect:/CLIENT-fpw";  // Stay on the same page if email does not exist
+        }
+        
         redirectAttributes.addFlashAttribute("message", "A password reset code has been sent to your email.");
         return "redirect:/CLIENT-fpwcode";  // Redirect to the page where the user enters the code
     }
