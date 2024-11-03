@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, content=1.0">
+    <title>Database</title>
+    <link rel="stylesheet" th:href="@{/css/REPORT-testing.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="overlap-group">
+            <div class="rectangle"></div>
+            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+            <div class="header-links">
+                <a href="/STAFF-TESTINGhome" class="text-wrapper-2">Testing Staff Home</a>
+                <div class="logout-button">
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/STAFF-login" class="log-out">Logout</a>
+                    </form>
+                </div>
+            </div>                  
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+        <div class="request-review-box">
+            <h2 class="title">Database</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Microbiological Tests</th>
+                            <th>TOTAL No. of analysis performed</th>
+                            <th>TOTAL No. of samples with (+) result</th>
+                            <th>TOTAL No. of samples with (-) result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Standard Plate Count</td>
+                            <td>35</td>
+                            <td>10</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>Staphylococcus aureus</td>
+                            <td>35</td>
+                            <td>10</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>Salmonella sp.</td>
+                            <td>50</td>
+                            <td>20</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td>Campylobacter</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Coliform Count</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Culture and Sensitivity Test (Gram positive AST)</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Culture and Sensitivity Test (Gram negative AST)</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>E. Coli</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>E. Coli & E. Coli O157;H7</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Yeast and Molds</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Organoleptic Test</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>pH</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Trichinella spp. Identification</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Others</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <thead>
+                            <tr>
+                                <th>Molecular Biology Tests</th>
+                                <th>TOTAL No. of analysis performed</th>
+                                <th>TOTAL No. of samples with (+) result</th>
+                                <th>TOTAL No. of samples with (-) result</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Dog</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Cat</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Chicken</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Buffalo</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Cattle</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Horse</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Goat</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Sheep</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Swine</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <thead>
+                            <tr>
+                                <th>Chemical/Veterinary Drug Residue Tests</th>
+                                <th>TOTAL No. of analysis performed</th>
+                                <th>TOTAL No. of samples with (+) result</th>
+                                <th>TOTAL No. of samples with (-) result</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Beta-lactams</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tetracyclines</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Sulfonamides</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Aminoglycosides</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Macrolides</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Quinolones</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Chloramphenicol</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Nitrofuran AOZ</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Nitrofuran AMOZ</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Corticosteroids</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Olaquindox</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Beta-agonists</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Stilbenes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Ractopamine</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        
+                        <tr th:each="summary : ${testSummaries}">
+                            <td th:text="${summary.testName}">Test Name</td>
+                            <td th:text="${summary.totalAnalysisPerformed}">0</td>
+                            <td th:text="${summary.positiveResults}">0</td>
+                            <td th:text="${summary.negativeResults}">0</td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </main>
