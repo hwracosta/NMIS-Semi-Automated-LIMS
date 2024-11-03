@@ -206,3 +206,23 @@ input[type="text"] {
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
+
+.submit-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-top: 20px;
+}
+
+.submit-container button {
+    background-color: #002267; /* Button background */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+}
+
+.submit-container button:hover {
+    background-color: #001a50; /* Darker background on hover */
+}
