@@ -15,15 +15,20 @@
                 <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
                 <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
                 <div class="header-links">
-                    <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Receiving/Releasing Staff Home</a>
+                    <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Home</a>
                     <div class="logout-button">
-                      <form th:action="@{/logout}" method="get" style="display: inline;">
-                        <a href="/STAFF-login" class="log-out">Logout</a>
+                      <form th:action="@{/staff-releasing-logout}" method="get" style="display: inline;">
+                        <a href="#" class="log-out">Logout</a>
                       </form>
                     </div>
-                  </div>                  
+                </div>                  
             </div>
         </header>
+        <!-- User Indicator based on staffType -->
+        <div class="user-indicator-container">
+            <span class="user-indicator">Welcome, Receiving/Releasing Staff</span>
+        </div>
+
         <div class="buttons-container">
             <a th:href="@{/RELEASE-review}" class="overlap-3">
                 <div class="text-wrapper-5">Request Review</div>
