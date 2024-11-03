@@ -217,15 +217,15 @@ $(document).ready(function() {
         function populateReviewContent() {
             const formData = labRequestForm.serializeArray();
             let contentHtml = `
-    <div class="pdf-header">
-        <h2>Laboratory Request Form Review</h2>
-    </div>
-    <hr>
-    <div class="pdf-section">
-        <h3>Client Information</h3>
-        <table class="pdf-table">
-            <tbody>`;
-
+        <div class="pdf-header">
+            <h2>Laboratory Request Form Review</h2>
+        </div>
+        <hr>
+        <div class="pdf-section">
+            <h3>Client Information</h3>
+            <table class="pdf-table">
+                <tbody>`;
+        
             // Add client-related fields
             formData.forEach(item => {
                 if (["companyName", "representativeName", "email", "contactNumber", "ltoNo", "clientClassif", "address"].includes(item.name)) {
@@ -235,56 +235,44 @@ $(document).ready(function() {
                     contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
                 }
             });
-
+        
             contentHtml += `
-            </tbody>
-        </table>
-    </div>
-
-    <div class="pdf-section">
-        <h3>Sample Details</h3>
-        <table class="pdf-table">
-            <tbody>`;
-
-            // Add sample-related fields
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pdf-section">
+            <h3>Sample Details</h3>
+            <table class="pdf-table">
+                <tbody>`;
+        
+            // Add sample-related fields with updated test names
             formData.forEach(item => {
-                if (["clientSampleCode", "sampleDetails", "sampleSource", "productionDate", "expirationDate", "samplingDate", "weightGrams", "purposeTest", "microbioTests", "molecTests", "chemTests"].includes(item.name)) {
-                    const formattedName = item.name
-                        .replace(/([A-Z])/g, ' $1')
-                        .replace(/^./, str => str.toUpperCase());
-                    contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
+                let formattedName;
+                switch (item.name) {
+                    case "microbioTests":
+                        formattedName = "Microbiological Tests";
+                        break;
+                    case "molecTests":
+                        formattedName = "Molecular Biology Tests";
+                        break;
+                    case "chemTests":
+                        formattedName = "Chemistry Tests";
+                        break;
+                    default:
+                        formattedName = item.name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
                 }
+                contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
             });
-
+        
             contentHtml += `
-            </tbody>
-        </table>
-    </div>
-
-    <div class="pdf-section">
-        <h3>Additional Information</h3>
-        <table class="pdf-table">
-            <tbody>`;
-
-            // Add additional fields
-            formData.forEach(item => {
-                if (["orNo", "releasingResults", "regionalOffice", "sample_category"].includes(item.name)) {
-                    const formattedName = item.name
-                        .replace(/([A-Z])/g, ' $1')
-                        .replace(/^./, str => str.toUpperCase());
-                    contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
-                }
-            });
-
-            contentHtml += `
-            </tbody>
-        </table>
-    </div>
-    `;
-
+                </tbody>
+            </table>
+        </div>
+        `;
+        
             reviewContent.html(contentHtml);
-        }
-
+        }        
 
         // Open the popup
         reviewSubmitBtn.on('click', function(event) {
