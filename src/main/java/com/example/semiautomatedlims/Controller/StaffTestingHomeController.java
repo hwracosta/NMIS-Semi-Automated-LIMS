@@ -88,7 +88,7 @@ public class StaffTestingHomeController {
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/DATABASE-Chem";
         } else {
-            return "redirect:/default-results";  
+            return "redirect:/REPORT-testing";  
         }
     }
 }
