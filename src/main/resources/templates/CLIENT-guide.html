@@ -9,20 +9,20 @@
 <body>
 
   <header class="header">
-    <div class="overlap">
-      <div class="rectangle"></div>
-      <img class="img" th:src="@{/img/HEADER.png}" />
-      <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-      <div class="header-links">
-        <a href="/CLIENT-home" class="text-wrapper-2">Client Home</a>
-        <div class="logout-button">
-          <form th:action="@{/logout}" method="get" style="display: inline;">
-            <a href="/client-login" class="log-out">Logout</a>
-          </form>
-        </div>
-      </div>    
+    <div class="overlap-group">
+        <div class="rectangle"></div>
+        <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+        <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+        <div class="header-links">
+            <a href="/CLIENT-home" class="text-wrapper-2">Home</a>
+            <div class="logout-button">
+              <form th:action="@{/logout}" method="get" style="display: inline;">
+                <a href="/client-login" class="log-out">Logout</a>
+              </form>
+            </div>
+          </div>                  
     </div>
-  </header>
+</header>
 
   <div class="CLIENT-guide">
     <div class="div">
