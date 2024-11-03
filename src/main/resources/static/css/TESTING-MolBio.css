@@ -94,7 +94,7 @@ body {
     }
 
 
-/* Content Area */
+
 .content {
     display: flex;
     justify-content: center;
@@ -123,7 +123,7 @@ body {
 }
 
 
-/* Table Styling */
+
 .table-container {
     overflow-x: auto;
     border: 1px solid #ddd;
@@ -162,7 +162,7 @@ td a:hover {
 }
 
 
-/* Select and Button Styling */
+
 select {
     padding: 5px;
     border-radius: 5px;
@@ -174,10 +174,13 @@ select {
     padding: 8px 15px;
     background-color: #1E3A8A;
     color: white;
+    font-size: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    width: 100%;
+    height: 33px;
+    margin-top: 30px;
 }
 
 
@@ -186,7 +189,7 @@ select {
 }
 
 
-/* Popup styling */
+
 .popup {
     display: none;
     position: fixed;
@@ -196,6 +199,18 @@ select {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
+}
+
+.testRequestPopup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+
 }
 
 
@@ -214,10 +229,22 @@ select {
     overflow-y: auto;
 }
 
+.testRequestPopup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 500px;
+    height: 300px;
+    max-height: 80vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
 
-
-
-/* Smooth opening animation */
 @keyframes popupOpen {
     0% {
         transform: translate(-50%, -55%);
@@ -241,43 +268,53 @@ select {
 
 
 .close-popup:hover {
-    color: #ff0000; /* Bright red on hover */
+    color: #ff0000;
 }
 
 
-/* Input Styles for Read-Only Fields */
+
 input[readonly] {
-    background-color: #f9f9f9; /* Softer background for better readability */
-    border: 1px solid #ddd; /* Light border */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     width: 100%;
     padding: 10px 15px;
-    border-radius: 5px; /* Rounded corners */
-    margin-bottom: 15px; /* Spacing between inputs */
+    border-radius: 5px;
+    margin-bottom: 15px;
     font-size: 14px;
     color: #333;
 }
 
 
-/* Label Styles */
+
 form label {
     display: block;
-    font-weight: 600; /* Slightly bolder font */
-    margin-bottom: 5px; /* Space between label and input */
-    color: #1E3A8A; /* Softened color */
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #1E3A8A;
 }
 
 
-/* Form Sections Styling */
+
 form div {
-    margin-bottom: 20px; /* Space between form sections */
+    margin-bottom: 20px;
 }
 
 
-/* Popup Title */
+
 .popup-content h3 {
     font-family: 'Arial', sans-serif;
     color: #1E3A8A;
-    border-bottom: 2px solid #ddd; /* Light separator */
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.testRequestPopup-content h3 {
+    font-family: 'Arial', sans-serif;
+    color: #1E3A8A;
+    border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 20px;
     font-size: 1.5em;
@@ -285,13 +322,13 @@ form div {
 }
 
 
-/* Add slight spacing to the body when popup is open */
+
 body.popup-open {
-    overflow: hidden; /* Prevent background scrolling */
+    overflow: hidden;
 }
 
 
-/* Table styling within the popup */
+
 .pdf-header {
     text-align: center;
     font-size: 20px;

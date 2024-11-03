@@ -41,7 +41,7 @@ public class TestingChemController {
         // Construct the HTML response to display in the popup
         StringBuilder details = new StringBuilder();
         
-        details.append("<h4>Chem Tests:</h4><div class='checklist'>");
+        details.append("<div class='checklist'>");
         String[] tests = requestDetails.getChemTests() != null ? requestDetails.getChemTests().split(",") : new String[0];
         
         // Use ldControlNumber for checkbox IDs
