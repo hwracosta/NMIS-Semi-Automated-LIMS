@@ -298,11 +298,26 @@ $(document).ready(function() {
             reviewPopup.fadeOut(); // Use fadeOut for a smoother hide effect
         });
 
-        // Handle the confirm submission button inside the popup
         confirmSubmitBtn.on('click', function() {
-            reviewPopup.fadeOut(); // Close the popup before form submission
-            labRequestForm.submit(); // Submit the form
+            // Validate required fields
+            const purposeTest = $('#test-purpose').val();
+            const releasingResults = $('input[name="releasingResults"]:checked').val();
+            const weightGrams = $('#weight').val();
+        
+            // Check if at least one test is selected
+            const isTestSelected = $('input[name="microbioTests"]:checked').length > 0 ||
+                                   $('input[name="molecTests"]:checked').length > 0 ||
+                                   $('input[name="chemTests"]:checked').length > 0;
+        
+            if (!purposeTest || !releasingResults || !weightGrams || !isTestSelected) {
+                alert("Please fill out all required fields and select at least one test.");
+            } else {
+                reviewPopup.fadeOut(); // Close the popup before form submission
+                labRequestForm.submit(); // Submit the form
+            }
         });
+        
+        
 
         // Function to generate PDF from the review content
         function generatePDF() {
