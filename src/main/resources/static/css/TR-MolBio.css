@@ -273,3 +273,43 @@ form div {
 body.popup-open {
     overflow: hidden; /* Prevent background scrolling */
 }
+
+.pdf-header {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #002267;
+}
+
+
+.pdf-section h3 {
+    font-size: 16px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+
+.pdf-table th, .pdf-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+
+.pdf-field {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+
+.pdf-value {
+    color: #333;
+}
