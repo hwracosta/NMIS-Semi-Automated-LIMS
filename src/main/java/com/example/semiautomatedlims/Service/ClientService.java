@@ -21,6 +21,10 @@ public class ClientService {
         return clientRepository.findByEmail(email);
     }
 
+    public boolean isEmailInUse(String email) {
+        return clientRepository.existsByEmail(email);
+    }    
+
     // Method to find client by reset token
     public Client findByResetToken(String resetToken) {  // Ensure the name matches in both files
         return clientRepository.findByResetToken(resetToken);
