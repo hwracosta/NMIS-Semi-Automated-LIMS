@@ -1,9 +1,9 @@
-/* General Styling */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f5f7fa;
 }
+
 
 .header {
     position: relative;
@@ -12,31 +12,31 @@ body {
     background-color: transparent;
     box-shadow: 0px 5px 70px #0000004c;
     }
-    
+   
    .overlap-group {
     position: relative;
     width: 100%;
     height: 150px;
     }
-    
+   
    .rectangle {
     position: absolute;
-    width: 100vw; 
+    width: 100vw;
     height: 150px;
     top: 0;
     left: 0;
     background-color: #002267;
     }
-    
+   
    .img {
     position: absolute;
     width: auto;
     height: 122px;
     top: 14px;
     left: 20px;
-    max-width: 100%; 
+    max-width: 100%;
     }
-    
+   
    .text-wrapper {
       max-width: calc(100% - 40px);
       top: 47px;
@@ -53,7 +53,7 @@ body {
       word-wrap: break-word;
       word-break: break-word;
     }
-    
+   
    .header-links {
       display: flex;
       align-items: center;
@@ -61,7 +61,7 @@ body {
       top: 85px;
       right: 20px;
     }
-    
+   
    .text-wrapper-2 {
       font-family: "Averia Serif Libre-Regular", Helvetica;
       font-weight: 400;
@@ -72,11 +72,11 @@ body {
       text-decoration: none;
       margin-right: 15px;
     }
-    
+   
    .text-wrapper-2:hover {
       text-decoration: underline;
     }
-    
+   
    .log-out {
       font-family: "Averia Serif Libre-Regular", Helvetica;
       font-weight: 400;
@@ -88,10 +88,11 @@ body {
       margin-left: 10px;
       cursor: pointer;
     }
-    
+   
    .log-out:hover {
       text-decoration: underline;
     }
+
 
 /* Content Area */
 .content {
@@ -99,6 +100,7 @@ body {
     justify-content: center;
     margin-top: 30px;
 }
+
 
 .request-review-box {
     background-color: white;
@@ -111,6 +113,7 @@ body {
     overflow-y: auto;
 }
 
+
 .title {
     font-size: 26px;
     font-weight: bold;
@@ -119,6 +122,7 @@ body {
     margin-bottom: 20px;
 }
 
+
 /* Table Styling */
 .table-container {
     overflow-x: auto;
@@ -126,10 +130,12 @@ body {
     border-radius: 8px;
 }
 
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
+
 
 th, td {
     padding: 15px;
@@ -137,20 +143,24 @@ th, td {
     border-bottom: 1px solid #ddd;
 }
 
+
 th {
     background-color: #f1f1f1;
     font-weight: bold;
     color: #1E3A8A;
 }
 
+
 td a {
     color: #1E3A8A;
     text-decoration: none;
 }
 
+
 td a:hover {
     text-decoration: underline;
 }
+
 
 /* Select and Button Styling */
 select {
@@ -158,6 +168,7 @@ select {
     border-radius: 5px;
     border: 1px solid #ddd;
 }
+
 
 .submit-btn {
     padding: 8px 15px;
@@ -169,11 +180,13 @@ select {
     margin-left: 10px;
 }
 
+
 .submit-btn:hover {
     background-color: #142c6c;
 }
 
-/* Popup Overlay */
+
+/* Popup styling */
 .popup {
     display: none;
     position: fixed;
@@ -181,30 +194,28 @@ select {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Lighter overlay for better contrast */
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
-    transition: opacity 0.3s ease-in-out; /* Smooth fade-in/out effect */
 }
 
-/* Popup Content Styling */
+
 .popup-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding-right: 40px;
-    padding-left: 25px;
-    padding-bottom: 30px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 8px;
     width: 80%;
-    max-width: 600px;
+    max-width: 700px;
     max-height: 80vh;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* Softer shadow for depth */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
-    z-index: 10000;
-    animation: popupOpen 0.4s ease-out; /* Animation for the popup */
 }
+
+
+
 
 /* Smooth opening animation */
 @keyframes popupOpen {
@@ -218,20 +229,21 @@ select {
     }
 }
 
-/* Close Button Styling */
+
 .close-popup {
-    cursor: pointer;
     position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 25px; /* Slightly larger for visibility */
-    color: #ff5c5c; /* Softer red for aesthetics */
-    transition: color 0.2s;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
 }
+
 
 .close-popup:hover {
     color: #ff0000; /* Bright red on hover */
 }
+
 
 /* Input Styles for Read-Only Fields */
 input[readonly] {
@@ -245,6 +257,7 @@ input[readonly] {
     color: #333;
 }
 
+
 /* Label Styles */
 form label {
     display: block;
@@ -253,10 +266,12 @@ form label {
     color: #1E3A8A; /* Softened color */
 }
 
+
 /* Form Sections Styling */
 form div {
     margin-bottom: 20px; /* Space between form sections */
 }
+
 
 /* Popup Title */
 .popup-content h3 {
@@ -269,7 +284,50 @@ form div {
     text-align: center;
 }
 
+
 /* Add slight spacing to the body when popup is open */
 body.popup-open {
     overflow: hidden; /* Prevent background scrolling */
+}
+
+
+/* Table styling within the popup */
+.pdf-header {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #002267;
+}
+
+
+.pdf-section h3 {
+    font-size: 16px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+
+.pdf-table th, .pdf-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+
+.pdf-field {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+
+.pdf-value {
+    color: #333;
 }

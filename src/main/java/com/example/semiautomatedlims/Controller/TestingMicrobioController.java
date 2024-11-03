@@ -1,6 +1,5 @@
 package com.example.semiautomatedlims.Controller;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,27 +59,15 @@ public class TestingMicrobioController {
 
     @GetMapping("/api/getMicroBioSampleDetails")
     @ResponseBody
-    public String getSampleDetails(@RequestParam Long clientReqid) {
+    public ResponseEntity<ClientReqForm> getSampleDetails(@RequestParam Long clientReqid) {
         ClientReqForm sampleDetails = testingMicrobioService.getRequestDetailsById(clientReqid);
-        
+   
         if (sampleDetails == null) {
-            return "<p>No sample details found for this request.</p>";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format without timestamp
-        String productionDate = dateFormat.format(sampleDetails.getProductionDate());
-        String expirationDate = dateFormat.format(sampleDetails.getExpirationDate());
-
-        StringBuilder details = new StringBuilder();
-        details.append("<p><strong>Sample Code:</strong> ").append(sampleDetails.getClientSampleCode()).append("</p>");
-        details.append("<p><strong>Sample Details:</strong> ").append(sampleDetails.getSampleDetails()).append("</p>");
-        details.append("<p><strong>Sample Source:</strong> ").append(sampleDetails.getSampleSource()).append("</p>");
-        details.append("<p><strong>Production Date:</strong> ").append(productionDate).append("</p>"); 
-        details.append("<p><strong>Expiration Date:</strong> ").append(expirationDate).append("</p>");
-        details.append("<p><strong>Weight (grams):</strong> ").append(sampleDetails.getWeightGrams()).append("</p>");
-
-        return details.toString();
-    }
+   
+        return ResponseEntity.ok(sampleDetails);
+    }    
 
     @PostMapping("/api/submitMicrobioRequest")
     public ResponseEntity<String> submitMicrobioRequest(@RequestParam Long clientReqid) {
