@@ -82,7 +82,13 @@
                             <!-- Example Rows with Input Fields -->
                             <tr th:each="examination : ${examinations}">
                                 <td th:text="${examination}">Test Name</td>
-                                <td><input type="text" th:name="'chemResult_' + ${examination}" placeholder="Result" required></td>
+                                <td>
+                                    <select th:name="'chemResult_' + ${examination}" required>
+                                        <option value="" disabled selected>Select Result</option>
+                                        <option value="Positive">Positive</option>
+                                        <option value="Negative">Negative</option>
+                                    </select>
+                                </td>  
                                 <td><input type="text" th:name="'chemRemarks_' + ${examination}" placeholder="Remarks" required></td>
                                 <td><input type="text" th:name="'chemDetectionLimit_' + ${examination}" placeholder="Detection Limit" required></td>
                                 <td><input type="text" th:name="'chemRegulatoryLimits_' + ${examination}" placeholder="Regulatory Limits" required></td>

@@ -78,7 +78,13 @@
                     <tbody>
                         <tr th:each="examination : ${examinations}">
                             <td th:text="${examination}">Test Name</td>
-                            <td><input type="text" th:name="'micResult_' + ${examination}" placeholder="Result" required></td>
+                            <td>
+                                <select th:name="'micResult_' + ${examination}" required>
+                                    <option value="" disabled selected>Select Result</option>
+                                    <option value="Positive">Positive</option>
+                                    <option value="Negative">Negative</option>
+                                </select>
+                            </td>     
                             <td><input type="text" th:name="'micRefVal_' + ${examination}" placeholder="Reference Value" required></td>
                             <td><input type="text" th:name="'micRemarks_' + ${examination}" placeholder="Remarks" required></td>
                         </tr>

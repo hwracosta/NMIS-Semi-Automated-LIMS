@@ -76,7 +76,13 @@
                     <tbody>
                     <tr th:each="examination : ${examinations}">
                         <td th:text="${examination}">Examination Name</td>
-                        <td><input type="text" th:name="'species_result_' + ${examination}" required></td>
+                        <td>
+                            <select th:name="'species_result_' + ${examination}" required>
+                                <option value="" disabled selected>Select Result</option>
+                                <option value="Positive">Positive</option>
+                                <option value="Negative">Negative</option>
+                            </select>
+                        </td>                        
                     </tr>
                     </tbody>
                 </table>
