@@ -160,3 +160,14 @@ body, html {
   z-index: 1;
 }
 
+/* Hide arrows in input[type="number"] on Webkit browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide arrows in input[type="number"] on Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Disables number input styling in Firefox */
+}
