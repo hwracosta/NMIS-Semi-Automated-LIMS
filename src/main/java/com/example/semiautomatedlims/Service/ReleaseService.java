@@ -90,4 +90,10 @@ public class ReleaseService {
             return 0;
         }
     }
+
+    public void completeRequest(ClientReqForm clientReqForm) {
+        clientReqForm.setStatus("Complete"); // Update status to "Complete"
+        releaseRepository.save(clientReqForm);
+        releaseRepository.flush(); // Ensures the update is immediately applied to the database
+    }
 }

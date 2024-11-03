@@ -10,9 +10,12 @@ import com.example.semiautomatedlims.Service.TestingMicrobioService;
 import com.example.semiautomatedlims.Service.TestingMolBioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,6 +70,17 @@ public class ReleaseReleaseController {
         releaseService.updateRequestStatusIfComplete(clientReqForm);
 
         return resultDetails;
+    }
+
+    @PostMapping("/api/submitRequest")
+    @ResponseBody
+    public ResponseEntity<?> submitRequest(@RequestParam("clientReqid") Long clientReqid) {
+        ClientReqForm clientReqForm = releaseService.getRequestById(clientReqid);
+        if (clientReqForm != null && "For Release".equals(clientReqForm.getStatus())) {
+            releaseService.completeRequest(clientReqForm); // New method to mark as complete
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Request not eligible for submission.");
     }
 
     private String getLdControlNumber(Long clientReqid) {

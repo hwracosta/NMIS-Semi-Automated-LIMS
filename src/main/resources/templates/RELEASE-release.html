@@ -78,6 +78,14 @@
                                 View Results
                             </button>
                         </td>
+                        <td>
+                            <button th:id="'submit-button-' + ${request.clientReqid}"
+                                    th:disabled="${request.status != 'For Release'}"
+                                    th:onclick="'submitRequest(' + ${request.clientReqid} + ')'"
+                                    class="btn btn-primary">
+                                Submit
+                            </button>
+                        </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(requests)}">
                         <td colspan="7" style="text-align:center;">No pending requests</td>
@@ -241,6 +249,23 @@
                 });
             });
         });
+
+        function submitRequest(clientReqid) {
+            $.ajax({
+                url: '/api/submitRequest',
+                type: 'POST',
+                data: { clientReqid: clientReqid },
+                success: function(response) {
+                    $('#row-' + clientReqid).fadeOut(500, function() {
+                        $(this).remove();
+                    });
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert("Failed to submit request.");
+                }
+            });
+        }
 
         function showPopup(clientReqid) {
             // Clear existing data
