@@ -19,6 +19,10 @@
       </div>
 
       <form th:action="@{/CLIENT-register}" method="post">
+              <!-- Error message display -->
+      <div th:if="${emailError}" style="color: red; font-weight: bold;">
+        <p th:text="${emailError}"></p>
+      </div>
         <div class="credentials">
           <label class="label" for="email">Email Address</label>
           <input class="input" id="email" name="email" type="email" placeholder="Enter your Email Address" required />
@@ -39,7 +43,7 @@
 
         <div class="credentials">
           <label class="label" for="input-4">Contact Number</label>
-          <input class="input" id="input-4" name="contactNumber" placeholder="Enter Contact Number" required />
+          <input class="input" id="input-4" name="contactNumber" type="number" placeholder="Enter Contact Number" required />
         </div>
 
         <div class="credentials">

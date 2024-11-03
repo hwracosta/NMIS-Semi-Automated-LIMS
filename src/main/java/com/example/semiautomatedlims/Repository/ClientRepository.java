@@ -11,4 +11,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     // Method to find by reset token
     Client findByResetToken(String resetToken);
+
+    // Method to check if an email already exists
+    boolean existsByEmail(String email);
 }
