@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,50 +36,45 @@ public class ReleaseReleaseController {
     @Autowired
     private TestingMolBioService testingMolBioService;
 
-    // Method to show the release page
+    // Show the release page
     @GetMapping("/RELEASE-release")
     public String showReleaseReleasePage(Model model) {
-        List<String> statuses = List.of("For Testing");
+        List<String> statuses = List.of("For Testing", "For Release");
         List<ClientReqForm> processedRequests = releaseService.getProcessedRequests(statuses);
         model.addAttribute("requests", processedRequests);
         return "RELEASE-release";
     }
 
-    // Method to fetch result details based on test type and clientReqid
+    // Fetch result details based on test type and clientReqid
     @GetMapping("/api/getResultDetails")
     @ResponseBody
     public Map<String, Object> getResultDetails(@RequestParam("clientReqid") Long clientReqid,
                                                 @RequestParam("testType") String testType) {
         Map<String, Object> resultDetails = new HashMap<>();
-
-        // Get the LD Control Number
         String ldControlNumber = getLdControlNumber(clientReqid);
         resultDetails.put("ldControlNumber", ldControlNumber);
 
-        // Fetch data based on test type
+        // Fetch and format data by test type
         switch (testType) {
-            case "MolBio" -> {
-                List<Map<String, String>> molBioDataList = formatMolBioData(testingMolBioService.findMolBioDataByLdControlNumber(ldControlNumber));
-                resultDetails.put("molbioResults", molBioDataList);
-            }
-            case "Chem" -> {
-                List<Map<String, String>> chemDataList = formatChemData(testingChemService.findChemDataByLdControlNumber(ldControlNumber));
-                resultDetails.put("chemResults", chemDataList);
-            }
-            case "Microbio" -> {
-                List<Map<String, String>> microBioDataList = formatMicroBioData(testingMicrobioService.findMicroBioDataByLdControlNumber(ldControlNumber));
-                resultDetails.put("microbioResults", microBioDataList);
-            }
+            case "MolBio" -> resultDetails.put("molbioResults", formatMolBioData(testingMolBioService.findMolBioDataByLdControlNumber(ldControlNumber)));
+            case "Chem" -> resultDetails.put("chemResults", formatChemData(testingChemService.findChemDataByLdControlNumber(ldControlNumber)));
+            case "Microbio" -> resultDetails.put("microbioResults", formatMicroBioData(testingMicrobioService.findMicroBioDataByLdControlNumber(ldControlNumber)));
+            default -> throw new IllegalArgumentException("Invalid test type: " + testType);
         }
+
+        // Update the request status if all tests are complete
+        ClientReqForm clientReqForm = releaseService.getRequestById(clientReqid);
+        releaseService.updateRequestStatusIfComplete(clientReqForm);
 
         return resultDetails;
     }
 
     private String getLdControlNumber(Long clientReqid) {
-        ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid); // Fetch using any service
+        ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
         return clientReqForm != null ? clientReqForm.getLdControlNumber() : "Unknown";
     }
 
+    // Formatting methods for MolBio data
     private List<Map<String, String>> formatMolBioData(List<MolBioData> molBioDataList) {
         List<Map<String, String>> details = new ArrayList<>();
         for (MolBioData data : molBioDataList) {
@@ -92,7 +86,7 @@ public class ReleaseReleaseController {
         return details;
     }
 
-
+    // Formatting methods for Chem data
     private List<Map<String, String>> formatChemData(List<ChemData> chemDataList) {
         List<Map<String, String>> details = new ArrayList<>();
         for (ChemData data : chemDataList) {
@@ -108,7 +102,7 @@ public class ReleaseReleaseController {
         return details;
     }
 
-
+    // Formatting methods for MicroBio data
     private List<Map<String, String>> formatMicroBioData(List<MicroBioData> microBioDataList) {
         List<Map<String, String>> details = new ArrayList<>();
         for (MicroBioData data : microBioDataList) {
