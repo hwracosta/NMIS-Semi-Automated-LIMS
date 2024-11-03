@@ -41,7 +41,7 @@ public class TestingMicrobioController {
         // Construct the HTML response to display in the popup
         StringBuilder details = new StringBuilder();
         
-        details.append("<h4>MicroBio Tests:</h4><div class='checklist'>");
+        details.append("<div class='checklist'>");
         String[] tests = requestDetails.getMicrobioTests() != null ? requestDetails.getMicrobioTests().split(",") : new String[0];
         
         // Use ldControlNumber for checkbox IDs

@@ -47,7 +47,7 @@ public class TestingMolBioController {
         // Construct the HTML response to display in the popup
         StringBuilder details = new StringBuilder();
        
-        details.append("<h4>MolBio Tests:</h4><div class='checklist'>");
+        details.append("<div class='checklist'>");
         String[] tests = requestDetails.getMolecTests() != null ? requestDetails.getMolecTests().split(",") : new String[0];
        
         // Use ldControlNumber for checkbox IDs
