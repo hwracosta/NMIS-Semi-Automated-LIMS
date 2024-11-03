@@ -1,17 +1,42 @@
 package com.example.semiautomatedlims.Controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class StaffTestingHomeController {
 
     @GetMapping("/STAFF-TESTINGhome")
-    public String staffForgotPassword() {
+    public String staffTestingHome(HttpSession session, Model model) {
+        String testingSection = (String) session.getAttribute("testingSection");
+        
+        // Format the testingSection based on its value
+        if (testingSection != null) {
+            switch (testingSection.toLowerCase()) {
+                case "molbio":
+                    testingSection = "Molecular Biology";
+                    break;
+                case "microbio":
+                    testingSection = "Microbiology";
+                    break;
+                case "chem":
+                    testingSection = "Chemistry";
+                    break;
+                default:
+                    testingSection = "Unknown"; // Handle unexpected values
+                    break;
+            }
+        }
+        
+        model.addAttribute("testingSection", testingSection);
         return "STAFF-TESTINGhome"; 
     }
+
+
 
     @GetMapping("/staff-testing-logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -22,10 +47,10 @@ public class StaffTestingHomeController {
 
     @GetMapping("/TESTING-testing")
     public String redirectToTestingTesting(HttpSession session) {
-        // Retrieve the testing_section from the session
+        // Retrieve the testingSection from the session
         String testingSection = (String) session.getAttribute("testingSection");
         
-        // Check the value of testing_section and redirect accordingly
+        // Check the value of testingSection and redirect accordingly
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/TESTING-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
@@ -33,17 +58,14 @@ public class StaffTestingHomeController {
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/TESTING-Chem";
         } else {
-            // Redirect to a default page or show an error message if testing_section is not valid
             return "redirect:/default-results";  
         }
     }
 
     @GetMapping("/TESTING-results")
     public String redirectToTestingResults(HttpSession session) {
-        // Retrieve the testing_section from the session
         String testingSection = (String) session.getAttribute("testingSection");
         
-        // Check the value of testing_section and redirect accordingly
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/TR-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
@@ -51,17 +73,14 @@ public class StaffTestingHomeController {
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/TR-Chem";
         } else {
-            // Redirect to a default page or show an error message if testing_section is not valid
             return "redirect:/default-results";  
         }
     }
 
     @GetMapping("/TESTING-database")
     public String redirectToTestingDatabase(HttpSession session) {
-        // Retrieve the testing_section from the session
         String testingSection = (String) session.getAttribute("testingSection");
         
-        // Check the value of testing_section and redirect accordingly
         if ("molbio".equalsIgnoreCase(testingSection)) {
             return "redirect:/DATABASE-MolBio";
         } else if ("microbio".equalsIgnoreCase(testingSection)) {
@@ -69,10 +88,10 @@ public class StaffTestingHomeController {
         } else if ("chem".equalsIgnoreCase(testingSection)) {
             return "redirect:/DATABASE-Chem";
         } else {
-            // Redirect to a default page or show an error message if testing_section is not valid
             return "redirect:/default-results";  
         }
     }
 }
+
 
 

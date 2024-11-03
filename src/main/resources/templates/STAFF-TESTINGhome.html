@@ -21,9 +21,14 @@
                         <a href="/STAFF-login" class="log-out">Logout</a>
                       </form>
                     </div>
-                  </div>                  
+                </div>                  
             </div>
         </header>
+        <div class="user-indicator-container">
+            <span class="user-indicator" th:text="'Welcome, ' + ${testingSection} + ' Staff'"></span>
+        </div>
+        
+
         <div class="buttons-container">
             <a th:href="@{/TESTING-testing}" class="overlap-3">
                 <div class="text-wrapper-5">For Testing</div>
@@ -42,3 +47,4 @@
 </div>
 </body>
 </html>
+
