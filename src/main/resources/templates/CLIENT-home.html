@@ -25,8 +25,8 @@
             </div>
         </header>
         <div class="user-indicator-container">
-            <span class="user-indicator" th:text="'Welcome, ' + ${loggedInClient.name}"></span>
-        </div>
+            <span class="user-indicator" th:text="'Welcome, ' + ${loggedInClient.representativeName}"></span>
+        </div>        
         
         <div class="buttons-container">
             <a th:href="@{/CLIENT-guide}" class="overlap-3">

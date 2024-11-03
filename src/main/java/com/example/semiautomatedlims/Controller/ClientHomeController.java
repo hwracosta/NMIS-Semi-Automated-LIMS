@@ -5,21 +5,22 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
 
 @Controller
 public class ClientHomeController {
 
     @GetMapping("/CLIENT-home")
-    public String clientHome(HttpSession session, RedirectAttributes redirectAttributes) {
+    public String clientHome(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirect to login if no client is in session
             redirectAttributes.addFlashAttribute("error", "Please log in first.");
             return "redirect:/client-login";
         }
 
-        return "CLIENT-home";
+        model.addAttribute("loggedInClient", loggedInClient); // Pass the client object to the model
+        return "CLIENT-home"; // Return the CLIENT-home view
     }
 
     @GetMapping("/logout")
