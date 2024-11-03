@@ -76,8 +76,18 @@
     <div class="popup" id="sampleDetailsPopup">
         <div class="popup-content">
             <span class="close-popup" onclick="closeSampleDetailsPopup()">&times;</span>
-            <h3>Sample Details</h3>
-            <div id="sampleDetails"></div>
+            <div class="pdf-header">
+                <h2>Sample Details</h2>
+            </div>
+            <hr>
+            <div class="pdf-section">
+                <h3>Sample Information</h3>
+                <table class="pdf-table">
+                    <tbody id="sampleDetailsTable">
+                        <!-- Rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -123,14 +133,56 @@
         }
 
         function showSampleDetailsPopup(clientReqid) {
-            // Fetch and populate sample details via AJAX
             $.ajax({
-                url: '/api/getSampleDetails', // Adjust according to your API
+                url: '/api/getChemSampleDetails',
                 type: 'GET',
                 data: { clientReqid: clientReqid },
                 success: function(data) {
-                    $('#sampleDetails').html(data); // Populate data
-                    $('#sampleDetailsPopup').fadeIn(); // Show popup
+                    console.log("Sample Details Data:", data); // Log data to verify the structure
+
+
+                    let tableRows = '';
+
+
+                    const fields = {
+                        clientSampleCode: "Sample Code",
+                        sampleDetails: "Sample Details",
+                        sampleSource: "Sample Source",
+                        productionDate: "Production Date",
+                        expirationDate: "Expiration Date",
+                        samplingDate: "Sampling Date",
+                        weightGrams: "Weight (grams)",
+                        purposeTest: "Purpose of Test",
+                    };
+
+
+                    for (let field in fields) {
+                        if (data[field] !== undefined) {
+                            let value = data[field];
+
+
+                            // Format dates if they are in ISO format (string)
+                            if (field.includes("Date") && typeof value === "string") {
+                                value = new Date(value).toLocaleDateString();
+                            }
+
+                            if (field === 'chemTests' && value) {
+                                value = `<ul>${value.split(',').map(test => `<li>${test.trim()}</li>`).join('')}</ul>`;
+                            }
+
+
+                            tableRows += `
+                                <tr>
+                                    <td class="pdf-field">${fields[field]}</td>
+                                    <td class="pdf-value">${value}</td>
+                                </tr>
+                            `;
+                        }
+                    }
+
+
+                    $('#sampleDetailsTable').html(tableRows);
+                    $('#sampleDetailsPopup').fadeIn();
                 },
                 error: function(xhr, status, error) {
                     alert('Error fetching sample details: ' + error);

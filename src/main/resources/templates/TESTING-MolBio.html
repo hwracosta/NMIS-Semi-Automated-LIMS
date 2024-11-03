@@ -25,6 +25,7 @@
         </div>
     </header>
 
+
     <!-- Content Area -->
     <main class="content">
         <div class="request-review-box">
@@ -40,7 +41,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="request : ${requests}">
-                            <td th:text="${request.ldControlNumber}">Control Number</td> 
+                            <td th:text="${request.ldControlNumber}">Control Number</td>
                             <td>
                                 <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
                                     <u>Sample Details</u>
@@ -61,6 +62,7 @@
         </div>
     </main>
 
+
     <!-- Popup for Test Request Details -->
     <div class="popup" id="testRequestPopup" style="display:none;">
         <div class="popup-content">
@@ -72,17 +74,30 @@
         </div>
     </div>
 
+
     <!-- Popup for Sample Details -->
     <div class="popup" id="sampleDetailsPopup">
         <div class="popup-content">
             <span class="close-popup" onclick="closeSampleDetailsPopup()">&times;</span>
-            <h3>Sample Details</h3>
-            <div id="sampleDetails"></div>
+            <div class="pdf-header">
+                <h2>Sample Details</h2>
+            </div>
+            <hr>
+            <div class="pdf-section">
+                <h3>Sample Information</h3>
+                <table class="pdf-table">
+                    <tbody id="sampleDetailsTable">
+                        <!-- Rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
+
     <script>
         let currentClientReqId; // Declare a variable to store the current clientReqid
+
 
         function showTestRequestPopup(clientReqid) {
             currentClientReqId = clientReqid; // Store the clientReqid for use in submitTestRequest
@@ -107,6 +122,7 @@
             });
         }
 
+
         function restoreCheckboxState(clientReqid) {
             const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
             checkboxes.forEach((checkbox) => {
@@ -115,6 +131,7 @@
                 const storedValue = localStorage.getItem(storageKey); // Use the unique key to get stored state
                 checkbox.checked = storedValue === 'true'; // Restore checked state
 
+
                 // Add change event listener to save state
                 checkbox.addEventListener('change', function () {
                     localStorage.setItem(storageKey, this.checked); // Save state in localStorage with the unique key
@@ -122,15 +139,60 @@
             });
         }
 
+
         function showSampleDetailsPopup(clientReqid) {
-            // Fetch and populate sample details via AJAX
             $.ajax({
-                url: '/api/getSampleDetails', // Adjust according to your API
+                url: '/api/getSampleDetails',
                 type: 'GET',
                 data: { clientReqid: clientReqid },
                 success: function(data) {
-                    $('#sampleDetails').html(data); // Populate data
-                    $('#sampleDetailsPopup').fadeIn(); // Show popup
+                    console.log("Sample Details Data:", data); // Log data to verify the structure
+
+
+                    let tableRows = '';
+
+
+                    const fields = {
+                        clientSampleCode: "Sample Code",
+                        sampleDetails: "Sample Details",
+                        sampleSource: "Sample Source",
+                        productionDate: "Production Date",
+                        expirationDate: "Expiration Date",
+                        samplingDate: "Sampling Date",
+                        weightGrams: "Weight (grams)",
+                        purposeTest: "Purpose of Test",
+                    };
+
+
+                    for (let field in fields) {
+                        if (data[field] !== undefined) {
+                            let value = data[field];
+
+
+                            // Format dates if they are in ISO format (string)
+                            if (field.includes("Date") && typeof value === "string") {
+                                value = new Date(value).toLocaleDateString();
+                            }
+
+
+                            // Format molecTests as a list if it’s a comma-separated string
+                            if (field === 'molecTests' && value) {
+                                value = `<ul>${value.split(',').map(test => `<li>${test.trim()}</li>`).join('')}</ul>`;
+                            }
+
+
+                            tableRows += `
+                                <tr>
+                                    <td class="pdf-field">${fields[field]}</td>
+                                    <td class="pdf-value">${value}</td>
+                                </tr>
+                            `;
+                        }
+                    }
+
+
+                    $('#sampleDetailsTable').html(tableRows);
+                    $('#sampleDetailsPopup').fadeIn();
                 },
                 error: function(xhr, status, error) {
                     alert('Error fetching sample details: ' + error);
@@ -138,16 +200,20 @@
             });
         }
 
+
         function submitMolBioRequest(clientReqid) {
             const checkboxes = $('#testRequestForm input[type="checkbox"]');
             const checkedCount = checkboxes.filter(':checked').length;
+
 
             if (checkboxes.length !== checkedCount) {
                 alert('Please ensure all test requests are checked before submitting.');
                 return;
             }
 
+
             const formData = $('#testRequestForm').serialize();
+
 
             $.ajax({
                 url: '/api/submitMolBioRequest',
@@ -168,15 +234,15 @@
             });
         }
 
-
-
         function closeTestRequestPopup() {
             $('#testRequestPopup').fadeOut();
         }
 
+
         function closeSampleDetailsPopup() {
             $('#sampleDetailsPopup').fadeOut();
         }
+
 
         // Close the popup if clicking outside of it
         $(window).click(function(event) {
