@@ -36,32 +36,58 @@
                             <th>Status</th>
                             <th>Request Details</th>
                             <th>Molecular Biology Test Results</th>
-                            <th>Microbiology Test Results</th>
                             <th>Chemical Test Results</th>
+                            <th>Microbiology Test Results</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="request : ${requests}"
-                            th:data-sample-details="${request.sampleDetails}" 
-                            th:data-sample-source="${request.sampleSource}" 
-                            th:data-weight="${request.weightGrams}" 
-                            th:data-production-date="${request.productionDate}" 
-                            th:data-expiration-date="${request.expirationDate}"
-                            th:data-sampling-date="${request.samplingDate}"   
-                            th:data-purpose-test="${request.purposeTest}"  
-                            th:data-microbio-tests="${request.microbioTests}" 
-                            th:data-molec-tests="${request.molecTests}"  
-                            th:data-chem-tests="${request.chemTests}"> 
-                            <td th:text="${request.clientReqid}"></td>
-                            <td th:text="${request.clientSampleCode}"></td>
-                            <td th:text="${request.status}"></td>
-                            <td>
-                                <button class="view-details" data-request-id="${request.clientReqid}">View Details</button>
-                            </td>
-                            <td th:text="${#strings.isEmpty(request.molecTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                            <td th:text="${#strings.isEmpty(request.microbioTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                            <td th:text="${#strings.isEmpty(request.chemTests) ? 'No Test/s Requested' : 'Pending Test Results'}"></td>
-                        </tr>
+                    <tr th:each="request : ${requests}"
+                        th:data-sample-details="${request.sampleDetails}"
+                        th:data-sample-source="${request.sampleSource}"
+                        th:data-weight="${request.weightGrams}"
+                        th:data-production-date="${request.productionDate}"
+                        th:data-expiration-date="${request.expirationDate}"
+                        th:data-sampling-date="${request.samplingDate}"
+                        th:data-purpose-test="${request.purposeTest}"
+                        th:data-microbio-tests="${request.microbioTests}"
+                        th:data-molec-tests="${request.molecTests}"
+                        th:data-chem-tests="${request.chemTests}">
+                        <td th:text="${request.clientReqid}"></td>
+                        <td th:text="${request.clientSampleCode}"></td>
+                        <td th:text="${request.status}"></td>
+                        <td>
+                            <button class="view-details" data-request-id="${request.clientReqid}">View Details</button>
+                        </td>
+                        <!-- Molecular Biology Test Results -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
+                            <span th:if="${!#strings.isEmpty(request.molecTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <button th:if="${!#strings.isEmpty(request.molecTests) && request.status == 'Complete'}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
+                                View Results
+                            </button>
+                        </td>
+
+                        <!-- Chemical Test Results -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
+                            <span th:if="${!#strings.isEmpty(request.chemTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <button th:if="${!#strings.isEmpty(request.chemTests) && request.status == 'Complete'}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
+                                View Results
+                            </button>
+                        </td>
+
+                        <!-- Microbiology Test Results -->
+                        <td>
+                            <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
+                            <span th:if="${!#strings.isEmpty(request.microbioTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <button th:if="${!#strings.isEmpty(request.microbioTests) && request.status == 'Complete'}"
+                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
+                                View Results
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -84,6 +110,70 @@
             <p><strong>Molecular Tests:</strong> <span id="popupMolecTests"></span></p>
             <p><strong>Chemical Tests:</strong> <span id="popupChemTests"></span></p>
             <button id="closePopup">x</button>
+        </div>
+    </div>
+
+    <div id="resultsPopup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeResultsPopup()">&times;</span>
+            <h3>Test Results</h3>
+            <form id="resultsForm">
+                <input type="hidden" name="clientReqid" id="resultClientReqid" />
+
+                <!-- LD Control Number Display -->
+                <div>
+                    <label for="ldControlNumber">LD Control Number:</label>
+                    <input type="text" name="ldControlNumber" id="ldControlNumber" readonly />
+                </div>
+
+                <!-- Chemical Test Results Table -->
+                <div id="chemResultsContainer" class="table-container" style="display:none;">
+                    <h4>Chemical Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Result</th>
+                            <th>Remarks</th>
+                            <th>Detection Limit</th>
+                            <th>Regulatory Limits</th>
+                            <th>Analysis Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="chemResultsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Microbiology Test Results Table -->
+                <div id="microbioResultsContainer" class="table-container" style="display:none;">
+                    <h4>Microbiology Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Test Conducted</th>
+                            <th>Result</th>
+                            <th>Reference Value</th>
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody id="microbioResultsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Molecular Biology Test Results Table -->
+                <div id="molbioResultsContainer" class="table-container" style="display:none;">
+                    <h4>Molecular Biology Test Results</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Examination Conducted</th>
+                            <th>Meat Species Result</th>
+                        </tr>
+                        </thead>
+                        <tbody id="molbioResultsTableBody"></tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -132,6 +222,82 @@
             $('#requestDetailsPopup').fadeOut();
         });
     });
+
+   // Show the popup function (already exists in your code)
+   function showResultsPopup(clientReqid, testType) {
+       // Clear previous data
+       $('#chemResultsTableBody').empty();
+       $('#microbioResultsTableBody').empty();
+       $('#molbioResultsTableBody').empty();
+       $('#chemResultsContainer, #microbioResultsContainer, #molbioResultsContainer').hide();
+
+       // Fetch test results based on clientReqid and testType using AJAX
+       $.ajax({
+           url: '/api/getResultDetails',
+           type: 'GET',
+           data: { clientReqid: clientReqid, testType: testType },
+           success: function(data) {
+               $('#ldControlNumber').val(data.ldControlNumber || 'N/A');
+
+               if (testType === 'Chem') {
+                   $('#chemResultsContainer').show();
+                   data.chemResults.forEach(result => {
+                       $('#chemResultsTableBody').append(`
+                        <tr>
+                            <td>${result.analyte || 'N/A'}</td>
+                            <td>${result.result || 'N/A'}</td>
+                            <td>${result.remarks || 'N/A'}</td>
+                            <td>${result.detectionLimit || 'N/A'}</td>
+                            <td>${result.regulatoryLimits || 'N/A'}</td>
+                            <td>${result.analysisDate || 'N/A'}</td>
+                        </tr>
+                    `);
+                   });
+               } else if (testType === 'Microbio') {
+                   $('#microbioResultsContainer').show();
+                   data.microbioResults.forEach(result => {
+                       $('#microbioResultsTableBody').append(`
+                        <tr>
+                            <td>${result.testConducted || 'N/A'}</td>
+                            <td>${result.result || 'N/A'}</td>
+                            <td>${result.referenceValue || 'N/A'}</td>
+                            <td>${result.remarks || 'N/A'}</td>
+                        </tr>
+                    `);
+                   });
+               } else if (testType === 'MolBio') {
+                   $('#molbioResultsContainer').show();
+                   data.molbioResults.forEach(result => {
+                       $('#molbioResultsTableBody').append(`
+                        <tr>
+                            <td>${result.examinationConducted || 'N/A'}</td>
+                            <td>${result.meatSpeciesResult || 'N/A'}</td>
+                        </tr>
+                    `);
+                   });
+               }
+
+               // Show the popup and center it
+               $('#resultsPopup').fadeIn();
+           },
+           error: function(xhr, status, error) {
+               alert('Error fetching test results: ' + error);
+           }
+       });
+   }
+
+   // Close the popup function (existing)
+   function closeResultsPopup() {
+       $('#resultsPopup').fadeOut();
+   }
+
+   // Close the popup if clicking outside of the content
+   $(window).click(function(event) {
+       if ($(event.target).is('#resultsPopup')) {
+           closeResultsPopup();
+       }
+   });
+
     </script>
 </body>
 </html>
