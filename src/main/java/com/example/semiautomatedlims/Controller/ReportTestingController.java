@@ -10,7 +10,7 @@ import com.example.semiautomatedlims.Entity.ReportTestingSummary;
 import java.util.List;
 
 @Controller
-@RequestMapping("/database")
+@RequestMapping("/REPORT-testing")
 public class ReportTestingController {
 
     @Autowired
