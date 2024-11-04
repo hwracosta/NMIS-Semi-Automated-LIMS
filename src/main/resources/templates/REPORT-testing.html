@@ -42,21 +42,21 @@
                     <tbody>
                         <tr>
                             <td style="text-align: left;">Standard Plate Count</td>
-                            <td>35</td>
-                            <td>10</td>
-                            <td>25</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td style="text-align: left;">Staphylococcus aureus</td>
-                            <td>35</td>
-                            <td>10</td>
-                            <td>25</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td style="text-align: left;">Salmonella sp.</td>
-                            <td>50</td>
-                            <td>20</td>
-                            <td>30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td style="text-align: left;">Campylobacter</td>
@@ -281,14 +281,15 @@
                             <td></td>
                         </tr>
                         
-                        <tr th:each="summary : ${testSummaries}">
-                            <td th:text="${summary.testName}">Test Name</td>
-                            <td th:text="${summary.totalAnalysisPerformed}">0</td>
-                            <td th:text="${summary.positiveResults}">0</td>
-                            <td th:text="${summary.negativeResults}">0</td>
-                        </tr>
+                        <tbody th:if="${chemicalTests != null}">
+                            <tr th:each="test : ${chemicalTests}">
+                                <td th:text="${test.testName}"></td>
+                                <td th:text="${test.totalPerformed}"></td>
+                                <td th:text="${test.positiveResults}"></td>
+                                <td th:text="${test.negativeResults}"></td>
+                            </tr>
+                        </tbody>                       
                     </tbody>
-                    
                 </table>
             </div>
         </div>
