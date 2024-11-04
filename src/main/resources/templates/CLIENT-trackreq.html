@@ -242,39 +242,97 @@
                if (testType === 'Chem') {
                    $('#chemResultsContainer').show();
                    data.chemResults.forEach(result => {
-                       $('#chemResultsTableBody').append(`
-                        <tr>
-                            <td>${result.analyte || 'N/A'}</td>
-                            <td>${result.result || 'N/A'}</td>
-                            <td>${result.remarks || 'N/A'}</td>
-                            <td>${result.detectionLimit || 'N/A'}</td>
-                            <td>${result.regulatoryLimits || 'N/A'}</td>
-                            <td>${result.analysisDate || 'N/A'}</td>
-                        </tr>
-                    `);
-                   });
+    // Split and trim each relevant field by commas
+    const analytes = result.analyte.split(',').map(analyte => analyte.trim());
+    const results = result.result.split(',').map(res => res.trim());
+    const remarks = result.remarks.split(',').map(remark => remark.trim());
+    const detectionLimits = result.detectionLimit.split(',').map(limit => limit.trim());
+    const regulatoryLimits = result.regulatoryLimits.split(',').map(limit => limit.trim());
+    const analysisDates = result.analysisDate.split(',').map(date => date.trim());
+
+    // Use the maximum length of the arrays to iterate through them
+    const maxLength = Math.max(analytes.length, results.length, remarks.length, detectionLimits.length, regulatoryLimits.length, analysisDates.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        // Get values for this row, defaulting to 'N/A' if undefined
+        const analyteValue = analytes[i] || 'N/A';
+        const resultValue = results[i] || 'N/A';
+        const remarkValue = remarks[i] || 'N/A';
+        const detectionLimitValue = detectionLimits[i] || 'N/A';
+        const regulatoryLimitValue = regulatoryLimits[i] || 'N/A';
+        const analysisDateValue = analysisDates[i] || 'N/A';
+
+        // Append the new row to the table body
+        $('#chemResultsTableBody').append(`
+            <tr>
+                <td>${analyteValue}</td>
+                <td>${resultValue}</td>
+                <td>${remarkValue}</td>
+                <td>${detectionLimitValue}</td>
+                <td>${regulatoryLimitValue}</td>
+                <td>${analysisDateValue}</td>
+            </tr>
+        `);
+    }
+});
+
                } else if (testType === 'Microbio') {
                    $('#microbioResultsContainer').show();
                    data.microbioResults.forEach(result => {
-                       $('#microbioResultsTableBody').append(`
-                        <tr>
-                            <td>${result.testConducted || 'N/A'}</td>
-                            <td>${result.result || 'N/A'}</td>
-                            <td>${result.referenceValue || 'N/A'}</td>
-                            <td>${result.remarks || 'N/A'}</td>
-                        </tr>
-                    `);
-                   });
+    // Split the testConducted string by commas and trim whitespace
+    const tests = result.testConducted.split(',').map(test => test.trim());
+    // Split the result, referenceValue, and remarks strings by commas and trim whitespace
+    const results = result.result.split(',').map(res => res.trim());
+    const referenceValues = result.referenceValue.split(',').map(ref => ref.trim());
+    const remarks = result.remarks.split(',').map(remark => remark.trim());
+
+    // Use the maximum length of the arrays to iterate through them
+    const maxLength = Math.max(tests.length, results.length, referenceValues.length, remarks.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        // Get values for this row, defaulting to 'N/A' if undefined
+        const testValue = tests[i] || 'N/A';
+        const resultValue = results[i] || 'N/A';
+        const referenceValue = referenceValues[i] || 'N/A';
+        const remarkValue = remarks[i] || 'N/A';
+
+        // Append the new row to the table body
+        $('#microbioResultsTableBody').append(`
+            <tr>
+                <td>${testValue}</td>
+                <td>${resultValue}</td>
+                <td>${referenceValue}</td>
+                <td>${remarkValue}</td>
+            </tr>
+        `);
+    }
+});
+
                } else if (testType === 'MolBio') {
                    $('#molbioResultsContainer').show();
                    data.molbioResults.forEach(result => {
-                       $('#molbioResultsTableBody').append(`
-                        <tr>
-                            <td>${result.examinationConducted || 'N/A'}</td>
-                            <td>${result.meatSpeciesResult || 'N/A'}</td>
-                        </tr>
-                    `);
-                   });
+    // Split and trim each relevant field by commas
+    const examinations = result.examinationConducted.split(',').map(exam => exam.trim());
+    const speciesResults = result.meatSpeciesResult.split(',').map(species => species.trim());
+
+    // Use the maximum length of the arrays to iterate through them
+    const maxLength = Math.max(examinations.length, speciesResults.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        // Get values for this row, defaulting to 'N/A' if undefined
+        const examinationValue = examinations[i] || 'N/A';
+        const speciesValue = speciesResults[i] || 'N/A';
+
+        // Append the new row to the table body
+        $('#molbioResultsTableBody').append(`
+            <tr>
+                <td>${examinationValue}</td>
+                <td>${speciesValue}</td>
+            </tr>
+        `);
+    }
+});
+
                }
 
                // Show the popup and center it
