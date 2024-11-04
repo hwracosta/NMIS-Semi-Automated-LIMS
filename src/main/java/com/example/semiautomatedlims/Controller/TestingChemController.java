@@ -1,6 +1,9 @@
 package com.example.semiautomatedlims.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,62 +22,111 @@ import com.example.semiautomatedlims.Service.TestingChemService;
 public class TestingChemController {
 
     @Autowired
-    private TestingChemService testingChemService; // Inject your service here
+    private TestingChemService testingChemService; 
 
     @GetMapping("/TESTING-Chem")
     public String staffTestingHome(Model model) {
-        List<ClientReqForm> testingRequests = testingChemService.getFilteredRequests(); // Fetch requests
-        model.addAttribute("requests", testingRequests); // Add requests to model
+        List<ClientReqForm> testingRequests = testingChemService.getFilteredRequests(); 
+        model.addAttribute("requests", testingRequests); 
         return "TESTING-Chem"; 
     }
 
     @GetMapping("/api/getChemRequestDetails")
     @ResponseBody
     public String getTestRequestDetails(@RequestParam Long clientReqid) {
-        // Fetch the request details from the service
+        
         ClientReqForm requestDetails = testingChemService.getRequestDetailsById(clientReqid);
         
         if (requestDetails == null) {
-            return "<p>No details found for this request.</p>"; // Handle not found case
+            return "<p>No details found for this request.</p>"; 
         }
-
-        // Construct the HTML response to display in the popup
+        
         StringBuilder details = new StringBuilder();
         
         details.append("<div class='checklist'>");
         String[] tests = requestDetails.getChemTests() != null ? requestDetails.getChemTests().split(",") : new String[0];
         
-        // Use ldControlNumber for checkbox IDs
         String ldControlNumber = requestDetails.getLdControlNumber();
         for (String test : tests) {
-            String sanitizedTest = test.trim().replaceAll(" ", "_"); // Sanitize for ID usage
-            details.append("<label><input type='checkbox' id='").append(ldControlNumber).append("_").append(sanitizedTest).append("' name='tests' value='").append(test).append("'> ").append(test).append("</label><br>");
+            String sanitizedTest = test.trim().replaceAll(" ", "_"); 
+            String capitalizedTest = capitalize(test.trim()); 
+    
+            details.append("<label><input type='checkbox' id='")
+                   .append(ldControlNumber).append("_").append(sanitizedTest).append("' name='tests' value='")
+                   .append(test).append("'> ")
+                   .append(capitalizedTest).append("</label><br>"); 
         }
         
         details.append("</div>");
         
-        return details.toString(); // Return the constructed HTML
+        return details.toString(); 
     }
-
 
     @GetMapping("/api/getChemSampleDetails")
     @ResponseBody
-    public ResponseEntity<ClientReqForm> getSampleDetails(@RequestParam Long clientReqid) {
-        ClientReqForm sampleDetails = testingChemService.getRequestDetailsById(clientReqid);
-   
-        if (sampleDetails == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    public Map<String, Object> getClientDetails(@RequestParam Long clientReqid) {
+        ClientReqForm request = testingChemService.getRequestDetailsById(clientReqid);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        if (request != null && request.getClient() != null) {
+            Map<String, Object> clientDetails = new HashMap<>();
+            clientDetails.put("sampleCategory", capitalize(request.getSampleCategory()));
+            clientDetails.put("sampleSource", capitalize(request.getSampleSource()));
+            clientDetails.put("productionDate", request.getProductionDate() != null ? dateFormat.format(request.getProductionDate()) : null);
+            clientDetails.put("expirationDate", request.getExpirationDate() != null ? dateFormat.format(request.getExpirationDate()) : null);
+            clientDetails.put("samplingDate", request.getSamplingDate() != null ? dateFormat.format(request.getSamplingDate()) : null);
+            clientDetails.put("weightGrams", request.getWeightGrams());
+            clientDetails.put("purposeTest", capitalize(request.getPurposeTest()));
+            return clientDetails;
+        } else {
+            return Map.of("error", "Sample details not found");
         }
-   
-        return ResponseEntity.ok(sampleDetails);
-    }    
+    }
+
+    
+    public String capitalize(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        String[] parts = input.split(",");
+        StringBuilder capitalizedString = new StringBuilder();
+
+        for (String part : parts) {
+            
+            part = part.trim().replace("_", " "); 
+            if (part.length() > 0) {
+                String[] words = part.split(" "); 
+                StringBuilder capitalizedPart = new StringBuilder();
+
+                for (int i = 0; i < words.length; i++) {
+                    
+                    if (words[i].length() > 0) {
+                        capitalizedPart.append(Character.toUpperCase(words[i].charAt(0)))
+                                    .append(words[i].substring(1).toLowerCase());
+                    }
+                    if (i < words.length - 1) {
+                        capitalizedPart.append(" "); 
+                    }
+                }
+
+                capitalizedString.append(capitalizedPart).append(", "); 
+            }
+        }
+        
+        if (capitalizedString.length() > 0) {
+            capitalizedString.setLength(capitalizedString.length() - 2); 
+        }
+
+        return capitalizedString.toString();
+    }
 
     @PostMapping("/api/submitChemRequest")
     public ResponseEntity<String> submitChemRequest(@RequestParam Long clientReqid) {
         ClientReqForm request = testingChemService.getRequestDetailsById(clientReqid);
         if (request != null) {
-            request.setIsChemTransferred(true); // Add a flag or marker to show it was submitted
-            testingChemService.saveRequest(request); // Save the updated request
+            request.setIsChemTransferred(true); 
+            testingChemService.saveRequest(request); 
 
             return ResponseEntity.ok("Request successfully submitted!");
         } else {
