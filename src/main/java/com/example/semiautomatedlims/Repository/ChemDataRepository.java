@@ -13,4 +13,16 @@ public interface ChemDataRepository extends JpaRepository<ChemData, Long> {
 
     @Query("SELECT m FROM ChemData m WHERE m.ldControlNumber = :ldControlNumber")
     List<ChemData> findByLdControlNumber(@Param("ldControlNumber") String ldControlNumber);
+
+    // Get total tests performed (assuming 'result' column contains the result values)
+    @Query("SELECT COUNT(m) FROM ChemData m")
+    Integer countTotalTests();
+
+    // Get positive results
+    @Query("SELECT COUNT(m) FROM ChemData m WHERE m.result = 'Positive'")
+    Integer countPositiveResults();
+
+    // Get negative results
+    @Query("SELECT COUNT(m) FROM ChemData m WHERE m.result = 'Negative'")
+    Integer countNegativeResults();
 }

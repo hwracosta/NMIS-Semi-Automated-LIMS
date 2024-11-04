@@ -79,18 +79,10 @@ public class StaffTestingHomeController {
 
     @GetMapping("/TESTING-database")
     public String redirectToTestingDatabase(HttpSession session) {
-        String testingSection = (String) session.getAttribute("testingSection");
-        
-        if ("molbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/DATABASE-MolBio";
-        } else if ("microbio".equalsIgnoreCase(testingSection)) {
-            return "redirect:/DATABASE-Microbio";
-        } else if ("chem".equalsIgnoreCase(testingSection)) {
-            return "redirect:/DATABASE-Chem";
-        } else {
-            return "redirect:/REPORT-testing";  
-        }
+        // Directly redirect to the REPORT-testing page
+        return "redirect:/REPORT-testing";  
     }
+    
 }
 
 
