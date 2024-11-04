@@ -60,7 +60,7 @@ public class ReleaseReviewController {
             clientDetails.put("phoneNumber", request.getClient().getContactNumber());
             clientDetails.put("address", request.getClient().getAddress());
             clientDetails.put("sampleCategory", capitalize(request.getSampleCategory()));
-            clientDetails.put("sampleSource", request.getSampleSource());
+            clientDetails.put("sampleSource", capitalize(request.getSampleSource()));
             clientDetails.put("productionDate", request.getProductionDate() != null ? dateFormat.format(request.getProductionDate()) : null);
             clientDetails.put("expirationDate", request.getExpirationDate() != null ? dateFormat.format(request.getExpirationDate()) : null);
             clientDetails.put("samplingDate", request.getSamplingDate() != null ? dateFormat.format(request.getSamplingDate()) : null);
