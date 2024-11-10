@@ -79,7 +79,7 @@
                         <tr th:each="examination : ${examinations}">
                             <td th:text="${examination}">Test Name</td>
                             <td>
-                                <select th:name="'micResult_' + ${examination}" required>
+                                <select class="results" th:name="'micResult_' + ${examination}" required>
                                     <option value="" disabled selected>Select Result</option>
                                     <option value="Positive">Positive</option>
                                     <option value="Negative">Negative</option>
