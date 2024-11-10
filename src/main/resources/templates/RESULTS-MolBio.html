@@ -71,24 +71,28 @@
                     <tr>
                         <th>Examination Conducted</th>
                         <th>Meat Species Result</th>
+                        <th>Remarks</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="examination : ${examinations}">
                         <td th:text="${examination}">Examination Name</td>
                         <td>
-                            <select th:name="'species_result_' + ${examination}" required>
+                            <select class ="results" th:name="'species_result_' + ${examination}" required>
                                 <option value="" disabled selected>Select Result</option>
                                 <option value="Positive">Positive</option>
                                 <option value="Negative">Negative</option>
                             </select>
-                        </td>                        
+                        </td>   
+                        <td>
+                            <input class="remarks" type="text" th:name="'remarks_' + ${examination}" placeholder="Enter remarks" />
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> <!-- Hidden field for ldControlNumber -->
-            <input type="hidden" name="clientReqid" th:value="${clientReqid}"> <!-- Hidden field for clientReqid -->
+            <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> 
+            <input type="hidden" name="clientReqid" th:value="${clientReqid}"> 
             <div class="submit-container">
                 <button type="submit">Submit Results</button>
             </div>

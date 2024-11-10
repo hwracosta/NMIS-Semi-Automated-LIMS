@@ -1,8 +1,8 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Entity.MolBioData;
-import com.example.semiautomatedlims.Service.TestingMolBioService;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Entity.MolBioData;
+import com.example.semiautomatedlims.Service.TestingMolBioService;
 
 @Controller
 public class ResultsMolBioController {
@@ -49,18 +50,22 @@ public class ResultsMolBioController {
 
         StringBuilder testNames = new StringBuilder();
         StringBuilder meatSpeciesResults = new StringBuilder();
+        StringBuilder remarks = new StringBuilder(); // Initialize StringBuilder for remarks
 
         for (String key : allParams.keySet()) {
             if (key.startsWith("species_result_")) {
                 String testName = key.replace("species_result_", "");
                 String speciesResult = allParams.get(key);
+                String remark = allParams.get("remarks_" + testName); // Retrieve the corresponding remark
 
                 if (testNames.length() > 0) {
                     testNames.append(", ");
                     meatSpeciesResults.append(", ");
+                    remarks.append(", ");
                 }
                 testNames.append(testName);
                 meatSpeciesResults.append(speciesResult);
+                remarks.append(remark != null ? remark : ""); // Append remark or an empty string if null
             }
         }
 
@@ -68,6 +73,7 @@ public class ResultsMolBioController {
         molBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
         molBioData.setTestName(testNames.toString());
         molBioData.setMeatSpeciesResult(meatSpeciesResults.toString());
+        molBioData.setRemarks(remarks.toString()); // Set remarks in MolBioData
 
         testingMolBioService.saveMolBioData(molBioData);
 
