@@ -14,24 +14,23 @@
 
                 let allFilled = true;
 
-                // Check if all fields are filled
-                $('input[type="text"]').each(function() {
+                $('input[type="text"]').not('.detection-limit').each(function() {
                     if ($(this).val() === '') {
                         allFilled = false;
                     }
                 });
 
                 if (!allFilled) {
-                    alert("Please fill out all fields before submitting.");
+                    alert("Please fill out all required fields before submitting.");
                 } else {
                     // Submit via AJAX
                     $.ajax({
                         type: 'POST',
                         url: '/submitChemResults',
-                        data: $(this).serialize(),
+                        data: $('#resultsForm').serialize(),
                         success: function(response) {
                             alert('Results submitted successfully!');
-                            window.location.href = "/TR-Chem"; // Change this URL to the appropriate path
+                            window.location.href = "/TR-Chem";
                         },
                         error: function(xhr, status, error) {
                             alert('Error submitting results: ' + error);
@@ -79,18 +78,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Example Rows with Input Fields -->
                             <tr th:each="examination : ${examinations}">
                                 <td th:text="${examination}">Test Name</td>
+                                <td><input class ="remarks"type="text" th:name="'chemResult_' + ${examination}" placeholder="Result" required></td>
                                 <td>
-                                    <select th:name="'chemResult_' + ${examination}" required>
-                                        <option value="" disabled selected>Select Result</option>
+                                    <select class="results" th:name="'chemRemarks_' + ${examination}" required>
+                                        <option value="" disabled selected>Select Remarks</option>
                                         <option value="Positive">Positive</option>
                                         <option value="Negative">Negative</option>
                                     </select>
-                                </td>  
-                                <td><input type="text" th:name="'chemRemarks_' + ${examination}" placeholder="Remarks" required></td>
-                                <td><input type="text" th:name="'chemDetectionLimit_' + ${examination}" placeholder="Detection Limit" required></td>
+                                </td>
+                                <td><input class="detection-limit" type="text" th:name="'chemDetectionLimit_' + ${examination}" placeholder="Detection Limit"></td>
                                 <td><input type="text" th:name="'chemRegulatoryLimits_' + ${examination}" placeholder="Regulatory Limits" required></td>
                                 <td><input type="date" th:name="'chemAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                             </tr>

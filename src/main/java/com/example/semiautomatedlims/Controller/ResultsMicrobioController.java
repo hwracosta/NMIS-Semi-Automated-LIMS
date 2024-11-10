@@ -1,8 +1,7 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Entity.MicroBioData;
-import com.example.semiautomatedlims.Service.TestingMicrobioService;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Entity.MicroBioData;
+import com.example.semiautomatedlims.Service.TestingMicrobioService;
 
 @Controller
 public class ResultsMicrobioController {
@@ -68,8 +68,8 @@ public class ResultsMicrobioController {
                 }
                 micTestNames.append(testName);
                 micResults.append(result);
-                micRefVals.append(refValue);
-                micRemarks.append(remarks);
+                micRefVals.append(refValue == null || refValue.isEmpty() ? "N/A" : refValue);
+                micRemarks.append(remarks == null || remarks.isEmpty() ? "N/A" : remarks);
             }
         }
 

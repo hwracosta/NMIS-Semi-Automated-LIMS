@@ -1,8 +1,9 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Entity.ChemData;
-import com.example.semiautomatedlims.Service.TestingChemService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Date;
+import com.example.semiautomatedlims.Entity.ChemData;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Service.TestingChemService;
 
 @Controller
 public class ResultsChemController {
@@ -79,7 +79,7 @@ public class ResultsChemController {
                 chemTestNames.append(testName);
                 chemResults.append(result);
                 chemRemarks.append(remarks);
-                chemDetectionLimits.append(detectionLimit);
+                chemDetectionLimits.append(detectionLimit == null || detectionLimit.isEmpty() ? "N/A" : detectionLimit);
                 chemRegulatoryLimits.append(regulatoryLimits);
 
                 try {

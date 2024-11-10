@@ -1,7 +1,11 @@
 package com.example.semiautomatedlims.Entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "microbio_data")
@@ -20,10 +24,10 @@ public class MicroBioData {
     @Column(name = "result", nullable = false)
     private String micResult;
 
-    @Column(name = "ref_value", nullable = false)
+    @Column(name = "ref_value")
     private String micRefVal;
 
-    @Column(name = "remarks", nullable = false)
+    @Column(name = "remarks")
     private String micRemarks;
 
     // Getters and Setters

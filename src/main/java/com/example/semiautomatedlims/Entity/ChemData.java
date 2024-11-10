@@ -1,7 +1,15 @@
 package com.example.semiautomatedlims.Entity;
 
-import jakarta.persistence.*;
 import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "chem_data")
@@ -23,13 +31,13 @@ public class ChemData {
     @Column(name = "result", nullable = false)
     private String result;
 
-    @Column(name = "remarks")
+    @Column(name = "remarks", nullable = false)
     private String remarks;
 
     @Column(name = "detection_limit")
     private String detectionLimit;
 
-    @Column(name = "regulatory_limits")
+    @Column(name = "regulatory_limits", nullable = false)
     private String regulatoryLimits;
 
     @Column(name = "analysis_date")
