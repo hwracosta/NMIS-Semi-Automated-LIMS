@@ -1,7 +1,11 @@
 package com.example.semiautomatedlims.Entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "molbio_data")
@@ -19,6 +23,9 @@ public class MolBioData {
 
     @Column(name = "meat_species_result", nullable = false)
     private String meatSpeciesResult;
+
+    @Column(name = "remarks", nullable = false)
+    private String remarks;
 
     // Getters and Setters
     public String getLdControlNumber() {
@@ -43,5 +50,13 @@ public class MolBioData {
 
     public void setMeatSpeciesResult(String meatSpeciesResult) {
         this.meatSpeciesResult = meatSpeciesResult;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }
