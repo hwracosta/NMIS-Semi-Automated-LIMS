@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Requests</title>
-    <!-- Use Thymeleaf to reference the CSS file -->
+    <title>Release-Database</title>
     <link rel="stylesheet" th:href="@{/css/RELEASE-database.css}">
 </head>
 <body>
@@ -16,41 +15,51 @@
             <div class="header-links">
                 <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Receiving/Releasing Staff Home</a>
                 <div class="logout-button">
-                  <form th:action="@{/logout}" method="get" style="display: inline;">
-                    <a href="/STAFF-login" class="log-out">Logout</a>
-                  </form>
+                    <form th:action="@{/logout}" method="get" style="display: inline;">
+                        <a href="/STAFF-login" class="log-out">Logout</a>
+                    </form>
                 </div>
-              </div>                  
+            </div>
         </div>
     </header>
 
     <div class="content">
         <div class="track-box">
-            <h2>Track Requests</h2>
+            <h2>Release Database</h2>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Request ID</th>
+                            <th>Company Name</th>
+                            <th>Address</th>
+                            <th>Client Classification</th>
+                            <th>Sample Category</th>
+                            <th>Sample Details</th>
+                            <th>Sampling Date</th>
+                            <th>LD Control Number</th>
+                            <th>Production Date</th>
+                            <th>Expiration Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example Rows -->
-                        <tr>
-                            <td>1234</td>
-                            <td>Processing</td>
+                        <!-- Iterate over completedRequests -->
+                        <tr th:each="request : ${completedRequests}">
+                            <td th:text="${request.client.companyName}">Company Name</td>
+                            <td th:text="${request.client.address}">Address</td>
+                            <td th:text="${request.client.clientClassif}">Client Classification</td>
+                            <td th:text="${request.sampleCategory}">Sample Category</td>
+                            <td th:text="${request.sampleDetails}">Sample Details</td>
+                            <td th:text="${request.samplingDate}">Sampling Date</td>
+                            <td th:text="${request.ldControlNumber}">LD Control Number</td>
+                            <td th:text="${request.productionDate}">Production Date</td>
+                            <td th:text="${request.expirationDate}">Expiration Date</td>
+                            <td th:text="${request.status}">Status</td>
                         </tr>
-                        <tr>
-                            <td>5678</td>
-                            <td>Completed</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </body>
 </html>

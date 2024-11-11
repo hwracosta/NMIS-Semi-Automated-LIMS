@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -328,4 +330,5 @@ public class ClientReqForm {
     public void setMicrobioPending(String microbioPending) {
         this.microbioPending = microbioPending;
     }
+
 }
