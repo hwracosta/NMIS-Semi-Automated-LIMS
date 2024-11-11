@@ -46,4 +46,7 @@ public interface ClientReqFormRepository extends JpaRepository<ClientReqForm, Lo
 
     // Find requests for MicroBio where status is "For Testing", microbio_pending is "pending", and microbio is transferred
     List<ClientReqForm> findByStatusAndMicrobioPendingAndIsMicroBioTransferredTrue(String status, String microbioPending);
+
+    // Custom query method to find all ClientReqForm entities with the given status
+    List<ClientReqForm> findByStatus(String status);
 }
