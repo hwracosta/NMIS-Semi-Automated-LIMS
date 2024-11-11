@@ -11,14 +11,6 @@ $(document).ready(function() {
         }
     });
 
-    document.getElementById('culture').addEventListener('change', function() {
-        const cultureOptions = document.getElementById('culture-options');
-        cultureOptions.style.display = this.checked ? 'inline' : 'none';
-        if (!this.checked) {
-            cultureOptions.value = ""; // Reset the value if unchecked
-        }
-    });
-
     document.getElementById('others-para').addEventListener('change', function() {
         const specifyInput = document.getElementById('specify-para');
         specifyInput.style.display = this.checked ? 'inline' : 'none';
