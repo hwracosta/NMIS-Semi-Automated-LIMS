@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MicroBio Results</title>
     <link rel="stylesheet" th:href="@{/css/RESULTS-Microbio.css}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <script>
         $(document).ready(function() {
             $('#resultsForm').submit(function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault(); 
     
                 let allFilled = true;
     
@@ -22,14 +22,13 @@
                 if (!allFilled) {
                     alert("Please fill out all required fields before submitting.");
                 } else {
-                    // Submit via AJAX
                     $.ajax({
                         type: 'POST',
                         url: '/submitMicrobioResults',
                         data: $('#resultsForm').serialize(),
                         success: function(response) {
                             alert('Results submitted successfully!');
-                            window.location.href = "/TR-MicroBio"; // Redirect after successful submission
+                            window.location.href = "/TR-MicroBio"; 
                         },
                         error: function(xhr, status, error) {
                             alert('Error submitting results: ' + error);
@@ -78,14 +77,16 @@
                         <tr th:each="examination : ${examinations}">
                             <td th:text="${examination}">Test Name</td>
                             <td>
-                                <select class="results" th:name="'micResult_' + ${examination}" required>
-                                    <option value="" disabled selected>Select Result</option>
+                                <input class="remarks" type="text" th:name="'micResult_' + ${examination}" placeholder="Enter Result" required />
+                            </td>     
+                            <td><input class="reference-value" type="text" th:name="'micRefVal_' + ${examination}" placeholder="Reference Value"></td>
+                            <td>
+                                <select class="results" th:name="'micRemarks_' + ${examination}" required>
+                                    <option value="" disabled selected>Select Remarks</option>
                                     <option value="Positive">Positive</option>
                                     <option value="Negative">Negative</option>
                                 </select>
-                            </td>     
-                            <td><input class="reference-value" type="text" th:name="'micRefVal_' + ${examination}" placeholder="Reference Value"></td>
-                            <td><input class="remarks" type="text" th:name="'micRemarks_' + ${examination}" placeholder="Remarks"></td>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
