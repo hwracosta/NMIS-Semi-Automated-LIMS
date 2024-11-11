@@ -31,19 +31,19 @@
             <h2 class="title">Database</h2>
             <div class="table-container">
                 <body>
-                    <h2 class="title">Microbiological Tests</h2>
+                    <h2 class="testsection">Microbiological Tests</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>Test Name</th>
-                                <th>TOTAL No. of analysis performed</th>
-                                <th>TOTAL No. of samples with (+) result</th>
-                                <th>TOTAL No. of samples with (-) result</th>
+                                <th>Total No. of analysis performed</th>
+                                <th>Total No. of samples with (+) result</th>
+                                <th>Total No. of samples with (-) result</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="summary : ${microbiologicalTests}">
-                                <td th:text="${summary.testName}"></td>
+                                <td class="testname" th:text="${summary.testName}"></td>
                                 <td th:text="${summary.totalTests}"></td>
                                 <td th:text="${summary.positiveResults}"></td>
                                 <td th:text="${summary.negativeResults}"></td>
@@ -52,19 +52,19 @@
                     </table>
 
                 <body>
-                    <h2 class="title">Molecular Biology Tests</h2>
+                    <h2 class="testsection">Molecular Biology Tests</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>Test Name</th>
-                                <th>TOTAL No. of analysis performed</th>
-                                <th>TOTAL No. of samples with (+) result</th>
-                                <th>TOTAL No. of samples with (-) result</th>
+                                <th>Total No. of analysis performed</th>
+                                <th>Total No. of samples with (+) result</th>
+                                <th>Total No. of samples with (-) result</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="summary : ${molecularBiologyTests}">
-                                <td th:text="${summary.testName}"></td>
+                                <td class="testname" th:text="${summary.testName}"></td>
                                 <td th:text="${summary.totalTests}"></td>
                                 <td th:text="${summary.positiveResults}"></td>
                                 <td th:text="${summary.negativeResults}"></td>
@@ -72,19 +72,19 @@
                         </tbody>
                     </table>
 
-                    <h2 class="title">Chemical/Veterinary Drug Residue Tests</h2>
+                    <h2 class="testsection">Chemical/Veterinary Drug Residue Tests</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>Test Name</th>
-                                <th>TOTAL No. of analysis performed</th>
-                                <th>TOTAL No. of samples with (+) result</th>
-                                <th>TOTAL No. of samples with (-) result</th>
+                                <th>Total No. of analysis performed</th>
+                                <th>Total No. of samples with (+) result</th>
+                                <th>Total No. of samples with (-) result</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="summary : ${chemicalSummaries}">
-                                <td th:text="${summary.testName}"></td>
+                                <td class="testname" th:text="${summary.testName}"></td>
                                 <td th:text="${summary.totalTests}"></td>
                                 <td th:text="${summary.positiveResults}"></td>
                                 <td th:text="${summary.negativeResults}"></td>
