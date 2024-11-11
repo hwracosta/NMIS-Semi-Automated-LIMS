@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MolBio Results</title>
     <link rel="stylesheet" th:href="@{/css/RESULTS-MolBio.css}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <script>
         $(document).ready(function() {
             $('#resultsForm').submit(function(event) {
-                event.preventDefault(); // Ensure the default form submission is prevented
+                event.preventDefault(); 
 
                 let allFilled = true;
 
-                // Check if all fields are filled
                 $('input[type="text"]').each(function() {
                     if ($(this).val() === '') {
                         allFilled = false;
@@ -23,14 +22,13 @@
                 if (!allFilled) {
                     alert("Please fill out all fields before submitting.");
                 } else {
-                    // Submit via AJAX
                     $.ajax({
                         type: 'POST',
                         url: '/submitResults',
                         data: $(this).serialize(),
                         success: function(response) {
                             alert('Results submitted successfully!');
-                            window.location.href = "/TR-MolBio"; // Change this URL to the appropriate path
+                            window.location.href = "/TR-MolBio"; 
                         },
                         error: function(xhr, status, error) {
                             alert('Error submitting results: ' + error);
@@ -78,14 +76,14 @@
                     <tr th:each="examination : ${examinations}">
                         <td th:text="${examination}">Examination Name</td>
                         <td>
-                            <select class ="results" th:name="'species_result_' + ${examination}" required>
-                                <option value="" disabled selected>Select Result</option>
+                            <input class="results" type="text" th:name="'species_result_' + ${examination}" placeholder="Enter Result" required />
+                        </td>   
+                        <td>
+                            <select class="remarks" th:name="'remarks_' + ${examination}" required>
+                                <option value="" disabled selected>Select Remarks</option>
                                 <option value="Positive">Positive</option>
                                 <option value="Negative">Negative</option>
                             </select>
-                        </td>   
-                        <td>
-                            <input class="remarks" type="text" th:name="'remarks_' + ${examination}" placeholder="Remarks" />
                         </td>
                     </tr>
                     </tbody>

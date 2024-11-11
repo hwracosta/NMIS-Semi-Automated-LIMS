@@ -226,7 +226,6 @@ input[type="text"] {
     font-size: 14px;
     color: #333;
     width: 200px;
-    cursor: pointer;
 }
 
 .results::after {
