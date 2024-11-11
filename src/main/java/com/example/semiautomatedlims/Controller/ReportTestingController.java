@@ -1,14 +1,11 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.ReportTestingSummary;
 import com.example.semiautomatedlims.Service.ReportTestingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/REPORT-testing")
@@ -24,6 +21,8 @@ public class ReportTestingController {
     @GetMapping
     public String getChemicalTestSummary(Model model) {
         model.addAttribute("chemicalSummaries", reportTestingService.getChemicalTestSummaries());
+        model.addAttribute("microbiologicalTests", reportTestingService.getMicrobiologicalTests());
+        model.addAttribute("molecularBiologyTests", reportTestingService.getMolecularBiologyTests());
         return "REPORT-testing";  // Updated to match the HTML filename
     }
 }
