@@ -14,21 +14,17 @@ import java.util.List;
 @RequestMapping("/REPORT-testing")
 public class ReportTestingController {
 
+    private final ReportTestingService reportTestingService;
+
     @Autowired
-    private ReportTestingService reportTestingService;
+    public ReportTestingController(ReportTestingService reportTestingService) {
+        this.reportTestingService = reportTestingService;
+    }
 
     @GetMapping
-    public String showDatabasePage(Model model) {
-        // Retrieve summaries by categories
-        List<ReportTestingSummary> microbiologicalTests = reportTestingService.getMicrobiologicalTests();
-        List<ReportTestingSummary> molecularBiologyTests = reportTestingService.getMolecularBiologyTests();
-        List<ReportTestingSummary> chemicalTests = reportTestingService.getChemicalTests();
-
-        // Add data to the model to be accessed in Thymeleaf
-        model.addAttribute("microbiologicalTests", microbiologicalTests);
-        model.addAttribute("molecularBiologyTests", molecularBiologyTests);
-        model.addAttribute("chemicalTests", chemicalTests);
-
-        return "REPORT-testing"; // Thymeleaf template name
+    public String getChemicalTestSummary(Model model) {
+        model.addAttribute("chemicalSummaries", reportTestingService.getChemicalTestSummaries());
+        return "REPORT-testing";  // Updated to match the HTML filename
     }
 }
+

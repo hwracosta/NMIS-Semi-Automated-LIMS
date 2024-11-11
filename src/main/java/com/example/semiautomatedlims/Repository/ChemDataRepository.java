@@ -25,4 +25,7 @@ public interface ChemDataRepository extends JpaRepository<ChemData, Long> {
     // Get negative results
     @Query("SELECT COUNT(m) FROM ChemData m WHERE m.result = 'Negative'")
     Integer countNegativeResults();
+
+    // Find records by analyte
+    List<ChemData> findByAnalyte(String analyte);
 }
