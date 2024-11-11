@@ -1,36 +1,40 @@
 package com.example.semiautomatedlims.Service;
 
-import com.example.semiautomatedlims.Entity.ReportTestingSummary;
-import com.example.semiautomatedlims.Repository.ReportTestingRepository;
+import com.example.semiautomatedlims.Entity.ChemData;
+import com.example.semiautomatedlims.ReportSummaryDTO;
+import com.example.semiautomatedlims.Repository.ChemDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.stream.Collectors;
+
 
 @Service
 public class ReportTestingService {
-    private static final Logger logger = LoggerFactory.getLogger(ReportTestingService.class);
+
+    private final ChemDataRepository chemDataRepository;
 
     @Autowired
-    private ReportTestingRepository reportTestingRepository;
-
-    public List<ReportTestingSummary> getMicrobiologicalTests() {
-        List<ReportTestingSummary> microbiologicalTests = reportTestingRepository.findAllMicrobiologicalTests();
-        logger.info("Microbiological Tests: " + microbiologicalTests.size() + " records retrieved.");
-        return microbiologicalTests;
+    public ReportTestingService(ChemDataRepository chemDataRepository) {
+        this.chemDataRepository = chemDataRepository;
     }
 
-    public List<ReportTestingSummary> getMolecularBiologyTests() {
-        List<ReportTestingSummary> molecularBiologyTests = reportTestingRepository.findAllMolecularBiologyTests();
-        logger.info("Molecular Biology Tests: " + molecularBiologyTests.size() + " records retrieved.");
-        return molecularBiologyTests;
-    }
+    public List<ReportSummaryDTO> getChemicalTestSummaries() {
+        // Retrieve all records and group them by analyte in-memory
+        List<ReportSummaryDTO> summaries = new ArrayList<>();
+        
+        chemDataRepository.findAll().stream()
+            .collect(Collectors.groupingBy(ChemData::getAnalyte))
+            .forEach((analyte, records) -> {
+                long total = records.size();
+                long positive = records.stream().filter(r -> "Positive".equalsIgnoreCase(r.getResult())).count();
+                long negative = records.stream().filter(r -> "Negative".equalsIgnoreCase(r.getResult())).count();
+                
+                summaries.add(new ReportSummaryDTO(analyte, (int) total, (int) positive, (int) negative));
+            });
 
-    public List<ReportTestingSummary> getChemicalTests() {
-        List<ReportTestingSummary> chemicalTests = reportTestingRepository.findAllChemicalTests();
-        logger.info("Chemical Tests: " + chemicalTests.size() + " records retrieved.");
-        return chemicalTests;
+        return summaries;
     }
 }

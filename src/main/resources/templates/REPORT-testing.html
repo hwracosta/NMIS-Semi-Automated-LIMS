@@ -280,17 +280,35 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        
-                        <tbody th:if="${chemicalTests != null}">
-                            <tr th:each="test : ${chemicalTests}">
-                                <td th:text="${test.testName}"></td>
-                                <td th:text="${test.totalPerformed}"></td>
-                                <td th:text="${test.positiveResults}"></td>
-                                <td th:text="${test.negativeResults}"></td>
-                            </tr>
+                            
                         </tbody>                       
                     </tbody>
                 </table>
+
+                <head>
+                    <title>Chemical Test Report</title>
+                </head>
+                <body>
+                    <h1>Chemical Test Summary</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Name</th>
+                                <th>Total Tests</th>
+                                <th>Positive Results</th>
+                                <th>Negative Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="summary : ${chemicalSummaries}">
+                                <td th:text="${summary.testName}"></td>
+                                <td th:text="${summary.totalTests}"></td>
+                                <td th:text="${summary.positiveResults}"></td>
+                                <td th:text="${summary.negativeResults}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </body>
             </div>
         </div>
     </main>
