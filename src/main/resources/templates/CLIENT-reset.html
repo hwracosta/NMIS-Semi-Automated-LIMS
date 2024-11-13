@@ -1,57 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" th:href="@{/css/globals.css}" />
-  <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
-  <link rel="stylesheet" th:href="@{/css/CLIENT-reset.css}" />
-
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/CLIENT-reset.css}" />
 </head>
 <body>
 <div class="CLIENT-RESET">
-  <div class="div">
-    <header class="header">
-      <div class="overlap-group">
-        <div class="rectangle"></div>
-        <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
-        <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-        <div class="text-wrapper-2">Client</div>
-      </div>
-    </header>
-    <div class="element-form">
-      <input class="overlap" />
-      <div class="reset-password-wrapper">
-        <div class="reset-password">Reset Password</div>
-      </div>
-      <div class="form-wrapper">
-        <!-- Form to handle password reset -->
-        <form th:action="@{/CLIENT-reset}" method="post">
-            <!-- Hidden field to capture email from flash attributes -->
-            <input type="hidden" th:value="${email}" name="email" />
-            
-            <!-- New Password field -->
-            <div class="input-container">
-            <div class="new-pw">
-                <label class="label-1" for="input-1">New Password</label>
-                <input class="input-1" id="input-1" type="password" name="newPassword" placeholder="Enter New Password" required />
+    <div class="div">
+        <header class="header">
+            <div class="overlap-group">
+                <div class="rectangle"></div>
+                <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+                <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+                <div class="text-wrapper-2">Client Portal</div>
             </div>
+        </header>
+        <div class="element-form">
+            <input class="overlap" />
+            <div class="reset-password-wrapper">
+                <div class="reset-password">Reset Password</div>
             </div>
-            
-            <!-- Confirm Password field -->
-            <div class="input-container">
-            <div class="confirm-pw">
-                <label class="label-2" for="input-2">Confirm Password</label>
-                <input class="input-2" id="input-2" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
-            </div>    
+            <div class="form-wrapper">
+                <!-- Form to handle password reset -->
+                <form th:action="@{/CLIENT-reset}" method="post">
+                    <!-- Hidden field to capture email from flash attributes -->
+                    <input type="hidden" th:value="${email}" name="email" />
+
+                    <!-- New Password field -->
+                    <div class="input-container">
+                        <div class="new-pw">
+                            <label class="label-1" for="newPassword">New Password</label>
+                            <input class="input-1" id="newPassword" type="password" name="newPassword" placeholder="Enter New Password" required />
+                            <img class="eye-undefined-glyph toggle-password" data-target="newPassword" th:src="@{/img/EYE-CLOSED.png}" />
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password field -->
+                    <div class="input-container">
+                        <div class="confirm-pw">
+                            <label class="label-2" for="confirmPassword">Confirm Password</label>
+                            <input class="input-2" id="confirmPassword" type="password" name="confirmPassword" placeholder="Re-enter New Password" required />
+                            <img class="eye-undefined-glyph toggle-password" data-target="confirmPassword" th:src="@{/img/EYE-CLOSED.png}" />
+                        </div>
+                    </div>
             </div>
-        </div>
             <!-- Submit button -->
             <button type="submit" class="button">
                 <span class="button-text">Submit</span>
             </button>
-        </form>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
+
+<script>
+    // Select all toggle-password icons
+    const toggleIcons = document.querySelectorAll('.toggle-password');
+
+    toggleIcons.forEach(icon => {
+        icon.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target');
+            const targetField = document.getElementById(targetId);
+
+            // Toggle the type attribute
+            const type = targetField.getAttribute('type') === 'password' ? 'text' : 'password';
+            targetField.setAttribute('type', type);
+
+            // Toggle the icon
+            this.src = type === 'password' ? '/img/EYE-CLOSED.png' : '/img/EYE.svg';
+        });
+    });
+</script>
 </body>
 </html>
