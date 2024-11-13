@@ -37,9 +37,9 @@
                         <th>Client Details</th>
                         <th>Submission Date</th>
                         <th>Status</th>
-                        <th>RECEIVE-MolBio</th>
-                        <th>RECEIVE-Chem</th>
-                        <th>RECEIVE-Microbio</th>
+                        <th>Molecular Biology Test Results</th>
+                        <th>Chemistry Test Results</th>
+                        <th>Microbiology Test Results</th>
                         <th>Release</th>
                     </tr>
                     </thead>
@@ -55,7 +55,7 @@
                         <td th:text="${request.status}">Status</td>
                         <td>
                             <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending == 'pending'}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending == 'pending'}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending != 'pending'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
                                 View Results
@@ -64,7 +64,7 @@
 
                         <td>
                             <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending == 'pending'}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending == 'pending'}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending != 'pending'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
                                 View Results
@@ -73,7 +73,7 @@
 
                         <td>
                             <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending == 'pending'}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending == 'pending'}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending != 'pending'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
                                 View Results

@@ -61,7 +61,7 @@
                         <!-- Molecular Biology Test Results -->
                         <td>
                             <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.molecTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.molecTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.molecTests) && request.status == 'Complete'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
                                 View Results
@@ -71,7 +71,7 @@
                         <!-- Chemical Test Results -->
                         <td>
                             <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.chemTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.chemTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.chemTests) && request.status == 'Complete'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
                                 View Results
@@ -81,7 +81,7 @@
                         <!-- Microbiology Test Results -->
                         <td>
                             <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.microbioTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending Test Results</span>
+                            <span th:if="${!#strings.isEmpty(request.microbioTests) && (request.status == 'For Release' || request.status == 'Under Review' || request.status == 'For Testing')}">Pending</span>
                             <button th:if="${!#strings.isEmpty(request.microbioTests) && request.status == 'Complete'}"
                                     th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
                                 View Results
