@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
+  <title>Client Registration</title>
   <link rel="stylesheet" th:href="@{/css/globals.css}" />
   <link rel="stylesheet" th:href="@{/css/styleguide.css}" />
   <link rel="stylesheet" th:href="@{/css/CLIENT-register.css}" />
@@ -19,7 +20,6 @@
       </div>
 
       <form th:action="@{/CLIENT-register}" method="post">
-              <!-- Error message display -->
       <div th:if="${emailError}" style="color: red; font-weight: bold;">
         <p th:text="${emailError}"></p>
       </div>
@@ -74,7 +74,7 @@
             <option value="MPP">MPP</option>
             <option value="MCP">MCP</option>
             <option value="CSW">CSW</option>
-            <option value="others">Others</option> <!-- "Others" option -->
+            <option value="others">Others</option> 
           </select>
         </div>
 
@@ -104,24 +104,24 @@
   togglePassword.addEventListener('click', function () {
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
-
-    // Optionally toggle the icon if you have two versions (e.g., open eye and closed eye)
     this.src = type === 'password' ? '/img/EYE-CLOSED.png' : '/img/EYE.svg';
   });
 </script>
 
-<script>
+<<script>
   const clientTypeSelect = document.querySelector('#client-classif');
   const otherClientTypeWrapper = document.querySelector('#other-client-type-wrapper');
+  const otherClientTypeInput = document.querySelector('#other-client-type');
 
   clientTypeSelect.addEventListener('change', function() {
     if (clientTypeSelect.value === 'others') {
-      otherClientTypeWrapper.style.display = 'block'; // Show the input field
+      otherClientTypeWrapper.style.display = 'block';
+      otherClientTypeInput.setAttribute('required', 'required'); 
     } else {
-      otherClientTypeWrapper.style.display = 'none'; // Hide the input field
+      otherClientTypeWrapper.style.display = 'none'; 
+      otherClientTypeInput.removeAttribute('required'); 
     }
   });
 </script>
-
 </body>
 </html>
