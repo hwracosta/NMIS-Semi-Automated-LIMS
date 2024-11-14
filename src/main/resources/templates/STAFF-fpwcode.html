@@ -28,11 +28,6 @@
                 <span class="span">you received via email to proceed with password reset.</span>
             </p>
             
-            <!-- Error message display -->
-            <div th:if="${error}" class="error-message" style="color: red;">
-                <p th:text="${error}"></p>
-            </div>
-            
             <form th:action="@{/STAFF-fpwcode}" method="post">
                 <p>
                     <input class="input" id="input-1" type="text" name="code" placeholder="6-digit reset code" required />
@@ -41,9 +36,18 @@
                     <span class="button-text">Submit</span>
                 </button>
             </form>
+            <input type="hidden" id="errorMessage" th:value="${error}"/>
         </div>
     </div>
 </div>
+<script>
+     window.onload = function() {
+    const errorMessage = document.getElementById("errorMessage").value; 
+    if (errorMessage) {
+        alert(errorMessage);
+        window.location.href = "/STAFF-login"; 
+    }};
+</script>
 </body>
 </html>
 
