@@ -411,3 +411,7 @@ th {
     left: 50%; /* Position 50% from the left */
     transform: translate(-50%, -50%); /* Center by shifting back half its width and height */
 }
+
+a {
+    color:#002267;
+}
