@@ -30,7 +30,7 @@ public class StaffFPWCodeController {
             redirectAttributes.addFlashAttribute("email", email);
             return "redirect:/STAFF-reset";
         } else {
-            redirectAttributes.addFlashAttribute("error", "Invalid or expired code.");
+            redirectAttributes.addFlashAttribute("error", "Invalid reset code. Please make a new request.");
             return "redirect:/STAFF-fpwcode";
         }
     }    
