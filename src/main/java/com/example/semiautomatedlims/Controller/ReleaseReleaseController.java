@@ -96,6 +96,7 @@ public class ReleaseReleaseController {
             Map<String, String> entry = new HashMap<>();
             entry.put("examinationConducted", data.getTestName());
             entry.put("meatSpeciesResult", data.getMeatSpeciesResult());
+            entry.put("remarks", data.getRemarks());
             entry.put("analysisDate", data.getAnalysisDate() != null ? data.getAnalysisDate().toString() : "N/A");
             details.add(entry);
         }
