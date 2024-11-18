@@ -96,6 +96,7 @@ public class ReleaseReleaseController {
             Map<String, String> entry = new HashMap<>();
             entry.put("examinationConducted", data.getTestName());
             entry.put("meatSpeciesResult", data.getMeatSpeciesResult());
+            entry.put("analysisDate", data.getAnalysisDate() != null ? data.getAnalysisDate().toString() : "N/A");
             details.add(entry);
         }
         return details;
@@ -126,6 +127,7 @@ public class ReleaseReleaseController {
             entry.put("result", data.getMicResult());
             entry.put("referenceValue", data.getMicRefVal());
             entry.put("remarks", data.getMicRemarks());
+            entry.put("analysisDate", data.getAnalysisDate() != null ? data.getAnalysisDate().toString() : "N/A");
             details.add(entry);
         }
         return details;
