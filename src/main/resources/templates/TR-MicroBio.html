@@ -43,7 +43,7 @@
                             <td th:text="${request.ldControlNumber}">Control Number</td> 
                             <td>
                                 <a href="#" th:onclick="'showSampleDetailsPopup(' + ${request.clientReqid} + ')'">
-                                    <u>Sample Details</u>
+                                    <u>View Details</u>
                                 </a>
                             </td>
                             <td>
@@ -94,7 +94,7 @@
 
 
                     const fields = {
-                        clientSampleCode: "Sample Code",
+                        sampleCode: "Sample Code",
                         sampleDetails: "Sample Details",
                         sampleSource: "Sample Source",
                         productionDate: "Production Date",
