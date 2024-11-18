@@ -1,5 +1,7 @@
 package com.example.semiautomatedlims.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,13 +52,16 @@ public class ResultsMolBioController {
 
         StringBuilder testNames = new StringBuilder();
         StringBuilder meatSpeciesResults = new StringBuilder();
-        StringBuilder remarks = new StringBuilder(); // Initialize StringBuilder for remarks
+        StringBuilder remarks = new StringBuilder();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date analysisDate = null;
 
         for (String key : allParams.keySet()) {
             if (key.startsWith("species_result_")) {
                 String testName = key.replace("species_result_", "");
                 String speciesResult = allParams.get(key);
                 String remark = allParams.get("remarks_" + testName); // Retrieve the corresponding remark
+                String analysisDateStr = allParams.get("molecAnalysisDate_" + testName);
 
                 if (testNames.length() > 0) {
                     testNames.append(", ");
@@ -66,6 +71,11 @@ public class ResultsMolBioController {
                 testNames.append(testName);
                 meatSpeciesResults.append(speciesResult);
                 remarks.append(remark != null ? remark : ""); // Append remark or an empty string if null
+                try {
+                    analysisDate = dateFormat.parse(analysisDateStr);
+                } catch (Exception e) {
+                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
+                }
             }
         }
 
@@ -74,6 +84,7 @@ public class ResultsMolBioController {
         molBioData.setTestName(testNames.toString());
         molBioData.setMeatSpeciesResult(meatSpeciesResults.toString());
         molBioData.setRemarks(remarks.toString()); // Set remarks in MolBioData
+        molBioData.setAnalysisDate(analysisDate);
 
         testingMolBioService.saveMolBioData(molBioData);
 
