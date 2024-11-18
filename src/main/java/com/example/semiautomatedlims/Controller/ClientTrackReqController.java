@@ -1,12 +1,11 @@
 package com.example.semiautomatedlims.Controller;
 
-import com.example.semiautomatedlims.Entity.Client;
-import com.example.semiautomatedlims.Entity.ClientReqForm;
-import com.example.semiautomatedlims.Entity.ChemData;
-import com.example.semiautomatedlims.Entity.MicroBioData;
-import com.example.semiautomatedlims.Entity.MolBioData;
-import com.example.semiautomatedlims.Service.ClientReqFormService;
-import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import com.example.semiautomatedlims.Entity.ChemData;
+import com.example.semiautomatedlims.Entity.Client;
+import com.example.semiautomatedlims.Entity.ClientReqForm;
+import com.example.semiautomatedlims.Entity.MicroBioData;
+import com.example.semiautomatedlims.Entity.MolBioData;
+import com.example.semiautomatedlims.Service.ClientReqFormService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClientTrackReqController {
@@ -85,6 +87,8 @@ public class ClientTrackReqController {
             Map<String, String> entry = new HashMap<>();
             entry.put("examinationConducted", data.getTestName());
             entry.put("meatSpeciesResult", data.getMeatSpeciesResult());
+            entry.put("remarks", data.getRemarks());
+            entry.put("analysisDate", data.getAnalysisDate() != null ? data.getAnalysisDate().toString() : "N/A");
             details.add(entry);
         }
         return details;
@@ -115,6 +119,7 @@ public class ClientTrackReqController {
             entry.put("result", data.getMicResult());
             entry.put("referenceValue", data.getMicRefVal());
             entry.put("remarks", data.getMicRemarks());
+            entry.put("analysisDate", data.getAnalysisDate() != null ? data.getAnalysisDate().toString() : "N/A");
             details.add(entry);
         }
         return details;

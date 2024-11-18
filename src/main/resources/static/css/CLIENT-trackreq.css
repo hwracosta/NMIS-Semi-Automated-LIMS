@@ -255,7 +255,12 @@ tbody tr:hover {
     font-weight: bold;
     color: #1E3A8A; /* Dark blue */
     margin-bottom: 15px;
+    text-align:center;
 }
+.popup-content h4 {
+    margin-left: 10px;
+}
+
 
 /* Popup Form Elements */
 .popup-content form div {
@@ -327,7 +332,7 @@ button {
 
 button:hover {
     background-color: #17427D; /* Darker shade on hover */
-}
+}   
 
 /* Table Styling */
 .table-container {

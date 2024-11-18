@@ -160,6 +160,7 @@
                             <th>Result</th>
                             <th>Reference Value</th>
                             <th>Remarks</th>
+                            <th>Analysis Date</th>
                         </tr>
                         </thead>
                         <tbody id="microbioResultsTableBody"></tbody>
@@ -174,6 +175,8 @@
                         <tr>
                             <th>Examination Conducted</th>
                             <th>Meat Species Result</th>
+                            <th>Remarks</th>
+                            <th>Analysis Date</th>
                         </tr>
                         </thead>
                         <tbody id="molbioResultsTableBody"></tbody>
@@ -291,6 +294,7 @@
     const results = result.result.split(',').map(res => res.trim());
     const referenceValues = result.referenceValue.split(',').map(ref => ref.trim());
     const remarks = result.remarks.split(',').map(remark => remark.trim());
+    const analysisDates = result.analysisDate.split(',').map(date => date.trim());
 
     // Use the maximum length of the arrays to iterate through them
     const maxLength = Math.max(tests.length, results.length, referenceValues.length, remarks.length);
@@ -301,6 +305,7 @@
         const resultValue = results[i] || 'N/A';
         const referenceValue = referenceValues[i] || 'N/A';
         const remarkValue = remarks[i] || 'N/A';
+        const analysisDateValue = analysisDates[i] || 'N/A';
 
         // Append the new row to the table body
         $('#microbioResultsTableBody').append(`
@@ -309,6 +314,7 @@
                 <td>${resultValue}</td>
                 <td>${referenceValue}</td>
                 <td>${remarkValue}</td>
+                <td>${analysisDateValue}</td>
             </tr>
         `);
     }
@@ -320,6 +326,8 @@
     // Split and trim each relevant field by commas
     const examinations = result.examinationConducted.split(',').map(exam => exam.trim());
     const speciesResults = result.meatSpeciesResult.split(',').map(species => species.trim());
+    const remarks = result.remarks.split(',').map(remark => remark.trim());
+    const analysisDates = result.analysisDate.split(',').map(date => date.trim());
 
     // Use the maximum length of the arrays to iterate through them
     const maxLength = Math.max(examinations.length, speciesResults.length);
@@ -328,12 +336,16 @@
         // Get values for this row, defaulting to 'N/A' if undefined
         const examinationValue = examinations[i] || 'N/A';
         const speciesValue = speciesResults[i] || 'N/A';
+        const remarkValue = remarks[i] || 'N/A';
+        const analysisDateValue = analysisDates[i] || 'N/A';
 
         // Append the new row to the table body
         $('#molbioResultsTableBody').append(`
             <tr>
                 <td>${examinationValue}</td>
                 <td>${speciesValue}</td>
+                <td>${remarkValue}</td>
+                <td>${analysisDateValue}</td>
             </tr>
         `);
     }
