@@ -41,6 +41,21 @@
                             <th>Production Date</th>
                             <th>Expiration Date</th>
                             <th>Status</th>
+
+                            <!-- Microbiological Test Columns -->
+                            <th>Standard Plate Count</th>
+                            <th>Staphylococcus aureus</th>
+                            <th>Salmonella sp.</th>
+                            <th>Campylobacter</th>
+                            <th>CST Gram Positive AST</th>
+                            <th>CST Gram Negative AST</th>
+                            <th>Coliform Count</th>
+                            <th>E. Coli</th>
+                            <th>E. Coli O157:H7</th>
+                            <th>Yeast and Molds</th>
+                            <th>Organoleptic Test</th>
+                            <th>pH</th>
+                            <th>Trichinella spp. Identification</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +72,21 @@
                             <td th:text="${request.productionDate}">Production Date</td>
                             <td th:text="${request.expirationDate}">Expiration Date</td>
                             <td th:text="${request.status}">Status</td>
+
+                            <!-- Microbiological test columns with actual results -->
+                            <td th:text="${request.testResults['Standard Plate Count']}">Standard Plate Count</td>
+                            <td th:text="${request.testResults['Staphylococcus aureus']}">Staphylococcus aureus</td>
+                            <td th:text="${request.testResults['Salmonella sp.']}">Salmonella sp.</td>
+                            <td th:text="${request.testResults['Campylobacter']}">Campylobacter</td>
+                            <td th:text="${request.testResults['CST Gram Positive AST']}">Culture and Sensitivity Test: Gram Positive AST</td>
+                            <td th:text="${request.testResults['CST Gram Negative AST']}">Culture and Sensitivity Test: Gram Negative AST</td>
+                            <td th:text="${request.testResults['Coliform Count']}">Coliform Count</td>
+                            <td th:text="${request.testResults['E. Coli']}">E. Coli</td>
+                            <td th:text="${request.testResults['E. Coli O157:H7']}">E. Coli O157:H7</td>
+                            <td th:text="${request.testResults['Yeast and Molds']}">Yeast and Molds</td>
+                            <td th:text="${request.testResults['Organoleptic Test']}">Organoleptic Test</td>
+                            <td th:text="${request.testResults['pH']}">pH</td>
+                            <td th:text="${request.testResults['Trichinella spp. Identification']}">Trichinella spp. Identification</td>
                         </tr>
                     </tbody>
                 </table>
@@ -65,3 +95,4 @@
     </div>
 </body>
 </html>
+
