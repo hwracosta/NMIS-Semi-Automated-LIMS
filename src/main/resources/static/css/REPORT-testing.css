@@ -143,6 +143,7 @@ th, td {
     padding: 15px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+    
 }
 
 .testname {
@@ -155,6 +156,7 @@ th {
     background-color: #f1f1f1;
     font-weight: bold;
     color: #1E3A8A;
+    border: 1px solid;
 }
 
 td a {
