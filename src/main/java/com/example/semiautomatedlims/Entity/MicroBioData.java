@@ -59,8 +59,8 @@ public class MicroBioData {
         return micResult;
     }
 
-    public void setMicResult(String meatSpeciesResult) {
-        this.micResult = meatSpeciesResult;
+    public void setMicResult(String micResult) {
+        this.micResult = micResult;
     }
 
     public String getMicRefVal() {
