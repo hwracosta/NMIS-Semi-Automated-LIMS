@@ -1,11 +1,15 @@
 package com.example.semiautomatedlims.Entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "molbio_data")
@@ -26,6 +30,10 @@ public class MolBioData {
 
     @Column(name = "remarks", nullable = false)
     private String remarks;
+
+    @Column(name = "analysis_date")
+    @Temporal(TemporalType.DATE)
+    private Date analysisDate;
 
     // Getters and Setters
     public String getLdControlNumber() {
@@ -58,5 +66,13 @@ public class MolBioData {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Date getAnalysisDate() {
+        return analysisDate;
+    }
+
+    public void setAnalysisDate(Date analysisDate) {
+        this.analysisDate = analysisDate;
     }
 }

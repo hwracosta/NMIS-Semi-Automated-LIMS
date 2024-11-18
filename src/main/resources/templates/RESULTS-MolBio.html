@@ -70,6 +70,7 @@
                         <th>Examination Conducted</th>
                         <th>Meat Species Result</th>
                         <th>Remarks</th>
+                        <th>Analysis Date</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -85,6 +86,7 @@
                                 <option value="Negative">Negative</option>
                             </select>
                         </td>
+                        <td><input type="date" th:name="'molecAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                     </tr>
                     </tbody>
                 </table>
