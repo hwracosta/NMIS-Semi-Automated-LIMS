@@ -73,20 +73,20 @@
                             <td th:text="${request.expirationDate}">Expiration Date</td>
                             <td th:text="${request.status}">Status</td>
 
-                            <!-- Microbiological test columns with actual results -->
-                            <td th:text="${request.testResults['Standard Plate Count']}">Standard Plate Count</td>
-                            <td th:text="${request.testResults['Staphylococcus aureus']}">Staphylococcus aureus</td>
-                            <td th:text="${request.testResults['Salmonella sp.']}">Salmonella sp.</td>
-                            <td th:text="${request.testResults['Campylobacter']}">Campylobacter</td>
-                            <td th:text="${request.testResults['CST Gram Positive AST']}">Culture and Sensitivity Test: Gram Positive AST</td>
-                            <td th:text="${request.testResults['CST Gram Negative AST']}">Culture and Sensitivity Test: Gram Negative AST</td>
-                            <td th:text="${request.testResults['Coliform Count']}">Coliform Count</td>
-                            <td th:text="${request.testResults['E. Coli']}">E. Coli</td>
-                            <td th:text="${request.testResults['E. Coli O157:H7']}">E. Coli O157:H7</td>
-                            <td th:text="${request.testResults['Yeast and Molds']}">Yeast and Molds</td>
-                            <td th:text="${request.testResults['Organoleptic Test']}">Organoleptic Test</td>
-                            <td th:text="${request.testResults['pH']}">pH</td>
-                            <td th:text="${request.testResults['Trichinella spp. Identification']}">Trichinella spp. Identification</td>
+                            <!-- Hardcoded microbiological test columns -->
+                            <td th:text="${#arrays.contains(request.microbioTests, 'standard_count') ? 'Result' : 'N/A'}">Standard Plate Count</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'staphylococcus') ? 'Result' : 'N/A'}">Staphylococcus aureus</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'salmonella') ? 'Result' : 'N/A'}">Salmonella sp.</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'campylobacter') ? 'Result' : 'N/A'}">Campylobacter</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'CST_gram_positive_ast') ? 'Result' : 'N/A'}">Culture and Sensitivity Test: Gram Positive AST</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'CST_gram_negative_ast') ? 'Result' : 'N/A'}">Culture and Sensitivity Test: Gram Negative AST</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'coliform') ? 'Result' : 'N/A'}">Coliform Count</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'e_coli') ? 'Result' : 'N/A'}">E. Coli</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'e_coli2') ? 'Result' : 'N/A'}">E. Coli O157:H7</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'yeast') ? 'Result' : 'N/A'}">Yeast and Molds</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'organoleptic') ? 'Result' : 'N/A'}">Organoleptic Test</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'pH') ? 'Result' : 'N/A'}">pH</td>
+                            <td th:text="${#arrays.contains(request.microbioTests, 'trichinella') ? 'Result' : 'N/A'}">Trichinella spp. Identification</td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,4 +95,3 @@
     </div>
 </body>
 </html>
-
