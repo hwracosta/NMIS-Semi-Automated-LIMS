@@ -76,6 +76,8 @@ public class TestingMolBioController {
         if (request != null && request.getClient() != null) {
             Map<String, Object> clientDetails = new HashMap<>();
             clientDetails.put("sampleCategory", capitalize(request.getSampleCategory()));
+            clientDetails.put("sampleDetails", capitalize(request.getSampleDetails()));
+            clientDetails.put("sampleCode", capitalize(request.getClientSampleCode()));
             clientDetails.put("sampleSource", capitalize(request.getSampleSource()));
             clientDetails.put("productionDate", request.getProductionDate() != null ? dateFormat.format(request.getProductionDate()) : null);
             clientDetails.put("expirationDate", request.getExpirationDate() != null ? dateFormat.format(request.getExpirationDate()) : null);

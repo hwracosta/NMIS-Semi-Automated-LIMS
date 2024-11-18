@@ -134,7 +134,7 @@ table {
 th, td {
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 th {
