@@ -176,6 +176,7 @@
                         <tr>
                             <th>Examination Conducted</th>
                             <th>Meat Species Result</th>
+                            <th>Remarks</th>
                             <th>Analysis Date</th>
                         </tr>
                         </thead>
@@ -377,6 +378,7 @@
     // Split and trim relevant fields by commas
     const examinationsConducted = result.examinationConducted.split(',').map(exam => exam.trim());
     const meatSpeciesResults = result.meatSpeciesResult.split(',').map(species => species.trim());
+    const remarks = result.remarks.split(',').map(remark => remark.trim());
     const analysisDates = result.analysisDate.split(',').map(date => date.trim());
 
     // Use the maximum length of the arrays to iterate through them
@@ -386,6 +388,7 @@
         // Get values for this row, defaulting to 'N/A' if undefined
         const examinationValue = examinationsConducted[i] || 'N/A';
         const speciesValue = meatSpeciesResults[i] || 'N/A';
+        const remarkValue = remarks[i] || 'N/A';
         const analysisDateValue = analysisDates[i] || 'N/A';
 
         // Append the new row to the table body
@@ -393,6 +396,7 @@
             <tr>
                 <td>${examinationValue}</td>
                 <td>${speciesValue}</td>
+                <td>${remarkValue}</td>
                 <td>${analysisDateValue}</td>
             </tr>
         `);
