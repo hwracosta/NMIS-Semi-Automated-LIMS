@@ -13,11 +13,14 @@ $(document).ready(function() {
 
     document.getElementById('others-para').addEventListener('change', function() {
         const specifyInput = document.getElementById('specify-para');
-        specifyInput.style.display = this.checked ? 'inline' : 'none';
-        if (!this.checked) {
-            specifyInput.value = ""; // Reset the value if unchecked
+        if (this.checked) {
+            specifyInput.style.display = 'inline'; // Show the specify input field
+        } else {
+            specifyInput.style.display = 'none'; // Hide the specify input field
+            specifyInput.value = ""; // Reset the input if unchecked
         }
     });
+    
 
     // Radio button logic for "Releasing Results" section
     document.querySelectorAll("input[name='releasingResults']").forEach(function(radio) {
@@ -189,7 +192,7 @@ $(document).ready(function() {
             console.log("Element with ID 'specify-para' not found."); // Debug log
         }
     }
-
+    
 
     // Attach event listeners to all category radio inputs for monitoring/walk-in
     categoryRadios.forEach(radio => {
@@ -204,23 +207,35 @@ $(document).ready(function() {
         const reviewContent = $('#reviewContent');
         const confirmSubmitBtn = $('#confirmSubmit');
         const labRequestForm = $('form');
-
+        
+        function formatTestName(testName) {
+            // Replace underscores and hyphens with spaces, then capitalize the first letter of each word
+            return testName
+                .replace(/[_]/g, ' ') // Replace underscores and hyphens with spaces
+                .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize the first letter of each word
+        } 
+        
         // Function to populate the popup with form data
         function populateReviewContent() {
             const formData = labRequestForm.serializeArray();
             let contentHtml = `
-        <div class="pdf-header">
-            <h2>Laboratory Request Form Review</h2>
-        </div>
-        <hr>
-        <div class="pdf-section">
-            <h3>Client Information</h3>
-            <table class="pdf-table">
-                <tbody>`;
+            <div class="pdf-header">
+                <h2>Laboratory Request Form Review</h2>
+            </div>
+            <hr>
+            <div class="pdf-section" id="client-info-section">
+                <h3>Client Information</h3>
+                <table class="pdf-table">
+                    <tbody>`;
         
             // Add client-related fields
             formData.forEach(item => {
-                if (["companyName", "representativeName", "email", "contactNumber", "ltoNo", "clientClassif", "address"].includes(item.name)) {
+                if (["certify"].includes(item.name)) return; // Skip the certify field
+                
+                // Only process non-test fields in this loop
+                if (!["microbioTests", "molecTests", "chemTests", "sampleDetails", "sample_category", "clientSampleCode", 
+                    "sampleSource", "productionDate", "weightGrams", "expirationDate", "samplingDate", "otherMicrobioTests", "regional-office"   
+                 ].includes(item.name)) {
                     const formattedName = item.name
                         .replace(/([A-Z])/g, ' $1')
                         .replace(/^./, str => str.toUpperCase());
@@ -229,42 +244,105 @@ $(document).ready(function() {
             });
         
             contentHtml += `
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>`;
         
-        <div class="pdf-section">
-            <h3>Sample Details</h3>
-            <table class="pdf-table">
-                <tbody>`;
+            // Group and display sample information
+            const sampleDetails = formData
+                .filter(item => item.name === "sampleDetails") 
+                .map(item => item.value)                       
+                .join(", "); // Join sample details as a comma-separated string
         
-            // Add sample-related fields with updated test names
-            formData.forEach(item => {
-                let formattedName;
-                switch (item.name) {
-                    case "microbioTests":
-                        formattedName = "Microbiological Tests";
-                        break;
-                    case "molecTests":
-                        formattedName = "Molecular Biology Tests";
-                        break;
-                    case "chemTests":
-                        formattedName = "Chemistry Tests";
-                        break;
-                    default:
-                        formattedName = item.name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                }
-                contentHtml += `<tr><td class="pdf-field">${formattedName}</td><td class="pdf-value">${item.value || 'N/A'}</td></tr>`;
-            });
+            const sampleCategory = formData.find(item => item.name === "sample_category")?.value || 'N/A';
+            const clientSampleCode = formData.find(item => item.name === "clientSampleCode")?.value || 'N/A';
+            const sampleSource = formData.find(item => item.name === "sampleSource")?.value || 'N/A';
+            const productionDate = formData.find(item => item.name === "productionDate")?.value || 'N/A';
+            const weightGrams = formData.find(item => item.name === "weightGrams")?.value || 'N/A';
+            const expirationDate = formData.find(item => item.name === "expirationDate")?.value || 'N/A';
+            const samplingDate = formData.find(item => item.name === "samplingDate")?.value || 'N/A';
+            const regionalOffice = formData.find(item => item.name === "regional-office")?.value || 'N/A';
         
             contentHtml += `
-                </tbody>
-            </table>
-        </div>
-        `;
+            <div class="pdf-section" id="sample-info-section">
+                <h3>Sample Information</h3>
+                <table class="pdf-table">
+                    <tbody>
+                        <tr><td class="pdf-field">Sample Details</td><td class="pdf-value">${sampleDetails || 'N/A'}</td></tr>
+                        <tr><td class="pdf-field">Sample Category</td><td class="pdf-value">${sampleCategory}</td></tr>
+                        <tr><td class="pdf-field">Client Sample Code</td><td class="pdf-value">${clientSampleCode}</td></tr>
+                        <tr><td class="pdf-field">Sample Source</td><td class="pdf-value">${sampleSource}</td></tr>
+                        <tr><td class="pdf-field">Production Date</td><td class="pdf-value">${productionDate}</td></tr>
+                        <tr><td class="pdf-field">Weight (Grams)</td><td class="pdf-value">${weightGrams}</td></tr>
+                        <tr><td class="pdf-field">Expiration Date</td><td class="pdf-value">${expirationDate}</td></tr>
+                        <tr><td class="pdf-field">Sampling Date</td><td class="pdf-value">${samplingDate}</td></tr>
+                        <tr><td class="pdf-field">Regional Office</td><td class="pdf-value">${regionalOffice}</td></tr>
+                    </tbody>
+                </table>
+            </div>`;
+        
+            contentHtml += `
+            <div class="pdf-section" id="test-requests-section">
+                <h3>Test/s Requested</h3>
+                <table class="pdf-table">
+                    <tbody>`;
+        
+            // Group and display test fields
+            const testCategories = {
+                microbioTests: [],
+                molecTests: [],
+                chemTests: []
+            };
+
+            formData.forEach(item => {
+                if (item.name === "microbioTests") {
+                    testCategories.microbioTests.push(item.value); // Add selected microbioTests
+                } else if (item.name === "otherMicrobioTests" && item.value) {
+                    testCategories.microbioTests.push(item.value); // Add otherMicrobioTests value directly
+                } else if (item.name === "others-para" && item.checked) {
+                    // If 'others-para' checkbox is checked, include the value from 'specify-para'
+                    const specifyParaValue = document.getElementById('specify-para').value;
+                    if (specifyParaValue) {
+                        testCategories.microbioTests.push(specifyParaValue); // Push the specify-para input value directly
+                    } else {
+                        // Optionally handle the case where specify-para is empty, if needed
+                        testCategories.microbioTests.push('No input for others'); // Fallback if no input
+                    }
+                } else if (testCategories[item.name]) {
+                    testCategories[item.name].push(item.value);
+                }
+            });
+            
+            // Combine all microbio tests (including "otherMicrobioTests") into one row
+            const microbioTestList = testCategories.microbioTests.join(', ');
+            
+            // Add microbioTests row to the content
+            if (microbioTestList.length > 0) {
+                contentHtml += `<tr><td class="pdf-field">Microbio Tests</td><td class="pdf-value">${microbioTestList}</td></tr>`;
+            }            
+                      
+
+            // Continue adding molecTests and chemTests as usual
+            Object.keys(testCategories).forEach(category => {
+                if (testCategories[category].length > 0 && category !== "microbioTests") {
+                    const categoryName = category
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, str => str.toUpperCase())
+                        .replace('Tests', ' Tests');
+                    const testList = testCategories[category].join(', ');
+                    contentHtml += `<tr><td class="pdf-field">${categoryName}</td><td class="pdf-value">${testList}</td></tr>`;
+                }
+            });
+
+        
+            contentHtml += `
+                    </tbody>
+                </table>
+            </div>`;
         
             reviewContent.html(contentHtml);
         }        
+                   
 
         // Open the popup
         reviewSubmitBtn.on('click', function(event) {
@@ -283,20 +361,20 @@ $(document).ready(function() {
             const purposeTest = $('#test-purpose').val();
             const releasingResults = $('input[name="releasingResults"]:checked').val();
             const weightGrams = $('#weight').val();
-        
+            const isCertifyChecked = $('#certify').is(':checked'); // Check if the certify checkbox is checked
+            
             // Check if at least one test is selected
             const isTestSelected = $('input[name="microbioTests"]:checked').length > 0 ||
                                    $('input[name="molecTests"]:checked').length > 0 ||
                                    $('input[name="chemTests"]:checked').length > 0;
         
-            if (!purposeTest || !releasingResults || !weightGrams || !isTestSelected) {
-                alert("Please fill out all required fields and select at least one test.");
+            if (!purposeTest || !releasingResults || !weightGrams || !isTestSelected || !isCertifyChecked) {
+                alert("Please fill out all required fields, select at least one test, and ensure the certification is checked.");
             } else {
                 reviewPopup.fadeOut(); // Close the popup before form submission
                 labRequestForm.submit(); // Submit the form
             }
-        });
-        
+        });        
         
 
         // Function to generate PDF from the review content
