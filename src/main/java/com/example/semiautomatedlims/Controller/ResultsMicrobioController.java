@@ -1,5 +1,7 @@
 package com.example.semiautomatedlims.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -53,12 +55,16 @@ public class ResultsMicrobioController {
         StringBuilder micRefVals = new StringBuilder();
         StringBuilder micRemarks = new StringBuilder();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date analysisDate = null;
+
         for (String key : allParams.keySet()) {
             if (key.startsWith("micResult_")) {
                 String testName = key.replace("micResult_", "");
                 String result = allParams.get(key);
                 String refValue = allParams.get("micRefVal_" + testName);
                 String remarks = allParams.get("micRemarks_" + testName);
+                String analysisDateStr = allParams.get("micAnalysisDate_" + testName);
 
                 if (micTestNames.length() > 0) {
                     micTestNames.append(", ");
@@ -70,6 +76,12 @@ public class ResultsMicrobioController {
                 micResults.append(result);
                 micRefVals.append(refValue == null || refValue.isEmpty() ? "N/A" : refValue);
                 micRemarks.append(remarks == null || remarks.isEmpty() ? "N/A" : remarks);
+
+                try {
+                    analysisDate = dateFormat.parse(analysisDateStr);
+                } catch (Exception e) {
+                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
+                }
             }
         }
 
@@ -79,6 +91,7 @@ public class ResultsMicrobioController {
         microBioData.setMicResult(micResults.toString());
         microBioData.setMicRefVal(micRefVals.toString());
         microBioData.setMicRemarks(micRemarks.toString());
+        microBioData.setAnalysisDate(analysisDate);
 
         testingMicrobioService.saveMicroBioData(microBioData);
 

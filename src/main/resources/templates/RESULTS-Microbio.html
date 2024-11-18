@@ -67,10 +67,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>TEST CONDUCTED</th>
-                            <th>RESULT</th>
-                            <th>REFERENCE VALUE</th>
-                            <th>REMARKS</th>
+                            <th>Test Conducted</th>
+                            <th>Result</th>
+                            <th>Reference Value</th>
+                            <th>Remarks</th>
+                            <th>Analysis Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +88,7 @@
                                     <option value="Negative">Negative</option>
                                 </select>
                             </td>
+                            <td><input type="date" th:name="'micAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                         </tr>
                     </tbody>
                 </table>
