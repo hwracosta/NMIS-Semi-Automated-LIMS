@@ -1,21 +1,11 @@
 package com.example.semiautomatedlims.Entity;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import jakarta.persistence.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "client_reqform")
@@ -329,6 +319,16 @@ public class ClientReqForm {
 
     public void setMicrobioPending(String microbioPending) {
         this.microbioPending = microbioPending;
+    }
+    @Transient // Field not persisted in the database
+    private Map<String, String> testResultsMap = new HashMap<>();
+
+    public Map<String, String> getTestResultsMap() {
+        return testResultsMap;
+    }
+
+    public void setTestResultsMap(Map<String, String> testResultsMap) {
+        this.testResultsMap = testResultsMap;
     }
 
 }

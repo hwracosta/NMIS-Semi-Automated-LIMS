@@ -2,121 +2,102 @@ package com.example.semiautomatedlims.Controller;
 
 import com.example.semiautomatedlims.Entity.MicroBioData;
 import com.example.semiautomatedlims.Service.ReportReleaseService;
-import com.example.semiautomatedlims.Service.TestingMicrobioService;  // Corrected service name
+import com.example.semiautomatedlims.Repository.MicroBioDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class ReleaseDatabaseController {
 
     private final ReportReleaseService reportReleaseService;
-    private final TestingMicrobioService testingMicrobioService;  // Corrected service name
+    private final MicroBioDataRepository microBioDataRepository;
 
-    // Hard-coded list of tests you want to check
     private final List<String> hardCodedTests = List.of(
-        "Standard Plate Count",
-        "Staphylococcus aureus",
-        "Salmonella sp.",
-        "Campylobacter",
-        "Culture and Sensitivity Test: Gram Positive AST",
-        "Culture and Sensitivity Test: Gram Negative AST",
-        "Coliform Count",
-        "E. Coli",
-        "E. Coli & E. Coli O157;H7",
-        "Yeast and Molds",
-        "Organoleptic Test",
-        "pH",
-        "Trichinella spp. Identification"
+            "Standard Plate Count",
+            "Staphylococcus aureus",
+            "Salmonella sp.",
+            "Campylobacter",
+            "CST Gram Positive AST",
+            "CST Gram Negative AST",
+            "Coliform Count",
+            "E. Coli",
+            "E. Coli & E. Coli O157;H7",
+            "Yeast and Molds",
+            "Organoleptic Test",
+            "pH",
+            "Trichinella spp. Identification"
     );
 
     @Autowired
-    public ReleaseDatabaseController(ReportReleaseService reportReleaseService, TestingMicrobioService testingMicrobioService) {
+    public ReleaseDatabaseController(ReportReleaseService reportReleaseService, MicroBioDataRepository microBioDataRepository) {
         this.reportReleaseService = reportReleaseService;
-        this.testingMicrobioService = testingMicrobioService;  // Injecting the correct service
+        this.microBioDataRepository = microBioDataRepository;
     }
 
     @GetMapping("/RELEASE-database")
     public String showReleaseDatabasePage(Model model) {
-        // Fetch completed requests and MicroBioData entries
-        List<MicroBioData> microBioDataList = testingMicrobioService.getAllMicroBioData();  // Updated service method
+        // Fetch all completed requests
+        var completedRequests = reportReleaseService.getCompletedRequests();
 
-        // Process the MicroBioData entries
-        List<ProcessedTestData> processedData = processTestData(microBioDataList);
+        // For each request, fetch associated MicroBioData and process
+        Map<String, Map<String, String>> testResultsMap = new HashMap<>();
+        for (var request : completedRequests) {
+            String controlNumber = request.getLdControlNumber();
+            List<MicroBioData> testData = microBioDataRepository.findByLdControlNumber(controlNumber);
 
-        // Add both completed requests and processed data to the model
-        model.addAttribute("completedRequests", reportReleaseService.getCompletedRequests());
-        model.addAttribute("processedData", processedData);
+            // Process test data into a mapping of test names to results
+            Map<String, String> resultMapping = processTestData(testData);
+            testResultsMap.put(controlNumber, resultMapping);
 
-        return "RELEASE-database";  // Return the view name
+            // Set the mapping to the request for display in the view
+            request.setTestResultsMap(resultMapping);
+        }
+
+        model.addAttribute("completedRequests", completedRequests);
+        return "RELEASE-database";
     }
 
-    private List<ProcessedTestData> processTestData(List<MicroBioData> microBioDataList) {
-        return microBioDataList.stream().map(microBioData -> {
-            // Process the test_name CSV into individual tests
-            String[] testNames = microBioData.getMicTestName().split(",");  // Updated field
+    private Map<String, String> processTestData(List<MicroBioData> testData) {
+        Map<String, String> results = hardCodedTests.stream()
+                .collect(Collectors.toMap(test -> test, test -> "N/A")); // Initialize with "N/A" for all tests
 
-            // Create an object to hold the processed results for each MicroBioData entry
-            ProcessedTestData processedData = new ProcessedTestData();
-            processedData.setControlNumber(microBioData.getLdControlNumber());
+        for (MicroBioData data : testData) {
+            String[] testNames = data.getMicTestName().split("\\s*,\\s*"); // Split test names
+            String[] testResults = data.getMicResult().split("\\s*,\\s*"); // Split results
 
-            for (String test : hardCodedTests) {
-                boolean found = false;
-                for (String testName : testNames) {
-                    if (testName.trim().equalsIgnoreCase(test)) {
-                        processedData.addTestResult(test, microBioData.getMicResult());  // Updated field
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    processedData.addTestResult(test, "N/A");
+            // Iterate over all test names and map results
+            for (int i = 0; i < testNames.length; i++) {
+                String normalizedTestName = normalizeTestName(testNames[i].trim()); // Normalize names to match hardcoded list
+                String result = i < testResults.length ? testResults[i].trim() : "N/A"; // Get result or default to "N/A"
+                if (results.containsKey(normalizedTestName)) {
+                    results.put(normalizedTestName, result);
                 }
             }
-            return processedData;
-        }).toList();
+        }
+        return results;
     }
 
-    public static class ProcessedTestData {
-        private String controlNumber;
-        private final List<TestResult> testResults = new ArrayList<>();
-
-        public void setControlNumber(String controlNumber) {
-            this.controlNumber = controlNumber;
-        }
-
-        public String getControlNumber() {
-            return controlNumber;
-        }
-
-        public void addTestResult(String testName, String result) {
-            testResults.add(new TestResult(testName, result));
-        }
-
-        public List<TestResult> getTestResults() {
-            return testResults;
-        }
-
-        public static class TestResult {
-            private String testName;
-            private String result;
-
-            public TestResult(String testName, String result) {
-                this.testName = testName;
-                this.result = result;
-            }
-
-            public String getTestName() {
-                return testName;
-            }
-
-            public String getResult() {
-                return result;
-            }
-        }
+    private String normalizeTestName(String testName) {
+        return switch (testName.toLowerCase()) {
+            case "standard_count" -> "Standard Plate Count";
+            case "staphylococcus" -> "Staphylococcus aureus";
+            case "salmonella" -> "Salmonella sp.";
+            case "campylobacter" -> "Campylobacter";
+            case "cst_gram_positive_ast" -> "CST Gram Positive AST";
+            case "cst_gram_negative_ast" -> "CST Gram Negative AST";
+            case "coliform" -> "Coliform Count";
+            case "e_coli" -> "E. Coli";
+            case "e_coli2" -> "E. Coli & E. Coli O157;H7";
+            case "yeast" -> "Yeast and Molds";
+            case "organoleptic" -> "Organoleptic Test";
+            case "ph" -> "pH";
+            case "trichinella" -> "Trichinella spp. Identification";
+            default -> testName; // Default to the raw name if no match
+        };
     }
 }
