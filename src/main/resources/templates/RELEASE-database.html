@@ -7,90 +7,122 @@
     <link rel="stylesheet" th:href="@{/css/RELEASE-database.css}">
 </head>
 <body>
-    <header class="header">
-        <div class="overlap-group">
-            <div class="rectangle"></div>
-            <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
-            <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
-            <div class="header-links">
-                <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Receiving/Releasing Staff Home</a>
-                <div class="logout-button">
-                    <form th:action="@{/logout}" method="get" style="display: inline;">
-                        <a href="/STAFF-login" class="log-out">Logout</a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="content">
-        <div class="track-box">
-            <h2>Release Database</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Company Name</th>
-                            <th>Address</th>
-                            <th>Client Classification</th>
-                            <th>Sample Category</th>
-                            <th>Sample Details</th>
-                            <th>Sample Source</th>
-                            <th>Sampling Date</th>
-                            <th>LD Control Number</th>
-                            <th>Production Date</th>
-                            <th>Expiration Date</th>
-                            <th>Status</th>
-
-                            <!-- Microbiological Test Columns -->
-                            <th>Standard Plate Count</th>
-                            <th>Staphylococcus aureus</th>
-                            <th>Salmonella sp.</th>
-                            <th>Campylobacter</th>
-                            <th>CST Gram Positive AST</th>
-                            <th>CST Gram Negative AST</th>
-                            <th>Coliform Count</th>
-                            <th>E. Coli</th>
-                            <th>E. Coli O157:H7</th>
-                            <th>Yeast and Molds</th>
-                            <th>Organoleptic Test</th>
-                            <th>pH</th>
-                            <th>Trichinella spp. Identification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="request : ${completedRequests}">
-                        <td th:text="${request.client.companyName}">Company Name</td>
-                        <td th:text="${request.client.address}">Address</td>
-                        <td th:text="${request.client.clientClassif}">Client Classification</td>
-                        <td th:text="${request.sampleCategory}">Sample Category</td>
-                        <td th:text="${request.sampleDetails}">Sample Details</td>
-                        <td th:text="${request.sampleSource}">Sample Source</td>
-                        <td th:text="${request.samplingDate}">Sampling Date</td>
-                        <td th:text="${request.ldControlNumber}">LD Control Number</td>
-                        <td th:text="${request.productionDate}">Production Date</td>
-                        <td th:text="${request.expirationDate}">Expiration Date</td>
-                        <td th:text="${request.status}">Status</td>
-
-                        <!-- Microbiological Test Columns -->
-                        <td th:text="${request.testResultsMap['Standard Plate Count']}">Standard Plate Count</td>
-                        <td th:text="${request.testResultsMap['Staphylococcus aureus']}">Staphylococcus aureus</td>
-                        <td th:text="${request.testResultsMap['Salmonella sp.']}">Salmonella sp.</td>
-                        <td th:text="${request.testResultsMap['Campylobacter']}">Campylobacter</td>
-                        <td th:text="${request.testResultsMap['CST Gram Positive AST']}">CST Gram Positive AST</td>
-                        <td th:text="${request.testResultsMap['CST Gram Negative AST']}">CST Gram Negative AST</td>
-                        <td th:text="${request.testResultsMap['Coliform Count']}">Coliform Count</td>
-                        <td th:text="${request.testResultsMap['E. Coli']}">E. Coli</td>
-                        <td th:text="${request.testResultsMap['E. Coli & E. Coli O157;H7']}">E. Coli & E. Coli O157;H7</td>
-                        <td th:text="${request.testResultsMap['Yeast and Molds']}">Yeast and Molds</td>
-                        <td th:text="${request.testResultsMap['Organoleptic Test']}">Organoleptic Test</td>
-                        <td th:text="${request.testResultsMap['pH']}">pH</td>
-                        <td th:text="${request.testResultsMap['Trichinella spp. Identification']}">Trichinella spp. Identification</td>
-                    </tr>
-                    </tbody>
-                </table>
+<header class="header">
+    <div class="overlap-group">
+        <div class="rectangle"></div>
+        <img class="img" th:src="@{/img/HEADER.png}" alt="Header Image" />
+        <div class="text-wrapper">LABORATORY INFORMATION MANAGEMENT SYSTEM</div>
+        <div class="header-links">
+            <a href="/STAFF-RELEASINGhome" class="text-wrapper-2">Receiving/Releasing Staff Home</a>
+            <div class="logout-button">
+                <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <a href="/STAFF-login" class="log-out">Logout</a>
+                </form>
             </div>
         </div>
     </div>
+</header>
+
+<div class="content">
+    <div class="track-box">
+        <h2>Release Database</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Address</th>
+                    <th>Client Classification</th>
+                    <th>Sample Category</th>
+                    <th>Sample Details</th>
+                    <th>Sample Source</th>
+                    <th>Sampling Date</th>
+                    <th>LD Control Number</th>
+                    <th>Production Date</th>
+                    <th>Expiration Date</th>
+                    <th>Status</th>
+
+                    <!-- Microbiological Test Columns -->
+                    <th>Standard Plate Count</th>
+                    <th>Staphylococcus aureus</th>
+                    <th>Salmonella sp.</th>
+                    <th>Campylobacter</th>
+                    <th>CST Gram Positive AST</th>
+                    <th>CST Gram Negative AST</th>
+                    <th>Coliform Count</th>
+                    <th>E. Coli</th>
+                    <th>E. Coli O157:H7</th>
+                    <th>Yeast and Molds</th>
+                    <th>Organoleptic Test</th>
+                    <th>pH</th>
+                    <th>Trichinella spp. Identification</th>
+
+                    <!-- Chemical Test Columns -->
+                    <th>Beta-lactams</th>
+                    <th>Tetracyclines</th>
+                    <th>Sulfonamides</th>
+                    <th>Aminoglycosides</th>
+                    <th>Macrolides</th>
+                    <th>Quinolones</th>
+                    <th>Chloramphenicol</th>
+                    <th>Nitrofuran AOZ</th>
+                    <th>Nitrofuran AMOZ</th>
+                    <th>Corticosteroids</th>
+                    <th>Olaquindox</th>
+                    <th>Beta-agonists</th>
+                    <th>Stilbenes</th>
+                    <th>Ractopamine</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="request : ${completedRequests}">
+                    <td th:text="${request.client.companyName}">Company Name</td>
+                    <td th:text="${request.client.address}">Address</td>
+                    <td th:text="${request.client.clientClassif}">Client Classification</td>
+                    <td th:text="${request.sampleCategory}">Sample Category</td>
+                    <td th:text="${request.sampleDetails}">Sample Details</td>
+                    <td th:text="${request.sampleSource}">Sample Source</td>
+                    <td th:text="${request.samplingDate}">Sampling Date</td>
+                    <td th:text="${request.ldControlNumber}">LD Control Number</td>
+                    <td th:text="${request.productionDate}">Production Date</td>
+                    <td th:text="${request.expirationDate}">Expiration Date</td>
+                    <td th:text="${request.status}">Status</td>
+
+                    <!-- Microbiological Test Results -->
+                    <td th:text="${request.testResultsMap['Standard Plate Count']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Staphylococcus aureus']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Salmonella sp.']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Campylobacter']}">N/A</td>
+                    <td th:text="${request.testResultsMap['CST Gram Positive AST']}">N/A</td>
+                    <td th:text="${request.testResultsMap['CST Gram Negative AST']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Coliform Count']}">N/A</td>
+                    <td th:text="${request.testResultsMap['E. Coli']}">N/A</td>
+                    <td th:text="${request.testResultsMap['E. Coli & E. Coli O157;H7']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Yeast and Molds']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Organoleptic Test']}">N/A</td>
+                    <td th:text="${request.testResultsMap['pH']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Trichinella spp. Identification']}">N/A</td>
+
+                    <!-- Chemical Test Results -->
+                    <td th:text="${request.testResultsMap['Beta-lactams']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Tetracyclines']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Sulfonamides']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Aminoglycosides']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Macrolides']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Quinolones']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Chloramphenicol']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Nitrofuran AOZ']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Nitrofuran AMOZ']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Corticosteroids']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Olaquindox']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Beta-agonists']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Stilbenes']}">N/A</td>
+                    <td th:text="${request.testResultsMap['Ractopamine']}">N/A</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

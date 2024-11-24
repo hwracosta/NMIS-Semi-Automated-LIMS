@@ -1,8 +1,10 @@
 package com.example.semiautomatedlims.Controller;
 
+import com.example.semiautomatedlims.Entity.ChemData;
 import com.example.semiautomatedlims.Entity.MicroBioData;
-import com.example.semiautomatedlims.Service.ReportReleaseService;
+import com.example.semiautomatedlims.Repository.ChemDataRepository;
 import com.example.semiautomatedlims.Repository.MicroBioDataRepository;
+import com.example.semiautomatedlims.Service.ReportReleaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,10 @@ public class ReleaseDatabaseController {
 
     private final ReportReleaseService reportReleaseService;
     private final MicroBioDataRepository microBioDataRepository;
+    private final ChemDataRepository chemDataRepository;
 
-    private final List<String> hardCodedTests = List.of(
+    // Hardcoded Microbiological Tests
+    private final List<String> microbioTests = List.of(
             "Standard Plate Count",
             "Staphylococcus aureus",
             "Salmonella sp.",
@@ -33,56 +37,107 @@ public class ReleaseDatabaseController {
             "Trichinella spp. Identification"
     );
 
+    // Hardcoded Chemical Tests
+    private final List<String> chemTests = List.of(
+            "Beta-lactams",
+            "Tetracyclines",
+            "Sulfonamides",
+            "Aminoglycosides",
+            "Macrolides",
+            "Quinolones",
+            "Chloramphenicol",
+            "Nitrofuran AOZ",
+            "Nitrofuran AMOZ",
+            "Corticosteroids",
+            "Olaquindox",
+            "Beta-agonists",
+            "Stilbenes",
+            "Ractopamine"
+    );
+
     @Autowired
-    public ReleaseDatabaseController(ReportReleaseService reportReleaseService, MicroBioDataRepository microBioDataRepository) {
+    public ReleaseDatabaseController(ReportReleaseService reportReleaseService,
+                                     MicroBioDataRepository microBioDataRepository,
+                                     ChemDataRepository chemDataRepository) {
         this.reportReleaseService = reportReleaseService;
         this.microBioDataRepository = microBioDataRepository;
+        this.chemDataRepository = chemDataRepository;
     }
 
     @GetMapping("/RELEASE-database")
     public String showReleaseDatabasePage(Model model) {
-        // Fetch all completed requests
         var completedRequests = reportReleaseService.getCompletedRequests();
 
-        // For each request, fetch associated MicroBioData and process
-        Map<String, Map<String, String>> testResultsMap = new HashMap<>();
         for (var request : completedRequests) {
             String controlNumber = request.getLdControlNumber();
-            List<MicroBioData> testData = microBioDataRepository.findByLdControlNumber(controlNumber);
 
-            // Process test data into a mapping of test names to results
-            Map<String, String> resultMapping = processTestData(testData);
-            testResultsMap.put(controlNumber, resultMapping);
+            // Process Microbiological Test Results
+            List<MicroBioData> microbioTestData = microBioDataRepository.findByLdControlNumber(controlNumber);
+            Map<String, String> microbioResults = processTestData(microbioTestData, microbioTests, "microbio");
 
-            // Set the mapping to the request for display in the view
-            request.setTestResultsMap(resultMapping);
+            // Process Chemical Test Results
+            List<ChemData> chemTestData = chemDataRepository.findByLdControlNumber(controlNumber);
+            Map<String, String> chemResults = processChemData(chemTestData, chemTests);
+
+            // Combine both results into the request object
+            Map<String, String> combinedResults = new HashMap<>(microbioResults);
+            combinedResults.putAll(chemResults);
+
+            // Set the combined results map to the request
+            request.setTestResultsMap(combinedResults);
         }
 
         model.addAttribute("completedRequests", completedRequests);
         return "RELEASE-database";
     }
 
-    private Map<String, String> processTestData(List<MicroBioData> testData) {
-        Map<String, String> results = hardCodedTests.stream()
-                .collect(Collectors.toMap(test -> test, test -> "N/A")); // Initialize with "N/A" for all tests
+    private Map<String, String> processTestData(List<?> testData, List<String> hardcodedTests, String type) {
+        Map<String, String> results = hardcodedTests.stream()
+                .collect(Collectors.toMap(test -> test, test -> "N/A")); // Initialize with "N/A"
 
-        for (MicroBioData data : testData) {
-            String[] testNames = data.getMicTestName().split("\\s*,\\s*"); // Split test names
-            String[] testResults = data.getMicResult().split("\\s*,\\s*"); // Split results
+        for (Object data : testData) {
+            String[] testNames, testResults;
 
-            // Iterate over all test names and map results
+            if (type.equals("microbio") && data instanceof MicroBioData) {
+                testNames = ((MicroBioData) data).getMicTestName().split("\\s*,\\s*");
+                testResults = ((MicroBioData) data).getMicResult().split("\\s*,\\s*");
+            } else {
+                continue;
+            }
+
             for (int i = 0; i < testNames.length; i++) {
-                String normalizedTestName = normalizeTestName(testNames[i].trim()); // Normalize names to match hardcoded list
-                String result = i < testResults.length ? testResults[i].trim() : "N/A"; // Get result or default to "N/A"
+                String normalizedTestName = normalizeTestName(testNames[i].trim(), type);
+                String result = i < testResults.length ? testResults[i].trim() : "N/A";
                 if (results.containsKey(normalizedTestName)) {
                     results.put(normalizedTestName, result);
                 }
             }
         }
+
         return results;
     }
 
-    private String normalizeTestName(String testName) {
+    private Map<String, String> processChemData(List<ChemData> chemTestData, List<String> chemTests) {
+        Map<String, String> results = chemTests.stream()
+                .collect(Collectors.toMap(test -> test, test -> "N/A")); // Initialize with "N/A"
+
+        for (ChemData data : chemTestData) {
+            String[] analytes = data.getAnalyte().split("\\s*,\\s*");
+            String[] resultsArray = data.getResult().split("\\s*,\\s*");
+
+            for (int i = 0; i < analytes.length; i++) {
+                String normalizedTestName = normalizeTestName(analytes[i].trim(), "chem");
+                String result = i < resultsArray.length ? resultsArray[i].trim() : "N/A";
+                if (results.containsKey(normalizedTestName)) {
+                    results.put(normalizedTestName, result);
+                }
+            }
+        }
+
+        return results;
+    }
+
+    private String normalizeTestName(String testName, String type) {
         return switch (testName.toLowerCase()) {
             case "standard_count" -> "Standard Plate Count";
             case "staphylococcus" -> "Staphylococcus aureus";
@@ -97,7 +152,22 @@ public class ReleaseDatabaseController {
             case "organoleptic" -> "Organoleptic Test";
             case "ph" -> "pH";
             case "trichinella" -> "Trichinella spp. Identification";
-            default -> testName; // Default to the raw name if no match
+
+            case "beta-lactams" -> "Beta-lactams";
+            case "tetracyclines" -> "Tetracyclines";
+            case "sulfonamides" -> "Sulfonamides";
+            case "aminoglycosides" -> "Aminoglycosides";
+            case "macrolides" -> "Macrolides";
+            case "quinolones" -> "Quinolones";
+            case "chloramphenicol" -> "Chloramphenicol";
+            case "nitrofuran-aoz" -> "Nitrofuran AOZ";
+            case "nitrofuran-amoz" -> "Nitrofuran AMOZ";
+            case "corticosteroids" -> "Corticosteroids";
+            case "olaquindox" -> "Olaquindox";
+            case "beta-agonists" -> "Beta-agonists";
+            case "stilbenes" -> "Stilbenes";
+            case "ractopamine" -> "Ractopamine";
+            default -> testName;
         };
     }
 }
