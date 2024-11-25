@@ -101,8 +101,8 @@ body {
 
 .track-box {
     background-color: white;
-    width: 80%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 1500px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -118,7 +118,7 @@ body {
 
 /* Scrollable Table */
 .table-container {
-    max-height: 400px; /* Adjust the height as necessary */
+    max-height: 600px; /* Adjust the height as necessary */
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -128,20 +128,28 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    text-align: center;
+    border: 1px solid #ddd;
 }
 
 th, td {
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 th {
     background-color: #f1f1f1;
     font-weight: bold;
-    color: #1E3A8A; /* Dark blue */
-    font-size: 18px;
+    color: #1E3A8A;
+}
+
+td a {
+    color: #1E3A8A;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
 }
 
 tbody tr {
