@@ -110,55 +110,66 @@
                                 <td th:text="${summary.totalTests}"></td>
                                 <td th:text="${summary.positiveResults}"></td>
                                 <td th:text="${summary.negativeResults}"></td>
-                                <!-- January -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+
+                                 <!-- January -->
+                                <td th:text="${yearlyMicrobioTests[1][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[1][summary.testName]?.getMonthlyPositiveResults(1)}"></td>
+                                <td th:text="${yearlyMicrobioTests[1][summary.testName]?.getMonthlyNegativeResults(1)}"></td>
+
                                 <!-- February -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[2][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[2][summary.testName]?.getMonthlyPositiveResults(2)}"></td>
+                                <td th:text="${yearlyMicrobioTests[2][summary.testName]?.getMonthlyNegativeResults(2)}"></td>
+
                                 <!-- March -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[3][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[3][summary.testName]?.getMonthlyPositiveResults(3)}"></td>
+                                <td th:text="${yearlyMicrobioTests[3][summary.testName]?.getMonthlyNegativeResults(3)}"></td>
+
                                 <!-- April -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[4][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[4][summary.testName]?.getMonthlyPositiveResults(4)}"></td>
+                                <td th:text="${yearlyMicrobioTests[4][summary.testName]?.getMonthlyNegativeResults(4)}"></td>
+
                                 <!-- May -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[5][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[5][summary.testName]?.getMonthlyPositiveResults(5)}"></td>
+                                <td th:text="${yearlyMicrobioTests[5][summary.testName]?.getMonthlyNegativeResults(5)}"></td>
+
                                 <!-- June -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[6][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[6][summary.testName]?.getMonthlyPositiveResults(6)}"></td>
+                                <td th:text="${yearlyMicrobioTests[6][summary.testName]?.getMonthlyNegativeResults(6)}"></td>
+
                                 <!-- July -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[7][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[7][summary.testName]?.getMonthlyPositiveResults(7)}"></td>
+                                <td th:text="${yearlyMicrobioTests[7][summary.testName]?.getMonthlyNegativeResults(7)}"></td>
+
                                 <!-- August -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[8][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[8][summary.testName]?.getMonthlyPositiveResults(8)}"></td>
+                                <td th:text="${yearlyMicrobioTests[8][summary.testName]?.getMonthlyNegativeResults(8)}"></td>
+
                                 <!-- September -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[9][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[9][summary.testName]?.getMonthlyPositiveResults(9)}"></td>
+                                <td th:text="${yearlyMicrobioTests[9][summary.testName]?.getMonthlyNegativeResults(9)}"></td>
+
                                 <!-- October -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[10][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[10][summary.testName]?.getMonthlyPositiveResults(10)}"></td>
+                                <td th:text="${yearlyMicrobioTests[10][summary.testName]?.getMonthlyNegativeResults(10)}"></td>
+
                                 <!-- November -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMicrobioTests[11][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[11][summary.testName]?.getMonthlyPositiveResults(11)}"></td>
+                                <td th:text="${yearlyMicrobioTests[11][summary.testName]?.getMonthlyNegativeResults(11)}"></td>
+
                                 <!-- December -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
-                                
+                                <td th:text="${yearlyMicrobioTests[12][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMicrobioTests[12][summary.testName]?.getMonthlyPositiveResults(12)}"></td>
+                                <td th:text="${yearlyMicrobioTests[12][summary.testName]?.getMonthlyNegativeResults(12)}"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -243,54 +254,66 @@
                                 <td th:text="${summary.totalTests}"></td>
                                 <td th:text="${summary.positiveResults}"></td>
                                 <td th:text="${summary.negativeResults}"></td>
+
                                 <!-- January -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[1][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[1][summary.testName]?.getMonthlyPositiveResults(1)}"></td>
+                                <td th:text="${yearlyMolbioTests[1][summary.testName]?.getMonthlyNegativeResults(1)}"></td>
+                                
                                 <!-- February -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[2][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[2][summary.testName]?.getMonthlyPositiveResults(2)}"></td>
+                                <td th:text="${yearlyMolbioTests[2][summary.testName]?.getMonthlyNegativeResults(2)}"></td>
+                                
                                 <!-- March -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[3][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[3][summary.testName]?.getMonthlyPositiveResults(3)}"></td>
+                                <td th:text="${yearlyMolbioTests[3][summary.testName]?.getMonthlyNegativeResults(3)}"></td>
+                                
                                 <!-- April -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[4][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[4][summary.testName]?.getMonthlyPositiveResults(4)}"></td>
+                                <td th:text="${yearlyMolbioTests[4][summary.testName]?.getMonthlyNegativeResults(4)}"></td>
+                                
                                 <!-- May -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[5][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[5][summary.testName]?.getMonthlyPositiveResults(5)}"></td>
+                                <td th:text="${yearlyMolbioTests[5][summary.testName]?.getMonthlyNegativeResults(5)}"></td>
+
                                 <!-- June -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[6][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[6][summary.testName]?.getMonthlyPositiveResults(6)}"></td>
+                                <td th:text="${yearlyMolbioTests[6][summary.testName]?.getMonthlyNegativeResults(6)}"></td>
+
                                 <!-- July -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[7][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[7][summary.testName]?.getMonthlyPositiveResults(7)}"></td>
+                                <td th:text="${yearlyMolbioTests[7][summary.testName]?.getMonthlyNegativeResults(7)}"></td>
+
                                 <!-- August -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[8][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[8][summary.testName]?.getMonthlyPositiveResults(8)}"></td>
+                                <td th:text="${yearlyMolbioTests[8][summary.testName]?.getMonthlyNegativeResults(8)}"></td>
+
                                 <!-- September -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[9][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[9][summary.testName]?.getMonthlyPositiveResults(9)}"></td>
+                                <td th:text="${yearlyMolbioTests[9][summary.testName]?.getMonthlyNegativeResults(9)}"></td>
+                                
                                 <!-- October -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[10][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[10][summary.testName]?.getMonthlyPositiveResults(10)}"></td>
+                                <td th:text="${yearlyMolbioTests[10][summary.testName]?.getMonthlyNegativeResults(10)}"></td>
+                                
                                 <!-- November -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[11][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[11][summary.testName]?.getMonthlyPositiveResults(11)}"></td>
+                                <td th:text="${yearlyMolbioTests[11][summary.testName]?.getMonthlyNegativeResults(11)}"></td>
+
                                 <!-- December -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyMolbioTests[12][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyMolbioTests[12][summary.testName]?.getMonthlyPositiveResults(12)}"></td>
+                                <td th:text="${yearlyMolbioTests[12][summary.testName]?.getMonthlyNegativeResults(12)}"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -376,53 +399,64 @@
                                 <td th:text="${summary.negativeResults}"></td>
 
                                 <!-- January -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[1][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[1][summary.testName]?.getMonthlyPositiveResults(1)}"></td>
+                                <td th:text="${yearlyChemicalTests[1][summary.testName]?.getMonthlyNegativeResults(1)}"></td>
+                                
                                 <!-- February -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[2][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[2][summary.testName]?.getMonthlyPositiveResults(2)}"></td>
+                                <td th:text="${yearlyChemicalTests[2][summary.testName]?.getMonthlyNegativeResults(2)}"></td>
+                                
                                 <!-- March -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[3][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[3][summary.testName]?.getMonthlyPositiveResults(3)}"></td>
+                                <td th:text="${yearlyChemicalTests[3][summary.testName]?.getMonthlyNegativeResults(3)}"></td>
+                                
                                 <!-- April -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[4][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[4][summary.testName]?.getMonthlyPositiveResults(4)}"></td>
+                                <td th:text="${yearlyChemicalTests[4][summary.testName]?.getMonthlyNegativeResults(4)}"></td>
+                                
                                 <!-- May -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[5][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[5][summary.testName]?.getMonthlyPositiveResults(5)}"></td>
+                                <td th:text="${yearlyChemicalTests[5][summary.testName]?.getMonthlyNegativeResults(5)}"></td>
+
                                 <!-- June -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[6][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[6][summary.testName]?.getMonthlyPositiveResults(6)}"></td>
+                                <td th:text="${yearlyChemicalTests[6][summary.testName]?.getMonthlyNegativeResults(6)}"></td>
+
                                 <!-- July -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[7][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[7][summary.testName]?.getMonthlyPositiveResults(7)}"></td>
+                                <td th:text="${yearlyChemicalTests[7][summary.testName]?.getMonthlyNegativeResults(7)}"></td>
+
                                 <!-- August -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[8][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[8][summary.testName]?.getMonthlyPositiveResults(8)}"></td>
+                                <td th:text="${yearlyChemicalTests[8][summary.testName]?.getMonthlyNegativeResults(8)}"></td>
+
                                 <!-- September -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[9][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[9][summary.testName]?.getMonthlyPositiveResults(9)}"></td>
+                                <td th:text="${yearlyChemicalTests[9][summary.testName]?.getMonthlyNegativeResults(9)}"></td>
+                                
                                 <!-- October -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[10][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[10][summary.testName]?.getMonthlyPositiveResults(10)}"></td>
+                                <td th:text="${yearlyChemicalTests[10][summary.testName]?.getMonthlyNegativeResults(10)}"></td>
+                                
                                 <!-- November -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[11][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[11][summary.testName]?.getMonthlyPositiveResults(11)}"></td>
+                                <td th:text="${yearlyChemicalTests[11][summary.testName]?.getMonthlyNegativeResults(11)}"></td>
+
                                 <!-- December -->
-                                <td th:text="${summary.totalTests}"></td>
-                                <td th:text="${summary.positiveResults}"></td>
-                                <td th:text="${summary.negativeResults}"></td>
+                                <td th:text="${yearlyChemicalTests[12][summary.testName]?.totalTests}"></td>
+                                <td th:text="${yearlyChemicalTests[12][summary.testName]?.getMonthlyPositiveResults(12)}"></td>
+                                <td th:text="${yearlyChemicalTests[12][summary.testName]?.getMonthlyNegativeResults(12)}"></td>
                             </tr>
                         </tbody>
                     </table>
