@@ -2,12 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f5f7fa;
 }
 
 .header {
@@ -16,33 +16,33 @@ body {
     height: 150px;
     background-color: transparent;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-  }
-  
+}
+    
 .overlap-group {
     position: relative;
     width: 100%;
     height: 150px;
-  }
-  
+}
+    
 .rectangle {
     position: absolute;
-    width: 100vw;
+    width: 100vw; 
     height: 150px;
     top: 0;
     left: 0;
     background-color: #002267;
-  }
-  
+}
+    
 .img {
     position: absolute;
     width: auto;
     height: 122px;
     top: 14px;
     left: 20px;
-    max-width: 100%;
-  }
-  
-.text-wrapper {
+    max-width: 100%; 
+}
+    
+ .text-wrapper {
     max-width: calc(100% - 40px);
     top: 47px;
     font-family: "Averia Serif Libre-Bold", Helvetica;
@@ -69,13 +69,13 @@ body {
   
 .text-wrapper-2 {
     font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
     font-size: 1.0625rem;
     letter-spacing: 0.51px;
     line-height: 1.4875rem;
     color: #f0f1f4;
     text-decoration: none;
     margin-right: 15px;
+    font-weight: lighter;
   }
   
 .text-wrapper-2:hover {
@@ -84,7 +84,7 @@ body {
   
 .log-out {
     font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
+    font-weight: lighter;
     font-size: 1.0625rem;
     letter-spacing: 0.51px;
     line-height: 1.4875rem;
@@ -113,7 +113,7 @@ hr {
     background-color: #fff;
     padding: 50px; 
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     max-height: 600px; 
     overflow-y: auto; 
     width: 90%; 
