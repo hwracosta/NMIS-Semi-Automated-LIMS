@@ -28,6 +28,44 @@ public class ReportTestingService {
         this.molBioDataRepository = molBioDataRepository;
     }
 
+    public List<ReportSummaryDTO> initializePredefinedTests(
+            List<String> predefinedTests,
+            Map<Integer, Map<String, ReportSummaryDTO>> yearlyTests) {
+
+        // Initialize a list to hold all test summaries
+        List<ReportSummaryDTO> testSummaries = new ArrayList<>();
+
+        // Ensure all months (1-12) are initialized
+        for (int month = 1; month <= 12; month++) {
+            yearlyTests.putIfAbsent(month, new HashMap<>());
+            Map<String, ReportSummaryDTO> monthlyTests = yearlyTests.get(month);
+
+            // Ensure each predefined test exists for this month
+            for (String testName : predefinedTests) {
+                monthlyTests.putIfAbsent(testName, new ReportSummaryDTO(testName, 0, 0, 0));
+            }
+        }
+
+        // Populate the list of test summaries with the predefined test names
+        for (String testName : predefinedTests) {
+            // Aggregate totals across all months for this test
+            int totalTests = 0;
+            int positiveResults = 0;
+            int negativeResults = 0;
+
+            for (int month = 1; month <= 12; month++) {
+                ReportSummaryDTO monthlySummary = yearlyTests.get(month).get(testName);
+                totalTests += monthlySummary.getTotalTests();
+                positiveResults += monthlySummary.getPositiveResults();
+                negativeResults += monthlySummary.getNegativeResults();
+            }
+
+            testSummaries.add(new ReportSummaryDTO(testName, totalTests, positiveResults, negativeResults));
+        }
+
+        return testSummaries;
+    }
+
     // Method to get yearly test summaries
     public Map<Integer, Map<String, ReportSummaryDTO>> getYearlyTestSummaries(int year) {
         Map<Integer, Map<String, ReportSummaryDTO>> yearSummaries = new HashMap<>();
