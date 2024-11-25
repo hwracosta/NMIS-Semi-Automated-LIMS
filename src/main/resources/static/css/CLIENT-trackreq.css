@@ -64,13 +64,13 @@ body {
   
 .text-wrapper-2 {
     font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
     font-size: 1.0625rem;
     letter-spacing: 0.51px;
     line-height: 1.4875rem;
     color: #f0f1f4;
     text-decoration: none;
     margin-right: 15px;
+    font-weight: lighter;
   }
   
 .text-wrapper-2:hover {
@@ -79,7 +79,7 @@ body {
   
 .log-out {
     font-family: "Averia Serif Libre-Regular", Helvetica;
-    font-weight: 400;
+    font-weight: lighter;
     font-size: 1.0625rem;
     letter-spacing: 0.51px;
     line-height: 1.4875rem;
