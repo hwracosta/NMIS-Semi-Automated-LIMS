@@ -3,9 +3,7 @@ package com.example.semiautomatedlims.Controller;
 import com.example.semiautomatedlims.ReportSummaryDTO;
 import com.example.semiautomatedlims.Service.ReportTestingService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,17 +24,35 @@ public class ReportTestingController {
 
     @GetMapping
     public String getChemicalTestSummary(Model model) {
-        // Fetch all summaries
-        List<ReportSummaryDTO> chemicalSummaries = reportTestingService.getChemicalTestSummaries();
-        List<ReportSummaryDTO> microbiologicalTests = reportTestingService.getMicrobiologicalTests();
-        List<ReportSummaryDTO> molecularBiologyTests = reportTestingService.getMolecularBiologyTests();
 
-        // Fetch microbiological test summaries for all months in the year 2024
+        // Predefined Test Names
+        List<String> predefinedMicrobioTests = Arrays.asList(
+            "standard_count", "staphylococcus", "salmonella", "campylobacter", 
+            "CST_gram_positive_ast", "CST_gram_negative_ast", "coliform", 
+            "e_coli", "e_coli2", "yeast", "organoleptic", "pH", "trichinella"
+        );
+        List<String> predefinedMolbioTests = Arrays.asList(
+            "dog", "cat", "chicken", "buffalo", "cattle", 
+            "horse", "goat", "sheep", "swine"
+        );
+        List<String> predefinedChemicalTests = Arrays.asList(
+            "beta-lactams", "tetracyclines", "sulfonamides", "aminoglycosides", 
+            "macrolides", "quinolones", "chloramphenicol", "nitrofuran-aoz", 
+            "nitrofuran-amoz", "corticosteroids", "olaquindox", "beta-agonists", 
+            "stilbenes", "ractopamine"
+        );
+
+        // Fetch existing yearly test summaries
         int year = 2024;
         Map<Integer, Map<String, ReportSummaryDTO>> yearlyMicrobioTests = reportTestingService.getYearlyTestSummaries(year);
         Map<Integer, Map<String, ReportSummaryDTO>> yearlyMolbioTests = reportTestingService.getYearlyMolbioTestSummaries(year);
         Map<Integer, Map<String, ReportSummaryDTO>> yearlyChemicalTests = reportTestingService.getYearlyChemicalTestSummaries(year);
 
+        // Initialize tests for each category using the service and ensure missing months are filled
+        List<ReportSummaryDTO> microbiologicalTests = reportTestingService.initializePredefinedTests(predefinedMicrobioTests, yearlyMicrobioTests);
+        List<ReportSummaryDTO> molecularBiologyTests = reportTestingService.initializePredefinedTests(predefinedMolbioTests, yearlyMolbioTests);
+        List<ReportSummaryDTO> chemicalSummaries = reportTestingService.initializePredefinedTests(predefinedChemicalTests, yearlyChemicalTests);
+        
         // Ensure all months (1-12) are initialized and contain the test data
         for (int month = 1; month <= 12; month++) {
             // Initialize the map for each month if it doesn't exist
