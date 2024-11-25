@@ -26,4 +26,8 @@ public interface ChemDataRepository extends JpaRepository<ChemData, Long> {
 
     // Find records by analyte
     List<ChemData> findByAnalyte(String analyte);
+
+    // Add a query method to fetch data based on month and year
+    @Query("SELECT m FROM ChemData m WHERE MONTH(m.analysisDate) = :month AND YEAR(m.analysisDate) = :year")
+    List<ChemData> findByMonthAndYear(int month, int year);
 }

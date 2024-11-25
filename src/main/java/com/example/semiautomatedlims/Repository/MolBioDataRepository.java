@@ -26,4 +26,8 @@ public interface MolBioDataRepository extends JpaRepository<MolBioData, Long> {
 
     // Find records by analyte
     List<MolBioData> findByTestName(String testName);
+
+    // Add a query method to fetch data based on month and year
+    @Query("SELECT m FROM MolBioData m WHERE MONTH(m.analysisDate) = :month AND YEAR(m.analysisDate) = :year")
+    List<MolBioData> findByMonthAndYear(int month, int year);
 }

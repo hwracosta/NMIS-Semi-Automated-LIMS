@@ -26,5 +26,9 @@ public interface MicroBioDataRepository extends JpaRepository<MicroBioData, Long
     // Find records by analyte
     List<MicroBioData> findByMicTestName(String micTestName);
 
+    // Add a query method to fetch data based on month and year
+    @Query("SELECT m FROM MicroBioData m WHERE MONTH(m.analysisDate) = :month AND YEAR(m.analysisDate) = :year")
+    List<MicroBioData> findByMonthAndYear(int month, int year);
+
 
 }
