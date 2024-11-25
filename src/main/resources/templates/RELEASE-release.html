@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Review</title>
+    <title>Request Release</title>
     <link rel="stylesheet" th:href="@{/css/RELEASE-review.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -44,50 +44,50 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="request : ${requests}">
-                        <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
-                        <td>
-                            <a href="#" th:onclick="'showClientDetailsPopup(' + ${request.clientReqid} + ')'">
-                                <u>View Details</u>
-                            </a>
-                        </td>
-                        <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
-                        <td th:text="${request.status}">Status</td>
-                        <td>
-                            <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending == 'pending'}">Pending</span>
-                            <button th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending != 'pending'}"
-                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
-                                View Results
-                            </button>
-                        </td>
-
-                        <td>
-                            <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending == 'pending'}">Pending</span>
-                            <button th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending != 'pending'}"
-                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
-                                View Results
-                            </button>
-                        </td>
-
-                        <td>
-                            <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
-                            <span th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending == 'pending'}">Pending</span>
-                            <button th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending != 'pending'}"
-                                    th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
-                                View Results
-                            </button>
-                        </td>
-                        <td>
-                            <button th:id="'submit-button-' + ${request.clientReqid}"
-                                    th:disabled="${request.status != 'For Release'}"
-                                    th:onclick="'submitRequest(' + ${request.clientReqid} + ')'"
-                                    class="btn btn-primary">
-                                Submit
-                            </button>
-                        </td>
-                    </tr>
+                        <tr th:each="request : ${requests}" th:id="'row-' + ${request.clientReqid}">
+                            <td th:text="${request.client != null ? request.client.companyName : 'Unknown Client'}">Client Name</td>
+                            <td>
+                                <a href="#" th:onclick="'showClientDetailsPopup(' + ${request.clientReqid} + ')'">
+                                    <u>View Details</u>
+                                </a>
+                            </td>
+                            <td th:text="${#dates.format(request.submitDate, 'MM/dd/yyyy')}">Submission Date</td>
+                            <td th:text="${request.status}">Status</td>
+                            <td>
+                                <span th:if="${#strings.isEmpty(request.molecTests)}">No Test/s Requested</span>
+                                <span th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending == 'pending'}">Pending</span>
+                                <button th:if="${!#strings.isEmpty(request.molecTests) and request.molbioPending != 'pending'}"
+                                        th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'MolBio')|">
+                                    View Results
+                                </button>
+                            </td>
+                        
+                            <td>
+                                <span th:if="${#strings.isEmpty(request.chemTests)}">No Test/s Requested</span>
+                                <span th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending == 'pending'}">Pending</span>
+                                <button th:if="${!#strings.isEmpty(request.chemTests) and request.chemPending != 'pending'}"
+                                        th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Chem')|">
+                                    View Results
+                                </button>
+                            </td>
+                        
+                            <td>
+                                <span th:if="${#strings.isEmpty(request.microbioTests)}">No Test/s Requested</span>
+                                <span th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending == 'pending'}">Pending</span>
+                                <button th:if="${!#strings.isEmpty(request.microbioTests) and request.microbioPending != 'pending'}"
+                                        th:attr="onclick=|showResultsPopup(${request.clientReqid}, 'Microbio')|">
+                                    View Results
+                                </button>
+                            </td>
+                            <td>
+                                <button th:id="'submit-button-' + ${request.clientReqid}"
+                                        th:disabled="${request.status != 'For Release'}"
+                                        th:onclick="'submitRequest(' + ${request.clientReqid} + ')'"
+                                        class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </td>
+                        </tr>                        
                     <tr th:if="${#lists.isEmpty(requests)}">
                         <td colspan="7" style="text-align:center;">No Pending Requests</td>
                     </tr>
@@ -207,21 +207,23 @@
         });
 
         function submitRequest(clientReqid) {
-            $.ajax({
-                url: '/api/submitRequest',
-                type: 'POST',
-                data: { clientReqid: clientReqid },
-                success: function(response) {
-                    $('#row-' + clientReqid).fadeOut(500, function() {
-                        $(this).remove();
-                    });
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                    alert("Failed to submit request.");
-                }
+    $.ajax({
+        url: '/api/submitRequest',
+        type: 'POST',
+        data: { clientReqid: clientReqid },
+        success: function(response) {
+            // Find the row with the specific clientReqid and fade it out
+            $('#row-' + clientReqid).fadeOut(500, function() {
+                $(this).remove(); // Remove the row from the DOM after fading out
             });
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            alert("Failed to submit request.");
         }
+    });
+}
+
 
         function showClientDetailsPopup(clientReqid) {
             // Clear existing data
