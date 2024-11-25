@@ -3,14 +3,14 @@ package com.example.semiautomatedlims.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 
 @Configuration
 public class SecurityConfig {
@@ -21,10 +21,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()  // Allow all requests; access control is handled in controllers
                 )
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionFixation().migrateSession() // Ensure session is maintained after login
+                )
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF if not required
                 .headers(headers -> headers
                         .cacheControl(cache -> cache.disable())  // Disable caching for all pages
-                )
+                ) // Close the headers configuration properly
                 .logout(logout -> logout
                         .logoutUrl("/logout") // General logout URL for client
                         .logoutSuccessUrl("/client-login") // Redirect to client login page after logout
@@ -47,32 +50,18 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("admin")
-                .password("password")  // No hashing applied
+                .password("password") // No hashing applied
                 .roles("USER")
                 .build());
         return manager;
     }
 
-//    // Hash but normal login
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-    // No Hash
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();  // No password hashing
+        return NoOpPasswordEncoder.getInstance(); // No password hashing
     }
-
-    // hashed
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    }
 }
