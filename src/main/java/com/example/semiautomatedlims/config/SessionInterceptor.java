@@ -23,9 +23,9 @@ public class SessionInterceptor implements HandlerInterceptor {
             String requestURI = request.getRequestURI().toUpperCase();
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
-                response.sendRedirect(request.getContextPath() + "/STAFF-login");
+                response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
             } else {
-                response.sendRedirect(request.getContextPath() + "/client-login");
+                response.sendRedirect("https://limstest-latest.onrender.com" + "/client-login");  // Fully qualified URL
             }
             return false; // Ends the method execution after redirection
         }
@@ -40,9 +40,9 @@ public class SessionInterceptor implements HandlerInterceptor {
             String requestURI = request.getRequestURI().toUpperCase();
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
-                response.sendRedirect(request.getContextPath() + "/STAFF-login");
+                response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
             } else {
-                response.sendRedirect(request.getContextPath() + "/client-login");
+                response.sendRedirect("https://limstest-latest.onrender.com" + "/client-login");  // Fully qualified URL
             }
             return false; // Ends the method execution after redirection
         }
