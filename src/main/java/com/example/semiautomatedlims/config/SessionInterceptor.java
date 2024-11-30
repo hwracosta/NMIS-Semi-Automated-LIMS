@@ -17,10 +17,17 @@ public class SessionInterceptor implements HandlerInterceptor {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
 
+        // Get the URI of the current request
+        String requestURI = request.getRequestURI().toUpperCase();
+
+        // Skip session check for public pages like registration and login
+        if (requestURI.contains("/CLIENT-register") || requestURI.contains("/client-login") || requestURI.contains("/STAFF-login")) {
+            return true;  // Skip session check for these pages
+        }
+
         if (session == null) {
             System.out.println("Session is null. Redirecting to login.");
             // Check if the request is for a staff page and redirect accordingly
-            String requestURI = request.getRequestURI().toUpperCase();
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
                 response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
@@ -37,7 +44,6 @@ public class SessionInterceptor implements HandlerInterceptor {
         if (clientAttribute == null && staffAttribute == null) {
             System.out.println("No valid session attribute found. Redirecting to login.");
             // Check if the request is for a staff page and redirect accordingly
-            String requestURI = request.getRequestURI().toUpperCase();
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
                 response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
