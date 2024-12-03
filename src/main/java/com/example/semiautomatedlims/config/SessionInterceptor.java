@@ -33,9 +33,10 @@ public class SessionInterceptor implements HandlerInterceptor {
             // Check if the request is for a staff page and redirect accordingly
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
-                response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
+
+                response.sendRedirect(request.getContextPath() + "/STAFF-login");
             } else {
-                response.sendRedirect("https://limstest-latest.onrender.com" + "/CLIENT-login");  // Fully qualified URL
+                response.sendRedirect(request.getContextPath() + "/client-login");
             }
             return false; // Ends the method execution after redirection
         }
@@ -51,9 +52,10 @@ public class SessionInterceptor implements HandlerInterceptor {
             System.out.println("No valid session attribute found. Redirecting to login.");
             if (requestURI.contains("/STAFF") || requestURI.contains("/RELEASE") || requestURI.contains("/TESTING")
                     || requestURI.contains("/TR") || requestURI.contains("/REPORT") || requestURI.contains("/RESULTS")) {
-                response.sendRedirect("https://limstest-latest.onrender.com" + "/STAFF-login");  // Fully qualified URL
+
+                response.sendRedirect(request.getContextPath() + "/STAFF-login");
             } else {
-                response.sendRedirect("https://limstest-latest.onrender.com" + "/CLIENT-login");  // Fully qualified URL
+                response.sendRedirect(request.getContextPath() + "/client-login");
             }
             return false; // Ends the method execution after redirection
         }
