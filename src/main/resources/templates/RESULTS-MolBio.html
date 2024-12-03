@@ -70,6 +70,7 @@
                         <th>Examination Conducted</th>
                         <th>Meat Species Result</th>
                         <th>Remarks</th>
+                        <th>Analysis Date</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -77,7 +78,7 @@
                         <td th:text="${examination}">Examination Name</td>
                         <td>
                             <input class="results" type="text" th:name="'species_result_' + ${examination}" placeholder="Enter Result" required />
-                        </td>
+                        </td>   
                         <td>
                             <select class="remarks" th:name="'remarks_' + ${examination}" required>
                                 <option value="" disabled selected>Select Remarks</option>
@@ -85,13 +86,10 @@
                                 <option value="Negative">Negative</option>
                             </select>
                         </td>
+                        <td><input type="date" th:name="'molecAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="analysis-date">
-                <label for="analysisDate">Analysis Date:</label>
-                <input type="date" id="analysisDate" name="molecAnalysisDate" required />
             </div>
             <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> 
             <input type="hidden" name="clientReqid" th:value="${clientReqid}"> 
@@ -99,7 +97,6 @@
                 <button type="submit">Submit Results</button>
             </div>
         </form>
-        
     </div>
 </div>
 </body>

@@ -43,8 +43,7 @@ public class ResultsMolBioController {
 
     @PostMapping("/submitResults")
     public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
-                                                @RequestParam Map<String, String> allParams,
-                                                @RequestParam("molecAnalysisDate") String analysisDateStr) {
+                                                @RequestParam Map<String, String> allParams) {
         ClientReqForm clientReqForm = testingMolBioService.getRequestDetailsById(clientReqid);
 
         if (clientReqForm == null) {
@@ -55,19 +54,14 @@ public class ResultsMolBioController {
         StringBuilder meatSpeciesResults = new StringBuilder();
         StringBuilder remarks = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date analysisDate;
-
-        try {
-            analysisDate = dateFormat.parse(analysisDateStr);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Invalid date format.");
-        }
+        Date analysisDate = null;
 
         for (String key : allParams.keySet()) {
             if (key.startsWith("species_result_")) {
                 String testName = key.replace("species_result_", "");
                 String speciesResult = allParams.get(key);
-                String remark = allParams.get("remarks_" + testName);
+                String remark = allParams.get("remarks_" + testName); // Retrieve the corresponding remark
+                String analysisDateStr = allParams.get("molecAnalysisDate_" + testName);
 
                 if (testNames.length() > 0) {
                     testNames.append(", ");
@@ -76,7 +70,12 @@ public class ResultsMolBioController {
                 }
                 testNames.append(testName);
                 meatSpeciesResults.append(speciesResult);
-                remarks.append(remark != null ? remark : "");
+                remarks.append(remark != null ? remark : ""); // Append remark or an empty string if null
+                try {
+                    analysisDate = dateFormat.parse(analysisDateStr);
+                } catch (Exception e) {
+                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
+                }
             }
         }
 
@@ -84,7 +83,7 @@ public class ResultsMolBioController {
         molBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
         molBioData.setTestName(testNames.toString());
         molBioData.setMeatSpeciesResult(meatSpeciesResults.toString());
-        molBioData.setRemarks(remarks.toString());
+        molBioData.setRemarks(remarks.toString()); // Set remarks in MolBioData
         molBioData.setAnalysisDate(analysisDate);
 
         testingMolBioService.saveMolBioData(molBioData);
