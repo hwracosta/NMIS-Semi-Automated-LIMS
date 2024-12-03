@@ -42,9 +42,13 @@ public class SessionInterceptor implements HandlerInterceptor {
 
         // Log the attributes for debugging
         Object clientAttribute = session.getAttribute("loggedInClient");
-        Object staffAttribute = session.getAttribute("testingSection");
+        Object staffAttribute = session.getAttribute("loggedInStaff");
+        Object staffType = session.getAttribute("staffType");
+        Object testingSection = session.getAttribute("testingSection");
         System.out.println("Client Attribute: " + clientAttribute);
         System.out.println("Staff Attribute: " + staffAttribute);
+        System.out.println("Staff Type: " + staffType);
+        System.out.println("Testing Section: " + testingSection);
 
         // Redirect if no valid session attributes are found
         if (clientAttribute == null && staffAttribute == null) {
@@ -56,6 +60,28 @@ public class SessionInterceptor implements HandlerInterceptor {
                 response.sendRedirect(request.getContextPath() + "/client-login");
             }
             return false; // Ends the method execution after redirection
+        }
+
+        // Add validation for staff session
+        if (staffAttribute != null) {
+            System.out.println("Validating staff session...");
+
+            // Validate testing staff
+            if ("testing".equals(staffType)) {
+                if (testingSection == null || (!"chem".equals(testingSection) && !"molbio".equals(testingSection) && !"microbio".equals(testingSection))) {
+                    System.out.println("Invalid session for testing staff. Redirecting to STAFF-login.");
+                    response.sendRedirect(request.getContextPath() + "/STAFF-login");
+                    return false;
+                }
+            }
+            // Validate receiving/releasing staff
+            else if ("receiving/releasing".equals(staffType)) {
+                if (testingSection != null) {
+                    System.out.println("Invalid session for receiving/releasing staff. Redirecting to STAFF-login.");
+                    response.sendRedirect(request.getContextPath() + "/STAFF-login");
+                    return false;
+                }
+            }
         }
 
         // Secure cookies for HTTPS requests

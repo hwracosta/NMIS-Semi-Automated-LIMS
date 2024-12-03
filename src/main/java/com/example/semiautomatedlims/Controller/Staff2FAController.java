@@ -11,7 +11,8 @@ import com.example.semiautomatedlims.Entity.Staff;
 import com.example.semiautomatedlims.Service.Staff2FAService;
 import com.example.semiautomatedlims.Service.StaffService;
 
-import jakarta.servlet.http.HttpSession; 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class Staff2FAController {
 
@@ -27,14 +28,20 @@ public class Staff2FAController {
         return "STAFF-2FA";
     }
 
-   // Process 2FA code verification (POST to the same URL)
-   @PostMapping("/STAFF-2FA")
+    // Process 2FA code verification (POST to the same URL)
+    @PostMapping("/STAFF-2FA")
     public String verifyTwoFactorCode(@RequestParam String email, @RequestParam String code, RedirectAttributes redirectAttributes, HttpSession session) {
         if (staff2FAService.verify2FACode(email, code)) {
-            // Code is valid, proceed with redirecting to appropriate home page
+            // Code is valid, proceed with redirecting to the appropriate home page
             Staff staff = staffService.findStaffByEmail(email);
+
+            // Set session attributes for validation
+            session.setAttribute("loggedInStaff", staff); // Set logged-in staff
+            session.setAttribute("staffType", staff.getStaffType()); // Set staff type
+            session.setAttribute("testingSection", staff.getTestingSection()); // Set testing section if applicable
+
+            // Redirect based on staff type
             if (staff.getStaffType().equals("testing")) {
-                session.setAttribute("testingSection", staff.getTestingSection());
                 return "redirect:/STAFF-TESTINGhome";  // Redirect to testing homepage
             } else if (staff.getStaffType().equals("receiving/releasing")) {
                 return "redirect:/STAFF-RELEASINGhome";  // Redirect to receiving/releasing homepage
