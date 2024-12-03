@@ -42,62 +42,62 @@ public class ResultsMicrobioController {
     }
 
     @PostMapping("/submitMicrobioResults")
-    public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
-                                                @RequestParam Map<String, String> allParams) {
-        ClientReqForm clientReqForm = testingMicrobioService.getRequestDetailsById(clientReqid);
+public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
+                                            @RequestParam Map<String, String> allParams) {
+    ClientReqForm clientReqForm = testingMicrobioService.getRequestDetailsById(clientReqid);
 
-        if (clientReqForm == null) {
-            return ResponseEntity.badRequest().body("Error: Client request ID not found.");
-        }
-
-        StringBuilder micTestNames = new StringBuilder();
-        StringBuilder micResults = new StringBuilder();
-        StringBuilder micRefVals = new StringBuilder();
-        StringBuilder micRemarks = new StringBuilder();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date analysisDate = null;
-
-        for (String key : allParams.keySet()) {
-            if (key.startsWith("micResult_")) {
-                String testName = key.replace("micResult_", "");
-                String result = allParams.get(key);
-                String refValue = allParams.get("micRefVal_" + testName);
-                String remarks = allParams.get("micRemarks_" + testName);
-                String analysisDateStr = allParams.get("micAnalysisDate_" + testName);
-
-                if (micTestNames.length() > 0) {
-                    micTestNames.append(", ");
-                    micResults.append(", ");
-                    micRefVals.append(", ");
-                    micRemarks.append(", ");
-                }
-                micTestNames.append(testName);
-                micResults.append(result);
-                micRefVals.append(refValue == null || refValue.isEmpty() ? "N/A" : refValue);
-                micRemarks.append(remarks == null || remarks.isEmpty() ? "N/A" : remarks);
-
-                try {
-                    analysisDate = dateFormat.parse(analysisDateStr);
-                } catch (Exception e) {
-                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
-                }
-            }
-        }
-
-        MicroBioData microBioData = new MicroBioData();
-        microBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
-        microBioData.setMicTestName(micTestNames.toString());
-        microBioData.setMicResult(micResults.toString());
-        microBioData.setMicRefVal(micRefVals.toString());
-        microBioData.setMicRemarks(micRemarks.toString());
-        microBioData.setAnalysisDate(analysisDate);
-
-        testingMicrobioService.saveMicroBioData(microBioData);
-
-        clientReqForm.setMicrobioPending("accepted");
-        testingMicrobioService.saveRequest(clientReqForm);
-
-        return ResponseEntity.ok("MicroBio Results submitted successfully.");
+    if (clientReqForm == null) {
+        return ResponseEntity.badRequest().body("Error: Client request ID not found.");
     }
+
+    StringBuilder micTestNames = new StringBuilder();
+    StringBuilder micResults = new StringBuilder();
+    StringBuilder micRefVals = new StringBuilder();
+    StringBuilder micRemarks = new StringBuilder();
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date analysisDate;
+
+    try {
+        analysisDate = dateFormat.parse(allParams.get("analysisDate"));
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body("Invalid analysis date format.");
+    }
+
+    for (String key : allParams.keySet()) {
+        if (key.startsWith("micResult_")) {
+            String testName = key.replace("micResult_", "");
+            String result = allParams.get(key);
+            String refValue = allParams.get("micRefVal_" + testName);
+            String remarks = allParams.get("micRemarks_" + testName);
+
+            if (micTestNames.length() > 0) {
+                micTestNames.append(", ");
+                micResults.append(", ");
+                micRefVals.append(", ");
+                micRemarks.append(", ");
+            }
+            micTestNames.append(testName);
+            micResults.append(result);
+            micRefVals.append(refValue == null || refValue.isEmpty() ? "N/A" : refValue);
+            micRemarks.append(remarks == null || remarks.isEmpty() ? "N/A" : remarks);
+        }
+    }
+
+    MicroBioData microBioData = new MicroBioData();
+    microBioData.setLdControlNumber(clientReqForm.getLdControlNumber());
+    microBioData.setMicTestName(micTestNames.toString());
+    microBioData.setMicResult(micResults.toString());
+    microBioData.setMicRefVal(micRefVals.toString());
+    microBioData.setMicRemarks(micRemarks.toString());
+    microBioData.setAnalysisDate(analysisDate);
+
+    testingMicrobioService.saveMicroBioData(microBioData);
+
+    clientReqForm.setMicrobioPending("accepted");
+    testingMicrobioService.saveRequest(clientReqForm);
+
+    return ResponseEntity.ok("MicroBio Results submitted successfully.");
+}
+
 }

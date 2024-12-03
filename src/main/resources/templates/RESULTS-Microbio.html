@@ -19,6 +19,11 @@
                     }
                 });
     
+                if ($('#analysisDate').val() === '') {
+                    allFilled = false;
+                    alert("Please select an analysis date.");
+                }
+    
                 if (!allFilled) {
                     alert("Please fill out all required fields before submitting.");
                 } else {
@@ -71,7 +76,6 @@
                             <th>Result</th>
                             <th>Reference Value</th>
                             <th>Remarks</th>
-                            <th>Analysis Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,10 +92,13 @@
                                     <option value="Negative">Negative</option>
                                 </select>
                             </td>
-                            <td><input type="date" th:name="'micAnalysisDate_' + ${examination}" placeholder="Analysis Date" required></td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="analysis-date">
+                <label for="analysisDate">Analysis Date:</label>
+                <input type="date" id="analysisDate" name="analysisDate" required>
             </div>
             <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> 
             <input type="hidden" name="clientReqid" th:value="${clientReqid}"> 
