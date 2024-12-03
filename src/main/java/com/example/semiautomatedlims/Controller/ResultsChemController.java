@@ -42,69 +42,71 @@ public class ResultsChemController {
     }
 
     @PostMapping("/submitChemResults")
-    public ResponseEntity<String> submitResults(@RequestParam("clientReqid") Long clientReqid,
-                                                @RequestParam Map<String, String> allParams) {
-        ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
+public ResponseEntity<String> submitResults(
+        @RequestParam("clientReqid") Long clientReqid,
+        @RequestParam("chemAnalysisDate") String analysisDateStr,
+        @RequestParam Map<String, String> allParams) {
 
-        if (clientReqForm == null) {
-            return ResponseEntity.badRequest().body("Error: Client request ID not found.");
-        }
+    ClientReqForm clientReqForm = testingChemService.getRequestDetailsById(clientReqid);
 
-        StringBuilder chemTestNames = new StringBuilder();
-        StringBuilder chemResults = new StringBuilder();
-        StringBuilder chemRemarks = new StringBuilder();
-        StringBuilder chemDetectionLimits = new StringBuilder();
-        StringBuilder chemRegulatoryLimits = new StringBuilder();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date analysisDate = null;
-
-        for (String key : allParams.keySet()) {
-            if (key.startsWith("chemResult_")) {
-                String testName = key.replace("chemResult_", "");
-                String result = allParams.get(key);
-                String remarks = allParams.get("chemRemarks_" + testName);
-                String detectionLimit = allParams.get("chemDetectionLimit_" + testName);
-                String regulatoryLimits = allParams.get("chemRegulatoryLimits_" + testName);
-                String analysisDateStr = allParams.get("chemAnalysisDate_" + testName);
-
-                if (chemTestNames.length() > 0) {
-                    chemTestNames.append(", ");
-                    chemResults.append(", ");
-                    chemRemarks.append(", ");
-                    chemDetectionLimits.append(", ");
-                    chemRegulatoryLimits.append(", ");
-                }
-
-                chemTestNames.append(testName);
-                chemResults.append(result);
-                chemRemarks.append(remarks);
-                chemDetectionLimits.append(detectionLimit == null || detectionLimit.isEmpty() ? "N/A" : detectionLimit);
-                chemRegulatoryLimits.append(regulatoryLimits);
-
-                try {
-                    analysisDate = dateFormat.parse(analysisDateStr);
-                } catch (Exception e) {
-                    return ResponseEntity.badRequest().body("Invalid date format for test: " + testName);
-                }
-            }
-        }
-
-        ChemData chemData = new ChemData();
-        chemData.setLdControlNumber(clientReqForm.getLdControlNumber());
-        chemData.setClientReqid(clientReqid);
-        chemData.setAnalyte(chemTestNames.toString());
-        chemData.setResult(chemResults.toString());
-        chemData.setRemarks(chemRemarks.toString());
-        chemData.setDetectionLimit(chemDetectionLimits.toString());
-        chemData.setRegulatoryLimits(chemRegulatoryLimits.toString());
-        chemData.setAnalysisDate(analysisDate);
-
-        testingChemService.saveChemData(chemData);
-
-        clientReqForm.setChemPending("accepted");
-        testingChemService.saveRequest(clientReqForm);
-
-        return ResponseEntity.ok("Results submitted successfully.");
+    if (clientReqForm == null) {
+        return ResponseEntity.badRequest().body("Error: Client request ID not found.");
     }
+
+    StringBuilder chemTestNames = new StringBuilder();
+    StringBuilder chemResults = new StringBuilder();
+    StringBuilder chemRemarks = new StringBuilder();
+    StringBuilder chemDetectionLimits = new StringBuilder();
+    StringBuilder chemRegulatoryLimits = new StringBuilder();
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date analysisDate;
+
+    try {
+        analysisDate = dateFormat.parse(analysisDateStr);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body("Invalid analysis date format.");
+    }
+
+    for (String key : allParams.keySet()) {
+        if (key.startsWith("chemResult_")) {
+            String testName = key.replace("chemResult_", "");
+            String result = allParams.get(key);
+            String remarks = allParams.get("chemRemarks_" + testName);
+            String detectionLimit = allParams.get("chemDetectionLimit_" + testName);
+            String regulatoryLimits = allParams.get("chemRegulatoryLimits_" + testName);
+
+            if (chemTestNames.length() > 0) {
+                chemTestNames.append(", ");
+                chemResults.append(", ");
+                chemRemarks.append(", ");
+                chemDetectionLimits.append(", ");
+                chemRegulatoryLimits.append(", ");
+            }
+
+            chemTestNames.append(testName);
+            chemResults.append(result);
+            chemRemarks.append(remarks);
+            chemDetectionLimits.append(detectionLimit == null || detectionLimit.isEmpty() ? "N/A" : detectionLimit);
+            chemRegulatoryLimits.append(regulatoryLimits);
+        }
+    }
+
+    ChemData chemData = new ChemData();
+    chemData.setLdControlNumber(clientReqForm.getLdControlNumber());
+    chemData.setClientReqid(clientReqid);
+    chemData.setAnalyte(chemTestNames.toString());
+    chemData.setResult(chemResults.toString());
+    chemData.setRemarks(chemRemarks.toString());
+    chemData.setDetectionLimit(chemDetectionLimits.toString());
+    chemData.setRegulatoryLimits(chemRegulatoryLimits.toString());
+    chemData.setAnalysisDate(analysisDate);
+
+    testingChemService.saveChemData(chemData);
+
+    clientReqForm.setChemPending("accepted");
+    testingChemService.saveRequest(clientReqForm);
+
+    return ResponseEntity.ok("Results submitted successfully.");
+}
 }
