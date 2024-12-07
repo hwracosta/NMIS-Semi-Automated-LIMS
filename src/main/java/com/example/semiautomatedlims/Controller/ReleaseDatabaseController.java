@@ -92,14 +92,29 @@ public class ReleaseDatabaseController {
             // Process Microbiological Test Results
             List<MicroBioData> microbioTestData = microBioDataRepository.findByLdControlNumber(controlNumber);
             Map<String, String> microbioResults = processTestData(microbioTestData, microbioTests, "microbio");
+            // Add Microbio Analysis Date
+            String microbioAnalysisDate = microbioTestData.isEmpty() ? "N/A" :
+                    microbioTestData.get(0).getAnalysisDate() != null ?
+                            microbioTestData.get(0).getAnalysisDate().toString() : "N/A";
+            microbioResults.put("Microbio Analysis Date", microbioAnalysisDate);
 
             // Process Chemical Test Results
             List<ChemData> chemTestData = chemDataRepository.findByLdControlNumber(controlNumber);
             Map<String, String> chemResults = processChemData(chemTestData, chemTests);
+            // Add Chem Analysis Date
+            String chemAnalysisDate = chemTestData.isEmpty() ? "N/A" :
+                    chemTestData.get(0).getAnalysisDate() != null ?
+                            chemTestData.get(0).getAnalysisDate().toString() : "N/A";
+            chemResults.put("Chem Analysis Date", chemAnalysisDate);
 
             // Process Molecular Biology Test Results
             List<MolBioData> molBioTestData = molBioDataRepository.findByLdControlNumber(controlNumber);
             Map<String, String> molBioResults = processMolBioData(molBioTestData, molbioTests);
+            // Add Molbio Analysis Date
+            String molBioAnalysisDate = molBioTestData.isEmpty() ? "N/A" :
+                    molBioTestData.get(0).getAnalysisDate() != null ?
+                            molBioTestData.get(0).getAnalysisDate().toString() : "N/A";
+            molBioResults.put("Molbio Analysis Date", molBioAnalysisDate);
 
             // Combine all results into the request object
             Map<String, String> combinedResults = new HashMap<>(microbioResults);

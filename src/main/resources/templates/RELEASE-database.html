@@ -42,6 +42,8 @@
                     <th>Expiration Date</th>
                     <th>Status</th>
 
+                    <!-- Microbio Analysis Date -->
+                    <th>Microbio Analysis Date</th>
                     <!-- Microbiological Test Columns -->
                     <th>Standard Plate Count</th>
                     <th>Staphylococcus aureus</th>
@@ -57,6 +59,8 @@
                     <th>pH</th>
                     <th>Trichinella spp. Identification</th>
 
+                    <!-- Chem Analysis Date -->
+                    <th>Chem Analysis Date</th>
                     <!-- Chemical Test Columns -->
                     <th>Beta-lactams</th>
                     <th>Tetracyclines</th>
@@ -73,6 +77,9 @@
                     <th>Stilbenes</th>
                     <th>Ractopamine</th>
 
+                    <!-- Molbio Analysis Date -->
+                    <th>Molbio Analysis Date</th>
+                    <!-- Molecular Biology Test Columns -->
                     <th>Dog</th>
                     <th>Cat</th>
                     <th>Chicken</th>
@@ -98,6 +105,8 @@
                     <td th:text="${request.expirationDate}">Expiration Date</td>
                     <td th:text="${request.status}">Status</td>
 
+                    <!-- Microbio Analysis Date -->
+                    <td th:text="${request.testResultsMap['Microbio Analysis Date']}">N/A</td>
                     <!-- Microbiological Test Results -->
                     <td th:text="${request.testResultsMap['Standard Plate Count']}">N/A</td>
                     <td th:text="${request.testResultsMap['Staphylococcus aureus']}">N/A</td>
@@ -113,6 +122,8 @@
                     <td th:text="${request.testResultsMap['pH']}">N/A</td>
                     <td th:text="${request.testResultsMap['Trichinella spp. Identification']}">N/A</td>
 
+                    <!-- Chem Analysis Date -->
+                    <td th:text="${request.testResultsMap['Chem Analysis Date']}">N/A</td>
                     <!-- Chemical Test Results -->
                     <td th:text="${request.testResultsMap['Beta-lactams']}">N/A</td>
                     <td th:text="${request.testResultsMap['Tetracyclines']}">N/A</td>
@@ -129,6 +140,9 @@
                     <td th:text="${request.testResultsMap['Stilbenes']}">N/A</td>
                     <td th:text="${request.testResultsMap['Ractopamine']}">N/A</td>
 
+                    <!-- Molbio Analysis Date -->
+                    <td th:text="${request.testResultsMap['Molbio Analysis Date']}">N/A</td>
+                    <!-- Molecular Biology Test Results -->
                     <td th:text="${request.testResultsMap['Dog']}">N/A</td>
                     <td th:text="${request.testResultsMap['Cat']}">N/A</td>
                     <td th:text="${request.testResultsMap['Chicken']}">N/A</td>
