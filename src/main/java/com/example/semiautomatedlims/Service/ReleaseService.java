@@ -79,32 +79,24 @@ public class ReleaseService {
             System.out.println("Request ID " + clientReqForm.getClientReqid() + " not eligible for 'For Release' status update.");
         }
     }
-    
 
     private String generateLDControlNumber() {
         LocalDate now = LocalDate.now();
         int year = now.getYear();
         int month = now.getMonthValue();
-    
-        // Synchronized block to handle concurrent requests safely
-        synchronized (this) {
-            int series = getMaxSeriesForYearMonth(year, month) + 1;
-            System.out.println("Generated LD Control Number series: " + series);
-            return String.format("%d/%02d/%04d", year, month, series);
-        }
-    }
-    
-    private int getMaxSeriesForYearMonth(int year, int month) {
+        int series = getMaxSeriesForYearMonth(year, month) + 1; 
+        return String.format("%d/%02d/%04d", year, month, series);
+    }    
+
+    private synchronized int getMaxSeriesForYearMonth(int year, int month) {
         try {
-            // Fetch the maximum series number from the repository for the specified year and month
-            return releaseRepository.findMaxSeriesForYearMonth(year, month).orElse(0);
+            return releaseRepository.findGlobalMaxSeriesForYearMonth(year, month).orElse(0);
         } catch (Exception e) {
             System.err.println("Error retrieving max series number for year: " + year + ", month: " + month);
             e.printStackTrace();
             return 0;
         }
-    }
-    
+    }    
 
     public void completeRequest(ClientReqForm clientReqForm) {
         clientReqForm.setStatus("Complete"); // Update status to "Complete"
