@@ -24,7 +24,7 @@ public interface ReleaseRepository extends JpaRepository<ClientReqForm, Long> {
        "FROM ClientReqForm r " +
        "WHERE EXTRACT(YEAR FROM r.submitDate) = :year " +
        "AND EXTRACT(MONTH FROM r.submitDate) = :month")
-    Optional<Integer> findMaxSeriesForYearMonth(@Param("year") int year, @Param("month") int month);
+    Optional<Integer> findGlobalMaxSeriesForYearMonth(@Param("year") int year, @Param("month") int month);
 
     @Query("SELECT r FROM ClientReqForm r WHERE r.status IN :statuses AND r.molbioPending = :pendingStatus")
     List<ClientReqForm> findByStatusInAndMolbioPending(@Param("statuses") List<String> statuses, @Param("pendingStatus") String pendingStatus);
