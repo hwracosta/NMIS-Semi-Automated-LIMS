@@ -67,6 +67,10 @@
         <div class="control-number-indicator">
             <h3>LD Control Number: <span th:text="${ldControlNumber}">Control Number</span></h3>
         </div>
+        <div class="analysis-date">
+            <label for="analysisDate"><b>Analysis Date:</b></label>
+            <input type="date" id="analysisDate" name="analysisDate" required>
+        </div>
         <form id="resultsForm" method="POST" th:action="@{/submitMicrobioResults}">
             <div class="table-container">
                 <table>
@@ -95,10 +99,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="analysis-date">
-                <label for="analysisDate">Analysis Date:</label>
-                <input type="date" id="analysisDate" name="analysisDate" required>
             </div>
             <input type="hidden" name="ldControlNumber" th:value="${ldControlNumber}"> 
             <input type="hidden" name="clientReqid" th:value="${clientReqid}"> 
