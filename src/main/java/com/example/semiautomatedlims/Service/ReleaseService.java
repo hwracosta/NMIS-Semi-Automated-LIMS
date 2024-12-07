@@ -42,27 +42,31 @@ public class ReleaseService {
         return releaseRepository.findByStatusIn(statuses);
     }
 
-    // Optimized method to check if all tests are complete by verifying database flags
     public boolean areAllTestsComplete(ClientReqForm clientReqForm) {
         System.out.println("Checking if all requested tests are complete for Request ID: " + clientReqForm.getClientReqid());
     
-        // Check each test type based on *_pending fields being "accepted"
-        if (!"accepted".equalsIgnoreCase(clientReqForm.getMolbioPending())) {
-            System.out.println("MolBio test not complete (Pending status is not accepted) for Request ID: " + clientReqForm.getClientReqid());
-            return false; // Return false if MolBio is not accepted
+        // Check MolBio test if it was requested
+        if (clientReqForm.getMolecTests() != null && !"accepted".equalsIgnoreCase(clientReqForm.getMolbioPending())) {
+            System.out.println("MolBio test not complete for Request ID: " + clientReqForm.getClientReqid());
+            return false;
         }
-        if (!"accepted".equalsIgnoreCase(clientReqForm.getChemPending())) {
-            System.out.println("Chem test not complete (Pending status is not accepted) for Request ID: " + clientReqForm.getClientReqid());
-            return false; // Return false if Chem is not accepted
+    
+        // Check Chem test if it was requested
+        if (clientReqForm.getChemTests() != null && !"accepted".equalsIgnoreCase(clientReqForm.getChemPending())) {
+            System.out.println("Chem test not complete for Request ID: " + clientReqForm.getClientReqid());
+            return false;
         }
-        if (!"accepted".equalsIgnoreCase(clientReqForm.getMicrobioPending())) {
-            System.out.println("MicroBio test not complete (Pending status is not accepted) for Request ID: " + clientReqForm.getClientReqid());
-            return false; // Return false if MicroBio is not accepted
+    
+        // Check MicroBio test if it was requested
+        if (clientReqForm.getMicrobioTests() != null && !"accepted".equalsIgnoreCase(clientReqForm.getMicrobioPending())) {
+            System.out.println("MicroBio test not complete for Request ID: " + clientReqForm.getClientReqid());
+            return false;
         }
     
         System.out.println("All requested tests are complete for Request ID: " + clientReqForm.getClientReqid());
-        return true; // Return true if all tests are accepted
+        return true;
     }
+    
     
 
     // Method to update request status if all relevant test results are complete
