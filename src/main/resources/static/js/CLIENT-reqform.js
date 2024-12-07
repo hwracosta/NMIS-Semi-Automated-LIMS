@@ -64,6 +64,20 @@ $(document).ready(function() {
         }
     });
 
+    document.getElementById("weight").addEventListener("input", function () {
+        const weightInput = this.value;
+        const weightError = document.getElementById("weightError");
+        
+        // Check if the input is a valid positive decimal number
+        if (!/^\d*\.?\d+$/.test(weightInput) || parseFloat(weightInput) <= 0) {
+            weightError.style.display = "block";
+            weightError.textContent = "Invalid input: Please enter a positive number.";
+        } else {
+            weightError.style.display = "none";
+        }
+    });
+    
+
     // New Code: Category radio button functionality for monitoring/walk-in
     const categoryRadios = document.querySelectorAll('input[name="sample_category"]');
     const orNoContainer = document.getElementById('orNoContainer');

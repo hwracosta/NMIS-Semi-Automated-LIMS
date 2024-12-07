@@ -1,11 +1,22 @@
 package com.example.semiautomatedlims.Entity;
 
-import java.util.*;
-
-import jakarta.persistence.*;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "client_reqform")
@@ -37,7 +48,7 @@ public class ClientReqForm {
     private Date samplingDate;
 
     @Column(name = "weight_grams", nullable = false)
-    private int weightGrams;
+    private double weightGrams;
 
     @Column(name = "purpose_test", nullable = false)
     private String purposeTest;
@@ -155,11 +166,11 @@ public class ClientReqForm {
         this.samplingDate = samplingDate;
     }
 
-    public int getWeightGrams() {
+    public double getWeightGrams() {
         return weightGrams;
     }
 
-    public void setWeightGrams(int weightGrams) {
+    public void setWeightGrams(double weightGrams) {
         this.weightGrams = weightGrams;
     }
 
