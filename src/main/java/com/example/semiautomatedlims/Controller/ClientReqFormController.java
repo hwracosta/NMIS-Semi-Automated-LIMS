@@ -59,7 +59,7 @@ public class ClientReqFormController {
         @RequestParam Date productionDate,
         @RequestParam Date expirationDate,
         @RequestParam Date samplingDate,
-        @RequestParam int weightGrams,
+        @RequestParam double weightGrams,
         @RequestParam String purposeTest,
         @RequestParam(required = false) String otherPurposeTest,
         @RequestParam(required = false) List<String> microbioTests, 
