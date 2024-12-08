@@ -178,6 +178,22 @@ tbody tr:hover {
     z-index: 9999;
 }
 
+#requestDetailsPopup .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    z-index: 10001; /* Ensure it's above .popup-content */
+    pointer-events: auto; /* Allow clicking */
+}
+
+#requestDetailsPopup .close-popup:hover {
+    color: #ff0000;
+}
+
+
 .popup-content {
     position: absolute;
     top: 50%;
@@ -193,6 +209,13 @@ tbody tr:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
     z-index: 10000;
+}
+
+.pdf-header h3 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #002267;
 }
 
 #closePopup {
@@ -233,30 +256,27 @@ tbody tr:hover {
     position: relative; /* So the close button positions correctly */
 }
 
-/* Close Button */
-.close-popup {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-popup:hover,
-.close-popup:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 /* Popup Heading */
-.popup-content h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1E3A8A; /* Dark blue */
-    margin-bottom: 15px;
-    text-align:center;
+.pdf-section h5 {
+    font-size: 16px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    text-align: left;
 }
+
+#requestDetailsPopup .pdf-table td:first-child {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+}
+
+#requestDetailsPopup .pdf-table td {
+    text-align: left;
+}
+
+
 .popup-content h4 {
     margin-left: 10px;
 }
