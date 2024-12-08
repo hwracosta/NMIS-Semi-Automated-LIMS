@@ -129,6 +129,12 @@
                     <input type="text" name="ldControlNumber" id="ldControlNumber" readonly />
                 </div>
 
+                <!-- Analysis Date Field -->
+                <div>
+                    <label for="analysisDate"><strong>Analysis Date:</strong></label>
+                    <span id="analysisDate" style="display:block; font-weight: bold;">N/A</span>
+                </div>
+
                 <!-- Chemical Test Results Table -->
                 <div id="chemResultsContainer" class="table-container" style="display:none;">
                     <h4>Chemical Test Results</h4>
@@ -140,7 +146,6 @@
                             <th>Remarks</th>
                             <th>Detection Limit</th>
                             <th>Regulatory Limits</th>
-                            <th>Analysis Date</th>
                         </tr>
                         </thead>
                         <tbody id="chemResultsTableBody">
@@ -302,6 +307,18 @@
                 data: { clientReqid: clientReqid, testType: testType },
                 success: function(data) {
                     $('#ldControlNumber').val(data.ldControlNumber || 'N/A');
+                    // Get the analysis date from the data object
+                    let analysisDate = 'N/A';
+                    if (data.chemResults && data.chemResults.length > 0) {
+                        analysisDate = data.chemResults[0].analysisDate || 'N/A';
+                    } else if (data.molbioResults && data.molbioResults.length > 0) {
+                        analysisDate = data.molbioResults[0].analysisDate || 'N/A';
+                    } else if (data.microbioResults && data.microbioResults.length > 0) {
+                        analysisDate = data.microbioResults[0].analysisDate || 'N/A';
+                    }
+
+                    // Update the Analysis Date field on the page
+                    $('#analysisDate').text(analysisDate);
 
                     if (testType === 'Chem') {
                         $('#chemResultsContainer').show();
@@ -334,7 +351,6 @@
                 <td>${remarkValue}</td>
                 <td>${detectionLimitValue}</td>
                 <td>${regulatoryLimitValue}</td>
-                <td>${analysisDateValue}</td>
             </tr>
         `);
     }
@@ -368,7 +384,6 @@
                 <td>${resultValue}</td>
                 <td>${referenceValue}</td>
                 <td>${remarkValue}</td>
-                <td>${analysisDateValue}</td>
             </tr>
         `);
     }
@@ -399,7 +414,6 @@
                 <td>${examinationValue}</td>
                 <td>${speciesValue}</td>
                 <td>${remarkValue}</td>
-                <td>${analysisDateValue}</td>
             </tr>
         `);
     }

@@ -102,20 +102,67 @@
 
     <div id="requestDetailsPopup" style="display:none;">
         <div class="popup-content">
-            <h3>Request Details</h3>
-            <p><strong>Sample Code:</strong> <span id="popupSampleCode"></span></p>
-            <p><strong>Status:</strong> <span id="popupStatus"></span></p>
-            <p><strong>Sample Details:</strong> <span id="popupSampleDetails"></span></p>
-            <p><strong>Sample Source:</strong> <span id="popupSampleSource"></span></p>
-            <p><strong>Weight (grams):</strong> <span id="popupWeight"></span></p>
-            <p><strong>Production Date:</strong> <span id="popupProductionDate"></span></p>
-            <p><strong>Expiration Date:</strong> <span id="popupExpirationDate"></span></p>
-            <p><strong>Sampling Date:</strong> <span id="popupSamplingDate"></span></p>
-            <p><strong>Purpose of Test:</strong> <span id="popupPurposeTest"></span></p>
-            <p><strong>Microbiological Tests:</strong> <span id="popupMicrobioTests"></span></p>
-            <p><strong>Molecular Tests:</strong> <span id="popupMolecTests"></span></p>
-            <p><strong>Chemical Tests:</strong> <span id="popupChemTests"></span></p>
-            <button id="closePopup">x</button>
+            <span class="close-popup" onclick="closeRequestDetailsPopup()">&times;</span>
+            <div class="pdf-header">
+                <h3>Request Details</h3>
+            </div>
+            <hr>
+            <div class="pdf-section">
+                <h5>Sample Information</h5>
+                <hr>
+                <table class="pdf-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Sample Code</strong></td>
+                            <td id="popupSampleCode"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td id="popupStatus"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sample Details</strong></td>
+                            <td id="popupSampleDetails"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sample Source</strong></td>
+                            <td id="popupSampleSource"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weight (grams)</strong></td>
+                            <td id="popupWeight"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Production Date</strong></td>
+                            <td id="popupProductionDate"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Expiration Date</strong></td>
+                            <td id="popupExpirationDate"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sampling Date</strong></td>
+                            <td id="popupSamplingDate"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purpose of Test</strong></td>
+                            <td id="popupPurposeTest"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microbiological Tests</strong></td>
+                            <td id="popupMicrobioTests"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Molecular Tests</strong></td>
+                            <td id="popupMolecTests"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chemical Tests</strong></td>
+                            <td id="popupChemTests"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -187,6 +234,21 @@
     </div>
 
     <script>
+        $(document).ready(function () {
+            // Close button for Request Details Popup
+            $('#requestDetailsPopup .close-popup').on('click', function () {
+                $('#requestDetailsPopup').fadeOut();
+            });
+
+            // Close the popup if clicking outside of the popup content
+            $(window).click(function (event) {
+                if ($(event.target).is('#requestDetailsPopup')) {
+                    $('#requestDetailsPopup').fadeOut();
+                }
+            });
+        });
+
+
    $(document).ready(function() {
         $('.view-details').on('click', function() {
             const requestId = $(this).data('request-id');
